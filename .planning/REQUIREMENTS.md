@@ -133,20 +133,83 @@
 
 | Requirement | Owner | Phase | Status |
 |-------------|-------|-------|--------|
-| A3-FW-* | 你 | Phase 1 | Pending |
-| A3-RTL-* | 你 | Phase 1 | Pending |
-| A3-OPT-* | 你 | Phase 2 | Pending |
-| A3-PPA-* | 你 | Phase 2-3 | Pending |
-| A3-SEARCH-* | 你 | Phase 3 | Pending |
-| A3-CASE-* | 你 | Phase 1-3 | Pending |
-| A1-* | 队友1 | Parallel | Pending |
-| A2-* | 队友2 | Parallel | Pending |
+| A3-FW-01 | you | Phase 1 | Pending |
+| A3-FW-02 | you | Phase 1 | Pending |
+| A3-FW-03 | you | Phase 1 | Pending |
+| A3-FW-04 | you | Phase 1 | Pending |
+| A3-FW-05 | you | Phase 1 | Pending |
+| A3-RTL-01 | you | Phase 1 | Pending |
+| A3-RTL-02 | you | Phase 1 | Pending |
+| A3-RTL-03 | you | Phase 1 | Pending |
+| A3-RTL-04 | you | Phase 1 | Pending |
+| A3-RTL-05 | you | Phase 1 | Pending |
+| A3-OPT-01 | you | Phase 1 | Pending |
+| A3-OPT-03 | you | Phase 1 | Pending |
+| A3-OPT-04 | you | Phase 1 | Pending |
+| A3-OPT-02 | you | Phase 2 | Pending |
+| A3-CASE-01 | you | Phase 2 | Pending |
+| A3-CASE-02 | you | Phase 2 | Pending |
+| A3-CASE-03 | you | Phase 2 | Pending |
+| A3-CASE-04 | you | Phase 2 | Pending |
+| A3-CASE-05 | you | Phase 2 | Pending |
+| A3-CASE-06 | you | Phase 2 | Pending |
+| A3-CASE-07 | you | Phase 2 | Pending |
+| A3-CASE-08 | you | Phase 2 | Pending |
+| A3-CASE-09 | you | Phase 2 | Pending |
+| A3-CASE-10 | you | Phase 2 | Pending |
+| A3-PPA-01 | you | Phase 3 | Pending |
+| A3-PPA-02 | you | Phase 3 | Pending |
+| A3-PPA-03 | you | Phase 3 | Pending |
+| A3-SEARCH-01 | you | Phase 3 | Pending |
+| A3-SEARCH-02 | you | Phase 3 | Pending |
+| A1-PARSE-01 | teammate 1 | Parallel | Pending |
+| A1-PARSE-02 | teammate 1 | Parallel | Pending |
+| A1-PARSE-03 | teammate 1 | Parallel | Pending |
+| A1-PARSE-04 | teammate 1 | Parallel | Pending |
+| A1-PARSE-05 | teammate 1 | Parallel | Pending |
+| A1-PARSE-06 | teammate 1 | Parallel | Pending |
+| A1-PARSE-07 | teammate 1 | Parallel | Pending |
+| A1-SIM-01 | teammate 1 | Parallel | Pending |
+| A1-SIM-02 | teammate 1 | Parallel | Pending |
+| A1-SIM-03 | teammate 1 | Parallel | Pending |
+| A1-SIM-04 | teammate 1 | Parallel | Pending |
+| A1-INC-01 | teammate 1 | Parallel | Pending |
+| A1-PAR-01 | teammate 1 | Parallel | Pending |
+| A1-PAR-02 | teammate 1 | Parallel | Pending |
+| A1-MK-01 | teammate 1 | Parallel | Pending |
+| A1-MK-02 | teammate 1 | Parallel | Pending |
+| A1-MK-03 | teammate 1 | Parallel | Pending |
+| A1-MK-04 | teammate 1 | Parallel | Pending |
+| A1-CASE-01 | teammate 1 | Parallel | Pending |
+| A1-CASE-02 | teammate 1 | Parallel | Pending |
+| A1-CASE-03 | teammate 1 | Parallel | Pending |
+| A1-CASE-04 | teammate 1 | Parallel | Pending |
+| A1-CASE-05 | teammate 1 | Parallel | Pending |
+| A1-CASE-06 | teammate 1 | Parallel | Pending |
+| A1-CASE-07 | teammate 1 | Parallel | Pending |
+| A1-CASE-08 | teammate 1 | Parallel | Pending |
+| A2-PARSE-01 | teammate 2 | Parallel | Pending |
+| A2-PARSE-02 | teammate 2 | Parallel | Pending |
+| A2-PARSE-03 | teammate 2 | Parallel | Pending |
+| A2-SKEL-01 | teammate 2 | Parallel | Pending |
+| A2-SKEL-02 | teammate 2 | Parallel | Pending |
+| A2-SKEL-03 | teammate 2 | Parallel | Pending |
+| A2-SKEL-04 | teammate 2 | Parallel | Pending |
+| A2-RAND-01 | teammate 2 | Parallel | Pending |
+| A2-RAND-02 | teammate 2 | Parallel | Pending |
+| A2-RAND-03 | teammate 2 | Parallel | Pending |
+| A2-COV-01 | teammate 2 | Parallel | Pending |
+| A2-COV-02 | teammate 2 | Parallel | Pending |
+| A2-OUT-01 | teammate 2 | Parallel | Pending |
+| A2-OUT-02 | teammate 2 | Parallel | Pending |
 
 **Coverage:**
-- v1 requirements: 47 total
-- Mapped to phases: 47
-- Unmapped: 0 ✓
+- v1 requirements: 69 total
+- A3 mapped to phases: 29/29 (Phase 1: 13, Phase 2: 11, Phase 3: 5)
+- A1 parallel track: 26/26
+- A2 parallel track: 14/14
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-07-12*
-*Last updated: 2026-07-12 after initial definition*
+*Last updated: 2026-07-12 after roadmap creation*
