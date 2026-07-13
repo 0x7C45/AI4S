@@ -7,14 +7,17 @@
 ## Phases
 
 **Parallel Tracks:**
-- **A3 Track** (you): Phases 1-4, sequential dependency chain
-- **A1 Track** (teammate 1): Independent, runs throughout
-- **A2 Track** (teammate 2): Independent, runs throughout
+- **A3 Track** (队友): Phases 1-4, sequential dependency chain
+- **A1 Track** (你): Phases 5-7, sequential dependency chain
+- **A2 Track** (队友2): Independent, runs throughout
 
-- [ ] **Phase 1: A3 Framework + RTL Frontend** - Build tool scaffolding, parse Verilog, produce basic netlist for simple circuit
-- [ ] **Phase 2: A3 Correctness — All 10 Public Circuits** - Every circuit LSV01-LSV10 produces functionally correct netlist
-- [ ] **Phase 3: A3 Multi-Point PPA + Auto-Tuning** - Up to 7 points per circuit, config-driven optimization, auto-search for best PPA
-- [ ] **Phase 4: Submission Package** - Final integration, all deliverables verified, submission archive ready
+- [ ] **Phase 1: A3 Framework + RTL Frontend** - Build tool scaffolding, parse Verilog, produce basic netlist for simple circuit *(队友)*
+- [ ] **Phase 2: A3 Correctness — All 10 Public Circuits** - Every circuit LSV01-LSV10 produces functionally correct netlist *(队友)*
+- [ ] **Phase 3: A3 Multi-Point PPA + Auto-Tuning** - Up to 7 points per circuit, config-driven optimization, auto-search for best PPA *(队友)*
+- [ ] **Phase 4: A3 Submission Package** - Final integration, all deliverables verified, submission archive ready *(队友)*
+- [ ] **Phase 5: A1 Basic Simulator** - flex/bison parser + combinational logic simulation + basic01-05/alu/priority_encoder *(你)*
+- [ ] **Phase 6: A1 Advanced Features** - Sequential logic, DFF, multi-file hierarchy, system functions, i2c/ip/axis_fifo/sha256 *(你)*
+- [ ] **Phase 7: A1 Performance + GEMM** - GEMM test case, incremental compilation, multicore parallel simulation *(你)*
 
 ## Phase Details
 
@@ -82,6 +85,41 @@ Plans:
 **Requirements**: A1-PARSE-01, A1-PARSE-02, A1-PARSE-03, A1-PARSE-04, A1-PARSE-05, A1-PARSE-06, A1-PARSE-07, A1-SIM-01, A1-SIM-02, A1-SIM-03, A1-SIM-04, A1-INC-01, A1-PAR-01, A1-PAR-02, A1-MK-01, A1-MK-02, A1-MK-03, A1-MK-04, A1-CASE-01, A1-CASE-02, A1-CASE-03, A1-CASE-04, A1-CASE-05, A1-CASE-06, A1-CASE-07, A1-CASE-08
 **Notes**: Teammate 1 drives this with GSD assistance. No phase dependencies on A3. Managed separately via teammate's own GSD workspace.
 
+### Phase 5: A1 Basic Simulator
+**Goal**: flex/bison Verilog parser + combinational logic simulation engine, passing basic01-05, alu, priority_encoder (14 points)
+**Depends on**: Nothing (independent track)
+**Requirements**: A1-PARSE-01, A1-PARSE-02, A1-PARSE-03, A1-PARSE-04, A1-PARSE-05, A1-PARSE-06, A1-PARSE-07, A1-SIM-01, A1-MK-01, A1-MK-02, A1-MK-03, A1-CASE-01, A1-CASE-02, A1-CASE-03
+**Success Criteria**:
+  1. `make build` compiles flex/bison/C++ source and produces simulator executable
+  2. `make compile_sim FILELIST=filelist.txt TOP=tb` parses RTL and produces simulation-ready artifact
+  3. `make run` generates `tb/output.mem` that matches `tb/output_ref.mem` for basic01-05, alu, priority_encoder
+  4. Parser handles: module/endmodule, assign, always @(*), reg/wire, if-else/case/for, parameter, `{}` concatenation, bit select
+  5. System functions: $fopen, $fscanf, $fdisplay, $fgets, $display, $finish
+**Plans**: TBD
+
+### Phase 6: A1 Advanced Features
+**Goal**: Sequential logic simulation (posedge clk, DFF, non-blocking assign), multi-file hierarchy, passing i2c/ip/axis_fifo/sha256 (8 points)
+**Depends on**: Phase 5
+**Requirements**: A1-SIM-02, A1-SIM-03, A1-SIM-04, A1-INC-01, A1-CASE-04, A1-CASE-05, A1-CASE-06, A1-CASE-07
+**Success Criteria**:
+  1. Always @(posedge clk) with non-blocking assignment (<=) works correctly
+  2. DFF with async reset modeled properly
+  3. `define / `include preprocessing works
+  4. Multi-file module hierarchy instantiation works (i2c has 5 RTL files)
+  5. tb/output.mem matches reference for i2c, ip, axis_fifo, sha256
+**Plans**: TBD
+
+### Phase 7: A1 Performance + GEMM
+**Goal**: GEMM test case passes with competitive performance (11 points — compile perf + sim perf + multicore speedup)
+**Depends on**: Phase 6
+**Requirements**: A1-MK-04, A1-PAR-01, A1-PAR-02, A1-CASE-08
+**Success Criteria**:
+  1. GEMM tb/output.mem matches reference
+  2. Incremental compilation: file-level dependency analysis, single-file change only recompiles affected modules
+  3. `make parallel_run THREADS=4` produces cycle-identical output to single-threaded
+  4. Performance competitive with baseline (compile time, sim time, multicore speedup)
+**Plans**: TBD
+
 ### Parallel Track: A2 Verification Auto-gen (Teammate 2)
 **Status**: Independent -- runs throughout Phases 1-4
 **Requirements**: A2-PARSE-01, A2-PARSE-02, A2-PARSE-03, A2-SKEL-01, A2-SKEL-02, A2-SKEL-03, A2-SKEL-04, A2-RAND-01, A2-RAND-02, A2-COV-01, A2-COV-02, A2-OUT-01, A2-OUT-02
@@ -91,7 +129,10 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. A3 Framework + RTL Frontend | 0/1 | In progress | - |
+| 1. A3 Framework + RTL Frontend | 0/1 | Planned (队友) | - |
 | 2. A3 Correctness — All 10 Circuits | 0/2 | Not started | - |
 | 3. A3 Multi-Point PPA + Auto-Tuning | 0/2 | Not started | - |
-| 4. Submission Package | 0/1 | Not started | - |
+| 4. A3 Submission Package | 0/1 | Not started | - |
+| 5. A1 Basic Simulator | 0/0 | **Next** (你) | - |
+| 6. A1 Advanced Features | 0/0 | Not started | - |
+| 7. A1 Performance + GEMM | 0/0 | Not started | - |
