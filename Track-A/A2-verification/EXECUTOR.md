@@ -19,11 +19,18 @@
 
 | 实例 | 平台 | 工具 | 角色 | 工作分支 |
 |---|---|---|---|---|
-| mac-CC | macOS | Claude Code | 独立实现 A2 全流水线 | exec/mac-cc |
-| win-CC | Windows | Claude Code | 独立实现 A2 全流水线 | exec/win-cc |
-| mac-Codex | macOS | Codex CLI | 独立实现 A2 全流水线 | exec/mac-codex |
+| mac-CC | macOS | Claude Code | 独立实现 A2 全流水线；信息放送：定期把本机进度/发现/坑同步给 win-CC 与 mac-Codex | exec/mac-cc |
+| win-CC | Windows | Claude Code | 独立实现 A2 全流水线；接收 mac-CC 信息放送，并反向同步本机进度/发现/坑（双向闭环） | exec/win-cc |
+| mac-Codex | macOS | Codex CLI | 独立实现 A2 全流水线；接收 mac-CC 信息放送，并反向同步本机进度/发现/坑（双向闭环） | exec/mac-codex |
 
 > 三方各自从 master 拉工作分支，不直接在 master 上开发；末段合并由负责人操作。
+
+> **开发策略**（覆盖率跨平台一致性是核心风险：三方无人在评测 OS Linux x86_64 上原生跑过，必须 Docker 复验）：
+> - **mac-CC / mac-Codex**：开发期用本机 native Verilator(brew 5.050) 提速；提交前必须在 Docker linux/amd64 容器内（`verilator/verilator:5.050` 官方镜像）复跑全部 case，覆盖率与产物无漂移才提交。
+> - **win-CC**：WSL2（原生 linux/amd64，最接近评测 OS）开发与验证。
+> - **fallback**：venv3.12 + install.sh。
+>
+> **双向同步**：mac-CC 负责「信息放送」（定期把本机进度/发现/坑同步出去）；win-CC 与 mac-Codex 必须接收，并**反向同步**自身进度/发现/坑回 mac-CC，形成双向闭环，避免信息单向下行导致重复踩坑。
 
 ## 3. 共同基线
 
@@ -52,6 +59,7 @@
 - **locked**：spec.md / scoring.md / testcases/ 为赛题官方内容，三方不得修改
 - **PLAN 修改**：对 PLAN.md 的分歧提 issue，不擅自改
 - **公式风险**：composite 公式存在 spec 与公开样例不一致（见 PLAN.md 待澄清），以 scoring.md 为准
+- **Phase3 通用化红线**：10 个隐藏电路结构/参数/接口组合各异，严禁硬编码或针对性优化（如针对特定 case 塞 bin hits、对特定 RTL 路径打补丁、把 case 标签当 module 名）；框架须对未见接口泛化，违反则隐藏评测失分（PLAN.md §五 Phase3 引 README 红线）
 - **进度同步**：各方里程碑（M1 骨架 / M2 参考模型+约束随机 / M3 覆盖率 / M4 反馈闭环）完成时在 issue 报进度
 
 ## 6. 提交约定
