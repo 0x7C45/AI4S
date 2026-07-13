@@ -1001,14 +1001,17 @@ int SimulationEngine::run(const std::string &simPath, unsigned int /*threads*/) 
                 if (stmt->value == "posedge" || stmt->value == "negedge") {
                     std::string sig = stmt->children.empty() ? "clk" : stmt->children[0]->value;
                     bool wantPosedge = (stmt->value == "posedge");
-                    /* Toggle clock until desired edge */
-                    for (int t = 0; t < 100000; t++) {
-                        uint64_t prev = svals[sig];
+                    /* Toggle clock to advance time; detect edge */
+                    uint64_t prev = svals[sig];
+                    svals[sig] = prev ? 0 : 1;
+                    propagateSignals(assignItems, svals, widths);
+                    uint64_t cur = svals[sig];
+                    bool gotEdge = wantPosedge ? (prev == 0 && cur == 1) : (prev == 1 && cur == 0);
+                    if (!gotEdge) {
+                        /* Need one more toggle */
+                        prev = svals[sig];
                         svals[sig] = prev ? 0 : 1;
                         propagateSignals(assignItems, svals, widths);
-                        uint64_t cur = svals[sig];
-                        if (wantPosedge && prev == 0 && cur == 1) break;
-                        if (!wantPosedge && prev == 1 && cur == 0) break;
                     }
                 } else {
                     int delay = 0;
@@ -1043,13 +1046,15 @@ int SimulationEngine::run(const std::string &simPath, unsigned int /*threads*/) 
                                 if (fstmt->value == "posedge" || fstmt->value == "negedge") {
                                     std::string sig = fstmt->children.empty() ? "clk" : fstmt->children[0]->value;
                                     bool wantPosedge = (fstmt->value == "posedge");
-                                    for (int t = 0; t < 100000; t++) {
-                                        uint64_t prev = svals[sig];
+                                    uint64_t prev = svals[sig];
+                                    svals[sig] = prev ? 0 : 1;
+                                    propagateSignals(assignItems, svals, widths);
+                                    uint64_t cur = svals[sig];
+                                    bool gotEdge = wantPosedge ? (prev == 0 && cur == 1) : (prev == 1 && cur == 0);
+                                    if (!gotEdge) {
+                                        prev = svals[sig];
                                         svals[sig] = prev ? 0 : 1;
                                         propagateSignals(assignItems, svals, widths);
-                                        uint64_t cur = svals[sig];
-                                        if (wantPosedge && prev == 0 && cur == 1) break;
-                                        if (!wantPosedge && prev == 1 && cur == 0) break;
                                     }
                                 } else {
                                     int d = 0;
