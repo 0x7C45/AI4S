@@ -95,28 +95,30 @@ struct VerilogNum {
     GENERATE = 282,                /* GENERATE  */
     ENDGENERATE = 283,             /* ENDGENERATE  */
     GENVAR = 284,                  /* GENVAR  */
-    SYS_FOPEN = 285,               /* SYS_FOPEN  */
-    SYS_FCLOSE = 286,              /* SYS_FCLOSE  */
-    SYS_FSCANF = 287,              /* SYS_FSCANF  */
-    SYS_FGETS = 288,               /* SYS_FGETS  */
-    SYS_FDISPLAY = 289,            /* SYS_FDISPLAY  */
-    SYS_DISPLAY = 290,             /* SYS_DISPLAY  */
-    SYS_FINISH = 291,              /* SYS_FINISH  */
-    SYS_CLOG2 = 292,               /* SYS_CLOG2  */
-    EQ = 293,                      /* EQ  */
-    NE = 294,                      /* NE  */
-    LE = 295,                      /* LE  */
-    GE = 296,                      /* GE  */
-    LOGAND = 297,                  /* LOGAND  */
-    LOGOR = 298,                   /* LOGOR  */
-    SHL = 299,                     /* SHL  */
-    SHR = 300,                     /* SHR  */
-    SSHR = 301,                    /* SSHR  */
-    NAND = 302,                    /* NAND  */
-    NOR = 303,                     /* NOR  */
-    XNOR = 304,                    /* XNOR  */
-    POWER = 305,                   /* POWER  */
-    UNARY = 306                    /* UNARY  */
+    POSEDGE = 285,                 /* POSEDGE  */
+    NEGEDGE = 286,                 /* NEGEDGE  */
+    SYS_FOPEN = 287,               /* SYS_FOPEN  */
+    SYS_FCLOSE = 288,              /* SYS_FCLOSE  */
+    SYS_FSCANF = 289,              /* SYS_FSCANF  */
+    SYS_FGETS = 290,               /* SYS_FGETS  */
+    SYS_FDISPLAY = 291,            /* SYS_FDISPLAY  */
+    SYS_DISPLAY = 292,             /* SYS_DISPLAY  */
+    SYS_FINISH = 293,              /* SYS_FINISH  */
+    SYS_CLOG2 = 294,               /* SYS_CLOG2  */
+    EQ = 295,                      /* EQ  */
+    NE = 296,                      /* NE  */
+    LE = 297,                      /* LE  */
+    GE = 298,                      /* GE  */
+    LOGAND = 299,                  /* LOGAND  */
+    LOGOR = 300,                   /* LOGOR  */
+    SHL = 301,                     /* SHL  */
+    SHR = 302,                     /* SHR  */
+    SSHR = 303,                    /* SSHR  */
+    NAND = 304,                    /* NAND  */
+    NOR = 305,                     /* NOR  */
+    XNOR = 306,                    /* XNOR  */
+    POWER = 307,                   /* POWER  */
+    UNARY = 308                    /* UNARY  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -131,7 +133,7 @@ union YYSTYPE
     char *str;
     struct ASTNode *node;
 
-#line 135 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.h"
+#line 137 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

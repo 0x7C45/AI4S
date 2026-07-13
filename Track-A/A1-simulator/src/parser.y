@@ -53,14 +53,14 @@ static ASTNode *makeNum(VerilogNum *n) {
 %token MODULE ENDMODULE INPUT OUTPUT WIRE REG INTEGER_KW SIGNED
 %token LOCALPARAM PARAMETER ASSIGN ALWAYS INITIAL_KW
 %token BEGINKW END IF ELSE CASE ENDCASE DEFAULT FOR
-%token GENERATE ENDGENERATE GENVAR
+%token GENERATE ENDGENERATE GENVAR POSEDGE NEGEDGE
 %token SYS_FOPEN SYS_FCLOSE SYS_FSCANF SYS_FGETS SYS_FDISPLAY SYS_DISPLAY SYS_FINISH SYS_CLOG2
 %token EQ NE LE GE LOGAND LOGOR SHL SHR SSHR NAND NOR XNOR
 
 %type <node> module_list module module_items stmts port_list port_decl_in_list opt_port_list
 %type <node> port_decl module_item stmt expr prim_expr lvalue range
 %type <node> param_override port_conn case_item
-%type <node> expr_list lvalue_list port_conn_list case_items
+%type <node> param_list param_assign expr_list lvalue_list port_conn_list case_items
 %type <node> gen_items gen_item gen_block gen_body
 %type <node> module_param_decls module_param_decl
 
@@ -141,12 +141,39 @@ module_items:
 
 module_item:
     port_decl ';'
+    | WIRE range IDENTIFIER range ';'
+      {
+          /* Multi-dimensional wire: wire [msb:lsb] name[dim_msb:dim_lsb] */
+          $$ = makeNode(NodeType::NET_DECL, "wire", yylineno);
+          addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno));
+          free($3);
+          $$->msb = $2->msb; $$->lsb = $2->lsb;
+          /* Store dimension range expressions */
+          for (auto *c : $4->children) addChild($$, c);
+          $2->children.clear(); freeTree($2);
+          $4->children.clear(); freeTree($4);
+      }
     | WIRE range IDENTIFIER decl_list ';'
       { $$ = makeNode(NodeType::NET_DECL, "wire", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno)); free($3); $$->msb = $2->msb; $$->lsb = $2->lsb; freeTree($2); }
+    | WIRE range IDENTIFIER '=' expr ';'
+      {
+          /* Wire with initialization — store expr as child for later assign */
+          auto *decl = makeNode(NodeType::NET_DECL, "wire", yylineno);
+          addChild(decl, makeNode(NodeType::IDENTIFIER, $3, yylineno));
+          free($3);
+          decl->msb = $2->msb; decl->lsb = $2->lsb;
+          freeTree($2);
+          addChild(decl, $5);  /* init expression */
+          $$ = decl;
+      }
     | WIRE IDENTIFIER decl_list ';'
       { $$ = makeNode(NodeType::NET_DECL, "wire", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $2, yylineno)); free($2); $$->msb = 0; $$->lsb = 0; }
     | REG range IDENTIFIER decl_list ';'
       { $$ = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno)); free($3); $$->msb = $2->msb; $$->lsb = $2->lsb; freeTree($2); }
+    | REG range IDENTIFIER '=' expr ';'
+      { $$ = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno)); free($3); $$->msb = $2->msb; $$->lsb = $2->lsb; freeTree($2); }
+    | REG IDENTIFIER '=' expr ';'
+      { $$ = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $2, yylineno)); free($2); $$->msb = 0; $$->lsb = 0; }
     | REG IDENTIFIER decl_list ';'
       { $$ = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $2, yylineno)); free($2); $$->msb = 0; $$->lsb = 0; }
     | REG SIGNED range IDENTIFIER decl_list ';'
@@ -161,14 +188,21 @@ module_item:
       { $$ = makeNode(NodeType::ASSIGN, "", yylineno); addChild($$, $2); addChild($$, $4); }
     | ALWAYS '@' '(' '*' ')' stmt
       { $$ = makeNode(NodeType::ALWAYS_BLOCK, "@(*)", yylineno); addChild($$, $6); }
+    | ALWAYS '@' '(' POSEDGE IDENTIFIER ')' stmt
+      { $$ = makeNode(NodeType::ALWAYS_BLOCK, "@(posedge " + std::string($5) + ")", yylineno); addChild($$, $7); free($5); }
+    | ALWAYS '@' '(' NEGEDGE IDENTIFIER ')' stmt
+      { $$ = makeNode(NodeType::ALWAYS_BLOCK, "@(negedge " + std::string($5) + ")", yylineno); addChild($$, $7); free($5); }
+    | ALWAYS '#' expr stmt
+      { $$ = makeNode(NodeType::ALWAYS_BLOCK, "#delay", yylineno); addChild($$, $3); addChild($$, $4); }
     | INITIAL_KW stmt
       { $$ = makeNode(NodeType::INITIAL_BLOCK, "", yylineno); addChild($$, $2); }
-    | IDENTIFIER '#' '(' param_list ')' IDENTIFIER '(' port_conn_list ')' ';'
-      { $$ = makeNode(NodeType::MODULE_INST, $1, yylineno); free($1); addChild($$, makeNode(NodeType::IDENTIFIER, $6, yylineno)); free($6); for (auto *c : $8->children) addChild($$, c); $8->children.clear(); freeTree($8); }
+    | IDENTIFIER '#' '(' param_list ')' IDENTIFIER '(' port_conn_list ')'
+      ';'
+      { $$ = makeNode(NodeType::MODULE_INST, $1, yylineno); free($1); addChild($$, makeNode(NodeType::IDENTIFIER, $6, yylineno)); free($6); for (auto *c : $4->children) addChild($$, c); $4->children.clear(); freeTree($4); for (auto *c : $8->children) addChild($$, c); $8->children.clear(); freeTree($8); }
     | IDENTIFIER IDENTIFIER '(' port_conn_list ')' ';'
       { $$ = makeNode(NodeType::MODULE_INST, $1, yylineno); free($1); addChild($$, makeNode(NodeType::IDENTIFIER, $2, yylineno)); free($2); for (auto *c : $4->children) addChild($$, c); $4->children.clear(); freeTree($4); }
     | IDENTIFIER '#' '(' param_list ')' IDENTIFIER '(' ')' ';'
-      { $$ = makeNode(NodeType::MODULE_INST, $1, yylineno); free($1); addChild($$, makeNode(NodeType::IDENTIFIER, $6, yylineno)); free($6); }
+      { $$ = makeNode(NodeType::MODULE_INST, $1, yylineno); free($1); addChild($$, makeNode(NodeType::IDENTIFIER, $6, yylineno)); free($6); for (auto *c : $4->children) addChild($$, c); $4->children.clear(); freeTree($4); }
     | IDENTIFIER IDENTIFIER '(' ')' ';'
       { $$ = makeNode(NodeType::MODULE_INST, $1, yylineno); free($1); addChild($$, makeNode(NodeType::IDENTIFIER, $2, yylineno)); free($2); }
     | GENERATE gen_items ENDGENERATE { $$ = $2; }
@@ -182,7 +216,10 @@ port_decl:
           $$->value = "input";
           $$->msb = $2->msb; $$->lsb = $2->lsb;
           addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno));
-          free($3); freeTree($2);
+          free($3);
+          /* Keep range expressions as children for deferred evaluation */
+          for (auto *c : $2->children) addChild($$, c);
+          $2->children.clear(); freeTree($2);
       }
     | INPUT IDENTIFIER
       {
@@ -198,7 +235,9 @@ port_decl:
           $$->value = "output";
           $$->msb = $2->msb; $$->lsb = $2->lsb;
           addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno));
-          free($3); freeTree($2);
+          free($3);
+          for (auto *c : $2->children) addChild($$, c);
+          $2->children.clear(); freeTree($2);
       }
     | OUTPUT IDENTIFIER
       {
@@ -214,7 +253,9 @@ port_decl:
           $$->value = "output";
           $$->msb = $3->msb; $$->lsb = $3->lsb;
           addChild($$, makeNode(NodeType::IDENTIFIER, $4, yylineno));
-          free($4); freeTree($3);
+          free($4);
+          for (auto *c : $3->children) addChild($$, c);
+          $3->children.clear(); freeTree($3);
       }
     | OUTPUT WIRE IDENTIFIER
       {
@@ -230,7 +271,9 @@ port_decl:
           $$->value = "input";
           $$->msb = $3->msb; $$->lsb = $3->lsb;
           addChild($$, makeNode(NodeType::IDENTIFIER, $4, yylineno));
-          free($4); freeTree($3);
+          free($4);
+          for (auto *c : $3->children) addChild($$, c);
+          $3->children.clear(); freeTree($3);
       }
     | INPUT WIRE IDENTIFIER
       {
@@ -246,7 +289,9 @@ port_decl:
           $$->value = "output reg";
           $$->msb = $3->msb; $$->lsb = $3->lsb;
           addChild($$, makeNode(NodeType::IDENTIFIER, $4, yylineno));
-          free($4); freeTree($3);
+          free($4);
+          for (auto *c : $3->children) addChild($$, c);
+          $3->children.clear(); freeTree($3);
       }
     | OUTPUT REG IDENTIFIER
       {
@@ -262,7 +307,9 @@ port_decl:
           $$->value = "output signed";
           $$->msb = $3->msb; $$->lsb = $3->lsb;
           addChild($$, makeNode(NodeType::IDENTIFIER, $4, yylineno));
-          free($4); freeTree($3);
+          free($4);
+          for (auto *c : $3->children) addChild($$, c);
+          $3->children.clear(); freeTree($3);
       }
     | INPUT SIGNED range IDENTIFIER
       {
@@ -270,7 +317,9 @@ port_decl:
           $$->value = "input signed";
           $$->msb = $3->msb; $$->lsb = $3->lsb;
           addChild($$, makeNode(NodeType::IDENTIFIER, $4, yylineno));
-          free($4); freeTree($3);
+          free($4);
+          for (auto *c : $3->children) addChild($$, c);
+          $3->children.clear(); freeTree($3);
       }
     | OUTPUT REG SIGNED range IDENTIFIER
       {
@@ -350,6 +399,18 @@ stmt:
           $$ = makeNode(NodeType::DELAY, std::to_string($2->value), yylineno);
           free($2);
       }
+    | '@' '(' POSEDGE IDENTIFIER ')' ';'
+      {
+          $$ = makeNode(NodeType::DELAY, "posedge", yylineno);
+          addChild($$, makeNode(NodeType::IDENTIFIER, $4, yylineno));
+          free($4);
+      }
+    | '@' '(' NEGEDGE IDENTIFIER ')' ';'
+      {
+          $$ = makeNode(NodeType::DELAY, "negedge", yylineno);
+          addChild($$, makeNode(NodeType::IDENTIFIER, $4, yylineno));
+          free($4);
+      }
     | SYS_FOPEN '(' STRING ')' ';'
       {
           $$ = makeNode(NodeType::SYS_TASK, "$fopen", yylineno);
@@ -422,9 +483,16 @@ gen_item:
         addChild($$, makeNode(NodeType::IDENTIFIER, $4, yylineno)); free($4);
         addChild($$, $6);
         addChild($$, $8);
-        addChild($$, makeNode(NodeType::IDENTIFIER, $10, yylineno)); free($10);
-        addChild($$, $12);
         addChild($$, $14);
+    }
+    | FOR '(' IDENTIFIER '=' expr ';' expr ';' lvalue '=' expr ')' gen_block
+    {
+        /* for (name = expr; cond; name = expr) — genvar already declared */
+        $$ = makeNode(NodeType::GENERATE_FOR, "", yylineno);
+        addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno)); free($3);
+        addChild($$, $5);
+        addChild($$, $7);
+        addChild($$, $13);
     }
     | IF '(' expr ')' gen_block
     {
@@ -432,16 +500,36 @@ gen_item:
         addChild($$, $3);
         addChild($$, $5);
     }
+    | IF '(' expr ')' gen_block ELSE gen_block
+    {
+        $$ = makeNode(NodeType::GENERATE_IF, "", yylineno);
+        addChild($$, $3);
+        addChild($$, $5);
+        addChild($$, $7);
+    }
+    | GENVAR genvar_list ';'
+    {
+        /* genvar declaration — skip */
+        $$ = makeNode(NodeType::BLOCK, "", yylineno);
+    }
+    ;
+
+genvar_list:
+    genvar_list ',' IDENTIFIER { free($3); }
+    | IDENTIFIER { free($1); }
     ;
 
 gen_block:
     BEGINKW gen_body END { $$ = $2; }
+    | BEGINKW ':' IDENTIFIER gen_body END { $$ = $4; free($3); }
     | module_item        { $$ = $1; }
     ;
 
 gen_body:
     gen_body module_item { addChild($1, $2); $$ = $1; }
+    | gen_body gen_item { addChild($1, $2); $$ = $1; }
     | module_item        { $$ = makeNode(NodeType::BLOCK, "", yylineno); addChild($$, $1); }
+    | gen_item           { $$ = makeNode(NodeType::BLOCK, "", yylineno); addChild($$, $1); }
     ;
 
 case_items:
@@ -477,16 +565,16 @@ case_item:
 
 param_override:
     '#' '(' param_list ')'
-    { $$ = makeNode(NodeType::PARAM_OVERRIDE, "", yylineno); }
+    { $$ = makeNode(NodeType::PARAM_OVERRIDE, "", yylineno); for (auto *c : $3->children) addChild($$, c); $3->children.clear(); freeTree($3); }
     ;
 
 param_list:
-    param_list ',' param_assign
-    | param_assign
+    param_list ',' param_assign { if ($3) addChild($1, $3); $$ = $1; }
+    | param_assign              { $$ = makeNode(NodeType::BLOCK, "", yylineno); if ($1) addChild($$, $1); }
     ;
 
 param_assign:
-    '.' IDENTIFIER '(' expr ')' { free($2); }
+    '.' IDENTIFIER '(' expr ')' { $$ = makeNode(NodeType::IDENTIFIER, $2, yylineno); free($2); addChild($$, $4); }
     ;
 
 port_conn_list:
@@ -581,6 +669,23 @@ prim_expr:
           free($1);
           addChild($$, $3);
       }
+    | IDENTIFIER '[' expr ']' '[' expr ':' expr ']'
+      {
+          /* Double range-select: signal[idx][msb:lsb] */
+          $$ = makeNode(NodeType::BITSEL, $1, yylineno);
+          free($1);
+          addChild($$, $3);
+          addChild($$, $6);
+          addChild($$, $8);
+      }
+    | IDENTIFIER '[' expr ']' '[' expr ']'
+      {
+          /* Double bit-select: signal[idx][bit] */
+          $$ = makeNode(NodeType::BITSEL, $1, yylineno);
+          free($1);
+          addChild($$, $3);
+          addChild($$, $6);
+      }
     | '{' expr_list '}'
       {
           $$ = makeNode(NodeType::CONCAT, "", yylineno);
@@ -647,6 +752,21 @@ lvalue:
           $$ = makeNode(NodeType::BITSEL, $1, yylineno);
           free($1);
           addChild($$, $3);
+      }
+    | IDENTIFIER '[' expr ']' '[' expr ':' expr ']'
+      {
+          $$ = makeNode(NodeType::BITSEL, $1, yylineno);
+          free($1);
+          addChild($$, $3);
+          addChild($$, $6);
+          addChild($$, $8);
+      }
+    | IDENTIFIER '[' expr ']' '[' expr ']'
+      {
+          $$ = makeNode(NodeType::BITSEL, $1, yylineno);
+          free($1);
+          addChild($$, $3);
+          addChild($$, $6);
       }
     | '{' lvalue_list '}'
       {

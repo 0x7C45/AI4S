@@ -136,7 +136,7 @@ static uint64_t evalConst(ASTNode *node, const std::map<std::string, uint64_t> &
     }
     if (node->type == NodeType::BINOP) {
         uint64_t l = evalConst(node->children[0], params);
-        uint64_t r = evalConst(node->children[1], params);
+        uint64_t r = node->children.size() > 1 ? evalConst(node->children[1], params) : 0;
         if (node->value == "+") return l + r;
         if (node->value == "-") return l - r;
         if (node->value == "*") return l * r;
@@ -147,6 +147,15 @@ static uint64_t evalConst(ASTNode *node, const std::map<std::string, uint64_t> &
         if (node->value == "&") return l & r;
         if (node->value == "|") return l | r;
         if (node->value == "^") return l ^ r;
+        if (node->value == "**") { uint64_t result = 1; for (uint64_t i = 0; i < r; i++) result *= l; return result; }
+        if (node->value == "==") return l == r ? 1 : 0;
+        if (node->value == "!=") return l != r ? 1 : 0;
+        if (node->value == "<") return l < r ? 1 : 0;
+        if (node->value == ">") return l > r ? 1 : 0;
+        if (node->value == "<=") return l <= r ? 1 : 0;
+        if (node->value == ">=") return l >= r ? 1 : 0;
+        if (node->value == "&&") return (l && r) ? 1 : 0;
+        if (node->value == "||") return (l || r) ? 1 : 0;
         return 0;
     }
     if (node->type == NodeType::TERNARY) {
@@ -193,28 +202,81 @@ static void expandGenerate(ASTNode *node, const std::map<std::string, uint64_t> 
     }
 }
 
-static ModuleDef *buildModule(ASTNode *modNode) {
+static ModuleDef *buildModule(ASTNode *modNode,
+                              const std::map<std::string, uint64_t> &initParams = {}) {
     auto *m = new ModuleDef();
     m->name = modNode->value;
+    m->params = initParams;  /* pre-populate with overrides */
+
+    /* Pass 1: collect all parameter declarations, preserving init overrides */
+    for (auto *item : modNode->children) {
+        if (!item || item->type != NodeType::LOCALPARAM_DECL) continue;
+        /* Only set if not already overridden */
+        if (m->params.find(item->value) == m->params.end()) {
+            uint64_t v = evalConst(item->children[0], m->params);
+            m->params[item->value] = v;
+        }
+    }
+
+    /* Pass 2: process ports and net declarations (params now available) */
     for (auto *item : modNode->children) {
         if (!item) continue;
         if (item->type == NodeType::PORT) {
             int w = (item->msb > item->lsb) ? (item->msb - item->lsb + 1) : 1;
             bool is_out = (item->value.find("output") != std::string::npos);
             bool is_signed = (item->value.find("signed") != std::string::npos);
+            /* Re-evaluate range expressions with module params if available */
+            if (item->children.size() >= 3) {
+                int msb = evalConst(item->children[1], m->params);
+                int lsb = evalConst(item->children[2], m->params);
+                w = (msb > lsb) ? (msb - lsb + 1) : (lsb > msb) ? (lsb - msb + 1) : 1;
+            }
             m->signals.push_back({item->children[0]->value,
                                   w, 0, is_out, is_signed});
         } else if (item->type == NodeType::NET_DECL) {
             int w = (item->msb >= item->lsb) ? (item->msb - item->lsb + 1) : 1;
             bool is_signed = (item->value.find("signed") != std::string::npos);
-            m->signals.push_back({item->children[0]->value,
-                                  w, 0, item->value.find("reg") != std::string::npos, is_signed});
+            /* Re-evaluate range if stored (children after identifier) */
+            if (item->children.size() >= 3) {
+                int msb = evalConst(item->children[1], m->params);
+                int lsb = evalConst(item->children[2], m->params);
+                w = (msb >= lsb) ? (msb - lsb + 1) : (lsb > msb) ? (lsb - msb + 1) : 1;
+            }
+            if (item->children.size() >= 3 && (item->msb > 0 || item->lsb > 0)) {
+                /* Multi-dimensional wire: children[0]=name, [1]=dim_msb_expr, [2]=dim_lsb_expr */
+                int dim_msb = evalConst(item->children[1], m->params);
+                int dim_lsb = evalConst(item->children[2], m->params);
+                int dim = dim_msb - dim_lsb + 1;
+                if (dim > 1) {
+                    for (int di = 0; di < dim; di++) {
+                        std::string sname = item->children[0]->value + "[" + std::to_string(di + dim_lsb) + "]";
+                        m->signals.push_back({sname, w, 0,
+                                              item->value.find("reg") != std::string::npos, is_signed});
+                    }
+                } else {
+                    m->signals.push_back({item->children[0]->value,
+                                          w, 0, item->value.find("reg") != std::string::npos, is_signed});
+                }
+            } else {
+                /* Simple wire or wire with initialization */
+                m->signals.push_back({item->children[0]->value,
+                                      w, 0, item->value.find("reg") != std::string::npos, is_signed});
+                if (item->children.size() >= 2) {
+                    /* Wire with initialization: create continuous assign */
+                    auto *asn = new ASTNode();
+                    asn->type = NodeType::ASSIGN;
+                    auto *lhs = new ASTNode();
+                    lhs->type = NodeType::IDENTIFIER;
+                    lhs->value = item->children[0]->value;
+                    asn->children.push_back(lhs);
+                    asn->children.push_back(item->children[1]);
+                    m->items.push_back(asn);
+                }
+            }
         } else if (item->type == NodeType::LOCALPARAM_DECL) {
-            std::map<std::string, uint64_t> empty;
-            uint64_t v = evalConst(item->children[0], m->params);
-            m->params[item->value] = v;
+            /* Already processed in pass 1 — create signal for simulation */
             int w = 32;
-            m->signals.push_back({item->value, w, v, false});
+            m->signals.push_back({item->value, w, m->params[item->value], false});
         }
     }
     for (auto *item : modNode->children) {
@@ -592,27 +654,54 @@ int SimulationEngine::compile(const std::string &filelist, const std::string &to
     if (g_modules.empty()) { simulatorWarning("no modules parsed"); return 1; }
 
     std::vector<ModuleDef *> defs;
+
+    /* Two-pass build: first build all modules, then re-build children with overrides */
     for (auto *mod : g_modules) defs.push_back(buildModule(mod));
-    for (auto *d : defs) {
-    }
 
-    std::vector<ASTNode *> flatItems;
-    std::vector<SignalDef> extraSignals;  /* DUT signals with prefixed names */
+    /* Find top module and apply param overrides to children */
     std::string topName = top.empty() ? defs[0]->name : top;
-
     ModuleDef *topDef = nullptr;
     for (auto *d : defs) {
         if (d->name == topName) { topDef = d; break; }
     }
     if (!topDef) {
         for (auto *d : defs) {
-            if (d->name.find("tb") != std::string::npos ||
-                d->name.find("TB") != std::string::npos) {
+            if (d->name.find("tb") != std::string::npos || d->name.find("TB") != std::string::npos) {
                 topDef = d; break;
             }
         }
     }
     if (!topDef) topDef = defs[0];
+
+    std::vector<ASTNode *> flatItems;
+    std::vector<SignalDef> extraSignals;
+
+    /* Re-build child modules with overrides from top module's MODULE_INST */
+    for (auto *topMod : g_modules) {
+        if (topMod->value != topDef->name) continue;
+        for (auto *item : topMod->children) {
+            if (!item || item->type != NodeType::MODULE_INST) continue;
+            /* Check for param overrides (IDENTIFIER children before PORT_CONN) */
+            std::map<std::string, uint64_t> overrides;
+            for (auto *ch : item->children) {
+                if (ch->type == NodeType::PORT_CONN) break;
+                if (ch->type == NodeType::IDENTIFIER && !ch->children.empty()) {
+                    overrides[ch->value] = evalConst(ch->children[0], topDef->params);
+                }
+            }
+            if (overrides.empty()) continue;
+            /* Re-build child module with overrides */
+            std::string childMod = item->value;
+            for (auto *childAst : g_modules) {
+                if (childAst->value != childMod) continue;
+                ModuleDef *rebuilt = buildModule(childAst, overrides);
+                for (auto *&d : defs) {
+                    if (d->name == childMod) { d = rebuilt; break; }
+                }
+                break;
+            }
+        }
+    }
 
     for (auto *item : topDef->items) {
         if (item->type == NodeType::MODULE_INST) {
@@ -623,6 +712,7 @@ int SimulationEngine::compile(const std::string &filelist, const std::string &to
             }
             if (!childDef) continue;
             std::string prefix = item->children[0]->value;
+
             /* Add DUT signals with prefixed names */
             for (auto &s : childDef->signals) {
                 std::string pname = prefix + "." + s.name;

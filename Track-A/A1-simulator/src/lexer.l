@@ -46,6 +46,8 @@ static char *stralloc(const char *s) {
 "generate"      { return GENERATE; }
 "endgenerate"   { return ENDGENERATE; }
 "genvar"        { return GENVAR; }
+"posedge"       { return POSEDGE; }
+"negedge"       { return NEGEDGE; }
 
 "$fopen"        { return SYS_FOPEN; }
 "$fclose"       { return SYS_FCLOSE; }

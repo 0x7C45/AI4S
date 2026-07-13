@@ -125,9 +125,24 @@ static EvalResult evalImpl(const ASTNode *node, const SignalValues &signals,
     case NodeType::BITSEL: {
         auto it = signals.find(node->value);
         uint64_t val = (it != signals.end()) ? it->second : 0;
-        if (node->children.size() >= 2) {
+        if (node->children.size() >= 3) {
+            /* Double bit-select: signal[idx][msb:lsb] or signal[idx][bit] */
+            auto Idx = evalImpl(node->children[0], signals, widths, signeds);
+            std::string fullName = node->value + "[" + std::to_string((int)Idx.value) + "]";
+            auto fit = signals.find(fullName);
+            val = (fit != signals.end()) ? fit->second : 0;
+            auto M = evalImpl(node->children[1], signals, widths, signeds);
+            auto L = evalImpl(node->children[2], signals, widths, signeds);
+            int msb = (int)M.value, lsb = (int)L.value;
+            if (msb < lsb) std::swap(msb, lsb);
+            int w = msb - lsb + 1;
+            uint64_t mask = (w >= 64) ? ~0ULL : ((1ULL << w) - 1);
+            return {(val >> lsb) & mask, w};
+        } else if (node->children.size() == 2) {
+            /* Could be signal[msb:lsb] or signal[bit] */
             auto M = evalImpl(node->children[0], signals, widths, signeds);
             auto L = evalImpl(node->children[1], signals, widths, signeds);
+            /* If both are small constants, treat as range select */
             int msb = (int)M.value, lsb = (int)L.value;
             if (msb < lsb) std::swap(msb, lsb);
             int w = msb - lsb + 1;
