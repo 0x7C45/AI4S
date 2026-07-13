@@ -28,11 +28,10 @@
   3. Tool parses Verilog constructs: module hierarchy, always blocks, assign statements, parameters, generate, wide vectors, signed operations
   4. Single-circuit synthesis (e.g., LSV01) completes end-to-end with a valid gate-level netlist
   5. config.json with per-circuit point configuration and `$default` fallback is read correctly
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 01-01: TBD
-- [ ] 01-02: TBD
+- [ ] 01-01-PLAN.md — A3 Synthesis Framework + RTL Frontend (Makefile, config/yaml parsers, core Yosys synthesis script with unified flow + variable ABC, Icarus verification, LSV01 E2E validation)
 
 ### Phase 2: A3 Correctness — All 10 Public Circuits
 **Goal**: Every public circuit (LSV01-LSV10) produces a functionally correct netlist that passes simulation verification
@@ -92,7 +91,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. A3 Framework + RTL Frontend | 0/2 | Not started | - |
+| 1. A3 Framework + RTL Frontend | 0/1 | In progress | - |
 | 2. A3 Correctness — All 10 Circuits | 0/2 | Not started | - |
 | 3. A3 Multi-Point PPA + Auto-Tuning | 0/2 | Not started | - |
 | 4. Submission Package | 0/1 | Not started | - |
