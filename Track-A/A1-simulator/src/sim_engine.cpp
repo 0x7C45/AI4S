@@ -432,11 +432,14 @@ static void propagateSignals(std::vector<ASTNode *> &items,
                     int idx = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
                     lname = lname + "[" + std::to_string(idx) + "]";
                     if (lhs->children.size() == 3) {
-                        /* signal[idx][msb:lsb] */
-                        targetMsb = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
-                        targetLsb = (int)evalExpr(lhs->children[2], svals, widths, g_signalSigneds).value;
+                        if (lhs->children[2]->type == NodeType::NUMBER &&
+                            lhs->children[2]->value == "-1") {
+                            targetBit = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
+                        } else {
+                            targetMsb = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
+                            targetLsb = (int)evalExpr(lhs->children[2], svals, widths, g_signalSigneds).value;
+                        }
                     } else {
-                        /* signal[idx][bit] — 4 children with sentinel */
                         targetBit = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
                     }
                 } else if (lhs->children.size() == 2) {
@@ -446,11 +449,9 @@ static void propagateSignals(std::vector<ASTNode *> &items,
                     else { targetMsb = std::max(a, b); targetLsb = std::min(a, b); }
                 } else if (lhs->children.size() == 1) {
                     int idx = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
-                    /* Check if this is a multi-dimensional wire element */
                     std::string fullName = lname + "[" + std::to_string(idx) + "]";
                     if (widths.find(fullName) != widths.end()) {
                         lname = fullName;
-                        /* targetBit stays -1 → whole-signal write */
                     } else {
                         targetBit = idx;
                     }
@@ -576,8 +577,13 @@ static void execItem(ASTNode *item, SignalValues &svals, SignalWidths &widths,
                     int dimIdx = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
                     lname = lname + "[" + std::to_string(dimIdx) + "]";
                     if (lhs->children.size() == 3) {
-                        msb = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
-                        lsb = (int)evalExpr(lhs->children[2], svals, widths, g_signalSigneds).value;
+                        if (lhs->children[2]->type == NodeType::NUMBER &&
+                            lhs->children[2]->value == "-1") {
+                            idx = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
+                        } else {
+                            msb = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
+                            lsb = (int)evalExpr(lhs->children[2], svals, widths, g_signalSigneds).value;
+                        }
                     } else {
                         idx = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
                     }

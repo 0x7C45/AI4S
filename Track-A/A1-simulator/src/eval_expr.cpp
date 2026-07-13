@@ -147,14 +147,22 @@ static EvalResult evalImpl(const ASTNode *node, const SignalValues &signals,
             auto fit = signals.find(fullName);
             val = (fit != signals.end()) ? fit->second : 0;
             if (node->children.size() == 3) {
-                /* signal[idx][msb:lsb] — 3 children: [idx, msb, lsb] */
-                auto M = evalImpl(node->children[1], signals, widths, signeds);
-                auto L = evalImpl(node->children[2], signals, widths, signeds);
-                int msb = (int)M.value, lsb = (int)L.value;
-                if (msb < lsb) std::swap(msb, lsb);
-                int w = msb - lsb + 1;
-                uint64_t mask = (w >= 64) ? ~0ULL : ((1ULL << w) - 1);
-                return {(val >> lsb) & mask, w};
+                /* Could be signal[idx][msb:lsb] or signal[idx][bit] with sentinel */
+                if (node->children[2]->type == NodeType::NUMBER &&
+                    node->children[2]->value == "-1") {
+                    /* Bit select with sentinel */
+                    auto B = evalImpl(node->children[1], signals, widths, signeds);
+                    return {(val >> (int)B.value) & 1ULL, 1};
+                } else {
+                    /* Range select [idx, msb, lsb] */
+                    auto M = evalImpl(node->children[1], signals, widths, signeds);
+                    auto L = evalImpl(node->children[2], signals, widths, signeds);
+                    int msb = (int)M.value, lsb = (int)L.value;
+                    if (msb < lsb) std::swap(msb, lsb);
+                    int w = msb - lsb + 1;
+                    uint64_t mask = (w >= 64) ? ~0ULL : ((1ULL << w) - 1);
+                    return {(val >> lsb) & mask, w};
+                }
             } else {
                 /* signal[idx][bit] — 4 children: [idx, bit, sentinel, ...] */
                 auto B = evalImpl(node->children[1], signals, widths, signeds);
