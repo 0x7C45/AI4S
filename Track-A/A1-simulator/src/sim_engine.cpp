@@ -798,6 +798,16 @@ int SimulationEngine::compile(const std::string &filelist, const std::string &to
                 if (d->name == childMod) { childDef = d; break; }
             }
             if (!childDef) continue;
+            for (size_t ii = 0; ii < std::min(childDef->items.size(), (size_t)5); ii++) {
+                auto *it = childDef->items[ii];
+                if (it->children.size() >= 2) {
+                    auto *lhs = it->children[0];
+                    auto *rhs = it->children[1];
+                    fprintf(stderr, " lhs_type=%d lhs_val='%s' rhs_type=%d",
+                            (int)lhs->type, lhs->value.c_str(), (int)rhs->type);
+                }
+                fprintf(stderr, "\n");
+            }
             std::string prefix = item->children[0]->value;
 
             /* Add DUT signals with prefixed names */
