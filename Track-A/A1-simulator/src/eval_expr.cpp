@@ -131,13 +131,20 @@ static EvalResult evalImpl(const ASTNode *node, const SignalValues &signals,
             std::string fullName = node->value + "[" + std::to_string((int)Idx.value) + "]";
             auto fit = signals.find(fullName);
             val = (fit != signals.end()) ? fit->second : 0;
-            auto M = evalImpl(node->children[1], signals, widths, signeds);
-            auto L = evalImpl(node->children[2], signals, widths, signeds);
-            int msb = (int)M.value, lsb = (int)L.value;
-            if (msb < lsb) std::swap(msb, lsb);
-            int w = msb - lsb + 1;
-            uint64_t mask = (w >= 64) ? ~0ULL : ((1ULL << w) - 1);
-            return {(val >> lsb) & mask, w};
+            if (node->children.size() == 4) {
+                /* signal[idx][msb:lsb] */
+                auto M = evalImpl(node->children[1], signals, widths, signeds);
+                auto L = evalImpl(node->children[2], signals, widths, signeds);
+                int msb = (int)M.value, lsb = (int)L.value;
+                if (msb < lsb) std::swap(msb, lsb);
+                int w = msb - lsb + 1;
+                uint64_t mask = (w >= 64) ? ~0ULL : ((1ULL << w) - 1);
+                return {(val >> lsb) & mask, w};
+            } else {
+                /* signal[idx][bit] — 3rd child is sentinel */
+                auto B = evalImpl(node->children[1], signals, widths, signeds);
+                return {(val >> (int)B.value) & 1ULL, 1};
+            }
         } else if (node->children.size() == 2) {
             /* Could be signal[msb:lsb] or signal[bit] */
             auto M = evalImpl(node->children[0], signals, widths, signeds);

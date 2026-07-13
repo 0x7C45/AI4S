@@ -184,7 +184,6 @@ module_item:
       { $$ = makeNode(NodeType::NET_DECL, "integer", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $2, yylineno)); free($2); $$->msb = 31; $$->lsb = 0; }
     | LOCALPARAM IDENTIFIER '=' expr ';'
       {
-          fprintf(stderr, "LOCALPARAM '%s' expr_type=%d expr_val='%s'\n", $2, (int)$4->type, $4->value.c_str());
           $$ = makeNode(NodeType::LOCALPARAM_DECL, $2, yylineno); free($2); addChild($$, $4);
       }
     | PARAMETER IDENTIFIER '=' expr ';'
@@ -676,7 +675,7 @@ prim_expr:
       }
     | IDENTIFIER '[' expr ']' '[' expr ':' expr ']'
       {
-          /* Double range-select: signal[idx][msb:lsb] */
+          /* Double range-select: signal[idx][msb:lsb] — mark with msb=-1 to distinguish */
           $$ = makeNode(NodeType::BITSEL, $1, yylineno);
           free($1);
           addChild($$, $3);
@@ -685,11 +684,14 @@ prim_expr:
       }
     | IDENTIFIER '[' expr ']' '[' expr ']'
       {
-          /* Double bit-select: signal[idx][bit] */
+          /* Double bit-select: signal[idx][bit] — 3 children: [idx, bit, sentinel] */
           $$ = makeNode(NodeType::BITSEL, $1, yylineno);
           free($1);
           addChild($$, $3);
           addChild($$, $6);
+          auto *sentinel = makeNode(NodeType::NUMBER, "-1", yylineno);
+          sentinel->msb = -1;
+          addChild($$, sentinel);
       }
     | '{' expr_list '}'
       {
@@ -772,6 +774,9 @@ lvalue:
           free($1);
           addChild($$, $3);
           addChild($$, $6);
+          auto *sentinel = makeNode(NodeType::NUMBER, "-1", yylineno);
+          sentinel->msb = -1;
+          addChild($$, sentinel);
       }
     | '{' lvalue_list '}'
       {
@@ -795,7 +800,6 @@ expr_list:
 %%
 
 void yyerror(const char *msg) {
-    fprintf(stderr, "Parse error at line %d: %s (token=%d)\n", yylineno, msg, yychar);
 }
 
 extern int yydebug;
@@ -805,7 +809,6 @@ std::vector<ASTNode *> parseFiles(const std::vector<std::string> &files) {
         yylineno = 1;
         yyin = fopen(f.c_str(), "r");
         if (!yyin) {
-            fprintf(stderr, "Cannot open %s\n", f.c_str());
             continue;
         }
         yyparse();

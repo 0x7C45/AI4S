@@ -41,6 +41,9 @@ extern std::vector<ASTNode *> parseFiles(const std::vector<std::string> &files);
 
 static SignalSigned g_signalSigneds;
 
+struct ClockGen { std::string signal; int period; };
+static std::vector<ClockGen> g_clocks;
+
 static uint64_t truncVal(int width, uint64_t v) {
     if (width >= 64 || width <= 0) return v;
     return v & ((1ULL << width) - 1);
@@ -118,7 +121,7 @@ static ASTNode *translateNode(ASTNode *node, const std::string &prefix,
         auto it = portMap.find(copy->value);
         if (it != portMap.end()) {
             copy->value = it->second;
-        } else {
+        } else if (!prefix.empty()) {
             copy->value = prefix + "." + copy->value;
         }
     }
@@ -391,13 +394,12 @@ static void execBlock(ASTNode *block, SignalValues &svals, SignalWidths &widths,
 static void propagateSignals(std::vector<ASTNode *> &items,
                              SignalValues &svals, SignalWidths &widths) {
     static bool inPropagate = false;
-    if (inPropagate) return;  /* prevent re-entrancy */
+    if (inPropagate) return;
     inPropagate = true;
     std::map<int, FILE *> emptyFds;
     bool dummyFinished = false;
     for (int iter = 0; iter < 200; iter++) {
         bool changed = false;
-        /* Save snapshot to detect changes */
         SignalValues before = svals;
         for (auto *item : items) {
             if (!item || item->type != NodeType::ASSIGN || item->children.size() < 2) continue;
@@ -411,17 +413,15 @@ static void propagateSignals(std::vector<ASTNode *> &items,
             } else if (lhs->type == NodeType::BITSEL) {
                 lname = lhs->value;
                 if (lhs->children.size() >= 3) {
-                    /* Double bit-select: signal[idx][msb:lsb] or signal[idx][bit] */
                     int idx = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
                     lname = lname + "[" + std::to_string(idx) + "]";
                     if (lhs->children.size() == 4) {
                         targetMsb = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
                         targetLsb = (int)evalExpr(lhs->children[2], svals, widths, g_signalSigneds).value;
-                    } else if (lhs->children.size() == 3) {
+                    } else {
                         targetBit = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
                     }
                 } else if (lhs->children.size() == 2) {
-                    /* signal[msb:lsb] or signal[bit] */
                     int a = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
                     int b = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
                     if (a == b) { targetBit = a; }
@@ -437,11 +437,9 @@ static void propagateSignals(std::vector<ASTNode *> &items,
                 uint64_t oldVal = svals[lname];
                 uint64_t newVal;
                 if (targetBit >= 0) {
-                    /* Single bit write */
                     uint64_t mask = 1ULL << targetBit;
                     newVal = (oldVal & ~mask) | ((R.value & 1) << targetBit);
                 } else if (targetMsb >= 0 && targetLsb >= 0) {
-                    /* Range write */
                     int rw = targetMsb - targetLsb + 1;
                     uint64_t mask = ((1ULL << rw) - 1) << targetLsb;
                     newVal = (oldVal & ~mask) | ((truncVal(rw, R.value) & ((1ULL << rw) - 1)) << targetLsb);
@@ -451,13 +449,11 @@ static void propagateSignals(std::vector<ASTNode *> &items,
                 if (oldVal != newVal) { svals[lname] = newVal; changed = true; }
             }
         }
-        /* Re-execute always blocks */
         if (g_alwaysBlocks) {
             for (auto *ab : *g_alwaysBlocks) {
                 execItem(ab, svals, widths, emptyFds, dummyFinished);
             }
         }
-        /* Check if anything changed */
         if (svals != before) changed = true;
         if (!changed) break;
     }
@@ -652,9 +648,33 @@ static void execItem(ASTNode *item, SignalValues &svals, SignalWidths &widths,
         }
         break;
 
-    case NodeType::DELAY:
-        if (g_assignItems) propagateSignals(*g_assignItems, svals, widths);
+    case NodeType::DELAY: {
+        if (item->value == "posedge" || item->value == "negedge") {
+            std::string sig = item->children.empty() ? "clk" : item->children[0]->value;
+            bool wantPosedge = (item->value == "posedge");
+            /* Toggle clock to simulate time passing and detect edge */
+            for (int t = 0; t < 100000; t++) {
+                uint64_t prev = svals[sig];
+                /* Toggle clock */
+                svals[sig] = prev ? 0 : 1;
+                propagateSignals(*g_assignItems, svals, widths);
+                uint64_t cur = svals[sig];
+                /* Check for desired edge */
+                if (wantPosedge && prev == 0 && cur == 1) break;
+                if (!wantPosedge && prev == 1 && cur == 0) break;
+            }
+        } else if (g_assignItems) {
+            int delay = 0;
+            try { delay = std::stoi(item->value); } catch (...) {}
+            for (int t = 0; t < delay; t++) {
+                for (auto &clk : g_clocks) {
+                    svals[clk.signal] = svals[clk.signal] ? 0 : 1;
+                    propagateSignals(*g_assignItems, svals, widths);
+                }
+            }
+        }
         break;
+    }
 
     case NodeType::SYS_TASK: {
         const std::string &name = item->value;
@@ -798,16 +818,6 @@ int SimulationEngine::compile(const std::string &filelist, const std::string &to
                 if (d->name == childMod) { childDef = d; break; }
             }
             if (!childDef) continue;
-            for (size_t ii = 0; ii < std::min(childDef->items.size(), (size_t)5); ii++) {
-                auto *it = childDef->items[ii];
-                if (it->children.size() >= 2) {
-                    auto *lhs = it->children[0];
-                    auto *rhs = it->children[1];
-                    fprintf(stderr, " lhs_type=%d lhs_val='%s' rhs_type=%d",
-                            (int)lhs->type, lhs->value.c_str(), (int)rhs->type);
-                }
-                fprintf(stderr, "\n");
-            }
             std::string prefix = item->children[0]->value;
 
             /* Add DUT signals with prefixed names */
@@ -924,14 +934,32 @@ int SimulationEngine::run(const std::string &simPath, unsigned int /*threads*/) 
 
     g_assignItems = &assignItems;
     g_alwaysBlocks = &alwaysItems;
-    propagateSignals(assignItems, svals, widths);  /* initial propagation */
+    g_clocks.clear();
+    propagateSignals(assignItems, svals, widths);
+
+    /* Detect always #N signal = ~signal pattern for clock generation */
+    for (auto *ab : alwaysItems) {
+        if (ab->value == "#delay" && ab->children.size() >= 2) {
+            ASTNode *delayExpr = ab->children[0];
+            ASTNode *body = ab->children[1];
+            if (delayExpr && body && body->type == NodeType::BLOCKING_ASSIGN &&
+                body->children.size() >= 2) {
+                int period = 0;
+                if (delayExpr->type == NodeType::NUMBER)
+                    try { period = std::stoi(delayExpr->value); } catch (...) {}
+                if (period > 0) {
+                    std::string sig = body->children[0]->value;
+                    g_clocks.push_back({sig, period});
+                    svals[sig] = svals[sig] ? 0 : 1;  /* Initial toggle */
+                }
+            }
+        }
+    }
+    propagateSignals(assignItems, svals, widths);
+
+    /* Execute initial blocks */
     for (auto *item : procItems) {
         execItem(item, svals, widths, fds, finished);
-        propagateSignals(assignItems, svals, widths);
-        for (auto *ai : procItems) {
-            if (ai->type == NodeType::ALWAYS_BLOCK)
-                execItem(ai, svals, widths, fds, finished);
-        }
         if (finished) break;
     }
 
