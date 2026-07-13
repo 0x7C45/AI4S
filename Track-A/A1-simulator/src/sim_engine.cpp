@@ -16,6 +16,26 @@
 #include <string>
 #include <vector>
 
+/* Deep copy an AST node tree */
+static ASTNode *deepCopy(ASTNode *node) {
+    if (!node) return nullptr;
+    auto *copy = new ASTNode();
+    copy->type = node->type;
+    copy->value = node->value;
+    copy->msb = node->msb;
+    copy->lsb = node->lsb;
+    copy->line_no = node->line_no;
+    for (auto *c : node->children) {
+        copy->children.push_back(deepCopy(c));
+    }
+    return copy;
+}
+
+/* Deep copy a module AST for independent buildModule calls */
+static ASTNode *deepCopyModule(ASTNode *modNode) {
+    return deepCopy(modNode);
+}
+
 extern std::vector<ASTNode *> g_modules;
 extern std::vector<ASTNode *> parseFiles(const std::vector<std::string> &files);
 
@@ -184,18 +204,39 @@ static void expandGenerate(ASTNode *node, const std::map<std::string, uint64_t> 
     if (!node) return;
     if (node->type == NodeType::GENERATE_FOR) {
         std::string gname = node->children[0]->value;
-        uint64_t lo = evalConst(node->children[1], params);
-        uint64_t hi = evalConst(node->children[2], params);
+        uint64_t init_val = evalConst(node->children[1], params);
+        ASTNode *cond_expr = node->children[2];
+        ASTNode *step_expr = node->children.size() > 4 ? node->children[4] : nullptr;
         ASTNode *body = node->children.size() > 3 ? node->children[3] : nullptr;
-        for (uint64_t i = lo; i < hi; i++) {
+        /* Loop: init; while(cond); step */
+        for (uint64_t i = init_val; i < init_val + 10000; ) {
+            std::map<std::string, uint64_t> loopParams = params;
+            loopParams[gname] = i;
+            if (!evalConst(cond_expr, loopParams)) break;
             ASTNode *clone = translateNode(body, "", {});
             replaceGenvar(clone, gname, i);
-            expandGenerate(clone, params, out);
+            expandGenerate(clone, loopParams, out);
+            /* Evaluate step */
+            if (step_expr) {
+                std::map<std::string, uint64_t> stepParams = loopParams;
+                i = evalConst(step_expr, stepParams);
+            } else {
+                i++;
+            }
         }
     } else if (node->type == NodeType::GENERATE_IF) {
         if (evalConst(node->children[0], params)) {
             ASTNode *clone = translateNode(node->children[1], "", {});
             expandGenerate(clone, params, out);
+        } else if (node->children.size() > 2) {
+            /* else branch */
+            ASTNode *clone = translateNode(node->children[2], "", {});
+            expandGenerate(clone, params, out);
+        }
+    } else if (node->type == NodeType::BLOCK || node->type == NodeType::GENERATE) {
+        /* Recursively expand children of BLOCK/GENERATE nodes */
+        for (auto *child : node->children) {
+            expandGenerate(child, params, out);
         }
     } else {
         out.push_back(node);
@@ -236,16 +277,13 @@ static ModuleDef *buildModule(ASTNode *modNode,
         } else if (item->type == NodeType::NET_DECL) {
             int w = (item->msb >= item->lsb) ? (item->msb - item->lsb + 1) : 1;
             bool is_signed = (item->value.find("signed") != std::string::npos);
-            /* Re-evaluate range if stored (children after identifier) */
-            if (item->children.size() >= 3) {
-                int msb = evalConst(item->children[1], m->params);
-                int lsb = evalConst(item->children[2], m->params);
-                w = (msb >= lsb) ? (msb - lsb + 1) : (lsb > msb) ? (lsb - msb + 1) : 1;
-            }
-            if (item->children.size() >= 3 && (item->msb > 0 || item->lsb > 0)) {
-                /* Multi-dimensional wire: children[0]=name, [1]=dim_msb_expr, [2]=dim_lsb_expr */
-                int dim_msb = evalConst(item->children[1], m->params);
-                int dim_lsb = evalConst(item->children[2], m->params);
+            if (item->children.size() >= 5) {
+                /* Multi-dimensional wire: [0]=name, [1]=data_msb, [2]=data_lsb, [3]=dim_msb, [4]=dim_lsb */
+                int data_msb = evalConst(item->children[1], m->params);
+                int data_lsb = evalConst(item->children[2], m->params);
+                int dim_msb = evalConst(item->children[3], m->params);
+                int dim_lsb = evalConst(item->children[4], m->params);
+                w = (data_msb >= data_lsb) ? (data_msb - data_lsb + 1) : 1;
                 int dim = dim_msb - dim_lsb + 1;
                 if (dim > 1) {
                     for (int di = 0; di < dim; di++) {
@@ -257,12 +295,18 @@ static ModuleDef *buildModule(ASTNode *modNode,
                     m->signals.push_back({item->children[0]->value,
                                           w, 0, item->value.find("reg") != std::string::npos, is_signed});
                 }
+            } else if (item->children.size() >= 3) {
+                /* Wire with range expressions in children */
+                int msb = evalConst(item->children[1], m->params);
+                int lsb = evalConst(item->children[2], m->params);
+                w = (msb >= lsb) ? (msb - lsb + 1) : 1;
+                m->signals.push_back({item->children[0]->value,
+                                      w, 0, item->value.find("reg") != std::string::npos, is_signed});
             } else {
                 /* Simple wire or wire with initialization */
                 m->signals.push_back({item->children[0]->value,
                                       w, 0, item->value.find("reg") != std::string::npos, is_signed});
                 if (item->children.size() >= 2) {
-                    /* Wire with initialization: create continuous assign */
                     auto *asn = new ASTNode();
                     asn->type = NodeType::ASSIGN;
                     auto *lhs = new ASTNode();
@@ -361,18 +405,50 @@ static void propagateSignals(std::vector<ASTNode *> &items,
             ASTNode *rhs = item->children[1];
             auto R = evalExpr(rhs, svals, widths, g_signalSigneds);
             std::string lname;
+            int targetBit = -1, targetMsb = -1, targetLsb = -1;
             if (lhs->type == NodeType::IDENTIFIER) {
                 lname = lhs->value;
             } else if (lhs->type == NodeType::BITSEL) {
                 lname = lhs->value;
+                if (lhs->children.size() >= 3) {
+                    /* Double bit-select: signal[idx][msb:lsb] or signal[idx][bit] */
+                    int idx = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
+                    lname = lname + "[" + std::to_string(idx) + "]";
+                    if (lhs->children.size() == 4) {
+                        targetMsb = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
+                        targetLsb = (int)evalExpr(lhs->children[2], svals, widths, g_signalSigneds).value;
+                    } else if (lhs->children.size() == 3) {
+                        targetBit = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
+                    }
+                } else if (lhs->children.size() == 2) {
+                    /* signal[msb:lsb] or signal[bit] */
+                    int a = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
+                    int b = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
+                    if (a == b) { targetBit = a; }
+                    else { targetMsb = std::max(a, b); targetLsb = std::min(a, b); }
+                } else if (lhs->children.size() == 1) {
+                    targetBit = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
+                }
             }
             if (!lname.empty()) {
                 int w = 32;
                 auto wi = widths.find(lname);
                 if (wi != widths.end()) w = wi->second;
                 uint64_t oldVal = svals[lname];
-                uint64_t newVal = truncVal(w, R.value);
-                if (oldVal != newVal) { svals[lname] = newVal; }
+                uint64_t newVal;
+                if (targetBit >= 0) {
+                    /* Single bit write */
+                    uint64_t mask = 1ULL << targetBit;
+                    newVal = (oldVal & ~mask) | ((R.value & 1) << targetBit);
+                } else if (targetMsb >= 0 && targetLsb >= 0) {
+                    /* Range write */
+                    int rw = targetMsb - targetLsb + 1;
+                    uint64_t mask = ((1ULL << rw) - 1) << targetLsb;
+                    newVal = (oldVal & ~mask) | ((truncVal(rw, R.value) & ((1ULL << rw) - 1)) << targetLsb);
+                } else {
+                    newVal = truncVal(w, R.value);
+                }
+                if (oldVal != newVal) { svals[lname] = newVal; changed = true; }
             }
         }
         /* Re-execute always blocks */
@@ -469,23 +545,39 @@ static void execItem(ASTNode *item, SignalValues &svals, SignalWidths &widths,
                 if (wi != widths.end()) w = wi->second;
                 svals[lhs->value] = truncVal(w, R.value);
             } else if (lhs->type == NodeType::BITSEL) {
+                std::string lname = lhs->value;
+                int idx = -1, msb = -1, lsb = -1;
+                if (lhs->children.size() >= 3) {
+                    /* Double bit-select: signal[dim_idx][msb:lsb] or signal[dim_idx][bit] */
+                    int dimIdx = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
+                    lname = lname + "[" + std::to_string(dimIdx) + "]";
+                    if (lhs->children.size() == 4) {
+                        msb = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
+                        lsb = (int)evalExpr(lhs->children[2], svals, widths, g_signalSigneds).value;
+                    } else {
+                        idx = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
+                    }
+                } else if (lhs->children.size() == 2) {
+                    int a = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
+                    int b = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
+                    if (a == b) { idx = a; }
+                    else { msb = std::max(a, b); lsb = std::min(a, b); }
+                } else if (lhs->children.size() == 1) {
+                    idx = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
+                }
                 int w = 32;
-                auto wi = widths.find(lhs->value);
+                auto wi = widths.find(lname);
                 if (wi != widths.end()) w = wi->second;
-                uint64_t cur = svals[lhs->value];
+                uint64_t cur = svals[lname];
                 uint64_t val = R.value;
-                if (lhs->children.size() >= 2) {
-                    int msb = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
-                    int lsb = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
-                    if (msb < lsb) std::swap(msb, lsb);
+                if (msb >= 0 && lsb >= 0) {
                     int rw = msb - lsb + 1;
                     uint64_t mask = ((1ULL << rw) - 1) << lsb;
                     cur = (cur & ~mask) | ((val & ((1ULL << rw) - 1)) << lsb);
-                } else if (lhs->children.size() == 1) {
-                    int idx = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
+                } else if (idx >= 0) {
                     cur = (cur & ~(1ULL << idx)) | ((val & 1) << idx);
                 }
-                svals[lhs->value] = truncVal(w, cur);
+                svals[lname] = truncVal(w, cur);
             }
         }
         if (g_assignItems) propagateSignals(*g_assignItems, svals, widths);
@@ -655,53 +747,48 @@ int SimulationEngine::compile(const std::string &filelist, const std::string &to
 
     std::vector<ModuleDef *> defs;
 
-    /* Two-pass build: first build all modules, then re-build children with overrides */
-    for (auto *mod : g_modules) defs.push_back(buildModule(mod));
-
-    /* Find top module and apply param overrides to children */
-    std::string topName = top.empty() ? defs[0]->name : top;
-    ModuleDef *topDef = nullptr;
-    for (auto *d : defs) {
-        if (d->name == topName) { topDef = d; break; }
+    /* Find top module AST */
+    std::string topName = top.empty() ? "" : top;
+    ASTNode *topAst = nullptr;
+    for (auto *mod : g_modules) {
+        if (topName.empty() || mod->value == topName) { topAst = mod; if (!topName.empty()) break; }
     }
-    if (!topDef) {
-        for (auto *d : defs) {
-            if (d->name.find("tb") != std::string::npos || d->name.find("TB") != std::string::npos) {
-                topDef = d; break;
+    if (!topAst) {
+        for (auto *mod : g_modules) {
+            if (mod->value.find("tb") != std::string::npos || mod->value.find("TB") != std::string::npos) {
+                topAst = mod; break;
             }
         }
     }
-    if (!topDef) topDef = defs[0];
+    if (!topAst) topAst = g_modules[0];
+    topName = topAst->value;
 
-    std::vector<ASTNode *> flatItems;
-    std::vector<SignalDef> extraSignals;
+    /* Build top module first to get its params */
+    defs.push_back(buildModule(topAst));
+    ModuleDef *topDef = defs[0];
 
-    /* Re-build child modules with overrides from top module's MODULE_INST */
-    for (auto *topMod : g_modules) {
-        if (topMod->value != topDef->name) continue;
-        for (auto *item : topMod->children) {
-            if (!item || item->type != NodeType::MODULE_INST) continue;
-            /* Check for param overrides (IDENTIFIER children before PORT_CONN) */
-            std::map<std::string, uint64_t> overrides;
+    /* Build child modules with overrides detected from top's MODULE_INST */
+    for (auto *mod : g_modules) {
+        if (mod == topAst) continue;
+        /* Detect overrides from top module */
+        std::map<std::string, uint64_t> overrides;
+        for (auto *item : topAst->children) {
+            if (!item || item->type != NodeType::MODULE_INST || item->value != mod->value) continue;
             for (auto *ch : item->children) {
                 if (ch->type == NodeType::PORT_CONN) break;
                 if (ch->type == NodeType::IDENTIFIER && !ch->children.empty()) {
                     overrides[ch->value] = evalConst(ch->children[0], topDef->params);
                 }
             }
-            if (overrides.empty()) continue;
-            /* Re-build child module with overrides */
-            std::string childMod = item->value;
-            for (auto *childAst : g_modules) {
-                if (childAst->value != childMod) continue;
-                ModuleDef *rebuilt = buildModule(childAst, overrides);
-                for (auto *&d : defs) {
-                    if (d->name == childMod) { d = rebuilt; break; }
-                }
-                break;
-            }
+            break;
         }
+        ASTNode *modCopy = deepCopyModule(mod);
+        ModuleDef *md = buildModule(modCopy, overrides);
+        defs.push_back(md);
     }
+
+    std::vector<ASTNode *> flatItems;
+    std::vector<SignalDef> extraSignals;
 
     for (auto *item : topDef->items) {
         if (item->type == NodeType::MODULE_INST) {

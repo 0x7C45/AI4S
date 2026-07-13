@@ -66,6 +66,7 @@ static ASTNode *makeNum(VerilogNum *n) {
 
 %left LOGOR
 %left LOGAND
+%right '?' ':'
 %left '|'
 %left '^' XNOR
 %left '&' NAND NOR
@@ -148,9 +149,10 @@ module_item:
           addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno));
           free($3);
           $$->msb = $2->msb; $$->lsb = $2->lsb;
-          /* Store dimension range expressions */
-          for (auto *c : $4->children) addChild($$, c);
+          /* Store data range expressions + dimension range expressions */
+          for (auto *c : $2->children) addChild($$, c);
           $2->children.clear(); freeTree($2);
+          for (auto *c : $4->children) addChild($$, c);
           $4->children.clear(); freeTree($4);
       }
     | WIRE range IDENTIFIER decl_list ';'
@@ -181,7 +183,10 @@ module_item:
     | INTEGER_KW IDENTIFIER decl_list ';'
       { $$ = makeNode(NodeType::NET_DECL, "integer", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $2, yylineno)); free($2); $$->msb = 31; $$->lsb = 0; }
     | LOCALPARAM IDENTIFIER '=' expr ';'
-      { $$ = makeNode(NodeType::LOCALPARAM_DECL, $2, yylineno); free($2); addChild($$, $4); }
+      {
+          fprintf(stderr, "LOCALPARAM '%s' expr_type=%d expr_val='%s'\n", $2, (int)$4->type, $4->value.c_str());
+          $$ = makeNode(NodeType::LOCALPARAM_DECL, $2, yylineno); free($2); addChild($$, $4);
+      }
     | PARAMETER IDENTIFIER '=' expr ';'
       { $$ = makeNode(NodeType::LOCALPARAM_DECL, $2, yylineno); free($2); addChild($$, $4); }
     | ASSIGN lvalue '=' expr ';'
