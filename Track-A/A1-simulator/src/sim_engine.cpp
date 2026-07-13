@@ -481,8 +481,10 @@ static void propagateSignals(std::vector<ASTNode *> &items,
                 execItem(ab, svals, widths, emptyFds, dummyFinished);
             }
         }
-        if (svals != before) changed = true;
-        if (!changed) break;
+        if (!changed && iter > 0) break;
+        if (changed) continue;
+        /* On first iteration with no changes, still check if always blocks changed anything */
+        if (iter == 0 && !changed) break;
     }
     inPropagate = false;
 }
