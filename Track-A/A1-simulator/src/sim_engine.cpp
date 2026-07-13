@@ -431,10 +431,12 @@ static void propagateSignals(std::vector<ASTNode *> &items,
                 if (lhs->children.size() >= 3) {
                     int idx = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
                     lname = lname + "[" + std::to_string(idx) + "]";
-                    if (lhs->children.size() == 4) {
+                    if (lhs->children.size() == 3) {
+                        /* signal[idx][msb:lsb] */
                         targetMsb = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
                         targetLsb = (int)evalExpr(lhs->children[2], svals, widths, g_signalSigneds).value;
                     } else {
+                        /* signal[idx][bit] — 4 children with sentinel */
                         targetBit = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
                     }
                 } else if (lhs->children.size() == 2) {
@@ -518,6 +520,8 @@ static void execItem(ASTNode *item, SignalValues &svals, SignalWidths &widths,
             size_t pos = 0;
             size_t li = 0;
             for (size_t i = 0; i < fmt.size(); i++) {
+                /* Skip escape sequences in format (\n, \t, etc.) */
+                if (fmt[i] == '\\' && i + 1 < fmt.size()) { i++; continue; }
                 if (fmt[i] == '%' && i + 1 < fmt.size()) {
                     char spec = fmt[i + 1];
                     i++;
@@ -563,7 +567,7 @@ static void execItem(ASTNode *item, SignalValues &svals, SignalWidths &widths,
                     /* Double bit-select: signal[dim_idx][msb:lsb] or signal[dim_idx][bit] */
                     int dimIdx = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
                     lname = lname + "[" + std::to_string(dimIdx) + "]";
-                    if (lhs->children.size() == 4) {
+                    if (lhs->children.size() == 3) {
                         msb = (int)evalExpr(lhs->children[1], svals, widths, g_signalSigneds).value;
                         lsb = (int)evalExpr(lhs->children[2], svals, widths, g_signalSigneds).value;
                     } else {
@@ -973,10 +977,108 @@ int SimulationEngine::run(const std::string &simPath, unsigned int /*threads*/) 
     }
     propagateSignals(assignItems, svals, widths);
 
-    /* Execute initial blocks */
+    /* Event-driven execution of initial blocks.
+     * Each initial block's body is executed statement by statement.
+     * When a DELAY is hit, we toggle clocks and propagate until the
+     * condition is met, then continue with the next statement.
+     */
     for (auto *item : procItems) {
-        execItem(item, svals, widths, fds, finished);
-        if (finished) break;
+        if (item->children.empty()) continue;
+        ASTNode *body = item->children[0];
+        if (!body) continue;
+        /* Execute statements sequentially, handling delays inline */
+        std::vector<ASTNode *> stmts;
+        /* Flatten: if body is a BLOCK, use its children; otherwise single stmt */
+        if (body->type == NodeType::BLOCK || body->type == NodeType::INITIAL_BLOCK) {
+            for (auto *c : body->children) stmts.push_back(c);
+        } else {
+            stmts.push_back(body);
+        }
+        for (size_t si = 0; si < stmts.size(); si++) {
+            ASTNode *stmt = stmts[si];
+            if (stmt->type == NodeType::DELAY) {
+                /* Handle delay inline */
+                if (stmt->value == "posedge" || stmt->value == "negedge") {
+                    std::string sig = stmt->children.empty() ? "clk" : stmt->children[0]->value;
+                    bool wantPosedge = (stmt->value == "posedge");
+                    /* Toggle clock until desired edge */
+                    for (int t = 0; t < 100000; t++) {
+                        uint64_t prev = svals[sig];
+                        svals[sig] = prev ? 0 : 1;
+                        propagateSignals(assignItems, svals, widths);
+                        uint64_t cur = svals[sig];
+                        if (wantPosedge && prev == 0 && cur == 1) break;
+                        if (!wantPosedge && prev == 1 && cur == 0) break;
+                    }
+                } else {
+                    int delay = 0;
+                    try { delay = std::stoi(stmt->value); } catch (...) {}
+                    for (int t = 0; t < delay; t++) {
+                        for (auto &clk : g_clocks) {
+                            svals[clk.signal] = svals[clk.signal] ? 0 : 1;
+                            propagateSignals(assignItems, svals, widths);
+                        }
+                    }
+                }
+            } else if (stmt->type == NodeType::FOR) {
+                /* Handle for loop with inline delay support */
+                if (stmt->children.size() >= 6) {
+                    auto Rinit = evalExpr(stmt->children[1], svals, widths, g_signalSigneds);
+                    if (stmt->children[0]->type == NodeType::IDENTIFIER)
+                        svals[stmt->children[0]->value] = Rinit.value;
+                    ASTNode *forBody = stmt->children[5];
+                    for (int iter = 0; iter < 100000; iter++) {
+                        if (!evalExpr(stmt->children[2], svals, widths, g_signalSigneds).value) break;
+                        /* Execute for-loop body statements */
+                        ASTNode *forBody = stmt->children[5];
+                        std::vector<ASTNode *> forStmts;
+                        if (forBody && (forBody->type == NodeType::BLOCK || forBody->type == NodeType::INITIAL_BLOCK)) {
+                            for (auto *c : forBody->children) forStmts.push_back(c);
+                        } else if (forBody) {
+                            forStmts.push_back(forBody);
+                        }
+                        for (size_t fi = 0; fi < forStmts.size(); fi++) {
+                            ASTNode *fstmt = forStmts[fi];
+                            if (fstmt->type == NodeType::DELAY) {
+                                if (fstmt->value == "posedge" || fstmt->value == "negedge") {
+                                    std::string sig = fstmt->children.empty() ? "clk" : fstmt->children[0]->value;
+                                    bool wantPosedge = (fstmt->value == "posedge");
+                                    for (int t = 0; t < 100000; t++) {
+                                        uint64_t prev = svals[sig];
+                                        svals[sig] = prev ? 0 : 1;
+                                        propagateSignals(assignItems, svals, widths);
+                                        uint64_t cur = svals[sig];
+                                        if (wantPosedge && prev == 0 && cur == 1) break;
+                                        if (!wantPosedge && prev == 1 && cur == 0) break;
+                                    }
+                                } else {
+                                    int d = 0;
+                                    try { d = std::stoi(fstmt->value); } catch (...) {}
+                                    for (int t = 0; t < d; t++) {
+                                        for (auto &clk : g_clocks) {
+                                            svals[clk.signal] = svals[clk.signal] ? 0 : 1;
+                                            propagateSignals(assignItems, svals, widths);
+                                        }
+                                    }
+                                }
+                            } else {
+                                execItem(fstmt, svals, widths, fds, finished);
+                                propagateSignals(assignItems, svals, widths);
+                            }
+                            if (finished) break;
+                        }
+                        if (finished) break;
+                        auto Rupd = evalExpr(stmt->children[4], svals, widths, g_signalSigneds);
+                        if (stmt->children[3]->type == NodeType::IDENTIFIER)
+                            svals[stmt->children[3]->value] = Rupd.value;
+                    }
+                }
+            } else {
+                execItem(stmt, svals, widths, fds, finished);
+                propagateSignals(assignItems, svals, widths);
+            }
+            if (finished) break;
+        }
     }
 
     for (auto &p : fds) fclose(p.second);
