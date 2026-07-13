@@ -86,21 +86,25 @@ Plans:
 **Notes**: Teammate 1 drives this with GSD assistance. No phase dependencies on A3. Managed separately via teammate's own GSD workspace.
 
 ### Phase 5: A1 Basic Simulator
-**Goal**: flex/bison Verilog parser + combinational logic simulation engine, passing basic01-05, alu, priority_encoder (14 points)
+**Goal**: flex/bison Verilog parser + combinational logic simulation engine, passing basic01, basic02, alu, priority_encoder (8 points)
 **Depends on**: Nothing (independent track)
-**Requirements**: A1-PARSE-01, A1-PARSE-02, A1-PARSE-03, A1-PARSE-04, A1-PARSE-05, A1-PARSE-06, A1-PARSE-07, A1-SIM-01, A1-MK-01, A1-MK-02, A1-MK-03, A1-CASE-01, A1-CASE-02, A1-CASE-03
+**Requirements**: A1-PARSE-01, A1-PARSE-02, A1-PARSE-03, A1-PARSE-04, A1-PARSE-05, A1-PARSE-06, A1-SIM-01, A1-MK-01, A1-MK-02, A1-MK-03, A1-CASE-01, A1-CASE-02, A1-CASE-03
 **Success Criteria**:
   1. `make build` compiles flex/bison/C++ source and produces simulator executable
-  2. `make compile_sim FILELIST=filelist.txt TOP=tb` parses RTL and produces simulation-ready artifact
-  3. `make run` generates `tb/output.mem` that matches `tb/output_ref.mem` for basic01-05, alu, priority_encoder
-  4. Parser handles: module/endmodule, assign, always @(*), reg/wire, if-else/case/for, parameter, `{}` concatenation, bit select
-  5. System functions: $fopen, $fscanf, $fdisplay, $fgets, $display, $finish
-**Plans**: TBD
+  2. `make compile_sim FILELIST=filelist.txt TOP=tb` parses RTL and produces self-contained sim.out
+  3. `make run` (no args) generates `tb/output.mem` that matches `tb/output_ref.mem` for basic01, basic02, alu, priority_encoder
+  4. Parser handles: module/endmodule, assign, always @(*), initial, reg/wire/integer, if-else/case/for, parameter, generate, `{}` concatenation, bit select, module instantiation
+  5. System functions: $fopen, $fscanf, $fdisplay, $fgets, $display, $finish, $fclose
+**Scope note**: basic03-05 deferred to Phase 6 (they need sequential logic: posge clk, DFF, non-blocking assign)
+**Plans**: 1 plan
+
+Plans:
+- [ ] 05-01-PLAN.md — A1 Basic Simulator: flex/bison parser + C++ event-driven engine, passing basic01/basic02/alu/priority_encoder (8 points)
 
 ### Phase 6: A1 Advanced Features
 **Goal**: Sequential logic simulation (posedge clk, DFF, non-blocking assign), multi-file hierarchy, passing i2c/ip/axis_fifo/sha256 (8 points)
 **Depends on**: Phase 5
-**Requirements**: A1-SIM-02, A1-SIM-03, A1-SIM-04, A1-INC-01, A1-CASE-04, A1-CASE-05, A1-CASE-06, A1-CASE-07
+**Requirements**: A1-PARSE-07, A1-SIM-02, A1-SIM-03, A1-SIM-04, A1-INC-01, A1-CASE-01, A1-CASE-04, A1-CASE-05, A1-CASE-06, A1-CASE-07
 **Success Criteria**:
   1. Always @(posedge clk) with non-blocking assignment (<=) works correctly
   2. DFF with async reset modeled properly
@@ -133,6 +137,6 @@ Plans:
 | 2. A3 Correctness — All 10 Circuits | 0/2 | Not started | - |
 | 3. A3 Multi-Point PPA + Auto-Tuning | 0/2 | Not started | - |
 | 4. A3 Submission Package | 0/1 | Not started | - |
-| 5. A1 Basic Simulator | 0/0 | **Next** (你) | - |
+| 5. A1 Basic Simulator | 1/1 | **Planned** (你) | - |
 | 6. A1 Advanced Features | 0/0 | Not started | - |
 | 7. A1 Performance + GEMM | 0/0 | Not started | - |
