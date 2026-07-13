@@ -171,15 +171,15 @@ module_item:
     | WIRE IDENTIFIER decl_list ';'
       { $$ = makeNode(NodeType::NET_DECL, "wire", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $2, yylineno)); free($2); $$->msb = 0; $$->lsb = 0; }
     | REG range IDENTIFIER decl_list ';'
-      { $$ = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno)); free($3); $$->msb = $2->msb; $$->lsb = $2->lsb; freeTree($2); }
+      { $$ = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno)); free($3); $$->msb = $2->msb; $$->lsb = $2->lsb; for (auto *c : $2->children) addChild($$, c); $2->children.clear(); freeTree($2); }
     | REG range IDENTIFIER '=' expr ';'
-      { $$ = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno)); free($3); $$->msb = $2->msb; $$->lsb = $2->lsb; freeTree($2); }
+      { $$ = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno)); free($3); $$->msb = $2->msb; $$->lsb = $2->lsb; for (auto *c : $2->children) addChild($$, c); $2->children.clear(); freeTree($2); }
     | REG IDENTIFIER '=' expr ';'
       { $$ = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $2, yylineno)); free($2); $$->msb = 0; $$->lsb = 0; }
     | REG IDENTIFIER decl_list ';'
       { $$ = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $2, yylineno)); free($2); $$->msb = 0; $$->lsb = 0; }
     | REG SIGNED range IDENTIFIER decl_list ';'
-      { $$ = makeNode(NodeType::NET_DECL, "reg signed", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $4, yylineno)); free($4); $$->msb = $3->msb; $$->lsb = $3->lsb; freeTree($3); }
+      { $$ = makeNode(NodeType::NET_DECL, "reg signed", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $4, yylineno)); free($4); $$->msb = $3->msb; $$->lsb = $3->lsb; for (auto *c : $3->children) addChild($$, c); $3->children.clear(); freeTree($3); }
     | INTEGER_KW IDENTIFIER decl_list ';'
       { $$ = makeNode(NodeType::NET_DECL, "integer", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $2, yylineno)); free($2); $$->msb = 31; $$->lsb = 0; }
     | LOCALPARAM IDENTIFIER '=' expr ';'

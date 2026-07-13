@@ -1993,13 +1993,13 @@ yyreduce:
 
   case 25: /* module_item: REG range IDENTIFIER decl_list ';'  */
 #line 174 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
-      { (yyval.node) = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = (yyvsp[-3].node)->msb; (yyval.node)->lsb = (yyvsp[-3].node)->lsb; freeTree((yyvsp[-3].node)); }
+      { (yyval.node) = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = (yyvsp[-3].node)->msb; (yyval.node)->lsb = (yyvsp[-3].node)->lsb; for (auto *c : (yyvsp[-3].node)->children) addChild((yyval.node), c); (yyvsp[-3].node)->children.clear(); freeTree((yyvsp[-3].node)); }
 #line 1998 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 26: /* module_item: REG range IDENTIFIER '=' expr ';'  */
 #line 176 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
-      { (yyval.node) = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno)); free((yyvsp[-3].str)); (yyval.node)->msb = (yyvsp[-4].node)->msb; (yyval.node)->lsb = (yyvsp[-4].node)->lsb; freeTree((yyvsp[-4].node)); }
+      { (yyval.node) = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno)); free((yyvsp[-3].str)); (yyval.node)->msb = (yyvsp[-4].node)->msb; (yyval.node)->lsb = (yyvsp[-4].node)->lsb; for (auto *c : (yyvsp[-4].node)->children) addChild((yyval.node), c); (yyvsp[-4].node)->children.clear(); freeTree((yyvsp[-4].node)); }
 #line 2004 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
@@ -2017,7 +2017,7 @@ yyreduce:
 
   case 29: /* module_item: REG SIGNED range IDENTIFIER decl_list ';'  */
 #line 182 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
-      { (yyval.node) = makeNode(NodeType::NET_DECL, "reg signed", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = (yyvsp[-3].node)->msb; (yyval.node)->lsb = (yyvsp[-3].node)->lsb; freeTree((yyvsp[-3].node)); }
+      { (yyval.node) = makeNode(NodeType::NET_DECL, "reg signed", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = (yyvsp[-3].node)->msb; (yyval.node)->lsb = (yyvsp[-3].node)->lsb; for (auto *c : (yyvsp[-3].node)->children) addChild((yyval.node), c); (yyvsp[-3].node)->children.clear(); freeTree((yyvsp[-3].node)); }
 #line 2022 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 

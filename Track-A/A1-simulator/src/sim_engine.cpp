@@ -915,7 +915,7 @@ int SimulationEngine::run(const std::string &simPath, unsigned int /*threads*/) 
         widths[s.name] = s.width;
         if (s.is_signed) g_signalSigneds[s.name] = true;
     }
-
+    /* Debug: print key signals after init */
     std::map<int, FILE *> fds;
     bool finished = false;
 
