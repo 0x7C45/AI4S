@@ -18,9 +18,9 @@
 
 ### 团队背景
 
-- **负责人（你）**: YSYX（一生一芯）经历，Verilog/C/Python/Yosys/STA/Verilator 全栈
-- **队友1**: 主要靠 Claude+GSD 辅助
-- **队友2**: 主要靠 Claude+GSD 辅助
+- **负责人（你）**: YSYX（一生一芯）经历，Verilog/C/Python/Yosys/STA/Verilator 全栈 → **负责 A1 RTL 仿真器**（代码复用最多：NEMU/Verilator）
+- **队友**: 主要靠 Claude+GSD 辅助 → **负责 A3 逻辑综合**（Yosys 流程成熟，GSD 可直接辅助）
+- **队友2**: 主要靠 Claude+GSD 辅助 → **负责 A2 验证生成**
 
 ## Requirements
 
@@ -62,7 +62,7 @@
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
 | 赛道选择 A | 团队有 EDA 经验，与 YSYX 背景匹配 | — Pending |
-| 分工：你做 A3，队友做 A1/A2 | 你有 Yosys/STA 经验，A3 PPA 90分可最大化你的经验价值 | — Pending |
+| 分工调整：你做 A1，队友做 A3 | A1 代码复用最多(NEMU/Verilator)，需深入理解；A3 Yosys 流程成熟，GSD 可直接辅助队友 | — Pending |
 | A3 基于 Yosys 增强 | open_source_based 类型，61小时内最快出成果 | — Pending |
 | A3 策略：先正确后优化 | 功能正确是评分前提，不正确 = 0 分 | — Pending |
 | A1/A2 用 GSD 辅助队友开发 | 队友无 EDA 背景，GSD 可提供从零到交付的完整辅助 | — Pending |
