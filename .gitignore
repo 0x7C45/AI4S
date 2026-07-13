@@ -47,3 +47,4 @@ node_modules/
 
 # Planning quick task artifacts (keep planning docs tracked)
 .planning/quick/*/
+Track-A/A1-simulator/simulator
