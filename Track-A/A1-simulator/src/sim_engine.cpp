@@ -977,11 +977,6 @@ int SimulationEngine::run(const std::string &simPath, unsigned int /*threads*/) 
     }
     propagateSignals(assignItems, svals, widths);
 
-    /* Event-driven execution of initial blocks.
-     * Each initial block's body is executed statement by statement.
-     * When a DELAY is hit, we toggle clocks and propagate until the
-     * condition is met, then continue with the next statement.
-     */
     for (auto *item : procItems) {
         if (item->children.empty()) continue;
         ASTNode *body = item->children[0];
