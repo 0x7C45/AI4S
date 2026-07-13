@@ -164,7 +164,7 @@ module_item:
           addChild(decl, makeNode(NodeType::IDENTIFIER, $3, yylineno));
           free($3);
           decl->msb = $2->msb; decl->lsb = $2->lsb;
-          freeTree($2);
+          for (auto *c : $2->children) addChild(decl, c); $2->children.clear(); freeTree($2);
           addChild(decl, $5);  /* init expression */
           $$ = decl;
       }

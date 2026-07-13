@@ -1978,7 +1978,7 @@ yyreduce:
           addChild(decl, makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno));
           free((yyvsp[-3].str));
           decl->msb = (yyvsp[-4].node)->msb; decl->lsb = (yyvsp[-4].node)->lsb;
-          freeTree((yyvsp[-4].node));
+          for (auto *c : (yyvsp[-4].node)->children) addChild(decl, c); (yyvsp[-4].node)->children.clear(); freeTree((yyvsp[-4].node));
           addChild(decl, (yyvsp[-1].node));  /* init expression */
           (yyval.node) = decl;
       }

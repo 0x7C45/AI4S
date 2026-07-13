@@ -280,6 +280,11 @@ static ModuleDef *buildModule(ASTNode *modNode,
         } else if (item->type == NodeType::NET_DECL) {
             int w = (item->msb >= item->lsb) ? (item->msb - item->lsb + 1) : 1;
             bool is_signed = (item->value.find("signed") != std::string::npos);
+            if (item->children[0]->value == "input_padded") {
+                int msb = evalConst(item->children[1], m->params);
+                int lsb = evalConst(item->children[2], m->params);
+                w = (msb >= lsb) ? (msb - lsb + 1) : 1;
+            }
             if (item->children.size() >= 5) {
                 /* Multi-dimensional wire: [0]=name, [1]=data_msb, [2]=data_lsb, [3]=dim_msb, [4]=dim_lsb */
                 int data_msb = evalConst(item->children[1], m->params);
@@ -305,6 +310,17 @@ static ModuleDef *buildModule(ASTNode *modNode,
                 w = (msb >= lsb) ? (msb - lsb + 1) : 1;
                 m->signals.push_back({item->children[0]->value,
                                       w, 0, item->value.find("reg") != std::string::npos, is_signed});
+                if (item->children.size() >= 4) {
+                    /* Wire with initialization: create continuous assign */
+                    auto *asn = new ASTNode();
+                    asn->type = NodeType::ASSIGN;
+                    auto *lhs = new ASTNode();
+                    lhs->type = NodeType::IDENTIFIER;
+                    lhs->value = item->children[0]->value;
+                    asn->children.push_back(lhs);
+                    asn->children.push_back(item->children[3]);
+                    m->items.push_back(asn);
+                }
             } else {
                 /* Simple wire or wire with initialization */
                 m->signals.push_back({item->children[0]->value,
@@ -915,7 +931,7 @@ int SimulationEngine::run(const std::string &simPath, unsigned int /*threads*/) 
         widths[s.name] = s.width;
         if (s.is_signed) g_signalSigneds[s.name] = true;
     }
-    /* Debug: print key signals after init */
+
     std::map<int, FILE *> fds;
     bool finished = false;
 
