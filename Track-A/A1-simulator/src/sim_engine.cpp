@@ -966,7 +966,7 @@ int SimulationEngine::run(const std::string &simPath, unsigned int /*threads*/) 
                 if (period > 0) {
                     std::string sig = body->children[0]->value;
                     g_clocks.push_back({sig, period});
-                    svals[sig] = svals[sig] ? 0 : 1;  /* Initial toggle */
+                    svals[sig] = svals[sig] ? 0 : 1;
                 }
             }
         }
