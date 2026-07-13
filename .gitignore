@@ -1,0 +1,49 @@
+# Build artifacts
+*.o
+*.out
+*.bin
+*.elf
+*.exe
+*.pyc
+__pycache__/
+*.egg-info/
+dist/
+build/
+*.so
+*.dylib
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.sublime-*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Yosys/EDA temp files
+*.ys_tmp
+*.blif
+*.edif
+synth_*.ys
+_synth.ys
+
+# Simulation outputs
+*.vcd
+*.fst
+tb/output.mem
+output.mem
+
+# Python
+.venv/
+venv/
+*.egg
+
+# Node
+node_modules/
+
+# Planning quick task artifacts (keep planning docs tracked)
+.planning/quick/*/
