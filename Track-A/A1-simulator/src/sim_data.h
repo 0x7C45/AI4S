@@ -1,15 +1,28 @@
 #ifndef A1_SIMULATOR_SIM_DATA_H
 #define A1_SIMULATOR_SIM_DATA_H
 
+#include "ast.h"
 #include <cstdint>
+#include <map>
 #include <string>
+#include <vector>
 
-struct SimulationData {
-    std::string top_module;
-    std::uint64_t current_time = 0;
+struct SignalDef {
+    std::string name;
+    int width;
+    uint64_t init_value;
+    bool is_reg;
+    bool is_signed;
 };
 
-bool writeSimData(const std::string &path, const SimulationData &data);
-bool readSimData(const std::string &path, SimulationData *data);
+struct ModuleDef {
+    std::string name;
+    std::map<std::string, uint64_t> params;
+    std::vector<SignalDef> signals;
+    std::vector<ASTNode *> items;
+};
 
-#endif  // A1_SIMULATOR_SIM_DATA_H
+bool writeModuleDefs(const std::string &path, const std::vector<ModuleDef *> &modules);
+bool readModuleDefs(const std::string &path, std::vector<ModuleDef *> &modules);
+
+#endif
