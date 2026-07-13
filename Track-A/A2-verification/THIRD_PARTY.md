@@ -97,7 +97,7 @@
 - **调用边界**（依 `ENVIRONMENT.md §4`）：
   - 仿真器：编译 RTL（`verilator --cc --build ...`），由 cocotb 经 VPI 驱动。
   - 覆盖率插桩：编译期两标志 `--coverage-line --coverage-toggle`（**branch 由 `--coverage-line` 自动产出**；Verilator 5.050 实测无 `--coverage-branch` 标志）；仿真后由 `verilator_coverage` 合并 `coverage.dat`，交 `src/coverage_collect` 解析为行/分支覆盖率。
-    > ⚠️ coverage 命令待 congress 评审是否加 `--coverage-expr`/`-fsm`；当前 `--coverage-line` 自动产 line+branch，`--coverage-toggle` 产 toggle，functional 靠 cocotb bin。
+    > ✅ **congress 评审已裁决（2026-07-14）**：coverage 命令定标 `--coverage-line --coverage-toggle`（选项 A）。理由：`--coverage-line` 自动产 line+branch（Verilator 官方设计，branch 是 line coverage 结构化副产品）；functional(30%) 靠 cocotb bin，非 Verilator 标志。落地：①`COVERAGE_FLAGS` 参数化（Makefile 顶层变量，默认 A）；②解析器 schema-driven（字段从标志派生）；③coverage 文件头写 `verilator --version`+flags；④Phase1 末单端 C 烟雾测试验 fsm 格式四方一致；⑤functional bin 模板预置（FSM/数据通路/存储器/AXI 4 类，30% 权重杠杆）；⑥评分细则若发布且 branch 解读为真值表则切 B（零代码）。
   - 综合覆盖率公式以 `scoring.md` 为准：**C = 0.4×行 + 0.3×分支 + 0.3×功能**（严禁抄公开样例 case4 的 0.42/0.28/0.30）。
 - **覆盖率口径注记（case1 line=53% 根因）**：公开样例 case1 行覆盖 53%（168/317）经本队查清为 **RTL 参数化死码**，非 Verilator 依赖问题、也非 wrapper 稀释——`case1.v` L215 `always @*` 三分支（L243 `if(SEGMENT_COUNT==1)` 直通 / L302 `else if(EXPAND)` 扩展 / L434 `else` SHRINK 激活），配置 `S_DATA=32 / M_DATA=16` 使前两分支恒假，L243–L433 约 139–149 可执行行成死码；`case1_cocotb_top.v` 为纯结构连线（无 `always`/`assign`/Clock 生成），LINE/BRANCH 全为 `--`，0 行贡献。故 Verilator 覆盖率口径可信，本队按现状使用，不切换工具链。
 - **打包**：**否**，作为系统二进制由评测机自带。若赛方不提供，须在 README 注明 `verilator --version` 必须输出 5.050。本队不把 Verilator 二进制打入离线 wheel 目录。

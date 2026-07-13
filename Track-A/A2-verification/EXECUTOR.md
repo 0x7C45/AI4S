@@ -37,7 +37,7 @@
 三方必须遵守的统一约束（偏离需提 issue，不擅自改 PLAN）：
 
 - **路线**：cocotb + Verilator，覆盖率用 `--coverage-line --coverage-toggle`（PLAN.md；**branch 由 `--coverage-line` 自动产出**，Verilator 5.050 无 `--coverage-branch` 标志）
-  > ⚠️ coverage 命令待 congress 评审是否加 `--coverage-expr`/`-fsm`；当前 `--coverage-line` 自动产 line+branch，`--coverage-toggle` 产 toggle，functional 靠 cocotb bin。
+  > ✅ **congress 评审已裁决（2026-07-14）**：coverage 命令定标 `--coverage-line --coverage-toggle`（选项 A）。理由：`--coverage-line` 自动产 line+branch（Verilator 官方设计，branch 是 line coverage 结构化副产品）；functional(30%) 靠 cocotb bin，非 Verilator 标志。落地：①`COVERAGE_FLAGS` 参数化（Makefile 顶层变量，默认 A）；②解析器 schema-driven（字段从标志派生）；③coverage 文件头写 `verilator --version`+flags；④Phase1 末单端 C 烟雾测试验 fsm 格式四方一致；⑤functional bin 模板预置（FSM/数据通路/存储器/AXI 4 类，30% 权重杠杆）；⑥评分细则若发布且 branch 解读为真值表则切 B（零代码）。
 - **接口契约**：run.sh 五参数 + 七个 JSON 产物 schema（design/skeleton/constraints/bins/func_cov/result/report）（PLAN.md）
 - **评测对象**：10 个独立电路，每电路单独计分（spec.md）
 - **覆盖率公式**：C = 0.4×行 + 0.3×分支 + 0.3×功能，行/分支占 70%（PLAN.md）

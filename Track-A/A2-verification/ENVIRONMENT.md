@@ -12,7 +12,7 @@
 - **评测 OS = Linux x86_64**，**断网**；容器 Docker 或服务器二选一，不强制。
 - **依赖全打包随提交交**：`pip install` 联网装会失败；每个 wheel 必须 `linux/amd64 + Python 3.12` manylinux。必交 `requirements.txt`（钉死版本）+ `THIRD_PARTY.md`（版本/许可/调用边界）。
 - **仿真器锁 Verilator 5.050**（PLAN.md 路线；官方未锁 VCS，A2 spec 把 VCS 列为「待澄清」）。覆盖率编译：`verilator --cc --build --coverage-line --coverage-toggle --top-module <top> <rtl>`；综合公式 = **0.4×行 + 0.3×分支 + 0.3×功能**（scoring.md locked；禁止抄公开样例 case4 的 0.42/0.28/0.30）。
-  > ⚠️ coverage 命令待 congress 评审是否加 `--coverage-expr`/`-fsm`；当前 `--coverage-line` 自动产 line+branch（5.050 实测 coverage.dat branch 83.3%），`--coverage-toggle` 产 toggle，functional 靠 cocotb bin。Verilator 5.050 实测无 `--coverage-branch` 标志（Invalid option）。
+  > ✅ **congress 评审已裁决（2026-07-14）**：coverage 命令定标 `--coverage-line --coverage-toggle`（选项 A）。理由：`--coverage-line` 自动产 line+branch（Verilator 官方设计，branch 是 line coverage 结构化副产品；5.050 实测 coverage.dat branch 83.3%）；functional(30%) 靠 cocotb bin，非 Verilator 标志。落地：①`COVERAGE_FLAGS` 参数化（Makefile 顶层变量，默认 A）；②解析器 schema-driven（字段从标志派生）；③coverage 文件头写 `verilator --version`+flags；④Phase1 末单端 C 烟雾测试验 fsm 格式四方一致；⑤functional bin 模板预置（FSM/数据通路/存储器/AXI 4 类，30% 权重杠杆）；⑥评分细则若发布且 branch 解读为真值表则切 B（零代码）。
 - **提交前 Docker linux/amd64 复验是硬要求**（见 §5）：native 数字仅开发参考，不作交付依据。
 - **提交包排除**：`testcases/`（官方 locked）、`vcs_coverage_*`（VCS 产物，本路线不用）、`.git/`、`venv/`、`__pycache__/`、波形 `*.fst/*.vcd`、`obj_dir/`。
 

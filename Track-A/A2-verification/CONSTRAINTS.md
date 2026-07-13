@@ -19,7 +19,7 @@
 - **路线锁定**：`cocotb + Verilator`。
 - **Verilator 版本锁定 5.050**（具体号，非"5.x"）：`--coverage-line/-toggle` 在不同主版本间行为可能漂移，三方开发与评测环境必须统一此版本。来源 `ENVIRONMENT.md §4`；Docker 路线用官方镜像 `verilator/verilator:5.050`。
 - 覆盖率编译期插桩两标志：`--coverage-line` `--coverage-toggle`，仿真后解析 RTL 行/分支覆盖率（**branch 由 `--coverage-line` 自动产出**；Verilator 5.050 实测无 `--coverage-branch` 标志，原"三标志齐发"为误传）。
-  > ⚠️ coverage 命令待 congress 评审是否加 `--coverage-expr`/`-fsm`；当前 `--coverage-line` 自动产 line+branch，`--coverage-toggle` 产 toggle，functional 靠 cocotb bin。
+  > ✅ **congress 评审已裁决（2026-07-14）**：coverage 命令定标 `--coverage-line --coverage-toggle`（选项 A）。理由：`--coverage-line` 自动产 line+branch（Verilator 官方设计，branch 是 line coverage 结构化副产品）；functional(30%) 靠 cocotb bin，非 Verilator 标志。落地：①`COVERAGE_FLAGS` 参数化（Makefile 顶层变量，默认 A）；②解析器 schema-driven（字段从标志派生）；③coverage 文件头写 `verilator --version`+flags；④Phase1 末单端 C 烟雾测试验 fsm 格式四方一致；⑤functional bin 模板预置（FSM/数据通路/存储器/AXI 4 类，30% 权重杠杆）；⑥评分细则若发布且 branch 解读为真值表则切 B（零代码）。
 - **已弃用（严禁在新增代码/文档/注释中出现，PITFALLS 中作为"已弃用"说明除外）**：
   - `iverilog`（仿真器）—— 原生不支持 RTL 行/分支覆盖率，无 `-cm` 等价物。
   - `VCS` / `URG`（仿真器/覆盖率工具）—— spec/scoring 不强制，评测器不锁工具。
