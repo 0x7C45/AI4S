@@ -21,7 +21,8 @@
 - 原计划 gcov/lcov **测的是 C++ 源码不是 RTL**，对行/分支覆盖无效 → 这 70% 拿不到。
 
 ### Verilator 是开源正解
-- Verilator 原生支持：`--coverage-line --coverage-branch --coverage-toggle`，编译期插桩，仿真后产 RTL 覆盖率。
+- Verilator 原生支持：`--coverage-line --coverage-toggle`（**branch 由 `--coverage-line` 自动产出**，5.050 实测无 `--coverage-branch` 标志），编译期插桩，仿真后产 RTL 覆盖率。
+  > ⚠️ coverage 命令待 congress 评审是否加 `--coverage-expr`/`-fsm`；当前 `--coverage-line` 自动产 line+branch，`--coverage-toggle` 产 toggle，functional 靠 cocotb bin。
 - CLAUDE.md 红线明确允许 Verilator。
 
 ### 规则确认（原文逐字核实，非推断）
@@ -54,7 +55,7 @@ requirements.txt      — cocotb, cocotb-test, jinja2 等
 | 类型 | 权重 | 采集方式 |
 |------|------|----------|
 | 行覆盖 | 0.4 | Verilator `--coverage-line` 编译期插桩 → 仿真后解析 coverage 数据 |
-| 分支覆盖 | 0.3 | Verilator `--coverage-branch` 同上 |
+| 分支覆盖 | 0.3 | Verilator `--coverage-line` 自动产出 branch（5.050 实测 coverage.dat branch 83.3%；`--coverage-branch` 标志不存在） |
 | 功能覆盖 | 0.3 | cocotb 测试代码 `coverage.hit(bin)` 采样，FunctionalCoverage 汇总 |
 
 - **综合 C 值公式用 scoring.md 的 0.4/0.3/0.3**（别抄公开示例 case4 的 0.42/0.28/0.30）。
@@ -70,7 +71,7 @@ requirements.txt      — cocotb, cocotb-test, jinja2 等
 - [ ] 通过 case1 骨架门禁（能编译、能跑、DUT 端口连对、有反压、有 scoreboard）
 
 ### Phase 2：覆盖率收集（7 分/电路）
-- [ ] 行/分支：Verilator `--coverage-line+branch` + 解析脚本
+- [ ] 行/分支：Verilator `--coverage-line`（自动产 line+branch）+ 解析脚本
 - [ ] 功能 bin：cocotb 采样（bin 必须有真实事务触发，**不能空 hit**）
 - [ ] 约束随机：5000 序列，固定 seed（`random.Random(seed)` + directed 边界值）
 - [ ] 目标：**C ≥ 65% 拿 4.9 分保底**，冲 85% 拿满 7 分

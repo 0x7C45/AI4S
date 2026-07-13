@@ -11,7 +11,8 @@
 
 - **评测 OS = Linux x86_64**，**断网**；容器 Docker 或服务器二选一，不强制。
 - **依赖全打包随提交交**：`pip install` 联网装会失败；每个 wheel 必须 `linux/amd64 + Python 3.12` manylinux。必交 `requirements.txt`（钉死版本）+ `THIRD_PARTY.md`（版本/许可/调用边界）。
-- **仿真器锁 Verilator 5.050**（PLAN.md 路线；官方未锁 VCS，A2 spec 把 VCS 列为「待澄清」）。覆盖率编译：`verilator --cc --build --coverage-line --coverage-branch --coverage-toggle --top-module <top> <rtl>`；综合公式 = **0.4×行 + 0.3×分支 + 0.3×功能**（scoring.md locked；禁止抄公开样例 case4 的 0.42/0.28/0.30）。
+- **仿真器锁 Verilator 5.050**（PLAN.md 路线；官方未锁 VCS，A2 spec 把 VCS 列为「待澄清」）。覆盖率编译：`verilator --cc --build --coverage-line --coverage-toggle --top-module <top> <rtl>`；综合公式 = **0.4×行 + 0.3×分支 + 0.3×功能**（scoring.md locked；禁止抄公开样例 case4 的 0.42/0.28/0.30）。
+  > ⚠️ coverage 命令待 congress 评审是否加 `--coverage-expr`/`-fsm`；当前 `--coverage-line` 自动产 line+branch（5.050 实测 coverage.dat branch 83.3%），`--coverage-toggle` 产 toggle，functional 靠 cocotb bin。Verilator 5.050 实测无 `--coverage-branch` 标志（Invalid option）。
 - **提交前 Docker linux/amd64 复验是硬要求**（见 §5）：native 数字仅开发参考，不作交付依据。
 - **提交包排除**：`testcases/`（官方 locked）、`vcs_coverage_*`（VCS 产物，本路线不用）、`.git/`、`venv/`、`__pycache__/`、波形 `*.fst/*.vcd`、`obj_dir/`。
 
@@ -85,18 +86,18 @@ pip install --no-index --find-links=offline_pkgs/ -r requirements.txt    # 见 �
 |------|---------|------------|
 | 评测 OS | **Linux x86_64** | spec.md §5 唯一权威 |
 | Python | **3.12.x** | 三方 venv 统一（spec 仅"推荐 3.10+"，本队自锁 3.12） |
-| Verilator | **5.050** | `--coverage-line/-branch/-toggle` 行为在主版本间可能漂移；apt 5.020 不够，须源码或官方 Docker |
-| cocotb | **1.8.1** | 02 执行手册 §3 锁定；与 Verilator 5.050 兼容（2.0 要求 ≥5.036），默认 1.8.1 低风险 |
-| cocotb-test | **smoke test 后锁** | 配 Verilator 后端（`SIM=verilator`） |
-| cocotbext-axi | **smoke test 后锁** | 与 cocotb 2.0 有 issue #119；走 cocotb 1.8.1 时锁具体版本 |
-| jinja2 | **smoke test 后锁** | 渲染 `cocotb_tb.py.j2` 模板 |
-| pyverilog | **smoke test 后锁** | RTL 解析（spec.md §5 允许） |
-| z3-solver | **4.12+** | spec.md §5 / 02 手册；约束求解（可选，不装也能跑） |
+| Verilator | **5.050** | `--coverage-line/-toggle` 行为在主版本间可能漂移；apt 5.020 不够，须源码或官方 Docker |
+| cocotb | **2.0.1** | task3 实测：1.8.1 macOS arm64 无 wheel、源码构建失败；2.0.1 有 cp312 macosx arm64 wheel（本机可装）；评测机两版本都有 manylinux x86_64 wheel |
+| cocotb-test | **0.2.6** | 配 Verilator 后端（`SIM=verilator`） |
+| cocotbext-axi | **0.1.28** | 与 cocotb 2.0.1 实测全兼容（issue #119 已过期，详见 §5.3） |
+| jinja2 | **3.1.6** | 渲染 `cocotb_tb.py.j2` 模板 |
+| pyverilog | **1.3.0** | RTL 解析（spec.md §5 允许） |
+| z3-solver | **4.16.0.0**（可选） | spec.md §5 / 02 手册；约束求解（可选，不装也能跑）；task3 网络未装上，PyPI 确认 arm64 wheel 存在 |
 | Docker 镜像 | **verilator/verilator:5.050** | 官方按 release 自动打 tag，linux/amd64 |
 | `--seed` | **20260630** | 5 公开 case 统一；scoring.md §2 可复现硬约束 |
 | `--num-seq` | **5000** | spec.md；评测基准序列数 |
 
-> smoke test：M1 骨架阶段在 cocotb 1.8.1 + Verilator 5.050 上跑通 case1，记录实际可装版本 → 回填本表 → 同步冻结到 `requirements.txt` + `THIRD_PARTY.md`。
+> smoke test：M1 骨架阶段在 cocotb 2.0.1 + Verilator 5.050 上跑通 case1，记录实际可装版本 → 回填本表 → 同步冻结到 `requirements.txt` + `THIRD_PARTY.md`。
 
 ---
 
@@ -136,7 +137,7 @@ pip install --no-index --find-links=offline_pkgs/ -r requirements.txt
 
 **任何 native 跑出的覆盖率，提交前必须在 Docker linux/amd64 复跑全部 case，逐 case 对比，确认无漂移才提交。**
 
-- 跨平台风险：Verilator `--coverage-line/-branch/-toggle` 是编译期插桩、平台无关；但 **mac native 与 Linux 评测机数字一致性未验证**——这是 Docker 复验的存在理由。
+- 跨平台风险：Verilator `--coverage-line/-toggle` 是编译期插桩、平台无关；但 **mac native 与 Linux 评测机数字一致性未验证**——这是 Docker 复验的存在理由。
 - 漂移阈值（行/分支）：绝对差 > 0.5 个百分点 → **禁止提交**；seed 固定 20260630 + RTL 不变 → 覆盖率必须可复现；若 native 与 Docker 不一致，**以 Docker linux/amd64 为准**（评测同构）。
 
 ### 5.2 case4 公式复现标杆
@@ -146,4 +147,4 @@ pip install --no-index --find-links=offline_pkgs/ -r requirements.txt
 ### 5.3 已知灰色地带（接受风险推进）
 
 - **VCS vs Verilator scoring 解释**：scoring.md「VCS/URG 报告必须对应 RTL」是否隐含必须交 URG 附件——A2 spec 列为「待澄清」。本队按 PLAN.md 走 Verilator，靠 case4 公式复现兜底；罚分项只有「仿真失败/缺项/无 seed/报告不对应 RTL」，未用 VCS 不是罚分项。
-- **cocotbext-axi 是否评测预装 / cocotb 2.0 兼容**：02 手册 §7.4 未确认 → 一律走 §4 离线打包；cocotbext-axi 与 cocotb 2.0 有 issue #119 → 默认锁 1.8.1，升 2.0 须 smoke test 通过并锁 cocotbext-axi 具体版本。
+- **cocotbext-axi 是否评测预装 / cocotb 2.0 兼容**：02 手册 §7.4 未确认 → 一律走 §4 离线打包；**issue #119 已过期**：cocotb-bus 0.3.0 + cocotbext-axi 0.1.28 的 requires_dist 为 `cocotb>=1.6.0`（无 `<2.0` 上界），cocotb 2.0.1 + cocotbext-axi 0.1.28 实测全兼容（import/运行无报错）。

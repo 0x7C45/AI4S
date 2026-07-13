@@ -36,7 +36,8 @@
 
 三方必须遵守的统一约束（偏离需提 issue，不擅自改 PLAN）：
 
-- **路线**：cocotb + Verilator，覆盖率用 `--coverage-line --coverage-branch --coverage-toggle`（PLAN.md）
+- **路线**：cocotb + Verilator，覆盖率用 `--coverage-line --coverage-toggle`（PLAN.md；**branch 由 `--coverage-line` 自动产出**，Verilator 5.050 无 `--coverage-branch` 标志）
+  > ⚠️ coverage 命令待 congress 评审是否加 `--coverage-expr`/`-fsm`；当前 `--coverage-line` 自动产 line+branch，`--coverage-toggle` 产 toggle，functional 靠 cocotb bin。
 - **接口契约**：run.sh 五参数 + 七个 JSON 产物 schema（design/skeleton/constraints/bins/func_cov/result/report）（PLAN.md）
 - **评测对象**：10 个独立电路，每电路单独计分（spec.md）
 - **覆盖率公式**：C = 0.4×行 + 0.3×分支 + 0.3×功能，行/分支占 70%（PLAN.md）

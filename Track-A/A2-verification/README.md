@@ -2,7 +2,9 @@
 
 > 一句话目标：读取 RTL 设计，自动生成 cocotb testbench + 约束随机测试 + 覆盖率报告，对 10 个独立电路各产出 7 个 JSON + `generated_tb/` + `generated_tests/`，按 `C = 0.4×行 + 0.3×分支 + 0.3×功能` 最大化覆盖率得分。
 >
-> 技术路线：**cocotb + Verilator**（覆盖率编译期插桩 `--coverage-line --coverage-branch --coverage-toggle`）。任何 iverilog / VCS / URG 描述均为过时残留，见文末「已弃用路线」。
+> 技术路线：**cocotb + Verilator**（覆盖率编译期插桩 `--coverage-line --coverage-toggle`；**branch 由 `--coverage-line` 自动产出**，Verilator 5.050 无 `--coverage-branch` 标志）。任何 iverilog / VCS / URG 描述均为过时残留，见文末「已弃用路线」。
+>
+> ⚠️ coverage 命令待 congress 评审是否加 `--coverage-expr`/`-fsm`；当前 `--coverage-line` 自动产 line+branch，`--coverage-toggle` 产 toggle，functional 靠 cocotb bin。
 
 ---
 
@@ -164,7 +166,7 @@ ls submission_out/case4/
 | win-CC | WSL2（原生 linux/amd64） | 最接近评测 OS |
 | fallback | venv3.12 + `install.sh` | Docker 不可用时使用 |
 
-> Verilator 版本**锁定 5.050**（`--coverage-line/-branch/-toggle` 在不同主版本间行为可能漂移）。`spec / scoring` 不强制 Docker 也不强制 VCS；本队走 cocotb + Verilator 路线。
+> Verilator 版本**锁定 5.050**（`--coverage-line/-toggle` 在不同主版本间行为可能漂移）。`spec / scoring` 不强制 Docker 也不强制 VCS；本队走 cocotb + Verilator 路线。
 
 **必交文件清单**（详见 [ENVIRONMENT.md](./ENVIRONMENT.md) §7、[CONSTRAINTS.md](./CONSTRAINTS.md) §11 红线#6）：
 
@@ -193,4 +195,4 @@ ls submission_out/case4/
 
 **已弃用路线（仅作历史说明，禁止在产物与文档主体中出现）**：
 - `cocotb + iverilog + gcov`：iverilog 原生不支持 RTL 行 / 分支覆盖率，gcov 测的是 C++ 源码而非 RTL → 行 / 分支 70% 拿不到。`TEAM_GUIDE.md` A2 节仍残留此旧方案，以 `PLAN.md` 为准。
-- VCS / URG：`spec / scoring` 不强制 VCS，未用 VCS 不是罚分项；公开 case 用 VCS 测得的数据仅作标杆参考，本路线采用 Verilator 原生覆盖率（`--coverage-line --coverage-branch --coverage-toggle` + `verilator_coverage` 合并）。
+- VCS / URG：`spec / scoring` 不强制 VCS，未用 VCS 不是罚分项；公开 case 用 VCS 测得的数据仅作标杆参考，本路线采用 Verilator 原生覆盖率（`--coverage-line --coverage-toggle` + `verilator_coverage` 合并）。

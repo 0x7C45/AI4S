@@ -17,8 +17,9 @@
 ## 1. 技术路线（不可变）
 
 - **路线锁定**：`cocotb + Verilator`。
-- **Verilator 版本锁定 5.050**（具体号，非"5.x"）：`--coverage-line/-branch/-toggle` 在不同主版本间行为可能漂移，三方开发与评测环境必须统一此版本。来源 `ENVIRONMENT.md §4`；Docker 路线用官方镜像 `verilator/verilator:5.050`。
-- 覆盖率编译期插桩三标志：`--coverage-line` `--coverage-branch` `--coverage-toggle`，仿真后解析 RTL 行/分支覆盖率。
+- **Verilator 版本锁定 5.050**（具体号，非"5.x"）：`--coverage-line/-toggle` 在不同主版本间行为可能漂移，三方开发与评测环境必须统一此版本。来源 `ENVIRONMENT.md §4`；Docker 路线用官方镜像 `verilator/verilator:5.050`。
+- 覆盖率编译期插桩两标志：`--coverage-line` `--coverage-toggle`，仿真后解析 RTL 行/分支覆盖率（**branch 由 `--coverage-line` 自动产出**；Verilator 5.050 实测无 `--coverage-branch` 标志，原"三标志齐发"为误传）。
+  > ⚠️ coverage 命令待 congress 评审是否加 `--coverage-expr`/`-fsm`；当前 `--coverage-line` 自动产 line+branch，`--coverage-toggle` 产 toggle，functional 靠 cocotb bin。
 - **已弃用（严禁在新增代码/文档/注释中出现，PITFALLS 中作为"已弃用"说明除外）**：
   - `iverilog`（仿真器）—— 原生不支持 RTL 行/分支覆盖率，无 `-cm` 等价物。
   - `VCS` / `URG`（仿真器/覆盖率工具）—— spec/scoring 不强制，评测器不锁工具。

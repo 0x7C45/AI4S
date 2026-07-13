@@ -13,18 +13,18 @@
 | # | 依赖 | 类别 | 版本（锁定） | 许可证 | 是否打包进提交包 | 调用边界（一句话） |
 |---|------|------|--------------|--------|------------------|--------------------|
 | 1 | **Python** | 运行时语言 | **3.12.x**（本队自锁；官方仅推荐 3.10+） | PSF-2.0 | 否（评测机自带） | 整个流水线实现语言 |
-| 2 | **cocotb** | Python 包 | **==1.8.1** | MIT | 是（离线 wheel） | 验证框架主体，驱动 RTL 仿真、采样功能覆盖 bin |
-| 3 | **cocotb-test** | Python 包 | `==X.Y.Z`（M1 锁定，见 §5） | MIT | 是（离线 wheel） | cocotb 的 Python 测试入口，配 Verilator 后端（`SIM=verilator`） |
-| 4 | **cocotbext-axi** | Python 包 | `==X.Y.Z`（M1 锁定，防 issue #119） | MIT | 是（离线 wheel） | AXI4 / AXI4-Lite / AXI-Stream 接口驱动与监视 |
-| 5 | **Jinja2** | Python 包 | `==X.Y.Z`（M1 锁定） | BSD-3-Clause | 是（离线 wheel） | 渲染 `templates/cocotb_tb.py.j2`，生成 testbench 骨架与 7-JSON |
-| 6 | **PyVerilog** | Python 包 | `==X.Y.Z`（M1 锁定） | MIT | 是（离线 wheel） | RTL 解析（`spec.md §5` 明确允许的开源库） |
-| 7 | **Z3** (`z3-solver`) | Python 包 | **>=4.12**（下限锁） | MIT | 是（离线 wheel） | 约束随机求解（`spec.md §5` 明确允许的开源库） |
+| 2 | **cocotb** | Python 包 | **==2.0.1** | MIT | 是（离线 wheel） | 验证框架主体，驱动 RTL 仿真、采样功能覆盖 bin |
+| 3 | **cocotb-test** | Python 包 | **==0.2.6** | MIT | 是（离线 wheel） | cocotb 的 Python 测试入口，配 Verilator 后端（`SIM=verilator`） |
+| 4 | **cocotbext-axi** | Python 包 | **==0.1.28** | MIT | 是（离线 wheel） | AXI4 / AXI4-Lite / AXI-Stream 接口驱动与监视 |
+| 5 | **Jinja2** | Python 包 | **==3.1.6** | BSD-3-Clause | 是（离线 wheel） | 渲染 `templates/cocotb_tb.py.j2`，生成 testbench 骨架与 7-JSON |
+| 6 | **PyVerilog** | Python 包 | **==1.3.0** | MIT | 是（离线 wheel） | RTL 解析（`spec.md §5` 明确允许的开源库） |
+| 7 | **Z3** (`z3-solver`) | Python 包 | **==4.16.0.0**（可选） | MIT | 是（离线 wheel） | 约束随机求解（`spec.md §5` 明确允许的开源库） |
 | 8 | **Verilator** | 系统二进制 | **5.050**（硬锁，见 §5） | LGPL-3.0 或 Artistic-2.0（双许可） | 否（评测机自带；若赛方不提供，README 注明须 = 5.050） | 仿真器 + 覆盖率插桩 |
 
 > **版本号说明**：
-> - 已硬锁（来自本队两轮调查确认）：`cocotb==1.8.1`、`z3-solver>=4.12`、`Verilator==5.050`、`Python==3.12`。
-> - 标注 `X.Y.Z` 的包：依 `ENVIRONMENT.md §5` / `CONSTRAINTS.md §11` 红线 #6，须在 `requirements.txt` 钉死精确版本 `==X.Y.Z`；具体号在 M1 骨架阶段于 Verilator 5.050 容器内复验后填入并冻结，三方（mac-CC / win-CC / mac-Codex）对齐。
-> - `cocotbext-axi` 锁版本须规避上游 issue #119（与 cocotb / Python 版本兼容性相关），M1 选版时显式回归。
+> - 已硬锁（task3 实测 2026-07-13）：`cocotb==2.0.1`（1.8.1 macOS arm64 无 wheel、源码构建失败；2.0.1 有 cp312 macosx arm64 wheel；评测机两版本都有 manylinux x86_64 wheel）、`cocotb-test==0.2.6`、`cocotbext-axi==0.1.28`、`Jinja2==3.1.6`、`PyVerilog==1.3.0`、`z3-solver==4.16.0.0`（可选，task3 网络未装上，PyPI 确认 arm64 wheel 存在）、`Verilator==5.050`、`Python==3.12`。
+> - 依 `CONSTRAINTS.md §11` 红线 #6，所有包在 `requirements.txt` 钉死精确版本 `==X.Y.Z`，三方（mac-CC / win-CC / mac-Codex）对齐。
+> - `cocotbext-axi 0.1.28` 与 cocotb 2.0.1 实测全兼容：**issue #119 已过期**（cocotb-bus 0.3.0 + cocotbext-axi 0.1.28 的 requires_dist 为 `cocotb>=1.6.0`，无 `<2.0` 上界）。
 
 ---
 
@@ -37,13 +37,14 @@
 - **调用边界**：整个 A2 流水线的实现语言；入口 `run.py` / `run.sh`、`src/` 七模块、cocotb testbench、覆盖率后处理脚本均为 Python。
 - **打包**：不打包。评测机自带 Python 3.12（由赛方提供或 README 注明前置条件）。`requirements.txt` 锁定 `--python-version 3.12` 拉取 wheel。
 
-### 2.2 cocotb 1.8.1（验证框架主体）
+### 2.2 cocotb 2.0.1（验证框架主体）
 
-- **版本**：**==1.8.1**（本队两轮调查锁定）。
+- **版本**：**==2.0.1**（task3 实测锁定）。
 - **许可证**：MIT。
 - **锁版本理由**：
-  - cocotb 1.8.1 与 Verilator 5.050 经官方手册核对兼容；若升 cocotb 2.0 须 Verilator ≥ 5.036 且须同步锁 cocotbext-axi 防 issue #119，本队不承担此升级风险，故停在最稳的 1.8.1。
-  - cocotb 主版本升级会改变 VPI 接口与 `coverage` API 语义，威胁跨平台覆盖率一致性。
+  - task3 实测：cocotb 1.8.1 在 macOS arm64 无 cp312 wheel、源码构建失败；cocotb 2.0.1 在 PyPI 有 cp312 macosx arm64 wheel，本机可直接 `pip install`；评测机（Linux x86_64）1.8.1 与 2.0.1 均有 manylinux wheel，无平台影响。
+  - cocotb 2.0.1 与 Verilator 5.050（≥ 5.036 即可）兼容；cocotbext-axi 0.1.28 实测全兼容（issue #119 已过期，详见 §2.4）。
+  - **注意 cocotb 2.0 API/时序变化**：见 `PITFALLS.md` 陷阱 ⑩（`RisingEdge` 后非阻塞赋值未提交到 VPI 可读，需 `FallingEdge` 同步；`Clock(..., unit="ns")` 单数而非 `units`）。
 - **调用边界**：
   - 验证框架主体，将 Python 测试代码经 VPI/FLI 驱动 Verilator 编译后的 RTL。
   - 在生成的 testbench 中以固定 `--seed 20260630`、`--num-seq 5000` 驱动约束随机事务；`seed` 必须穿透到 `random.Random(seed)`，否则该电路覆盖率上限 3 分（scoring.md §2）。
@@ -52,14 +53,14 @@
 
 ### 2.3 cocotb-test（cocotb 的 Python 测试入口）
 
-- **版本**：`==X.Y.Z`，M1 锁定（须与 cocotb 1.8.1 兼容）。
+- **版本**：**==0.2.6**（task3 锁定，与 cocotb 2.0.1 兼容）。
 - **许可证**：MIT。
 - **调用边界**：cocotb 的 pytest 风格入口，在本项目中**配 Verilator 后端**（`SIM=verilator`），由 `src/sim_runner` 调用以编译并启动仿真。
 - **打包**：是，随提交包离线 wheel 提供。
 
 ### 2.4 cocotbext-axi（AXI 接口驱动）
 
-- **版本**：`==X.Y.Z`，M1 锁定。**选版时必须显式回归 issue #119**（上游已知兼容性问题，与 cocotb / Python 版本耦合），确认在 cocotb 1.8.1 + Python 3.12 下无回归才冻结。
+- **版本**：**==0.1.28**（task3 锁定）。**issue #119 已过期**：cocotb-bus 0.3.0 + cocotbext-axi 0.1.28 的 `requires_dist` 为 `cocotb>=1.6.0`（无 `<2.0` 上界）；cocotb 2.0.1 + cocotbext-axi 0.1.28 实测全兼容（import/运行无报错）。
 - **许可证**：MIT。
 - **调用边界**（依 `ENVIRONMENT.md §5` 说明）：
   - 负责 `spec.md §2` 三类接口中的**前两类 + AXI-Stream 子集**：AXI4-Lite / AXI / AXI-like、AXI-Stream。
@@ -70,21 +71,21 @@
 
 ### 2.5 Jinja2（模板引擎）
 
-- **版本**：`==X.Y.Z`，M1 锁定。
+- **版本**：**==3.1.6**（task3 锁定）。
 - **许可证**：BSD-3-Clause。
 - **调用边界**：渲染 `templates/cocotb_tb.py.j2`，由 `src/skeleton_gen` 调用，生成 testbench 骨架与 7 个 JSON 产物中的 `verification_skeleton.json`（7-JSON 顺序：design → skeleton → constraints → coverage_bins → functional_coverage → coverage_result → report）。
 - **打包**：是，随提交包离线 wheel 提供。
 
 ### 2.6 PyVerilog（RTL 解析）
 
-- **版本**：`==X.Y.Z`，M1 锁定。
+- **版本**：**==1.3.0**（task3 锁定）。
 - **许可证**：MIT。
 - **调用边界**：`spec.md §5` 明确允许的开源库。由 `src/rtl_parser` 调用，解析 RTL 接口（端口方向/宽度/时钟/复位/参数/接口协议分组），输出 `design.json`。多文件 RTL 须保持正确编译顺序与 include 路径，否则触发骨架门禁失败（编译失败 → 整电路 0 分）。
 - **打包**：是，随提交包离线 wheel 提供。
 
 ### 2.7 Z3（`z3-solver`，约束求解）
 
-- **版本**：**>=4.12**（下限锁，本队两轮调查确认）。
+- **版本**：**==4.16.0.0**（可选；task3 锁定。task3 网络未装上，PyPI 确认 arm64 wheel 存在）。
 - **许可证**：MIT。
 - **调用边界**：`spec.md §5` 明确允许的开源库。由 `src/constraint_gen` 调用，生成约束随机测试策略（固定 seed=20260630、固定总序列数 5000、随机变量列表），输出 `constraints.json`，并支持覆盖率反馈驱动的约束调整。
 - **打包**：是，随提交包离线 wheel 提供。注意 z3-solver 含原生扩展，须确保 `manylinux2014_x86_64`（或 `linux/amd64`）wheel 可用（见 §4）；若无预编译 wheel，须 vendored 源码 + README 注明编译前置条件。
@@ -95,7 +96,8 @@
 - **许可证**：LGPL-3.0 或 Artistic-2.0（双许可，使用者可选其一）。
 - **调用边界**（依 `ENVIRONMENT.md §4`）：
   - 仿真器：编译 RTL（`verilator --cc --build ...`），由 cocotb 经 VPI 驱动。
-  - 覆盖率插桩：编译期三标志齐发 `--coverage-line --coverage-branch --coverage-toggle`；仿真后由 `verilator_coverage` 合并 `coverage.dat`，交 `src/coverage_collect` 解析为行/分支覆盖率。
+  - 覆盖率插桩：编译期两标志 `--coverage-line --coverage-toggle`（**branch 由 `--coverage-line` 自动产出**；Verilator 5.050 实测无 `--coverage-branch` 标志）；仿真后由 `verilator_coverage` 合并 `coverage.dat`，交 `src/coverage_collect` 解析为行/分支覆盖率。
+    > ⚠️ coverage 命令待 congress 评审是否加 `--coverage-expr`/`-fsm`；当前 `--coverage-line` 自动产 line+branch，`--coverage-toggle` 产 toggle，functional 靠 cocotb bin。
   - 综合覆盖率公式以 `scoring.md` 为准：**C = 0.4×行 + 0.3×分支 + 0.3×功能**（严禁抄公开样例 case4 的 0.42/0.28/0.30）。
 - **覆盖率口径注记（case1 line=53% 根因）**：公开样例 case1 行覆盖 53%（168/317）经本队查清为 **RTL 参数化死码**，非 Verilator 依赖问题、也非 wrapper 稀释——`case1.v` L215 `always @*` 三分支（L243 `if(SEGMENT_COUNT==1)` 直通 / L302 `else if(EXPAND)` 扩展 / L434 `else` SHRINK 激活），配置 `S_DATA=32 / M_DATA=16` 使前两分支恒假，L243–L433 约 139–149 可执行行成死码；`case1_cocotb_top.v` 为纯结构连线（无 `always`/`assign`/Clock 生成），LINE/BRANCH 全为 `--`，0 行贡献。故 Verilator 覆盖率口径可信，本队按现状使用，不切换工具链。
 - **打包**：**否**，作为系统二进制由评测机自带。若赛方不提供，须在 README 注明 `verilator --version` 必须输出 5.050。本队不把 Verilator 二进制打入离线 wheel 目录。
@@ -150,14 +152,14 @@ pip install --no-index --find-links=offline_pkgs/ -r requirements.txt
 
 ### 5.2 Verilator 为何硬锁 5.050；cocotb 为何停在 1.8.1
 
-- **Verilator 5.050**：`--coverage-line / --coverage-branch / --coverage-toggle` 三标志的插桩与 `coverage.dat` 输出格式在不同主版本间可能漂移；锁定具体号而非「5.x」，保证三方复跑与评测机产出同一口径的行/分支覆盖率。Ubuntu 24.04 apt 仅到 5.020，**须源码 `git checkout v5.050` 自编**或用官方 Docker 镜像 `verilator/verilator:5.050`。
-- **cocotb 1.8.1**：与 Verilator 5.050 官方手册核对兼容；升 cocotb 2.0 须 Verilator ≥ 5.036 且须锁 cocotbext-axi 防 issue #119。停在 1.8.1 是兼容性与覆盖率口径稳定性的折中。
+- **Verilator 5.050**：`--coverage-line / --coverage-toggle` 两标志的插桩与 `coverage.dat` 输出格式在不同主版本间可能漂移；锁定具体号而非「5.x」，保证三方复跑与评测机产出同一口径的行/分支覆盖率。Ubuntu 24.04 apt 仅到 5.020，**须源码 `git checkout v5.050` 自编**或用官方 Docker 镜像 `verilator/verilator:5.050`。
+- **cocotb 2.0.1**：与 Verilator 5.050 兼容（要求 ≥ 5.036）；cocotbext-axi 0.1.28 实测全兼容（issue #119 已过期）。task3 实测 1.8.1 macOS arm64 无 wheel、源码构建失败，故升 2.0.1（详见 §2.2）。
 - 安装方式（`ENVIRONMENT.md §3 / §4`）：mac 可 `brew install verilator`（若版本不符则源码自编）；win-CC 用 WSL2（原生 linux/amd64，最接近评测 OS）；提交前必须在 Docker `verilator/verilator:5.050`（`--platform linux/amd64`）容器内复跑全部 case 验证覆盖率一致性，无漂移才提交。
 
 ### 5.3 Python 包版本复验流程（M1 阶段）
 
-1. 选定起始稳定版本写入 `requirements.txt`（`==X.Y.Z`）；cocotb 已锁 1.8.1、z3-solver 下限 4.12。
-2. 对 cocotbext-axi 候选版本显式回归 issue #119，确认 cocotb 1.8.1 + Python 3.12 下无回归。
+1. 选定起始稳定版本写入 `requirements.txt`（`==X.Y.Z`）；task3 已锁定：cocotb 2.0.1、cocotb-test 0.2.6、cocotbext-axi 0.1.28、Jinja2 3.1.6、PyVerilog 1.3.0、z3-solver 4.16.0.0（可选）、Verilator 5.050、Python 3.12。
+2. **issue #119 已过期**：cocotb-bus 0.3.0 + cocotbext-axi 0.1.28 的 `requires_dist` 为 `cocotb>=1.6.0`（无 `<2.0` 上界），cocotb 2.0.1 + cocotbext-axi 0.1.28 实测全兼容；不再需要显式回归。
 3. 在 Verilator 5.050 容器内跑通 case1 骨架门禁（能编译、能跑、DUT 端口连对、有反压、有 scoreboard）。
 4. 跑 5 个公开 case 验证覆盖率与三方一致。
 5. 冻结版本，三方对齐，回填本文件 §1 占位，后续不得擅改。
@@ -182,7 +184,7 @@ pip install --no-index --find-links=offline_pkgs/ -r requirements.txt
 > 下列工具/路线**已弃用**，不在依赖清单内；实现层（源码/配置/commit message/JSON 字段）不得将 iverilog / gcov / VCS / URG 作为实际依赖或硬编码路线，文档层（本文件 §9 待澄清项 / `PITFALLS.md` 弃用说明）的技术对比除外。
 
 - **iverilog**：原 `cocotb + iverilog + gcov` 方案已于 2026-07-13 切换为 `cocotb + Verilator`（`PLAN.md` line 3、`CONSTRAINTS.md §1` 技术路线不可变）。弃用根因：iverilog 原生不支持 RTL 行/分支覆盖率，gcov/lcov 测的是 C++ 源码而非 RTL，行/分支 70% 权重拿不到。
-- **gcov / lcov**：Verilator 路线下改用 `--coverage-line/--coverage-branch/--coverage-toggle` + `verilator_coverage` 合并 `coverage.dat`；gcov 仅在调试 C++ 层时可选，**不作为评分口径**。
+- **gcov / lcov**：Verilator 路线下改用 `--coverage-line/--coverage-toggle` + `verilator_coverage` 合并 `coverage.dat`；gcov 仅在调试 C++ 层时可选，**不作为评分口径**。
 - **VCS / URG**：`spec.md §5` 不强制 VCS，罚分项只有「仿真失败 / 缺项 / 无 seed / 报告不对应 RTL」，**未用 VCS 不是罚分项**。本队走 cocotb + Verilator 路线；`scoring.md:74` 的 VCS/URG 措辞属官方对仿真器中立的描述，非强制。
 
 ---
@@ -200,8 +202,8 @@ pip install --no-index --find-links=offline_pkgs/ -r requirements.txt
 
 ## 9. 待澄清 / 复验项
 
-1. **`requirements.txt` 剩余精确版本号**：cocotb-test / cocotbext-axi / Jinja2 / PyVerilog 的 `X.Y.Z` 在 M1 骨架阶段于 Verilator 5.050 容器内复验后填入并冻结，回填本文件 §1 占位。cocotb（1.8.1）、z3-solver（>=4.12）、Verilator（5.050）、Python（3.12）已锁，不列入待澄清。
-2. **cocotbext-axi issue #119 回归**：M1 选版时显式回归，确认 cocotb 1.8.1 + Python 3.12 下无 #119 症状才冻结版本。
+1. **`requirements.txt` 剩余精确版本号**：task3（2026-07-13）已锁定全部精确版本——cocotb 2.0.1、cocotb-test 0.2.6、cocotbext-axi 0.1.28、Jinja2 3.1.6、PyVerilog 1.3.0、z3-solver 4.16.0.0（可选）、Verilator 5.050、Python 3.12。M1 阶段在 Verilator 5.050 容器内复验通过后即冻结。
+2. **cocotbext-axi issue #119**：**已过期**（task3 复核 2026-07-13）。cocotb-bus 0.3.0 + cocotbext-axi 0.1.28 的 `requires_dist` 为 `cocotb>=1.6.0`（无 `<2.0` 上界），cocotb 2.0.1 + cocotbext-axi 0.1.28 实测全兼容（import/运行无报错）；不再需要显式回归。
 3. **z3-solver 原生扩展 wheel 可用性**：确认 `manylinux2014_x86_64` 平台有预编译 wheel；若无则 vendored 源码进离线 wheel 目录。
 4. **Verilator 是否赛方提供**：若评测机不自带 Verilator 5.050，需在 README 注明前置条件。此为覆盖率一致性的关键风险——三方开发机均非评测 OS（Linux x86_64），必须 Docker `linux/amd64` 复验（`ENVIRONMENT.md §5`）。
 5. **`scoring.md:74` VCS/URG 措辞（灰色地带）**：原文「VCS/URG 报告必须对应当前提交的 RTL；cocotb 和纯 Verilog testbench 均可」。本队倾向「仅强调报告须对应 RTL、testbench 形式可选」，走 cocotb + Verilator 路线；建议向赛方/助教确认以消除最后不确定性（见 `PLAN.md §二` 灰色地带）。

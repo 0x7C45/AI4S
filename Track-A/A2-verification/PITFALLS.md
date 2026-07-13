@@ -9,7 +9,8 @@
 
 ## 0. 阅读约定
 
-- **路线锁定**：cocotb + Verilator（`--coverage-line --coverage-branch --coverage-toggle`），仿真器不强制 VCS。
+- **路线锁定**：cocotb + Verilator（`--coverage-line --coverage-toggle`；**branch 由 `--coverage-line` 自动产出**，Verilator 5.050 实测无 `--coverage-branch` 标志），仿真器不强制 VCS。
+  > ⚠️ coverage 命令待 congress 评审是否加 `--coverage-expr`/`-fsm`；当前 `--coverage-line` 自动产 line+branch，`--coverage-toggle` 产 toggle，functional 靠 cocotb bin。
   > 已弃用路线（仅作历史说明，禁止出现在提交包里）：`iverilog + gcov`（iverilog 原生不支持 RTL 行/分支覆盖率，gcov 测的是 C++ 源码而非 RTL）、`VCS/URG`（公开样例所用，本队不走此路线）。
 - **固定参数**：`--seed 20260630`、`--num-seq 5000`（本队锁定 5000；公开样例 case3 例外用 256，仅作参考，本队不沿用）。seed 或输入序列(num-seq) 不可复现 → 覆盖率上限 3 分（scoring.md §2）。注：RTL 是评测给定输入，选手不控制其复现性；RTL 报告不对应是另一条独立罚分（→ 覆盖率 0），勿与此 3 分上限混淆。
 - **公式锁定**：综合覆盖率 `C = 0.4×行 + 0.3×分支 + 0.3×功能`（scoring.md §2 locked）。**严禁抄公开样例的 0.42/0.28/0.30**。
@@ -262,7 +263,7 @@ addr = rng.randint(0, 0xFFFF)
 | 评测机 | Linux x86_64（`spec.md` §5 line 147）| 评测机自带 |
 
 ### 根因
-Verilator `--coverage-line/-branch/-toggle` 在 macOS arm64 与 Linux x86_64 上的插桩/解析行为可能有细微差异（不同编译器版本、不同 libc、不同 `long/int` 对齐、`coverage.dat` 格式细节）→ **覆盖率跨平台漂移**。本地算出 `C=85.2%`（满分档），提交后评测 OS 跑出 `C=84.7%`（4.9 档）→ 单电路差 2.1 分 × 10 电路 = 最多 21 分漂移。这是「三方 OS gap」的核心风险：mac-CC/mac-Codex 是 macOS arm64，win-CC 是 Windows，评测 OS 是 Linux x86_64，覆盖率跨平台一致性必须验证。
+Verilator `--coverage-line/-toggle` 在 macOS arm64 与 Linux x86_64 上的插桩/解析行为可能有细微差异（不同编译器版本、不同 libc、不同 `long/int` 对齐、`coverage.dat` 格式细节）→ **覆盖率跨平台漂移**。本地算出 `C=85.2%`（满分档），提交后评测 OS 跑出 `C=84.7%`（4.9 档）→ 单电路差 2.1 分 × 10 电路 = 最多 21 分漂移。这是「三方 OS gap」的核心风险：mac-CC/mac-Codex 是 macOS arm64，win-CC 是 Windows，评测 OS 是 Linux x86_64，覆盖率跨平台一致性必须验证。
 
 ### 正解（主推 Docker，三方统一 linux/amd64）
 1. **运行环境主推 Docker**：`verilator/verilator:5.050` 官方镜像，三方统一 `linux/amd64` 平台。
@@ -287,12 +288,12 @@ Verilator `--coverage-line/-branch/-toggle` 在 macOS arm64 与 Linux x86_64 上
 ```
 
 ### 根因
-`--coverage-line` / `--coverage-branch` / `--coverage-toggle` 三个标志在不同主版本间行为可能漂移：
+`--coverage-line` / `--coverage-toggle` 两个标志在不同主版本间行为可能漂移（**注：Verilator 5.050 实测无 `--coverage-branch` 标志；branch 由 `--coverage-line` 自动产出，5.050 实测 coverage.dat branch 83.3%**）：
 - 行/分支判定口径（条件表达式如何拆分、`?:` 算几分支）；
 - toggle 粒度（按 bit 还是按 bus）；
 - `coverage.dat` 输出格式（字段名/层次结构）。
 
-版本不锁 → 三方跑出不一致的覆盖率 → 末段合并时无法裁定哪一方数字「对」。`PLAN.md` §二/§四、`EXECUTOR.md` §3 指定三标志齐发，但未指定版本号，需本队自锁。
+版本不锁 → 三方跑出不一致的覆盖率 → 末段合并时无法裁定哪一方数字「对」。`PLAN.md` §二/§四、`EXECUTOR.md` §3 指定两标志（`--coverage-line --coverage-toggle`），但未指定版本号，需本队自锁。
 
 ### 正解（锁具体号 5.050，非「5.x」）
 1. **Verilator 版本锁定 5.050**（具体号，**不是**「5.x」或「latest」）。
@@ -304,11 +305,37 @@ Verilator `--coverage-line/-branch/-toggle` 在 macOS arm64 与 Linux x86_64 上
 4. 提交前 Docker 复验（见陷阱 ⑧）时，`verilator --version` 必须输出 5.050 才算有效复验。
 
 ### 出处
-`PLAN.md` §二/§四（三标志齐发）；`ENVIRONMENT.md` §4；`CONSTRAINTS.md` §1。
+`PLAN.md` §二/§四（`--coverage-line --coverage-toggle`）；`ENVIRONMENT.md` §4；`CONSTRAINTS.md` §1。
 
 ---
 
-## 10. 速查表（9 陷阱一图流）
+## 10. 陷阱 ⑩ cocotb 2.0 时序 API（RisingEdge off-by-one / Clock unit=）
+
+### 症状（反例）
+- testbench 用 `await cocotb.triggers.RisingEdge(dut.clk)` 后立即读 `dut.some_signal.value`，读到的是**上一拍**的值（RTL `<=` 非阻塞赋值尚未提交到 VPI 可读层）→ scoreboard 错拍比对 → 误判失败或覆盖率漏采。
+- `cocotb.clock.Clock(dut.clk, 10, units="ns")` 报错 `TypeError: __init__() got an unexpected keyword argument 'units'`。
+
+### 根因
+cocotb 2.0 相对 1.x 的 API/时序语义收紧（task3 实测 2026-07-13，macOS arm64 + Verilator 5.050）：
+1. **非阻塞赋值可见时序**：Verilator VPI 后端在 `RisingEdge` 触发瞬间，RTL 内 `<=` 非阻塞赋值的新值尚未刷新到 VPI 读取层；必须等到时钟回落（`FallingEdge`）或下一拍 `RisingEdge` 才能读到本拍结果。1.x 下偶现宽容行为，2.0 收紧后 off-by-one 显现。
+2. **Clock 构造签名变化**：cocotb 2.0 `Clock(signal, period, unit="ns")`（**单数 `unit`**），1.x 为 `units="ns"`（复数）。直接迁移会立刻 TypeError。
+
+### 正解
+1. **采样统一在 `FallingEdge`**：先 `await RisingEdge(dut.clk)` 推进一拍，再 `await FallingEdge(dut.clk)` 同步，然后读信号值——此时 RTL `<=` 已提交到 VPI 可读。
+   ```python
+   await cocotb.triggers.RisingEdge(dut.clk)
+   await cocotb.triggers.FallingEdge(dut.clk)   # 等非阻塞赋值提交
+   cur = dut.some_signal.value   # 本拍结果，无 off-by-one
+   ```
+2. **Clock 用 `unit=` 单数**：`cocotb.clock.Clock(dut.clk, 10, unit="ns")`。
+3. scoreboard / 期望比对也要在相同时序点采样，否则参考模型与 DUT 错拍 → 门禁「比对器未比对 DUT 行为」误判失败 → 整电路 0 分。
+
+### 出处
+cocotb 2.0 release notes；task3（2026-07-13）macOS arm64 + Verilator 5.050 实测：`RisingEdge` 后直接读得旧值，`FallingEdge` 后读得新值；`units=` → `TypeError`，改 `unit=` 通过。
+
+---
+
+## 11. 速查表（10 陷阱一图流）
 
 | # | 陷阱 | 反例关键数据 | 正解一句话 | 罚分上限 |
 |---|------|--------------|------------|----------|
@@ -321,10 +348,11 @@ Verilator `--coverage-line/-branch/-toggle` 在 macOS arm64 与 Linux x86_64 上
 | ⑦ | seed 不穿透 | cocotb RNG ≠ constraints seed | `random.Random(20260630)` | 覆盖率上限 3 分 |
 | ⑧ | OS 漂移 | macOS arm64 vs Linux x86_64 | Docker linux/amd64 复验 | 跨档漂移 |
 | ⑨ | 版本漂移 | 5.050 vs 5.030 差异 | 锁 Verilator 5.050 | 三方不一致 |
+| ⑩ | cocotb 2.0 时序 | RisingEdge 后读旧值；`units=` TypeError | `FallingEdge` 同步 + `unit=` 单数 | off-by-one / 门禁失败 |
 
 ---
 
-## 11. 相关文件索引（均为绝对路径）
+## 12. 相关文件索引（均为绝对路径）
 
 - 官方 locked（严禁修改）：
   - `/Users/arco/Documents/project/AI4S/Track-A/A2-verification/spec.md`
