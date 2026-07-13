@@ -125,6 +125,21 @@ static EvalResult evalImpl(const ASTNode *node, const SignalValues &signals,
     case NodeType::BITSEL: {
         auto it = signals.find(node->value);
         uint64_t val = (it != signals.end()) ? it->second : 0;
+        /* Check if this is a multi-dimensional wire access (e.g., stage[0]) */
+        if (node->children.size() == 1) {
+            auto I = evalImpl(node->children[0], signals, widths, signeds);
+            std::string fullName = node->value + "[" + std::to_string((int)I.value) + "]";
+            auto fit = signals.find(fullName);
+            if (fit != signals.end()) {
+                /* Multi-dimensional wire element — return full value */
+                int w = 32;
+                auto wi = widths.find(fullName);
+                if (wi != widths.end()) w = wi->second;
+                return {fit->second, w};
+            }
+            /* Regular bit-select */
+            return {(val >> (int)I.value) & 1ULL, 1};
+        }
         if (node->children.size() >= 3) {
             /* Double bit-select: signal[idx][msb:lsb] or signal[idx][bit] */
             auto Idx = evalImpl(node->children[0], signals, widths, signeds);

@@ -445,7 +445,15 @@ static void propagateSignals(std::vector<ASTNode *> &items,
                     if (a == b) { targetBit = a; }
                     else { targetMsb = std::max(a, b); targetLsb = std::min(a, b); }
                 } else if (lhs->children.size() == 1) {
-                    targetBit = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
+                    int idx = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
+                    /* Check if this is a multi-dimensional wire element */
+                    std::string fullName = lname + "[" + std::to_string(idx) + "]";
+                    if (widths.find(fullName) != widths.end()) {
+                        lname = fullName;
+                        /* targetBit stays -1 → whole-signal write */
+                    } else {
+                        targetBit = idx;
+                    }
                 }
             }
             if (!lname.empty()) {
@@ -579,7 +587,14 @@ static void execItem(ASTNode *item, SignalValues &svals, SignalWidths &widths,
                     if (a == b) { idx = a; }
                     else { msb = std::max(a, b); lsb = std::min(a, b); }
                 } else if (lhs->children.size() == 1) {
-                    idx = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
+                    int bitIdx = (int)evalExpr(lhs->children[0], svals, widths, g_signalSigneds).value;
+                    /* Check if this is a multi-dimensional wire element */
+                    std::string fullName = lname + "[" + std::to_string(bitIdx) + "]";
+                    if (widths.find(fullName) != widths.end()) {
+                        lname = fullName;
+                    } else {
+                        idx = bitIdx;
+                    }
                 }
                 int w = 32;
                 auto wi = widths.find(lname);
