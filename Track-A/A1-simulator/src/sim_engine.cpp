@@ -851,8 +851,9 @@ int SimulationEngine::compile(const std::string &filelist, const std::string &to
             for (auto *conn : item->children) {
                 if (conn->type == NodeType::PORT_CONN && !conn->children.empty()) {
                     ASTNode *expr = conn->children[0];
-                    if (expr->type == NodeType::IDENTIFIER)
+                    if (expr->type == NodeType::IDENTIFIER) {
                         cmap[conn->value] = expr->value;
+                    }
                 }
             }
             for (auto *ci : childDef->items) {
@@ -949,6 +950,14 @@ int SimulationEngine::run(const std::string &simPath, unsigned int /*threads*/) 
             alwaysItems.push_back(item);
         } else if (item->type == NodeType::ASSIGN) {
             assignItems.push_back(item);
+        }
+    }
+    bool foundInputPort = false;
+    for (auto *a : assignItems) {
+        if (a->children.size() >= 2 && a->children[0]->type == NodeType::IDENTIFIER &&
+            a->children[0]->value == "UUT.input_unencoded") {
+            foundInputPort = true;
+            break;
         }
     }
 
