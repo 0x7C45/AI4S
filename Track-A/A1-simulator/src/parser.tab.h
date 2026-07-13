@@ -115,7 +115,8 @@ struct VerilogNum {
     NAND = 302,                    /* NAND  */
     NOR = 303,                     /* NOR  */
     XNOR = 304,                    /* XNOR  */
-    UNARY = 305                    /* UNARY  */
+    POWER = 305,                   /* POWER  */
+    UNARY = 306                    /* UNARY  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -130,7 +131,7 @@ union YYSTYPE
     char *str;
     struct ASTNode *node;
 
-#line 134 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.h"
+#line 135 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

@@ -37,6 +37,11 @@ static EvalResult evalImpl(const ASTNode *node, const SignalValues &signals,
         if (op == "+")  return {l + r, std::max(lw, rw)};
         if (op == "-")  return {l - r, std::max(lw, rw)};
         if (op == "*")  return {l * r, std::max(lw, rw)};
+        if (op == "**") {
+            uint64_t result = 1;
+            for (uint64_t i = 0; i < r; i++) result *= l;
+            return {result, std::max(lw, rw)};
+        }
         if (op == "&")  return {l & r, std::max(lw, rw)};
         if (op == "|")  return {l | r, std::max(lw, rw)};
         if (op == "^")  return {l ^ r, std::max(lw, rw)};

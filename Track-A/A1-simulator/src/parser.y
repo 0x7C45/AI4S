@@ -62,6 +62,7 @@ static ASTNode *makeNum(VerilogNum *n) {
 %type <node> param_override port_conn case_item
 %type <node> expr_list lvalue_list port_conn_list case_items
 %type <node> gen_items gen_item gen_block gen_body
+%type <node> module_param_decls module_param_decl
 
 %left LOGOR
 %left LOGAND
@@ -73,6 +74,7 @@ static ASTNode *makeNum(VerilogNum *n) {
 %left SHL SHR SSHR
 %left '+' '-'
 %left '*' '/' '%'
+%right POWER
 %right '!' '~' UNARY
 
 %%
@@ -94,6 +96,25 @@ module:
         if ($3) { for (auto *c : $3->children) addChild($$, c); $3->children.clear(); freeTree($3); }
         if ($5) { for (auto *c : $5->children) { addChild($$, c); } $5->children.clear(); freeTree($5); }
     }
+    | MODULE IDENTIFIER '#' '(' module_param_decls ')' opt_port_list ';' module_items ENDMODULE
+    {
+        $$ = makeNode(NodeType::MODULE, $2, yylineno);
+        free($2);
+        /* Add parameter declarations as children */
+        if ($5) { for (auto *c : $5->children) addChild($$, c); $5->children.clear(); freeTree($5); }
+        if ($7) { for (auto *c : $7->children) addChild($$, c); $7->children.clear(); freeTree($7); }
+        if ($9) { for (auto *c : $9->children) addChild($$, c); $9->children.clear(); freeTree($9); }
+    }
+    ;
+
+module_param_decls:
+    module_param_decls ',' module_param_decl { addChild($1, $3); $$ = $1; }
+    | module_param_decl                      { $$ = makeNode(NodeType::BLOCK, "", yylineno); addChild($$, $1); }
+    ;
+
+module_param_decl:
+    PARAMETER IDENTIFIER '=' expr
+      { $$ = makeNode(NodeType::LOCALPARAM_DECL, $2, yylineno); free($2); addChild($$, $4); }
     ;
 
 opt_port_list:
@@ -186,6 +207,38 @@ port_decl:
           $$->msb = 0; $$->lsb = 0;
           addChild($$, makeNode(NodeType::IDENTIFIER, $2, yylineno));
           free($2);
+      }
+    | OUTPUT WIRE range IDENTIFIER
+      {
+          $$ = makeNode(NodeType::PORT, "", yylineno);
+          $$->value = "output";
+          $$->msb = $3->msb; $$->lsb = $3->lsb;
+          addChild($$, makeNode(NodeType::IDENTIFIER, $4, yylineno));
+          free($4); freeTree($3);
+      }
+    | OUTPUT WIRE IDENTIFIER
+      {
+          $$ = makeNode(NodeType::PORT, "", yylineno);
+          $$->value = "output";
+          $$->msb = 0; $$->lsb = 0;
+          addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno));
+          free($3);
+      }
+    | INPUT WIRE range IDENTIFIER
+      {
+          $$ = makeNode(NodeType::PORT, "", yylineno);
+          $$->value = "input";
+          $$->msb = $3->msb; $$->lsb = $3->lsb;
+          addChild($$, makeNode(NodeType::IDENTIFIER, $4, yylineno));
+          free($4); freeTree($3);
+      }
+    | INPUT WIRE IDENTIFIER
+      {
+          $$ = makeNode(NodeType::PORT, "", yylineno);
+          $$->value = "input";
+          $$->msb = 0; $$->lsb = 0;
+          addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno));
+          free($3);
       }
     | OUTPUT REG range IDENTIFIER
       {
@@ -488,6 +541,7 @@ expr:
     | expr SHL expr     { $$ = makeNode(NodeType::BINOP, "<<", yylineno); addChild($$, $1); addChild($$, $3); }
     | expr SHR expr     { $$ = makeNode(NodeType::BINOP, ">>", yylineno); addChild($$, $1); addChild($$, $3); }
     | expr SSHR expr    { $$ = makeNode(NodeType::BINOP, ">>>", yylineno); addChild($$, $1); addChild($$, $3); }
+    | expr '*' '*' expr %prec POWER  { $$ = makeNode(NodeType::BINOP, "**", yylineno); addChild($$, $1); addChild($$, $4); }
     | expr LOGAND expr  { $$ = makeNode(NodeType::BINOP, "&&", yylineno); addChild($$, $1); addChild($$, $3); }
     | expr LOGOR expr   { $$ = makeNode(NodeType::BINOP, "||", yylineno); addChild($$, $1); addChild($$, $3); }
     | expr '?' expr ':' expr
@@ -533,6 +587,18 @@ prim_expr:
           $$->children = $2->children;
           $2->children.clear();
           freeTree($2);
+      }
+    | '{' expr '{' expr_list '}' '}'
+      {
+          /* Replication: {count{expr_list}} — expand into count copies */
+          $$ = makeNode(NodeType::CONCAT, "", yylineno);
+          int count = 0;
+          try { count = (int)std::stoull($2->value); } catch (...) { count = 1; }
+          for (int i = 0; i < count; i++) {
+              for (auto *c : $4->children) addChild($$, c);
+          }
+          freeTree($2);
+          $4->children.clear(); freeTree($4);
       }
     | '(' expr ')'
       {
