@@ -41,7 +41,7 @@ make -j1 synth \
 make -j1 test
 ```
 
-测试覆盖配置选择、隐藏电路 `$default` 回退、SDC 解析、自适应策略、ABC 脚本、gate sizing 和 Makefile 端到端接口。官方镜像中的公开 60 点复现实验可运行：
+测试覆盖配置选择、隐藏电路 `$default` 回退、SDC 解析、自适应策略、ABC 脚本、gate sizing、高扇出缓冲、改写失败回退和 Makefile 端到端接口。高扇出改写仅接受单模块 flatten 网表与具有 A 输入/Z 输出的兼容 BUF 单元；改写后会由 Yosys 重新解析和检查，失败时自动恢复未改写网表。官方镜像中的公开 60 点复现实验可运行：
 
 ```bash
 python3 experiments/run_submission_baseline.py --output /tmp/a3-official-baseline
@@ -53,16 +53,20 @@ python3 experiments/run_submission_baseline.py --output /tmp/a3-official-baselin
 python3 experiments/score_submission.py /tmp/a3-official-baseline/results.csv
 ```
 
-隐藏回退七点选择可由三批候选结果完整重算：
+隐藏回退七点选择可由五批候选结果完整重算：
 
 ```bash
 python3 experiments/run_submission_baseline.py --config experiments/configs/config.default-current.json --output /tmp/a3-default-current
 python3 experiments/run_submission_baseline.py --config experiments/configs/config.default-alternatives.json --output /tmp/a3-default-alternatives
 python3 experiments/run_submission_baseline.py --config experiments/configs/config.default-sizing.json --output /tmp/a3-default-sizing
+python3 experiments/run_submission_baseline.py --config experiments/configs/config.buffer-threshold.json --output /tmp/a3-buffer-threshold
+python3 experiments/run_submission_baseline.py --config experiments/configs/config.buffer-amap.json --output /tmp/a3-buffer-amap
 python3 experiments/select_default_points.py \
   --candidate experiments/configs/config.default-current.json /tmp/a3-default-current/results.csv \
   --candidate experiments/configs/config.default-alternatives.json /tmp/a3-default-alternatives/results.csv \
-  --candidate experiments/configs/config.default-sizing.json /tmp/a3-default-sizing/results.csv
+  --candidate experiments/configs/config.default-sizing.json /tmp/a3-default-sizing/results.csv \
+  --candidate experiments/configs/config.buffer-threshold.json /tmp/a3-buffer-threshold/results.csv \
+  --candidate experiments/configs/config.buffer-amap.json /tmp/a3-buffer-amap/results.csv
 ```
 
 ## 清理与打包

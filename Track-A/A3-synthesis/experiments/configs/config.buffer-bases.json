@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "balanced-buf8-t35", "profile": "balanced", "buffer_fanout_threshold": 35, "buffer_strength": 8},
+    {"name": "balanced-buf8-t75", "profile": "balanced", "buffer_fanout_threshold": 75, "buffer_strength": 8},
+    {"name": "balanced-buf16-t35", "profile": "balanced", "buffer_fanout_threshold": 35, "buffer_strength": 16},
+    {"name": "balanced-buf16-t75", "profile": "balanced", "buffer_fanout_threshold": 75, "buffer_strength": 16},
+    {"name": "dc2-buf8-t35", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 35, "buffer_strength": 8},
+    {"name": "dc2-buf8-t75", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 75, "buffer_strength": 8},
+    {"name": "dc2-buf16-t35", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 35, "buffer_strength": 16}
+  ]
+}

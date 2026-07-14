@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "dc2-buf8-t85", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 85, "buffer_strength": 8},
+    {"name": "dc2-buf8-t100", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 100, "buffer_strength": 8},
+    {"name": "dc2-buf8-t125", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 125, "buffer_strength": 8},
+    {"name": "dc2-buf8-t150", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 150, "buffer_strength": 8},
+    {"name": "dc2-buf8-t200", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 200, "buffer_strength": 8},
+    {"name": "dc2-buf4-t75", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 75, "buffer_strength": 4},
+    {"name": "dc2-buf4-t100", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 100, "buffer_strength": 4}
+  ]
+}

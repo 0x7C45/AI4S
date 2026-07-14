@@ -71,6 +71,20 @@ class ConfigTests(unittest.TestCase):
         with self.assertRaises(ConfigError):
             select_point(path, "HIDDEN", 1)
 
+    def test_reads_high_fanout_buffer_options(self):
+        path = self.write({"$default": [{"buffer_fanout_threshold": 25, "buffer_strength": 16}]})
+        point, _ = select_point(path, "HIDDEN", 1)
+        self.assertEqual((point.buffer_fanout_threshold, point.buffer_strength), (25, 16))
+
+    def test_rejects_invalid_high_fanout_buffer_options(self):
+        for value in (0, 1, True, 1.5, "25"):
+            path = self.write({"$default": [{"buffer_fanout_threshold": value}]})
+            with self.subTest(value=value), self.assertRaises(ConfigError):
+                select_point(path, "HIDDEN", 1)
+        path = self.write({"$default": [{"buffer_strength": 32}]})
+        with self.assertRaises(ConfigError):
+            select_point(path, "HIDDEN", 1)
+
     def test_submission_config_has_valid_unique_points(self):
         path = Path(__file__).resolve().parents[1] / "config.json"
         config = load_config(path)
