@@ -33,9 +33,9 @@ apt-get update -qq >/dev/null 2>&1
 apt-get install -y -qq python3-pip >/dev/null 2>&1
 echo "=== [2/4] 离线装依赖 ==="
 if [ -d /work/wheelhouse ]; then
-  python3 -m pip install --break-system-packages --no-index --find-links=/work/wheelhouse cocotb==2.0.1 cocotbext-axi==0.1.28 Jinja2==3.1.6 find_libpython 2>&1 | tail -2
+  python3 -m pip install --break-system-packages --no-index --find-links=/work/wheelhouse cocotb==2.0.1 cocotbext-axi==0.1.28 cocotb-bus==0.3.0 scapy==2.7.0 Jinja2==3.1.6 find_libpython 2>&1 | tail -2
 else
-  python3 -m pip install --break-system-packages --quiet cocotb==2.0.1 cocotbext-axi==0.1.28 2>&1 | tail -2
+  python3 -m pip install --break-system-packages --quiet cocotb==2.0.1 cocotbext-axi==0.1.28 cocotb-bus==0.3.0 scapy==2.7.0 2>&1 | tail -2
 fi
 echo "=== [3/4] 确认工具链 ==="
 python3 -c "import cocotb, cocotbext.axi; print('cocotb', cocotb.__version__)"
