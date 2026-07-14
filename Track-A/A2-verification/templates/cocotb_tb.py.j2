@@ -115,7 +115,10 @@ async def run_generated_test(dut):
     cocotb.start_soon(Clock(dut.{{ design_info.clock }}, 10, unit="ns").start())
 
 {% if "AXI" in design_info.inferred_protocols %}
-    # AXI 驱动（per D-08：cocotbext-axi）
+{% set _has_s_axi = design_info.has_axi_bus("s_axi") %}
+{% set _has_m_axi = design_info.has_axi_bus("m_axi") %}
+{% if _has_s_axi and _has_m_axi %}
+    # AXI 驱动（per D-08：cocotbext-axi）— DUT 有完整 s_axi + m_axi 总线（如 case1 读适配器）
     master = AxiMasterRead(AxiReadBus.from_prefix(dut, "s_axi"), dut.{{ design_info.clock }}, dut.{{ design_info.reset }})
     ram = AxiRamRead(AxiReadBus.from_prefix(dut, "m_axi"), dut.{{ design_info.clock }}, dut.{{ design_info.reset }}, size=2**16)
 
@@ -127,6 +130,18 @@ async def run_generated_test(dut):
     master.r_channel.set_pause_generator(cycle_pause())
     ram.ar_channel.set_pause_generator(random_pause(random.Random(seed ^ 0x2468), 1, 13))
     ram.r_channel.set_pause_generator(random_pause(random.Random(seed ^ 0x369c), 1, 7))
+{% elif _has_s_axi %}
+    # AXI 仅 s_axi（slave 侧，如 case4 axi_ram）— 只建 master 驱动，无 m_axi RAM
+    master = AxiMasterRead(AxiReadBus.from_prefix(dut, "s_axi"), dut.{{ design_info.clock }}, dut.{{ design_info.reset }})
+    master.log.setLevel(logging.WARNING)
+    master.ar_channel.set_pause_generator(random_pause(random.Random(seed ^ 0x13579), 1, 11))
+    master.r_channel.set_pause_generator(cycle_pause())
+{% else %}
+    # AXI 仅 m_axi（DUT 为 master，如 case3 vfifo）或无可用总线——
+    # 不实例化 cocotbext-axi（from_prefix 对残缺总线抛 None.setimmediatevalue）；
+    # 走通用 valid-ready/SRAM 驱动路径。
+    pass
+{% endif %}
 {% endif %}
 
     await reset_dut(dut)
@@ -143,7 +158,7 @@ async def run_generated_test(dut):
         addr = read_address(rng, index, length)
         # 写入 RAM 预期数据（scoreboard 比对基准）
         data = bytes((index + offset * 19 + rng.randrange(256)) & 0xff for offset in range(length))
-{% if "AXI" in design_info.inferred_protocols %}
+{% if "AXI" in design_info.inferred_protocols and _has_s_axi and _has_m_axi %}
         ram.write(addr, data)
 
         size = size_choices[index % len(size_choices)]
@@ -212,7 +227,8 @@ async def run_generated_test(dut):
             for _ in range(rng.randint(0, 8)):
                 await RisingEdge(dut.{{ design_info.clock }})
 
-{% if "AXI" in design_info.inferred_protocols %}
+{% if "AXI" in design_info.inferred_protocols and _has_s_axi %}
+    # master 仅在 s_axi 可用时实例化（完整 AXI 或 slave-only 分支）
     await master.wait_idle() if hasattr(master, 'wait_idle') else await master.wait()
 {% endif %}
     for _ in range(16):
