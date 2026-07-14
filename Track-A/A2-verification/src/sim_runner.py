@@ -18,6 +18,13 @@ class SimResult:
     stderr: str
 
 
+# per D-20: single source of truth for the subprocess timeout. Both the Docker
+# path and the local-make path must honor this so case2-5 (and the 5000-seq run)
+# cannot hit a stale 600s ceiling on the local fallback while the Docker branch
+# was bumped to 1200s during Task 2.
+SIM_TIMEOUT_SECONDS = 1200
+
+
 # Docker 命令模板（per D-06：镜像无 pip，需 bootstrap）
 # per SMOKE_TEST_REPORT §2：MSYS_NO_PATHCONV 防 Git Bash 路径转换
 _DOCKER_RUN_TEMPLATE = """\
@@ -112,7 +119,7 @@ def _run_docker(tb_dir, test_module, seed):
 
     try:
         result = subprocess.run(
-            cmd, capture_output=True, text=True, timeout=1200, env=env,
+            cmd, capture_output=True, text=True, timeout=SIM_TIMEOUT_SECONDS, env=env,
         )
         # 判断成功：MAKE_EXIT=0（仿真 make 成功）
         passed = ("MAKE_EXIT=0" in result.stdout)
@@ -124,7 +131,7 @@ def _run_docker(tb_dir, test_module, seed):
         )
     except subprocess.TimeoutExpired:
         return SimResult(passed=False, exit_code=-1, stdout="",
-                         stderr="Docker sim timeout (600s)")
+                         stderr="Docker sim timeout (1200s)")
     except FileNotFoundError:
         return SimResult(passed=False, exit_code=-1, stdout="",
                          stderr="docker command not found")
@@ -137,7 +144,7 @@ def _run_local(tb_dir, test_module, seed):
     env["SEED"] = str(seed)
     try:
         result = subprocess.run(
-            cmd, capture_output=True, text=True, timeout=600,
+            cmd, capture_output=True, text=True, timeout=SIM_TIMEOUT_SECONDS,
             cwd=str(tb_dir), env=env,
         )
         passed = result.returncode == 0
@@ -146,4 +153,4 @@ def _run_local(tb_dir, test_module, seed):
             stdout=result.stdout, stderr=result.stderr,
         )
     except subprocess.TimeoutExpired:
-        return SimResult(passed=False, exit_code=-1, stdout="", stderr="local sim timeout")
+        return SimResult(passed=False, exit_code=-1, stdout="", stderr="local sim timeout (1200s)")
