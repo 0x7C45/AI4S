@@ -11,7 +11,13 @@ class FunctionalCoverage:
         }
 
     def hit(self, coverpoint, bin_name, count=1):
-        self.coverpoints[coverpoint][bin_name] += count
+        # per Phase 10 FIX7: 通用驱动对不同 DUT 引用的 coverpoint/bin 可能未定义
+        # （如 axi_ram 无 fifo_full_empty bin）。静默忽略未定义项，避免 KeyError
+        # 导致整个仿真崩溃（行/分支覆盖率已采集，不应因功能性 bin 缺失全盘失败）。
+        cp = self.coverpoints.get(coverpoint)
+        if cp is None or bin_name not in cp:
+            return
+        cp[bin_name] += count
 
     def write(self, path=None, source="testbench"):
         path = path or os.environ.get(
