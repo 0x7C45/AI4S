@@ -117,6 +117,7 @@ def main():
     try:
         from src.coverage_collect import collect as collect_cov
         from src.report_gen import generate as gen_report
+        from src.dead_code_analyzer import analyze as analyze_dead_code
         import shutil
 
         # 仿真产物路径（coverage.dat + functional_coverage.json 在 generated_tb/）
@@ -127,7 +128,28 @@ def main():
         if fc_in_tb.exists():
             shutil.copy2(fc_in_tb, out_dir / "functional_coverage.json")
 
-        cov_data = collect_cov(str(sim_tb_dir), design_info)
+        # ── 死码分析（per SC#5：识别 generate/if 参数化死码，从分母排除）──
+        # 测试配置参数来自 cocotb_top wrapper（如 case1_cocotb_top.v 的 S=32/M=16），
+        # 不是 RTL 默认值（默认 S=M=32 → SEGMENT_COUNT=1 全活）。
+        # 向上搜 testcase 目录找 *_cocotb_top.v 或 *_top.v，提取其 parameter 实例化值。
+        dead_code_info = None
+        test_params = _extract_test_params(rtl_path)
+        rtl_files_abs = [str(rtl_path / f) if rtl_path.is_dir() else str(rtl_path)
+                         for f in (design_info.files or [])]
+        # 兜底：若 design_info.files 是相对路径，补全到 rtl_path
+        rtl_files_abs = [f if Path(f).is_absolute() else str(rtl_path.parent / f)
+                         for f in rtl_files_abs] if rtl_files_abs else [str(rtl_path)]
+        try:
+            dead_code_info = analyze_dead_code(rtl_files_abs, test_params)
+            if dead_code_info.unreachable_lines:
+                print(f"[coverage] 死码过滤: {len(dead_code_info.unreachable_lines)} 行不可达 "
+                      f"(参数 {test_params})")
+        except Exception as dc_err:
+            # 死码分析失败不应阻断覆盖率收集（保守不过滤）
+            print(f"[coverage] 死码分析失败（保守不过滤）: {dc_err}", file=sys.stderr)
+            dead_code_info = None
+
+        cov_data = collect_cov(str(sim_tb_dir), design_info, dead_code_info=dead_code_info)
 
         sim_info = {"seed": args.seed, "sequence_count": args.num_seq, "sim_time_ns": 0}
         result_path = gen_report(cov_data, sim_info, str(out_dir))
@@ -166,6 +188,48 @@ def _write_report(out_dir, stages, artifacts, args):
     }
     with open(out_dir / "report.json", "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2, ensure_ascii=False)
+
+
+def _extract_test_params(rtl_path):
+    """提取测试实例化参数（per SC#5 死码分析需要真实配置，非 RTL 默认值）。
+
+    case1 的 RTL 默认 S=M=32（SEGMENT_COUNT=1，全活），但测试 cocotb_top 用 S=32/M=16
+    （SEGMENT_COUNT=2，前两分支死）。参数源优先级：
+      1. testcase 目录下 *_cocotb_top.v / *_top.v 的顶层 parameter 声明
+      2. 空字典（fallback：用 RTL 默认，不过滤死码）
+
+    Returns: dict 如 {'S_DATA_WIDTH': 32, 'M_DATA_WIDTH': 16}
+    """
+    import re
+    params = {}
+    # rtl_path 可能是目录或文件；找 testcase 根（含 cocotb_top 的目录）
+    search_dirs = []
+    if rtl_path.is_dir():
+        search_dirs.append(rtl_path)
+        search_dirs.append(rtl_path.parent)  # testcase 根通常在 rtl/ 的上一层
+    else:
+        search_dirs.append(rtl_path.parent)
+
+    for d in search_dirs:
+        for top_file in list(d.glob("*_cocotb_top.v")) + list(d.glob("*_top.v")):
+            try:
+                text = top_file.read_text(encoding="utf-8", errors="replace")
+                # 匹配顶层 `parameter NAME = VALUE;`（cocotb_top wrapper 风格）
+                for m in re.finditer(
+                    r'^\s*parameter\s+([A-Z_][A-Z0-9_]*)\s*=\s*([^;,]+)\s*;',
+                    text, re.MULTILINE
+                ):
+                    name, val = m.group(1), m.group(2).strip()
+                    # 只保留整数值（跳过表达式如 S_DATA_WIDTH/8）
+                    try:
+                        params[name] = int(val)
+                    except ValueError:
+                        pass
+                if params:
+                    return params  # 第一个找到的 cocotb_top 即返回
+            except Exception:
+                continue
+    return params
 
 
 if __name__ == "__main__":
