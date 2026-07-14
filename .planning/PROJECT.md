@@ -19,7 +19,7 @@
 ### 团队背景
 
 - **负责人（你）**: YSYX（一生一芯）经历，Verilog/C/Python/Yosys/STA/Verilator 全栈 → **负责 A1 RTL 仿真器**（代码复用最多：NEMU/Verilator）
-- **队友**: 主要靠 Claude+GSD 辅助 → **负责 A3 逻辑综合**（Yosys 流程成熟，GSD 可直接辅助）
+- **队友**: **负责 A3 逻辑综合**；A3 在本规划框架之外独立维护
 - **队友2**: 主要靠 Claude+GSD 辅助 → **负责 A2 验证生成**
 
 ## Requirements
@@ -30,11 +30,6 @@
 
 ### Active
 
-- [ ] **A3-01**: 交付 A3 RTL 逻辑综合工具 — 基于 Yosys 增强，读取 Verilog + SDC + Nangate45 Liberty，输出合法门级网表
-- [ ] **A3-02**: 10 个公开电路（LSV01-LSV10）功能正确 — 网表通过仿真验证比对
-- [ ] **A3-03**: 每电路支持多 Point 配置（最多7个）— 通过 config.json 驱动不同优化策略
-- [ ] **A3-04**: PPA Hypervolume 达到或超过官方参考水平
-- [ ] **A3-05**: 统一 Makefile 接口（build / synth / clean）
 - [ ] **A1-01**: 队友交付 A1 轻量 RTL 仿真器 — 事件驱动 Verilog 仿真器
 - [ ] **A1-02**: 12 个公开测试用例通过（basic01-05, alu, priority_encoder, i2c, ip, axis_fifo, sha256, GEMM）
 - [ ] **A1-03**: 支持增量编译和并行仿真（GEMM 用例重点）
@@ -45,14 +40,12 @@
 ### Out of Scope
 
 - 赛道 B (GPGPU RTL) 和赛道 C (编译器/Runtime) — 不在赛道 A 范围
-- A3 隐藏电路的针对性优化 — 违反竞赛规则
 - 商业 EDA 工具调用 — 评测环境无网络，仅开源工具
-- A3 from_scratch 模式 — 基于 Yosys 增强（open_source_based）更符合61小时时限
 
 ## Constraints
 
 - **时间**: 约61小时（7月12日21:00 → 7月15日10:00）
-- **人力**: 仅1人有 EDA 技术背景，2人依赖 GSD 辅助
+- **人力**: 仅1人有 EDA 技术背景，A1/A2 仍使用现有规划流程协作
 - **语言**: A1 C/C++, A2 Python, A3 Python (Yosys 脚本) + C++ (自定义 pass)
 - **依赖**: 所有第三方依赖须随提交包提供，评测无网络
 - **正确性门禁**: A3 功能不正确则该 Point 0 分；A1 F1/F2 不通过则 P1/P2/P3 为0
@@ -62,9 +55,6 @@
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
 | 赛道选择 A | 团队有 EDA 经验，与 YSYX 背景匹配 | — Pending |
-| 分工调整：你做 A1，队友做 A3 | A1 代码复用最多(NEMU/Verilator)，需深入理解；A3 Yosys 流程成熟，GSD 可直接辅助队友 | — Pending |
-| A3 基于 Yosys 增强 | open_source_based 类型，61小时内最快出成果 | — Pending |
-| A3 策略：先正确后优化 | 功能正确是评分前提，不正确 = 0 分 | — Pending |
 | A1/A2 用 GSD 辅助队友开发 | 队友无 EDA 背景，GSD 可提供从零到交付的完整辅助 | — Pending |
 | A2: cocotb + Verilator 路线 | iverilog 不支持 RTL 行/分支覆盖；Verilator 原生 --coverage-line | ✅ Locked (congress 2026-07-14) |
 | A2: Docker linux/amd64 主环境 | 与评测 OS 同构，覆盖率数字直接可交付 | ✅ 烟雾测试验证 |
