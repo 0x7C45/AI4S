@@ -6,7 +6,7 @@
 
 ## 1. 模式
 
-三路独立竞赛：mac 端 Claude Code、win 端 Claude Code、mac 端 Codex 三方按已定 [PLAN.md](./PLAN.md) 各自完整实现 A2 流水线，独立产出，末段取最优合并。
+三路独立竞赛：mac 端 Claude Code、win 端 Claude Code、win 端 ZCode 三方按已定 [PLAN.md](./PLAN.md) 各自完整实现 A2 流水线，独立产出，末段取最优合并。
 
 | 维度 | 说明 |
 |---|---|
@@ -19,18 +19,19 @@
 
 | 实例 | 平台 | 工具 | 角色 | 工作分支 |
 |---|---|---|---|---|
-| mac-CC | macOS | Claude Code | 独立实现 A2 全流水线；信息放送：定期把本机进度/发现/坑同步给 win-CC 与 mac-Codex | exec/mac-cc |
+| mac-CC | macOS | Claude Code | 独立实现 A2 全流水线；信息放送：定期把本机进度/发现/坑同步给 win-CC 与 win-ZCode | exec/mac-cc |
 | win-CC | Windows | Claude Code | 独立实现 A2 全流水线；接收 mac-CC 信息放送，并反向同步本机进度/发现/坑（双向闭环） | exec/win-cc |
-| mac-Codex | macOS | Codex CLI | 独立实现 A2 全流水线；接收 mac-CC 信息放送，并反向同步本机进度/发现/坑（双向闭环） | exec/mac-codex |
+| win-ZCode | Windows（Docker linux/amd64） | ZCode | 独立实现 A2 全流水线；接收 mac-CC 信息放送，并反向同步本机进度/发现/坑（双向闭环） | exec/win-zcode |
 
 > 三方各自从 master 拉工作分支，不直接在 master 上开发；末段合并由负责人操作。
 
-> **开发策略**（覆盖率跨平台一致性是核心风险：三方无人在评测 OS Linux x86_64 上原生跑过，必须 Docker 复验）：
-> - **mac-CC / mac-Codex**：开发期用本机 native Verilator(brew 5.050) 提速；提交前必须在 Docker linux/amd64 容器内（`verilator/verilator:5.050` 官方镜像）复跑全部 case，覆盖率与产物无漂移才提交。
+> **开发策略**（覆盖率跨平台一致性是核心风险：mac-CC 为 macOS arm64、win-CC 为 Windows，需 Docker 复验；win-ZCode 主运行环境即 Docker linux/amd64，与评测 OS 同构，无跨平台漂移风险）：
+> - **mac-CC**：开发期用本机 native Verilator(brew 5.050) 提速；提交前必须在 Docker linux/amd64 容器内（`verilator/verilator:v5.050` 官方镜像）复跑全部 case，覆盖率与产物无漂移才提交。
 > - **win-CC**：WSL2（原生 linux/amd64，最接近评测 OS）开发与验证。
+> - **win-ZCode**：Docker linux/amd64（Windows + Docker Desktop），与评测 OS 完全同构，开发即交付环境，覆盖率数字直接可用。
 > - **fallback**：venv3.12 + install.sh。
 >
-> **双向同步**：mac-CC 负责「信息放送」（定期把本机进度/发现/坑同步出去）；win-CC 与 mac-Codex 必须接收，并**反向同步**自身进度/发现/坑回 mac-CC，形成双向闭环，避免信息单向下行导致重复踩坑。
+> **双向同步**：mac-CC 负责「信息放送」（定期把本机进度/发现/坑同步出去）；win-CC 与 win-ZCode 必须接收，并**反向同步**自身进度/发现/坑回 mac-CC，形成双向闭环，避免信息单向下行导致重复踩坑。
 
 ## 3. 共同基线
 
@@ -65,7 +66,7 @@
 
 ## 6. 提交约定
 
-- 工作分支命名：`exec/<instance>`（exec/mac-cc、exec/win-cc、exec/mac-codex）
+- 工作分支命名：`exec/<instance>`（exec/mac-cc、exec/win-cc、exec/win-zcode）
 - 末段合并到 master 由 A2 负责人操作
 - commit message 风格：`A2: <描述> (<细节>)`，中文
 

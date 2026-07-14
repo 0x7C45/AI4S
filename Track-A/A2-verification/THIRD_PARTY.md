@@ -23,7 +23,7 @@
 
 > **版本号说明**：
 > - 已硬锁（task3 实测 2026-07-13）：`cocotb==2.0.1`（1.8.1 macOS arm64 无 wheel、源码构建失败；2.0.1 有 cp312 macosx arm64 wheel；评测机两版本都有 manylinux x86_64 wheel）、`cocotb-test==0.2.6`、`cocotbext-axi==0.1.28`、`Jinja2==3.1.6`、`PyVerilog==1.3.0`、`z3-solver==4.16.0.0`（可选，task3 网络未装上，PyPI 确认 arm64 wheel 存在）、`Verilator==5.050`、`Python==3.12`。
-> - 依 `CONSTRAINTS.md §11` 红线 #6，所有包在 `requirements.txt` 钉死精确版本 `==X.Y.Z`，三方（mac-CC / win-CC / mac-Codex）对齐。
+> - 依 `CONSTRAINTS.md §11` 红线 #6，所有包在 `requirements.txt` 钉死精确版本 `==X.Y.Z`，三方（mac-CC / win-CC / win-ZCode）对齐。
 > - `cocotbext-axi 0.1.28` 与 cocotb 2.0.1 实测全兼容：**issue #119 已过期**（cocotb-bus 0.3.0 + cocotbext-axi 0.1.28 的 requires_dist 为 `cocotb>=1.6.0`，无 `<2.0` 上界）。
 
 ---
@@ -137,7 +137,7 @@ pip download -r requirements.txt -d offline_pkgs/ \
 pip install --no-index --find-links=offline_pkgs/ -r requirements.txt
 ```
 
-- `--platform manylinux2014_x86_64 --only-binary=:all:`：锁 Linux x86_64（评测 OS），与三方开发机架构解耦（mac-CC / mac-Codex 为 macOS arm64，win-CC 为 Windows，均非评测 OS）。
+- `--platform manylinux2014_x86_64 --only-binary=:all:`：锁 Linux x86_64（评测 OS），与三方开发机架构解耦（mac-CC 为 macOS arm64，win-CC 为 Windows，win-ZCode 为 Windows + Docker linux/amd64；评测 OS 统一为 Linux x86_64）。
 - 若存在必须源码编译的依赖（如 z3-solver 在个别平台无预编译 wheel），需一并 vendored 进离线 wheel 目录，并在 README 注明编译前置条件。
 - **Verilator 二进制不打入离线 wheel 目录**，由评测机自带。
 
@@ -152,9 +152,9 @@ pip install --no-index --find-links=offline_pkgs/ -r requirements.txt
 
 ### 5.2 Verilator 为何硬锁 5.050；cocotb 为何停在 1.8.1
 
-- **Verilator 5.050**：`--coverage-line / --coverage-toggle` 两标志的插桩与 `coverage.dat` 输出格式在不同主版本间可能漂移；锁定具体号而非「5.x」，保证三方复跑与评测机产出同一口径的行/分支覆盖率。Ubuntu 24.04 apt 仅到 5.020，**须源码 `git checkout v5.050` 自编**或用官方 Docker 镜像 `verilator/verilator:5.050`。
+- **Verilator 5.050**：`--coverage-line / --coverage-toggle` 两标志的插桩与 `coverage.dat` 输出格式在不同主版本间可能漂移；锁定具体号而非「5.x」，保证三方复跑与评测机产出同一口径的行/分支覆盖率。Ubuntu 24.04 apt 仅到 5.020，**须源码 `git checkout v5.050` 自编**或用官方 Docker 镜像 `verilator/verilator:v5.050`。
 - **cocotb 2.0.1**：与 Verilator 5.050 兼容（要求 ≥ 5.036）；cocotbext-axi 0.1.28 实测全兼容（issue #119 已过期）。task3 实测 1.8.1 macOS arm64 无 wheel、源码构建失败，故升 2.0.1（详见 §2.2）。
-- 安装方式（`ENVIRONMENT.md §3 / §4`）：mac 可 `brew install verilator`（若版本不符则源码自编）；win-CC 用 WSL2（原生 linux/amd64，最接近评测 OS）；提交前必须在 Docker `verilator/verilator:5.050`（`--platform linux/amd64`）容器内复跑全部 case 验证覆盖率一致性，无漂移才提交。
+- 安装方式（`ENVIRONMENT.md §3 / §4`）：mac 可 `brew install verilator`（若版本不符则源码自编）；win-CC 用 WSL2（原生 linux/amd64，最接近评测 OS）；提交前必须在 Docker `verilator/verilator:v5.050`（`--platform linux/amd64`）容器内复跑全部 case 验证覆盖率一致性，无漂移才提交。
 
 ### 5.3 Python 包版本复验流程（M1 阶段）
 

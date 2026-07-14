@@ -47,4 +47,12 @@ node_modules/
 
 # Planning quick task artifacts (keep planning docs tracked)
 .planning/quick/*/
+
+# Verilator simulation build artifacts
+sim_build/
+obj_dir/
+coverage.dat
+results.xml
+
+# A1 simulator binary
 Track-A/A1-simulator/simulator

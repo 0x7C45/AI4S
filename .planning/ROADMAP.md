@@ -9,7 +9,7 @@
 **Parallel Tracks:**
 - **A3 Track** (队友): Phases 1-4, sequential dependency chain
 - **A1 Track** (你): Phases 5-7, sequential dependency chain
-- **A2 Track** (队友2): Independent, runs throughout
+- **A2 Track** (队友2): Phases 8-10, sequential dependency chain
 
 - [ ] **Phase 1: A3 Framework + RTL Frontend** - Local implementation and 28-test evidence observed in commit `87675ff`; official-image synthesis, real LSV01 E2E, Nangate45 mapped-netlist inspection, and RTL/gate equivalence remain `human_needed` *(队友)*
 - [ ] **Phase 2: A3 Correctness — All 10 Public Circuits** - Every circuit LSV01-LSV10 produces functionally correct netlist; all-point equivalence evidence pending *(队友)*
@@ -18,6 +18,9 @@
 - [x] **Phase 5: A1 Basic Simulator** - flex/bison parser + combinational logic simulation + basic01-05/alu/priority_encoder *(你)*
 - [ ] **Phase 6: A1 Advanced Features** - Sequential logic, DFF, multi-file hierarchy, system functions, i2c/ip/axis_fifo/sha256 *(你)*
 - [ ] **Phase 7: A1 Performance + GEMM** - GEMM test case, incremental compilation, multicore parallel simulation *(你)*
+- [x] **Phase 8: A2 Skeleton Gate — RTL Parse + testbench Gen** - RTL 解析 + cocotb/Verilator testbench 骨架 + case1 门禁 *(队友2)*
+- [x] **Phase 9: A2 Coverage Collection** - 行/分支/功能覆盖率 + 约束随机 5000 序列 + 综合 C≥65% *(队友2)*
+- [ ] **Phase 10: A2 Generalization + Offline Packaging** - 10 隐藏电路通用化 + wheelhouse 离线包 + Docker 复验 *(队友2)*
 
 ## Phase Details
 
@@ -124,10 +127,50 @@ Plans:
   4. Performance competitive with baseline (compile time, sim time, multicore speedup)
 **Plans**: TBD
 
-### Parallel Track: A2 Verification Auto-gen (Teammate 2)
-**Status**: Independent -- runs throughout Phases 1-4
-**Requirements**: A2-PARSE-01, A2-PARSE-02, A2-PARSE-03, A2-SKEL-01, A2-SKEL-02, A2-SKEL-03, A2-SKEL-04, A2-RAND-01, A2-RAND-02, A2-COV-01, A2-COV-02, A2-OUT-01, A2-OUT-02
-**Notes**: Teammate 2 drives this with GSD assistance. No phase dependencies on A3. Managed separately via teammate's own GSD workspace.
+### Phase 8: A2 Skeleton Gate — RTL Parse + testbench Gen
+**Goal**: run.py 跑通 RTL → testbench → 仿真 → 结果，case1 骨架门禁通过（能编译、能跑、DUT 端口连对、有反压、有 scoreboard）
+**Depends on**: Nothing（环境已验证，见 SMOKE_TEST_REPORT.md）
+**Requirements**: A2-PARSE-01, A2-PARSE-02, A2-PARSE-03, A2-SKEL-01, A2-SKEL-02, A2-SKEL-03, A2-SKEL-04, A2-OUT-01
+**Success Criteria** (what must be TRUE):
+  1. run.py 五参数入口跑通：`--rtl --top --out --seed --num-seq`
+  2. RTL 解析输出 design.json：端口方向/宽度/时钟/复位/参数/协议推断（AXI/SRAM/valid-ready）
+  3. 生成的 cocotb testbench 能用 Verilator 后端编译（COMPILE_ARGS 含 `-Wno-fatal`）并仿真通过
+  4. DUT 端口正确连接，有时钟/复位生成、输入驱动、输出监视、scoreboard、ready 反压
+  5. case1 跑通骨架门禁（门禁五项不命中任一：编译失败/端口错连/握手不可用/无驱动监视/scoreboard 静默）
+**Plans**: 1 plan (complete)
+
+Plans:
+- [x] 08-01-PLAN.md — A2 骨架门禁：run.py 五参数 + rtl_parser + skeleton_gen + sim_runner + case1 门禁验收
+
+### Phase 9: A2 Coverage Collection
+**Goal**: 三类覆盖率齐全 + 综合 C≥65%（保底档），冲 C≥85%（满分档）
+**Depends on**: Phase 8
+**Requirements**: A2-RAND-01, A2-RAND-02, A2-RAND-03, A2-COV-01, A2-COV-02
+**Success Criteria** (what must be TRUE):
+  1. 行/分支覆盖率：Verilator `--coverage-line --coverage-toggle` 插桩 → coverage.dat LCOV 解析（按文件过滤排除 wrapper）
+  2. 功能覆盖率：cocotb bin 真实事务采样（不空 hit，不初始化一次性 hit），4 类模板（FSM/数据通路/存储器/AXI）
+  3. 约束随机：5000 序列，seed=20260630 穿透 `random.Random(seed)` + directed 边界值
+  4. 7 JSON 产物齐全，coverage_result.json 综合公式写 0.4/0.3/0.3（禁止 0.42/0.28/0.30）
+  5. RTL 静态分析：`generate/if` 死码识别，只对可达分支采 bin（避免 case1 53% 死码天花板）
+**Plans**: 1 plan (complete)
+
+Plans:
+- [x] 09-01-PLAN.md — A2 覆盖率收集：constraint_gen + coverage_gen(4类bin) + coverage_collect(LCOV) + report_gen + dead_code_analyzer + case1 7JSON
+
+### Phase 10: A2 Generalization + Offline Packaging
+**Goal**: 10 隐藏电路通用化 + 离线打包 + Docker 复验，准备提交
+**Depends on**: Phase 9
+**Requirements**: A2-OUT-02
+**Success Criteria** (what must be TRUE):
+  1. 框架对 10 个隐藏电路通用化（禁硬编码/针对性优化，自适应 AXI/SRAM/valid-ready 接口）
+  2. requirements.txt 每包钉死 ==X.Y.Z；wheelhouse/ 离线包齐全，评测机 `pip install --no-index` 可装
+  3. THIRD_PARTY.md 齐全（版本/许可/调用边界）
+  4. Docker linux/amd64 复跑 5 公开 case，覆盖率与本地无漂移
+  5. run.sh 独自跑通完整流水线，评测人员无需手改任何生成文件
+**Plans**: 1 plan (in progress — Task 1-3 done, Task 4 验收 pending)
+
+Plans:
+- [ ] 10-01-PLAN.md — A2 通用化+离线打包：非AXI接口适配 + 死码精化 + timeout=1200 + wheelhouse(7包) + README/run.sh 离线安装 + 5 case Docker 复验
 
 ## Progress
 
@@ -140,3 +183,6 @@ Plans:
 | 5. A1 Basic Simulator | 1/1 | **Complete** | 2026-07-14 |
 | 6. A1 Advanced Features | 0/0 | Not started | - |
 | 7. A1 Performance + GEMM | 0/0 | Not started | - |
+| 8. A2 Skeleton Gate | 1/1 | **Complete** | 2026-07-14 |
+| 9. A2 Coverage Collection | 1/1 | **Complete** | 2026-07-14 |
+| 10. A2 Generalization + Packaging | 0/1 | In Progress (Task 1-3) | - |
