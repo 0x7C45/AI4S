@@ -76,13 +76,28 @@ def generate(design_info, out_dir, seed, num_seq):
     tb_filename = f"{test_module}.py"
     tb_path = tb_dir / tb_filename
 
+    # bin 定义注入（per D-13：从 coverage_gen 获取 bin 字典供模板 hit()）
+    try:
+        from src.coverage_gen import get_bin_dict
+        bin_dict = get_bin_dict(design_info)
+    except ImportError:
+        bin_dict = {}
+
     rendered = template.render(
         design_info=design_info,
         seed=seed,
         num_seq=num_seq,
-        functional_coverage_class=False,  # Phase 2 启用
+        bin_dict=bin_dict,
     )
     tb_path.write_text(rendered, encoding="utf-8")
+
+    # ── 1b. 复制 functional_coverage.py 到 generated_tb/（供 testbench import）──
+    fc_src = Path(__file__).parent.parent / "testcases" / "A2_public_dataset" / "functional_coverage.py"
+    if not fc_src.exists():
+        # 相对路径兜底
+        fc_src = Path(__file__).parent.parent.parent / "testcases" / "A2_public_dataset" / "functional_coverage.py"
+    if fc_src.exists():
+        shutil.copy2(fc_src, tb_dir / "functional_coverage.py")
 
     # ── 2. 复制 RTL 源到 generated_tb/rtl/（供 Makefile 引用）──
     rtl_copy_dir = tb_dir / "rtl"

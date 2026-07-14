@@ -85,9 +85,20 @@ def main():
         print(f"[skeleton] FAILED: {e}", file=sys.stderr)
         sys.exit(1)
 
-    # ── 阶段 3: 约束随机序列（Phase 2 完整实现，Phase 1 占位）──
-    stages["constraint"] = {"status": "skipped_phase1",
-                            "note": "Phase 2: seed+num_seq 约束随机生成"}
+    # ── 阶段 3: 约束随机序列 + 功能 bin 定义 ──
+    try:
+        from src.constraint_gen import generate as gen_constraint
+        from src.coverage_gen import generate_bins as gen_bins
+        constraint_path = gen_constraint(design_info, args.seed, args.num_seq, str(out_dir))
+        bins_path = gen_bins(design_info, str(out_dir))
+        stages["constraint"] = {"status": "passed", "seed": args.seed,
+                                "sequence_count": args.num_seq}
+        artifacts["constraints_json"] = constraint_path
+        artifacts["coverage_bins_json"] = bins_path
+        print(f"[constraint] OK — seed={args.seed}, seq={args.num_seq}")
+    except Exception as e:
+        stages["constraint"] = {"status": "failed", "error": str(e)}
+        print(f"[constraint] FAILED: {e}", file=sys.stderr)
 
     # ── 阶段 4: 仿真 ──
     try:
@@ -102,9 +113,37 @@ def main():
                               "traceback": traceback.format_exc()}
         print(f"[simulate] FAILED: {e}", file=sys.stderr)
 
-    # ── 阶段 5: 覆盖率收集（Phase 2 完整实现，Phase 1 占位）──
-    stages["coverage"] = {"status": "skipped_phase1",
-                          "note": "Phase 2: line/branch/functional 覆盖率收集"}
+    # ── 阶段 5: 覆盖率收集 ──
+    try:
+        from src.coverage_collect import collect as collect_cov
+        from src.report_gen import generate as gen_report
+        import shutil
+
+        # 仿真产物路径（coverage.dat + functional_coverage.json 在 generated_tb/）
+        sim_tb_dir = out_dir / "generated_tb"
+        fc_in_tb = sim_tb_dir / "functional_coverage.json"
+
+        # 把 functional_coverage.json 复制到 out_dir 根（spec 要求 7 JSON 在 --out 下）
+        if fc_in_tb.exists():
+            shutil.copy2(fc_in_tb, out_dir / "functional_coverage.json")
+
+        cov_data = collect_cov(str(sim_tb_dir), design_info)
+
+        sim_info = {"seed": args.seed, "sequence_count": args.num_seq, "sim_time_ns": 0}
+        result_path = gen_report(cov_data, sim_info, str(out_dir))
+        stages["coverage"] = {
+            "status": "passed",
+            "line": cov_data.line_pct, "branch": cov_data.branch_pct,
+            "functional": cov_data.functional_pct,
+        }
+        artifacts["coverage_result_json"] = result_path
+        artifacts["functional_coverage_json"] = str(out_dir / "functional_coverage.json")
+        print(f"[coverage] OK — line={cov_data.line_pct}% branch={cov_data.branch_pct}% "
+              f"func={cov_data.functional_pct}%")
+    except Exception as e:
+        stages["coverage"] = {"status": "failed", "error": str(e),
+                              "traceback": traceback.format_exc()}
+        print(f"[coverage] FAILED: {e}", file=sys.stderr)
 
     # ── 写 report.json ──
     _write_report(out_dir, stages, artifacts, args)

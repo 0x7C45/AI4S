@@ -29,11 +29,14 @@ from cocotb.triggers import RisingEdge
 from cocotbext.axi import AxiMasterRead, AxiRamRead, AxiReadBus
 {% endif %}
 
-# 功能覆盖采样（Phase 2 完整实现，Phase 1 占位）
-{% if functional_coverage_class %}
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from functional_coverage import FunctionalCoverage
-{% endif %}
+# 功能覆盖采样（per D-13, D-18：真实事务采样，不空 hit）
+import sys as _sys, os as _os
+_sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))
+try:
+    from functional_coverage import FunctionalCoverage
+    _HAS_FC = True
+except ImportError:
+    _HAS_FC = False
 
 
 def load_constraints():
@@ -128,6 +131,11 @@ async def run_generated_test(dut):
 
     await reset_dut(dut)
 
+    # 功能覆盖初始化（per D-13, D-18：bin 从 coverage_gen 注入，真实事务采样）
+    coverage = None
+    if _HAS_FC:
+        coverage = FunctionalCoverage("{{ design_info.top_module }}", {{ bin_dict | tojson }})
+
     size_choices = [None, 0, 1, 2]
     test_count = 0
 
@@ -139,6 +147,31 @@ async def run_generated_test(dut):
         ram.write(addr, data)
 
         size = size_choices[index % len(size_choices)]
+
+        # 功能覆盖 hit()（per D-18：真实事务采样，非空 hit）
+        if coverage:
+            # read_length bin
+            if length == 1: lb = "1"
+            elif length <= 3: lb = "2_to_3"
+            elif length == 4: lb = "4"
+            elif length <= 15: lb = "5_to_15"
+            elif length <= 31: lb = "16_to_31"
+            elif length <= 63: lb = "32_to_63"
+            elif length <= 127: lb = "64_to_127"
+            else: lb = "128_to_256"
+            coverage.hit("read_length", lb)
+            # address_alignment bin
+            if addr // 4096 != (addr + length - 1) // 4096 or addr % 4096 >= 4032:
+                coverage.hit("address_alignment", "near_4k_boundary")
+            elif addr % 4 == 0:
+                coverage.hit("address_alignment", "aligned_4_byte")
+            elif addr % 2 == 0:
+                coverage.hit("address_alignment", "aligned_2_byte")
+            else:
+                coverage.hit("address_alignment", "unaligned")
+            # burst_size bin
+            sb = {None: "default_max_size", 0: "size_1_byte", 1: "size_2_byte", 2: "size_4_byte"}[size]
+            coverage.hit("burst_size", sb)
 
         # 读 + scoreboard 比对（per 门禁五项第5项：scoreboard 实际比对，不静默）
         read = await master.read(addr, length, size=size)
@@ -156,6 +189,11 @@ async def run_generated_test(dut):
 {% endif %}
     for _ in range(16):
         await RisingEdge(dut.{{ design_info.clock }})
+
+    # 功能覆盖写出（per D-13：写 functional_coverage.json）
+    if coverage:
+        fc_out = _os.environ.get("FUNCTIONAL_COVERAGE_OUTPUT", "functional_coverage.json")
+        coverage.write(path=fc_out, source="cocotb transaction sampling")
 
     dut._log.info("Test complete: %d transactions passed (seed=%d, seq=%d)",
                   test_count, seed, sequence_count)
