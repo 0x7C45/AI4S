@@ -1,0 +1,9 @@
+{
+  "$default": [
+    {"name": "ref-p1", "profile": "balanced"},
+    {"name": "ref-p2", "profile": "timing"},
+    {"name": "ref-p3", "profile": "area"},
+    {"name": "ref-p4", "profile": "deep-area"},
+    {"name": "ref-p5", "profile": "deep-timing"}
+  ]
+}

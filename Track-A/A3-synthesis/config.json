@@ -56,11 +56,11 @@
   "LSV07": [
     {"name": "timing-x4-f10", "profile": "timing", "upsize_fanout_threshold": 10, "upsize_strength": 4},
     {"name": "gia-nf-r45", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 45 -p; &put"},
-    {"name": "gia-nf-r60", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put"},
     {"name": "dc2-buf4-t75", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 75, "buffer_strength": 4},
-    {"name": "gia-nf-r60-c10", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put", "critical_path_upsize_cells": 10},
     {"name": "gia-nf-r60-c25", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put", "critical_path_upsize_cells": 25},
-    {"name": "dc2-buf4-t75-c25", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 75, "buffer_strength": 4, "critical_path_upsize_cells": 25}
+    {"name": "dc2-buf4-t75-c25", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 75, "buffer_strength": 4, "critical_path_upsize_cells": 25},
+    {"name": "nf-ultra-area-r60", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -a -p -F 16 -A 16 -C 32 -R 60; &put"},
+    {"name": "nf-ultra-area-r100-e20", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -a -p -F 32 -A 32 -C 32 -R 100 -E 20; &put"}
   ],
   "LSV08": [
     {"name": "deep-timing", "profile": "deep-timing"},

@@ -53,7 +53,7 @@ python3 experiments/run_submission_baseline.py --output /tmp/a3-official-baselin
 python3 experiments/score_submission.py /tmp/a3-official-baseline/results.csv
 ```
 
-隐藏回退七点选择可由候选结果完整重算。当前默认组合额外包含高强度 `amap` 候选，相关配置保存在 `experiments/configs/config.amap-*.json`：
+隐藏回退七点选择可由候选结果完整重算。当前默认组合额外包含高强度 `amap` 候选；`experiments/configs/config.amap-*.json` 与 `config.nf-ultra*.json` 保留了对应消融配置：
 
 ```bash
 python3 experiments/run_submission_baseline.py --config experiments/configs/config.default-current.json --output /tmp/a3-default-current
