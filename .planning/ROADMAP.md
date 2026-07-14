@@ -12,10 +12,10 @@
 - **A1 Track** (你): Phases 5-7, sequential dependency chain
 - **A2 Track** (队友2): Phases 8-10, sequential dependency chain
 
-- [ ] **Phase 1: A3 Framework + RTL Frontend** - Build tool scaffolding, parse Verilog, produce basic netlist for simple circuit *(队友)*
-- [ ] **Phase 2: A3 Correctness — All 10 Public Circuits** - Every circuit LSV01-LSV10 produces functionally correct netlist *(队友)*
-- [ ] **Phase 3: A3 Multi-Point PPA + Auto-Tuning** - Up to 7 points per circuit, config-driven optimization, auto-search for best PPA *(队友)*
-- [ ] **Phase 4: A3 Submission Package** - Final integration, all deliverables verified, submission archive ready *(队友)*
+- [ ] **Phase 1: A3 Framework + RTL Frontend** - Commit `87675ff` and 28 passing tests are locally evidenced; LSV01-LSV10 point 1 local Yosys+Nangate45 synthesis is observed, with partial equivalence samples recorded; official-image and complete correctness checks remain pending *(队友)*
+- [ ] **Phase 2: A3 Correctness — All 10 Public Circuits** - Point 1 synthesis is locally observed for LSV01-LSV10, but full ten-circuit/all-point equivalence and evaluator acceptance remain pending *(队友)*
+- [ ] **Phase 3: A3 Multi-Point PPA + Auto-Tuning** - Up to 7 points per circuit and config-driven search remain to be validated; no OpenSTA/sta PPA, area, timing, or runtime evidence is available *(队友)*
+- [ ] **Phase 4: A3 Submission Package** - Final integration and clean submission archive remain pending, including official image, package, metadata, and originality validation *(队友)*
 - [x] **Phase 5: A1 Basic Simulator** - flex/bison parser + combinational logic simulation + basic01-05/alu/priority_encoder *(你)*
 - [ ] **Phase 6: A1 Advanced Features** - Sequential logic, DFF, multi-file hierarchy, system functions, i2c/ip/axis_fifo/sha256 *(你)*
 - [ ] **Phase 7: A1 Performance + GEMM** - GEMM test case, incremental compilation, multicore parallel simulation *(你)*
@@ -216,10 +216,10 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. A3 Framework + RTL Frontend | 0/1 | Planned (队友) | - |
-| 2. A3 Correctness — All 10 Circuits | 0/2 | Not started | - |
-| 3. A3 Multi-Point PPA + Auto-Tuning | 0/2 | Not started | - |
-| 4. A3 Submission Package | 0/1 | Not started | - |
+| 1. A3 Framework + RTL Frontend | 0/1 | `87675ff`, 28 tests, and LSV01-LSV10 point 1 local Yosys+Nangate45 synthesis observed; partial equivalence samples recorded, official/full validation pending | 87675ff / 260714-a3-gsd-mainline-sync |
+| 2. A3 Correctness — All 10 Circuits | 0/2 | Point 1 synthesis observed for all ten circuits; full ten-circuit/all-point equivalence and acceptance pending | 260714-a3-gsd-mainline-sync |
+| 3. A3 Multi-Point PPA + Auto-Tuning | 0/2 | Auto-tuning/Pareto and multi-point results pending; OpenSTA/sta unavailable, so PPA/area/timing/runtime unverified | 260714-a3-gsd-mainline-sync |
+| 4. A3 Submission Package | 0/1 | Official image, clean package, metadata, and originality checks pending | 260714-a3-gsd-mainline-sync |
 | 5. A1 Basic Simulator | 1/1 | **Complete** | 2026-07-14 |
 | 6. A1 Advanced Features | 0/0 | Not started | - |
 | 7. A1 Performance + GEMM | 0/0 | Not started | - |

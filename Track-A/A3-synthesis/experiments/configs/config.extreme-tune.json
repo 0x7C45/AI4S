@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "syn-r100", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m -R 100; &dch -f; &nf -R 20 -p; &put"},
+    {"name": "syn-r160", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m -R 160; &dch -f; &nf -R 20 -p; &put"},
+    {"name": "syn-r320", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m -R 320; &dch -f; &nf -R 20 -p; &put"},
+    {"name": "nf-r40", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 40 -p; &put"},
+    {"name": "nf-r80", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 80 -p; &put"},
+    {"name": "nf-r160", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 160 -p; &put"},
+    {"name": "syn-r160-nf-r80", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m -R 160; &dch -f; &nf -R 80 -p; &put"}
+  ]
+}

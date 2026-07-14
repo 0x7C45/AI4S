@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "timing-d15", "profile": "timing", "delay_scale": 0.15, "fallback_on_error": true},
+    {"name": "timing-d25", "profile": "timing", "delay_scale": 0.25, "fallback_on_error": true},
+    {"name": "timing-d40", "profile": "timing", "delay_scale": 0.40, "fallback_on_error": true},
+    {"name": "timing-d60", "profile": "timing", "delay_scale": 0.60, "fallback_on_error": true},
+    {"name": "timing-d100", "profile": "timing", "delay_scale": 1.00, "fallback_on_error": true},
+    {"name": "resub-d25", "profile": "balanced", "delay_scale": 0.25, "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "fallback_on_error": true},
+    {"name": "dc2-d25", "profile": "balanced", "delay_scale": 0.25, "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "fallback_on_error": true}
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "nf-r25", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 25 -p; &put"},
+    {"name": "nf-r30", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 30 -p; &put"},
+    {"name": "nf-r35", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 35 -p; &put"},
+    {"name": "nf-r45", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 45 -p; &put"},
+    {"name": "nf-r50", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 50 -p; &put"},
+    {"name": "nf-r60", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put"},
+    {"name": "nf-r70", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 70 -p; &put"}
+  ]
+}

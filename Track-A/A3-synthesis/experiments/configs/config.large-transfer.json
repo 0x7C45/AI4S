@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "gia-base", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 20 -p; &put"},
+    {"name": "gia-r0", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m -R 0; &dch -f; &nf -R 20 -p; &put"},
+    {"name": "gia-r20", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m -R 20; &dch -f; &nf -R 20 -p; &put"},
+    {"name": "gia-r40", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m -R 40; &dch -f; &nf -R 20 -p; &put"},
+    {"name": "gia-r80", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m -R 80; &dch -f; &nf -R 20 -p; &put"},
+    {"name": "gia-amap-q030", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.30"},
+    {"name": "gia-amap-q001", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.01"}
+  ]
+}

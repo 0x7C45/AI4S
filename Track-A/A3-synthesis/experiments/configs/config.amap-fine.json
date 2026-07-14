@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "amap-q0001", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.001"},
+    {"name": "amap-q0003", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.003"},
+    {"name": "amap-q0010", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.010"},
+    {"name": "amap-q0030", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.030"},
+    {"name": "amap-q0100", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.100"},
+    {"name": "amap-q0300", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.300"},
+    {"name": "amap-q1000", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 1.000"}
+  ]
+}
