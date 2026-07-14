@@ -26,7 +26,7 @@
 > 三方各自从 master 拉工作分支，不直接在 master 上开发；末段合并由负责人操作。
 
 > **开发策略**（覆盖率跨平台一致性是核心风险：mac-CC 为 macOS arm64、win-CC 为 Windows，需 Docker 复验；win-ZCode 主运行环境即 Docker linux/amd64，与评测 OS 同构，无跨平台漂移风险）：
-> - **mac-CC**：开发期用本机 native Verilator(brew 5.050) 提速；提交前必须在 Docker linux/amd64 容器内（`verilator/verilator:5.050` 官方镜像）复跑全部 case，覆盖率与产物无漂移才提交。
+> - **mac-CC**：开发期用本机 native Verilator(brew 5.050) 提速；提交前必须在 Docker linux/amd64 容器内（`verilator/verilator:v5.050` 官方镜像）复跑全部 case，覆盖率与产物无漂移才提交。
 > - **win-CC**：WSL2（原生 linux/amd64，最接近评测 OS）开发与验证。
 > - **win-ZCode**：Docker linux/amd64（Windows + Docker Desktop），与评测 OS 完全同构，开发即交付环境，覆盖率数字直接可用。
 > - **fallback**：venv3.12 + install.sh。

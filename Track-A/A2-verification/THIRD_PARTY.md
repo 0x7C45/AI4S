@@ -152,9 +152,9 @@ pip install --no-index --find-links=offline_pkgs/ -r requirements.txt
 
 ### 5.2 Verilator 为何硬锁 5.050；cocotb 为何停在 1.8.1
 
-- **Verilator 5.050**：`--coverage-line / --coverage-toggle` 两标志的插桩与 `coverage.dat` 输出格式在不同主版本间可能漂移；锁定具体号而非「5.x」，保证三方复跑与评测机产出同一口径的行/分支覆盖率。Ubuntu 24.04 apt 仅到 5.020，**须源码 `git checkout v5.050` 自编**或用官方 Docker 镜像 `verilator/verilator:5.050`。
+- **Verilator 5.050**：`--coverage-line / --coverage-toggle` 两标志的插桩与 `coverage.dat` 输出格式在不同主版本间可能漂移；锁定具体号而非「5.x」，保证三方复跑与评测机产出同一口径的行/分支覆盖率。Ubuntu 24.04 apt 仅到 5.020，**须源码 `git checkout v5.050` 自编**或用官方 Docker 镜像 `verilator/verilator:v5.050`。
 - **cocotb 2.0.1**：与 Verilator 5.050 兼容（要求 ≥ 5.036）；cocotbext-axi 0.1.28 实测全兼容（issue #119 已过期）。task3 实测 1.8.1 macOS arm64 无 wheel、源码构建失败，故升 2.0.1（详见 §2.2）。
-- 安装方式（`ENVIRONMENT.md §3 / §4`）：mac 可 `brew install verilator`（若版本不符则源码自编）；win-CC 用 WSL2（原生 linux/amd64，最接近评测 OS）；提交前必须在 Docker `verilator/verilator:5.050`（`--platform linux/amd64`）容器内复跑全部 case 验证覆盖率一致性，无漂移才提交。
+- 安装方式（`ENVIRONMENT.md §3 / §4`）：mac 可 `brew install verilator`（若版本不符则源码自编）；win-CC 用 WSL2（原生 linux/amd64，最接近评测 OS）；提交前必须在 Docker `verilator/verilator:v5.050`（`--platform linux/amd64`）容器内复跑全部 case 验证覆盖率一致性，无漂移才提交。
 
 ### 5.3 Python 包版本复验流程（M1 阶段）
 

@@ -161,7 +161,7 @@ ls submission_out/case4/
 
 | 角色 | 主推环境 | 说明 |
 |---|---|---|
-| 三方统一 | **Docker**：`verilator/verilator:5.050`，`linux/amd64` | 与评测 OS 同构，作为覆盖率跨平台一致性基准；mac-CC 提交前**必须**在容器内复跑全部 case，无漂移才提交 |
+| 三方统一 | **Docker**：`verilator/verilator:v5.050`，`linux/amd64` | 与评测 OS 同构，作为覆盖率跨平台一致性基准；mac-CC 提交前**必须**在容器内复跑全部 case，无漂移才提交 |
 | mac-CC | 开发期：本机 native Verilator（brew 5.050）提速 | macOS arm64 与 linux/amd64 行 / 分支覆盖可能漂移，提交前以 Docker 复验为准 |
 | win-CC | WSL2（原生 linux/amd64） | 最接近评测 OS |
 | win-ZCode | **Docker linux/amd64**（Windows + Docker Desktop） | 与评测 OS 完全同构，开发即交付环境，覆盖率数字直接可用，无需额外平台复验 |

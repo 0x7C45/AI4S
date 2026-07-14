@@ -259,14 +259,14 @@ addr = rng.randint(0, 0xFFFF)
 |------|-----------|----------------|
 | mac-CC | macOS arm64 | brew native（开发期提速）|
 | win-CC | Windows + WSL2 | WSL2 linux/amd64（最接近评测 OS）|
-| win-ZCode | Windows + Docker linux/amd64 | Docker `verilator/verilator:5.050`（与评测 OS 同构，开发即交付）|
+| win-ZCode | Windows + Docker linux/amd64 | Docker `verilator/verilator:v5.050`（与评测 OS 同构，开发即交付）|
 | 评测机 | Linux x86_64（`spec.md` §5 line 147）| 评测机自带 |
 
 ### 根因
 Verilator `--coverage-line/-toggle` 在 macOS arm64 与 Linux x86_64 上的插桩/解析行为可能有细微差异（不同编译器版本、不同 libc、不同 `long/int` 对齐、`coverage.dat` 格式细节）→ **覆盖率跨平台漂移**。本地算出 `C=85.2%`（满分档），提交后评测 OS 跑出 `C=84.7%`（4.9 档）→ 单电路差 2.1 分 × 10 电路 = 最多 21 分漂移。这是「三方 OS gap」的核心风险：mac-CC 是 macOS arm64，win-CC 是 Windows（WSL2），win-ZCode 是 Windows（Docker linux/amd64，与评测 OS 同构），覆盖率跨平台一致性必须验证（win-ZCode 风险最低）。
 
 ### 正解（主推 Docker，三方统一 linux/amd64）
-1. **运行环境主推 Docker**：`verilator/verilator:5.050` 官方镜像，三方统一 `linux/amd64` 平台。
+1. **运行环境主推 Docker**：`verilator/verilator:v5.050` 官方镜像，三方统一 `linux/amd64` 平台。
 2. **mac-CC 开发策略**：开发期用本机 native Verilator（brew 5.050）提速；**提交前必须在 Docker `linux/amd64` 容器内复跑全部 case 验证覆盖率一致性，无漂移才提交**。
 3. **win-CC 验证环境**：WSL2（原生 linux/amd64，最接近评测 OS），同样在提交前用 Docker 复验。
 4. **win-ZCode 验证环境**：Docker linux/amd64（Windows + Docker Desktop），与评测 OS 完全同构，开发即交付环境，覆盖率数字直接可用，无需额外平台复验。
@@ -299,7 +299,7 @@ Verilator `--coverage-line/-toggle` 在 macOS arm64 与 Linux x86_64 上的插�
 ### 正解（锁具体号 5.050，非「5.x」）
 1. **Verilator 版本锁定 5.050**（具体号，**不是**「5.x」或「latest」）。
 2. 三方统一来源：
-   - Docker：`verilator/verilator:5.050` 官方镜像（首选）。
+   - Docker：`verilator/verilator:v5.050` 官方镜像（首选）。
    - macOS：`brew install verilator` 后校验 `verilator --version` 输出含 `5.050`，否则 checkout `v5.050` 源码自编。
    - WSL2：同上锁 5.050。
 3. **必交文件 `requirements.txt` 钉死依赖版本**（每包 `==X.Y.Z`），`THIRD_PARTY.md` 声明 Verilator 5.050 + 许可（LGPL-3.0）+ 调用边界（编译期插桩、仿真后解析 `coverage.dat`）。

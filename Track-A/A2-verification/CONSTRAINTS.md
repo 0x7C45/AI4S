@@ -17,7 +17,7 @@
 ## 1. 技术路线（不可变）
 
 - **路线锁定**：`cocotb + Verilator`。
-- **Verilator 版本锁定 5.050**（具体号，非"5.x"）：`--coverage-line/-toggle` 在不同主版本间行为可能漂移，三方开发与评测环境必须统一此版本。来源 `ENVIRONMENT.md §4`；Docker 路线用官方镜像 `verilator/verilator:5.050`。
+- **Verilator 版本锁定 5.050**（具体号，非"5.x"）：`--coverage-line/-toggle` 在不同主版本间行为可能漂移，三方开发与评测环境必须统一此版本。来源 `ENVIRONMENT.md §4`；Docker 路线用官方镜像 `verilator/verilator:v5.050`。
 - 覆盖率编译期插桩两标志：`--coverage-line` `--coverage-toggle`，仿真后解析 RTL 行/分支覆盖率（**branch 由 `--coverage-line` 自动产出**；Verilator 5.050 实测无 `--coverage-branch` 标志，原"三标志齐发"为误传）。
   > ✅ **congress 评审已裁决（2026-07-14）**：coverage 命令定标 `--coverage-line --coverage-toggle`（选项 A）。理由：`--coverage-line` 自动产 line+branch（Verilator 官方设计，branch 是 line coverage 结构化副产品）；functional(30%) 靠 cocotb bin，非 Verilator 标志。落地：①`COVERAGE_FLAGS` 参数化（Makefile 顶层变量，默认 A）；②解析器 schema-driven（字段从标志派生）；③coverage 文件头写 `verilator --version`+flags；④Phase1 末单端 C 烟雾测试验 fsm 格式四方一致；⑤functional bin 模板预置（FSM/数据通路/存储器/AXI 4 类，30% 权重杠杆）；⑥评分细则若发布且 branch 解读为真值表则切 B（零代码）。
 - **已弃用（严禁在新增代码/文档/注释中出现，PITFALLS 中作为"已弃用"说明除外）**：
@@ -205,7 +205,7 @@ $$ \text{功能覆盖率} = \frac{\text{命中次数} > 0 \text{ 的 bin 数}}{\
 - **里程碑**：M1 骨架 / M2 参考模型+约束随机 / M3 覆盖率 / M4 反馈闭环；完成时在 issue 报进度。
 - **三方 OS gap（核心风险）**：mac-CC 为 macOS arm64，win-CC 为 Windows（WSL2），win-ZCode 为 Windows（Docker linux/amd64）。其中 **win-ZCode 主运行环境 = Docker linux/amd64，与评测 OS 同构**，无跨平台漂移风险；mac-CC / win-CC 则需 Docker 复验。Verilator 覆盖率数值（行/分支/toggle）在不同 OS / 架构间可能漂移，跨平台一致性是核心风险。
 - **开发与提交策略（覆盖率跨平台复验硬约束）**：
-  - mac-CC 开发期用本机 native Verilator 5.050（brew）提速；**提交前必须在 Docker `verilator/verilator:5.050`（linux/amd64）容器内复跑全部 case**，确认覆盖率与本地无漂移才提交。
+  - mac-CC 开发期用本机 native Verilator 5.050（brew）提速；**提交前必须在 Docker `verilator/verilator:v5.050`（linux/amd64）容器内复跑全部 case**，确认覆盖率与本地无漂移才提交。
   - win-CC 验证环境用 WSL2（原生 linux/amd64，最接近评测 OS）。
   - **win-ZCode 验证环境用 Docker linux/amd64（Windows + Docker Desktop），与评测 OS 完全同构，开发即交付环境**，覆盖率数字直接可用，无需额外平台复验。
   - 三方统一 `linux/amd64` 作为最终覆盖率仲裁平台；Docker 与服务器二选一，不强制 Docker 也不强制 VCS。
@@ -254,7 +254,7 @@ $$ \text{功能覆盖率} = \frac{\text{命中次数} > 0 \text{ 的 bin 数}}{\
 - [ ] 六条原创性红线全部不触犯。
 - [ ] `requirements.txt` 每包钉死 `==X.Y.Z`；`wheelhouse/` 离线包齐全，评测机 `pip install --no-index` 可装，**禁现场 pip / apt**。
 - [ ] `THIRD_PARTY.md` 齐全（版本 / 许可证 / 调用边界）。
-- [ ] 三方在 Docker `verilator/verilator:5.050`（linux/amd64）复跑全部 case，覆盖率与本地无漂移才提交。
+- [ ] 三方在 Docker `verilator/verilator:v5.050`（linux/amd64）复跑全部 case，覆盖率与本地无漂移才提交。
 - [ ] Verilator 版本统一锁定 5.050，三方与评测环境一致。
 
 ---

@@ -61,12 +61,12 @@ win-ZCode 的主运行环境 = Docker linux/amd64（Windows 主机 + Docker Desk
 
 ```bash
 # Windows (PowerShell / Git Bash) + Docker Desktop，拉取官方镜像
-docker pull --platform linux/amd64 verilator/verilator:5.050
-docker run --rm --platform linux/amd64 verilator/verilator:5.050 verilator --version    # 必须 5.050
+docker pull --platform linux/amd64 verilator/verilator:v5.050
+docker run --rm --platform linux/amd64 verilator/verilator:v5.050 verilator --version    # 必须 5.050
 # 挂载 A2-verification 到容器 /work，常驻交互
 docker run --rm -it --platform linux/amd64 \
     -v "$(pwd)/Track-A/A2-verification:/work" -w /work \
-    verilator/verilator:5.050 bash
+    verilator/verilator:v5.050 bash
 # 容器内补装 Python 3.12 + 离线装依赖（见 §4 离线打包）
 apt-get update && apt-get install -y software-properties-common
 add-apt-repository -y ppa:deadsnakes/ppa && apt-get update
@@ -81,12 +81,12 @@ pip install --no-index --find-links=offline_pkgs/ -r requirements.txt
 
 ```bash
 # verilator 官方按 release 自动打 tag，5.050 存在
-docker pull --platform linux/amd64 verilator/verilator:5.050
-docker run --rm --platform linux/amd64 verilator/verilator:5.050 verilator --version    # 必须 5.050
+docker pull --platform linux/amd64 verilator/verilator:v5.050
+docker run --rm --platform linux/amd64 verilator/verilator:v5.050 verilator --version    # 必须 5.050
 # 复验入口（挂载 A2-verification 到 /work）
 docker run --rm -it --platform linux/amd64 \
     -v "$(pwd)/Track-A/A2-verification:/work" -w /work \
-    verilator/verilator:5.050 bash
+    verilator/verilator:v5.050 bash
 ```
 
 - **coverage 数字效力：可交付**（评测同构环境，权威基线）。镜像自带 Verilator 工具链但 Python 通常非 3.12，容器内补装：
@@ -115,7 +115,7 @@ pip install --no-index --find-links=offline_pkgs/ -r requirements.txt    # 见 �
 | jinja2 | **3.1.6** | 渲染 `cocotb_tb.py.j2` 模板 |
 | pyverilog | **1.3.0** | RTL 解析（spec.md §5 允许） |
 | z3-solver | **4.16.0.0**（可选） | spec.md §5 / 02 手册；约束求解（可选，不装也能跑）；task3 网络未装上，PyPI 确认 arm64 wheel 存在 |
-| Docker 镜像 | **verilator/verilator:5.050** | 官方按 release 自动打 tag，linux/amd64 |
+| Docker 镜像 | **verilator/verilator:v5.050** | 官方按 release 自动打 tag，linux/amd64 |
 | `--seed` | **20260630** | 5 公开 case 统一；scoring.md §2 可复现硬约束 |
 | `--num-seq` | **5000** | spec.md；评测基准序列数 |
 
@@ -148,7 +148,7 @@ pip install --no-index --find-links=offline_pkgs/ -r requirements.txt
 
 ### 4.3 Verilator 二进制（非 pip 包）
 
-- Docker 路线：`verilator/verilator:5.050` 官方镜像自带 5.050。
+- Docker 路线：`verilator/verilator:v5.050` 官方镜像自带 5.050。
 - fallback 路线（无 Docker）：README 注明 `verilator --version` 必须 = 5.050，附 §2.1/§2.2 源码编译命令；不假设赛方预装。
 
 ---
