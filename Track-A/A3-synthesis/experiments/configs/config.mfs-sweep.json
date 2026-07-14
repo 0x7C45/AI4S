@@ -1,0 +1,9 @@
+{
+  "$default": [
+    {"name": "mfs-after-nf", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dch -f; &nf -p; &mfs; &put"},
+    {"name": "mfs-e-after-nf", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dch -f; &nf -p; &mfs -e; &put"},
+    {"name": "mfs-before-nf", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dch -f; &mfs; &nf -p; &put"},
+    {"name": "mfs-e-before-nf", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dch -f; &mfs -e; &nf -p; &put"},
+    {"name": "mfs-r20", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dch -f; &nf -R 20 -p; &mfs; &put"}
+  ]
+}

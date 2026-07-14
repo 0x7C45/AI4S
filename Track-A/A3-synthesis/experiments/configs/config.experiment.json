@@ -1,0 +1,9 @@
+{
+  "$default": [
+    {"name": "baseline-balanced", "profile": "balanced"},
+    {"name": "baseline-area", "profile": "area"},
+    {"name": "resub-area", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance"},
+    {"name": "dc2-area", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance"},
+    {"name": "if-rewrite-timing", "profile": "balanced", "abc_script": "if -K 6 -g -C 8; balance; rewrite; rewrite -z; balance"}
+  ]
+}

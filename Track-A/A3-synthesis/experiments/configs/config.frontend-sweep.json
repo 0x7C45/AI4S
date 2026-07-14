@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "default-area", "profile": "area"},
+    {"name": "noalumacc-area", "profile": "area", "synth_options": ["-noalumacc"]},
+    {"name": "noshare-area", "profile": "area", "synth_options": ["-noshare"]},
+    {"name": "noalumacc-noshare-area", "profile": "area", "synth_options": ["-noalumacc", "-noshare"]},
+    {"name": "nofsm-area", "profile": "area", "synth_options": ["-nofsm"]},
+    {"name": "nordff-area", "profile": "area", "synth_options": ["-nordff"]},
+    {"name": "minimal-coarse-area", "profile": "area", "synth_options": ["-nofsm", "-noalumacc", "-noshare"]}
+  ]
+}
