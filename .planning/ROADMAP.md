@@ -105,22 +105,19 @@ Plans:
 - [ ] 05-01-PLAN.md — A1 Basic Simulator: flex/bison parser + C++ event-driven engine, passing basic01/basic02/alu/priority_encoder (8 points)
 
 ### Phase 6: A1 Advanced Features
-**Goal**: Sequential logic simulation (posedge clk, DFF, non-blocking assign), multi-file hierarchy, passing i2c/ip/axis_fifo/sha256 (8 points)
+**Goal**: Pass basic03, basic04, and basic05 through the targeted sequential, preprocessing, memory, hierarchy, and system-task runtime while preserving the Phase 5 exact-diff regression.
 **Depends on**: Phase 5
-**Requirements**: A1-PARSE-07, A1-SIM-02, A1-SIM-03, A1-SIM-04, A1-CASE-01, A1-CASE-04, A1-CASE-05, A1-CASE-06, A1-CASE-07
+**Requirements**: A1-PARSE-07, A1-SIM-02, A1-SIM-04, A1-CASE-01, A1-CASE-02, A1-CASE-03
 **Success Criteria**:
-  1. Always @(posedge clk) with non-blocking assignment (<=) works correctly
-  2. DFF with async reset modeled properly
-  3. `define / `include preprocessing works
-  4. Multi-file module hierarchy instantiation works (i2c has 5 RTL files)
-  5. tb/output.mem matches reference for i2c, ip, axis_fifo, sha256
-**Plans**: 4 plans
+  1. From a clean state, basic03 runs `compile_sim`, argument-free `run`, and exact `diff -u tb/output_ref.mem tb/output.mem` successfully.
+  2. basic04 passes the same clean build, compile, no-argument run, and exact-diff gate using include/object macros, readmemh, memory indexing, and parameterized child instances.
+  3. basic05 passes the same gate using posedge/NBA behavior, synchronous reset as needed, memory indexing, parameterized child instances, `$time`, existing file I/O, `$finish`, and non-crashing `$dumpvars`.
+  4. basic01, basic02, alu, and priority_encoder remain exact zero-diff after Phase 6 changes.
+  5. i2c, ip, axis_fifo, sha256, broad async/reset semantics, full VCD, incremental compilation, GEMM, multicore, and performance are explicitly deferred.
+**Plans**: 1 plan
 
 Plans:
-- [ ] 06-01-PLAN.md — Frontend preprocessing, AST/data contracts, and Phase 6 grammar
-- [ ] 06-02-PLAN.md — Discrete Active/NBA/delta scheduler and system functions
-- [ ] 06-03-PLAN.md — Global hierarchy elaboration and packed/unpacked memory execution
-- [ ] 06-04-PLAN.md — Deterministic Makefile interface and clean exact-diff regression
+- [ ] 06-02-PLAN.md — Targeted basic03/basic04/basic05 runtime semantics and seven-case clean exact-diff gate
 
 ### Phase 7: A1 Performance + GEMM
 **Goal**: GEMM test case passes with competitive performance (11 points — compile perf + sim perf + multicore speedup)
