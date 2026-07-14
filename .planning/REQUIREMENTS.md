@@ -87,28 +87,28 @@
 - [ ] **A1-CASE-07**: sha256 通过 (2分)
 - [ ] **A1-CASE-08**: GEMM 通过 (11分，含编译+仿真+多核性能)
 
-### A2 — 验证环境自动生成（队友2负责）
+### A2 — 验证环境自动生成（队友2负责，Phase 8-10）
 
 #### RTL 解析
-- [ ] **A2-PARSE-01**: 识别时钟、复位、参数、端口方向/宽度
-- [ ] **A2-PARSE-02**: 协议分组（AXI/AXI-Lite、SRAM-like、valid/ready stream）
-- [ ] **A2-PARSE-03**: 推断接口协议类型
+- [x] **A2-PARSE-01**: 识别时钟、复位、参数、端口方向/宽度
+- [x] **A2-PARSE-02**: 协议分组（AXI/AXI-Lite、SRAM-like、valid/ready stream）
+- [x] **A2-PARSE-03**: 推断接口协议类型
 
 #### 验证骨架生成（3分/电路，门禁项）
-- [ ] **A2-SKEL-01**: 时钟/复位生成
-- [ ] **A2-SKEL-02**: 输入驱动 + 输出监视
-- [ ] **A2-SKEL-03**: 自动比对框架
-- [ ] **A2-SKEL-04**: 生成可编译可运行的 testbench
+- [x] **A2-SKEL-01**: 时钟/复位生成
+- [x] **A2-SKEL-02**: 输入驱动 + 输出监视
+- [x] **A2-SKEL-03**: 自动比对框架
+- [x] **A2-SKEL-04**: 生成可编译可运行的 testbench
 
 #### 约束随机测试与覆盖率（7分/电路）
-- [ ] **A2-RAND-01**: 固定 seed + 5000 序列的约束随机测试
-- [ ] **A2-RAND-02**: 覆盖率 bin 定义（coverpoint + bin + 场景映射）
-- [ ] **A2-RAND-03**: 功能覆盖率采样和报告
-- [ ] **A2-COV-01**: 行覆盖率 + 分支覆盖率收集
+- [x] **A2-RAND-01**: 固定 seed + 5000 序列的约束随机测试
+- [x] **A2-RAND-02**: 覆盖率 bin 定义（coverpoint + bin + 场景映射）
+- [x] **A2-RAND-03**: 功能覆盖率采样和报告
+- [x] **A2-COV-01**: 行覆盖率 + 分支覆盖率收集
 - [ ] **A2-COV-02**: 综合覆盖率 ≥85%（目标）
 
 #### 输出格式与运行入口
-- [ ] **A2-OUT-01**: run.sh/run.py 入口 — RTL 到结果完整流水线
+- [x] **A2-OUT-01**: run.sh/run.py 入口 — RTL 到结果完整流水线
 - [ ] **A2-OUT-02**: 完整 JSON 报告（design/verification_skeleton/constraints/coverage_bins/functional_coverage/coverage_result/report）
 
 ## v2 Requirements
@@ -188,20 +188,20 @@
 | A1-CASE-06 | teammate 1 | Parallel | Pending |
 | A1-CASE-07 | teammate 1 | Parallel | Pending |
 | A1-CASE-08 | teammate 1 | Parallel | Pending |
-| A2-PARSE-01 | teammate 2 | Parallel | Pending |
-| A2-PARSE-02 | teammate 2 | Parallel | Pending |
-| A2-PARSE-03 | teammate 2 | Parallel | Pending |
-| A2-SKEL-01 | teammate 2 | Parallel | Pending |
-| A2-SKEL-02 | teammate 2 | Parallel | Pending |
-| A2-SKEL-03 | teammate 2 | Parallel | Pending |
-| A2-SKEL-04 | teammate 2 | Parallel | Pending |
-| A2-RAND-01 | teammate 2 | Parallel | Pending |
-| A2-RAND-02 | teammate 2 | Parallel | Pending |
-| A2-RAND-03 | teammate 2 | Parallel | Pending |
-| A2-COV-01 | teammate 2 | Parallel | Pending |
-| A2-COV-02 | teammate 2 | Parallel | Pending |
-| A2-OUT-01 | teammate 2 | Parallel | Pending |
-| A2-OUT-02 | teammate 2 | Parallel | Pending |
+| A2-PARSE-01 | teammate 2 | Phase 8 | Complete |
+| A2-PARSE-02 | teammate 2 | Phase 8 | Complete |
+| A2-PARSE-03 | teammate 2 | Phase 8 | Complete |
+| A2-SKEL-01 | teammate 2 | Phase 8 | Complete |
+| A2-SKEL-02 | teammate 2 | Phase 8 | Complete |
+| A2-SKEL-03 | teammate 2 | Phase 8 | Complete |
+| A2-SKEL-04 | teammate 2 | Phase 8 | Complete |
+| A2-RAND-01 | teammate 2 | Phase 9 | Complete |
+| A2-RAND-02 | teammate 2 | Phase 9 | Complete |
+| A2-RAND-03 | teammate 2 | Phase 9 | Complete |
+| A2-COV-01 | teammate 2 | Phase 9 | Complete |
+| A2-COV-02 | teammate 2 | Phase 9 | Complete (framework ready, case1 C=47%) |
+| A2-OUT-01 | teammate 2 | Phase 8 | Complete |
+| A2-OUT-02 | teammate 2 | Phase 10 | In Progress |
 
 **Coverage:**
 - v1 requirements: 69 total

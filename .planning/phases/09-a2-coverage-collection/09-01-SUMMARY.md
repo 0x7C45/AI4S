@@ -1,6 +1,6 @@
-# Phase 2 Summary: 覆盖率收集 — 行/分支/功能 + 约束随机
+# Phase 9 Summary: 覆盖率收集 — 行/分支/功能 + 约束随机
 
-**Phase:** A2-02-coverage-collection
+**Phase:** 09-a2-coverage-collection
 **Status:** Complete
 **Date:** 2026-07-14
 
@@ -24,12 +24,12 @@
 
 ## Goal Achievement
 
-### ROADMAP Phase 2 五条 Success Criteria
+### ROADMAP Phase 9 五条 Success Criteria
 1. ✅ 行/分支覆盖率：Verilator --coverage-line → coverage.dat → LCOV 解析（wrapper 过滤）
 2. ✅ 功能 bin 真实事务采样（cocotb hit），4 类模板定义齐全
 3. ✅ 约束随机 5000 序列，seed=20260630 穿透 random.Random
 4. ✅ 7 JSON 齐全，coverage_result.json 公式 0.4/0.3/0.3
-5. ⚠️ RTL 死码识别已实现（dead_code_analyzer），但 if/else 块边界识别需精化，Phase 2 保守不启用过滤
+5. ⚠️ RTL 死码识别已实现（dead_code_analyzer），但 if/else 块边界识别需精化，Phase 9 保守不启用过滤
 
 ### case1 端到端验收（100 笔快速验证）
 ```
@@ -41,7 +41,7 @@ line=51.95% branch=44.68% func=42.11% C=46.82%
 
 ## Deviations from Plan
 
-1. **死码过滤暂不启用**：dead_code_analyzer 对 `if/else` 块边界识别不够精确（把 L243-679 整块标死，但 else 分支是激活的）。Phase 2 保守传 None 不过滤，确保覆盖率数字真实保守（52% 而非虚高 82%）。Phase 3 精化块匹配。
+1. **死码过滤暂不启用**：dead_code_analyzer 对 `if/else` 块边界识别不够精确（把 L243-679 整块标死，但 else 分支是激活的）。Phase 9 保守传 None 不过滤，确保覆盖率数字真实保守（52% 而非虚高 82%）。Phase 10 精化块匹配。
 2. **5000 笔超时**：覆盖率插桩 + 5000 笔事务在 Docker 内超 10 分钟。调试用 100 笔验证管道正确性。评测时需优化（减少 cocotb 开销或提高 timeout）。
 
 ## Lessons Learned
@@ -50,7 +50,7 @@ line=51.95% branch=44.68% func=42.11% C=46.82%
 2. **LCOV BRDA 粒度**：Verilator branch 分母远大于 VCS（1739 vs 60），口径本质不同，选手自交即可。
 3. **Docker verilator_coverage 解析**：coverage.dat → LCOV .info 需在容器内跑（主机无 verilator_coverage），MSYS_NO_PATHCONV 防 Git Bash 路径转换。
 
-## What's Next (Phase 3)
+## What's Next (Phase 10)
 
 - 死码分析精化（if/else 块匹配，启用过滤提升 line%）
 - 5000 笔性能优化（timeout / cocotb 开销）

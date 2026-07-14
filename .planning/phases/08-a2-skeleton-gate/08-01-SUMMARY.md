@@ -1,6 +1,6 @@
-# Phase 1 Summary: 骨架门禁 — RTL 解析 + cocotb/Verilator testbench 生成
+# Phase 8 Summary: 骨架门禁 — RTL 解析 + cocotb/Verilator testbench 生成
 
-**Phase:** A2-01-rtl-cocotb-verilator-testbench
+**Phase:** 08-a2-skeleton-gate
 **Status:** Complete
 **Date:** 2026-07-14
 
@@ -25,7 +25,7 @@
 
 ## Goal Achievement
 
-### ROADMAP Phase 1 五条 Success Criteria
+### ROADMAP Phase 8 五条 Success Criteria
 1. ✅ run.py 五参数入口跑通（--rtl --top --out --seed --num-seq）
 2. ✅ RTL 解析输出 design.json（端口/时钟/复位/参数/协议推断）
 3. ✅ testbench 在 Verilator 后端编译（COMPILE_ARGS=-Wno-fatal）并仿真通过
@@ -66,13 +66,13 @@ python3 run.py --rtl testcases/.../case1/rtl --top case1 --out smoke_out/case1_g
 ## Lessons Learned
 
 1. **主机无依赖不影响交付**：jinja2/cocotb 装在主机用于开发期验证，交付在 Docker 容器（镜像自带 Python 3.12 + g++，只需 apt bootstrap pip）。
-2. **cocotb 2.0 弃用警告非致命**：参考代码用 `units=`（旧），模板用 `unit=`（新），均能跑。Phase 3 收尾时清理。
+2. **cocotb 2.0 弃用警告非致命**：参考代码用 `units=`（旧），模板用 `unit=`（新），均能跑。Phase 10 收尾时清理。
 3. **MSYS_NO_PATHCONV 关键**：Git Bash 会把 Docker 挂载路径 `/work` 转成 Windows 路径，必须用 `MSYS_NO_PATHCONV=1`。
 4. **Verilator 参数化模块**：axi_adapter_rd 有参数（S=32/M=16），Verilator 用默认参数也能跑（测试用 AXI 协议握手，参数影响数据宽度但不阻断门禁）。
 
-## What's Next (Phase 2)
+## What's Next (Phase 9)
 
-Phase 2「覆盖率收集」需补：
+Phase 9「覆盖率收集」需补：
 - `src/constraint_gen.py` — 约束随机 5000 序列生成
 - `src/coverage_gen.py` — 功能 bin 定义（4 类模板：FSM/数据通路/存储器/AXI）
 - `src/coverage_collect.py` — Verilator coverage.dat LCOV 解析 + 功能覆盖汇总

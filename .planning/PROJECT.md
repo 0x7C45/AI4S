@@ -66,6 +66,11 @@
 | A3 基于 Yosys 增强 | open_source_based 类型，61小时内最快出成果 | — Pending |
 | A3 策略：先正确后优化 | 功能正确是评分前提，不正确 = 0 分 | — Pending |
 | A1/A2 用 GSD 辅助队友开发 | 队友无 EDA 背景，GSD 可提供从零到交付的完整辅助 | — Pending |
+| A2: cocotb + Verilator 路线 | iverilog 不支持 RTL 行/分支覆盖；Verilator 原生 --coverage-line | ✅ Locked (congress 2026-07-14) |
+| A2: Docker linux/amd64 主环境 | 与评测 OS 同构，覆盖率数字直接可交付 | ✅ 烟雾测试验证 |
+| A2: 镜像 tag verilator/verilator:v5.050 | 文档误写 :5.050，正确带 v 前缀 | ✅ 已拉取验证 |
+| A2: COMPILE_ARGS 含 -Wno-fatal | Verilator 默认 lint 致命，case1 有 34 个 width warning | ✅ 烟雾测试确认 |
+| A2: 综合公式 0.4/0.3/0.3 | scoring.md 权威，禁抄公开样例 0.42/0.28/0.30 | ✅ Locked |
 
 ## Evolution
 

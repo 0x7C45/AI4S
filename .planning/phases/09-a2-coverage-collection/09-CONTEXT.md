@@ -1,15 +1,15 @@
-# Phase 2: 覆盖率收集 — 行/分支/功能 + 约束随机 - Context
+# Phase 9: 覆盖率收集 — 行/分支/功能 + 约束随机 - Context
 
 **Gathered:** 2026-07-14
 **Status:** Ready for planning
-**Source:** Derived from ROADMAP Phase 2 + CONSTRAINTS §5/§8/§10 + SMOKE_TEST_REPORT Level 2 + Phase 1 SUMMARY
+**Source:** Derived from ROADMAP Phase 9 + CONSTRAINTS §5/§8/§10 + SMOKE_TEST_REPORT Level 2 + Phase 8 SUMMARY
 
 <domain>
 ## Phase Boundary
 
-Phase 2 交付：在 Phase 1 骨架门禁基础上，补全覆盖率采集管道——约束随机 5000 序列生成、Verilator coverage.dat 解析（line/branch）、功能 bin 定义与采样（cocotb hit）、综合覆盖率 C 计算，产出完整 7 JSON（补 constraints/coverage_bins/functional_coverage/coverage_result）。
+Phase 9 交付：在 Phase 8 骨架门禁基础上，补全覆盖率采集管道——约束随机 5000 序列生成、Verilator coverage.dat 解析（line/branch）、功能 bin 定义与采样（cocotb hit）、综合覆盖率 C 计算，产出完整 7 JSON（补 constraints/coverage_bins/functional_coverage/coverage_result）。
 
-**Phase 2 不做**：10 隐藏电路通用化（Phase 3）、离线打包 wheelhouse（Phase 3）。
+**Phase 9 不做**：10 隐藏电路通用化（Phase 10）、离线打包 wheelhouse（Phase 10）。
 
 **验收**：case1 跑通后 coverage_result.json 含三类覆盖率 + 综合 C（公式 0.4/0.3/0.3），功能 bin 有真实事务采样证据。
 
@@ -40,9 +40,9 @@ Phase 2 交付：在 Phase 1 骨架门禁基础上，补全覆盖率采集管道
 - 档位：C≥85%→7分 | 65-85%→4.9分 | 45-65%→2.8分 | <45%→0分
 
 ### 约束随机（CONSTRAINTS §3，LOCKED）
-- seed=20260630 穿透 `random.Random(seed)`（Phase 1 已实现，Phase 2 补 constraints.json 产物）
+- seed=20260630 穿透 `random.Random(seed)`（Phase 8 已实现，Phase 9 补 constraints.json 产物）
 - 序列数 5000（固定）
-- directed 边界值 + 随机组合（Phase 1 testbench 已有 read_lengths/read_address 生成器，Phase 2 补 constraints.json 配置 + coverage 反馈约束调整记录）
+- directed 边界值 + 随机组合（Phase 8 testbench 已有 read_lengths/read_address 生成器，Phase 9 补 constraints.json 配置 + coverage 反馈约束调整记录）
 
 ### 功能 bin 采信标准（CONSTRAINTS §8，LOCKED）
 - bin 必须对应**可解释的功能场景 / corner case / 协议状态**
@@ -57,7 +57,7 @@ Phase 2 交付：在 Phase 1 骨架门禁基础上，补全覆盖率采集管道
 
 ### RTL 死码静态分析（CONSTRAINTS §10，case1 53% 根因）
 - case1 行覆盖 53%（VCS）/59.95%（Verilator）的根因是**参数化死码**：`SEGMENT_COUNT==1`/`EXPAND` 分支在测试配置（S=32/M=16）下恒假
-- Phase 2 需对 RTL 做 `generate/if/parameter` 静态分析，识别不可达分支，覆盖率分母只计可达行
+- Phase 9 需对 RTL 做 `generate/if/parameter` 静态分析，识别不可达分支，覆盖率分母只计可达行
 - **这是 C≥85% 的关键**：不做死码过滤则 case1 line 卡在 ~60%
 
 ### Claude's Discretion
@@ -70,11 +70,11 @@ Phase 2 交付：在 Phase 1 骨架门禁基础上，补全覆盖率采集管道
 <canonical_refs>
 ## Canonical References
 
-### Phase 1 产出（Phase 2 基础）
-- `E:/AI4S/Track-A/A2-verification/run.py` — 五参数入口（Phase 2 补 coverage 阶段调用）
-- `E:/AI4S/Track-A/A2-verification/src/rtl_parser.py` — DesignInfo（Phase 2 补死码分析）
-- `E:/AI4S/Track-A/A2-verification/src/skeleton_gen.py` — testbench 生成（Phase 2 补 functional_coverage import）
-- `E:/AI4S/Track-A/A2-verification/src/sim_runner.py` — Docker 仿真（Phase 2 补 coverage.dat 提取）
+### Phase 8 产出（Phase 9 基础）
+- `E:/AI4S/Track-A/A2-verification/run.py` — 五参数入口（Phase 9 补 coverage 阶段调用）
+- `E:/AI4S/Track-A/A2-verification/src/rtl_parser.py` — DesignInfo（Phase 9 补死码分析）
+- `E:/AI4S/Track-A/A2-verification/src/skeleton_gen.py` — testbench 生成（Phase 9 补 functional_coverage import）
+- `E:/AI4S/Track-A/A2-verification/src/sim_runner.py` — Docker 仿真（Phase 9 补 coverage.dat 提取）
 
 ### 赛题规格
 - `E:/AI4S/Track-A/A2-verification/spec.md` — §3 七个 JSON schema（constraints/coverage_bins/functional_coverage/coverage_result）
@@ -105,21 +105,21 @@ Phase 2 交付：在 Phase 1 骨架门禁基础上，补全覆盖率采集管道
   - adapter_path: 4 bins（位宽转换/合并/窄读/部分末拍）
   - backpressure: 4 bins（源/下游各通道反压）
 - functional_coverage.py 的 FunctionalCoverage 类可直接复用（hit/write 方法已实现）
-- Phase 1 Makefile 已含 `--coverage-line --coverage-toggle`（COMPILE_ARGS），coverage.dat 会自动生成
+- Phase 8 Makefile 已含 `--coverage-line --coverage-toggle`（COMPILE_ARGS），coverage.dat 会自动生成
 
 </specifics>
 
 <deferred>
 ## Deferred Ideas
 
-- 10 隐藏电路通用化 → Phase 3
-- 离线打包 wheelhouse → Phase 3
-- cocotb 2.0 弃用警告清理 → Phase 3
-- 约束求解用 z3-solver（可选，Phase 3 评估）
+- 10 隐藏电路通用化 → Phase 10
+- 离线打包 wheelhouse → Phase 10
+- cocotb 2.0 弃用警告清理 → Phase 10
+- 约束求解用 z3-solver（可选，Phase 10 评估）
 
 </deferred>
 
 ---
 
 *Phase: 02-coverage-collection*
-*Context gathered: 2026-07-14 (derived from ROADMAP + smoke test Level 2 + Phase 1 SUMMARY)*
+*Context gathered: 2026-07-14 (derived from ROADMAP + smoke test Level 2 + Phase 8 SUMMARY)*

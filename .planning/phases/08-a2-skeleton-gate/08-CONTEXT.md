@@ -1,4 +1,4 @@
-# Phase 1: 骨架门禁 — RTL 解析 + cocotb/Verilator testbench 生成 - Context
+# Phase 8: 骨架门禁 — RTL 解析 + cocotb/Verilator testbench 生成 - Context
 
 **Gathered:** 2026-07-14
 **Status:** Ready for planning
@@ -7,9 +7,9 @@
 <domain>
 ## Phase Boundary
 
-Phase 1 交付：一个 `run.py` 五参数入口，能读取 RTL → 解析接口 → 生成 cocotb+Verilator testbench 骨架 → 在 Docker linux/amd64 + Verilator 5.050 下编译仿真通过 → 产出 design.json + verification_skeleton.json。
+Phase 8 交付：一个 `run.py` 五参数入口，能读取 RTL → 解析接口 → 生成 cocotb+Verilator testbench 骨架 → 在 Docker linux/amd64 + Verilator 5.050 下编译仿真通过 → 产出 design.json + verification_skeleton.json。
 
-**Phase 1 不做**：覆盖率采集（Phase 2）、约束随机 5000 序列（Phase 2）、功能 bin（Phase 2）、10 隐藏电路通用化（Phase 3）、离线打包（Phase 3）。
+**Phase 8 不做**：覆盖率采集（Phase 9）、约束随机 5000 序列（Phase 9）、功能 bin（Phase 9）、10 隐藏电路通用化（Phase 10）、离线打包（Phase 10）。
 
 **门禁验收**（case1）：testbench 能编译、能跑、DUT 端口连对、有时钟/复位/驱动/监视/scoreboard/反压。门禁五项任一命中 → 整电路 0 分。
 
@@ -24,7 +24,7 @@ Phase 1 交付：一个 `run.py` 五参数入口，能读取 RTL → 解析接�
   - `src/rtl_parser.py` — RTL 接口解析（端口/时钟/复位/协议识别）
   - `src/skeleton_gen.py` — 验证骨架生成（cocotb testbench Jinja2 模板）
   - `templates/cocotb_tb.py.j2` — cocotb testbench 模板
-- **Phase 1 只实现**：rtl_parser + skeleton_gen + run.py 骨架（解析→生成 testbench→调 cocotb 仿真）。constraint_gen/coverage_gen/sim_runner/coverage_collect/report_gen 在 Phase 2 补。
+- **Phase 8 只实现**：rtl_parser + skeleton_gen + run.py 骨架（解析→生成 testbench→调 cocotb 仿真）。constraint_gen/coverage_gen/sim_runner/coverage_collect/report_gen 在 Phase 9 补。
 
 ### 技术栈（LOCKED，烟雾测试已验证）
 - **cocotb 2.0.1** + **cocotb-test 0.2.6**（Verilator 后端）
@@ -106,12 +106,12 @@ Phase 1 交付：一个 `run.py` 五参数入口，能读取 RTL → 解析接�
 <deferred>
 ## Deferred Ideas
 
-- 覆盖率采集（line/branch/functional）→ Phase 2
-- 约束随机 5000 序列 → Phase 2
-- RTL generate/if 死码静态分析 → Phase 2
-- 10 隐藏电路通用化 → Phase 3
-- 离线打包（wheelhouse） → Phase 3
-- cocotbext-axi 弃用警告清理（非致命，Phase 3 收尾时处理）
+- 覆盖率采集（line/branch/functional）→ Phase 9
+- 约束随机 5000 序列 → Phase 9
+- RTL generate/if 死码静态分析 → Phase 9
+- 10 隐藏电路通用化 → Phase 10
+- 离线打包（wheelhouse） → Phase 10
+- cocotbext-axi 弃用警告清理（非致命，Phase 10 收尾时处理）
 
 </deferred>
 
