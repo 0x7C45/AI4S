@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "nf-pin", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dch -f; &nf -p; &put"},
+    {"name": "nf-sat-area-pin", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dch -f; &nf -a -p; &put"},
+    {"name": "nf-r10-pin", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dch -f; &nf -R 10 -p; &put"},
+    {"name": "nf-r20-pin", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dch -f; &nf -R 20 -p; &put"},
+    {"name": "map-area", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; map -a"},
+    {"name": "map-delay-bias", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; map -B 0.5"},
+    {"name": "amap-mux-balanced", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; amap -m -Q 0.10"}
+  ]
+}

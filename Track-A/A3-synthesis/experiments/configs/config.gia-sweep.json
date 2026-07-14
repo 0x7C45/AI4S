@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "syn2", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &syn2; &dch -f; &nf -R 20 -p; &put"},
+    {"name": "syn2-cut-min", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &syn2 -m; &dch -f; &nf -R 20 -p; &put"},
+    {"name": "syn2-delay", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &syn2 -d; &dch -f; &nf -R 20 -p; &put"},
+    {"name": "dc2-gia", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &nf -R 20 -p; &put"},
+    {"name": "dc2-then-syn2", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 20 -p; &put"},
+    {"name": "syn2-then-dc2", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &syn2 -m; &dc2; &dch -f; &nf -R 20 -p; &put"},
+    {"name": "mux-struct-syn2", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &st -s; &syn2 -m; &dch -f; &nf -R 20 -p; &put"}
+  ]
+}

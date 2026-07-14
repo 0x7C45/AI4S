@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "x2-f25", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 25, "upsize_strength": 2},
+    {"name": "x4-f25", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 25, "upsize_strength": 4},
+    {"name": "x2-f50", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 50, "upsize_strength": 2},
+    {"name": "x4-f50", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 50, "upsize_strength": 4},
+    {"name": "x4-f100", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 100, "upsize_strength": 4},
+    {"name": "x4-f150", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 150, "upsize_strength": 4},
+    {"name": "x4-f200", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 200, "upsize_strength": 4}
+  ]
+}
