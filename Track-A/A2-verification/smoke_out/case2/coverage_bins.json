@@ -1,0 +1,83 @@
+{
+  "coverage_bins": {
+    "name": "axis_fifo_adapter_functional_bins",
+    "measurement": "Bin hits are sampled by generated testbench via FunctionalCoverage.hit() and reported in functional_coverage.json.",
+    "active_templates": [
+      "DATAPATH",
+      "MEMORY"
+    ],
+    "bins": [
+      {
+        "name": "data_width_boundary",
+        "values": [
+          "min_width",
+          "half_width",
+          "full_width",
+          "over_width"
+        ]
+      },
+      {
+        "name": "data_alignment",
+        "values": [
+          "byte_aligned",
+          "halfword_aligned",
+          "word_aligned",
+          "unaligned"
+        ]
+      },
+      {
+        "name": "sign_extension",
+        "values": [
+          "positive_extend",
+          "negative_extend",
+          "zero_extend"
+        ]
+      },
+      {
+        "name": "overflow_underflow",
+        "values": [
+          "no_overflow",
+          "overflow",
+          "underflow"
+        ]
+      },
+      {
+        "name": "read_after_write",
+        "values": [
+          "raw_same_addr",
+          "raw_diff_addr"
+        ]
+      },
+      {
+        "name": "write_after_read",
+        "values": [
+          "war_same_addr",
+          "war_diff_addr"
+        ]
+      },
+      {
+        "name": "address_boundary",
+        "values": [
+          "addr_zero",
+          "addr_max",
+          "addr_mid"
+        ]
+      },
+      {
+        "name": "fifo_full_empty",
+        "values": [
+          "fifo_empty_read",
+          "fifo_full_write",
+          "fifo_half"
+        ]
+      },
+      {
+        "name": "concurrent_access",
+        "values": [
+          "simultaneous_rw",
+          "sequential_rw"
+        ]
+      }
+    ]
+  }
+}

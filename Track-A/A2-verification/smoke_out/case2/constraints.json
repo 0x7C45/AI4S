@@ -1,0 +1,31 @@
+{
+  "constraint_random_test": {
+    "name": "axis_fifo_adapter",
+    "solver_target": "directed_random",
+    "seed": 20260630,
+    "sequence_count": 100,
+    "transaction_variables": {
+      "data": {
+        "type": "bitvec",
+        "width": 32
+      },
+      "valid_delay": {
+        "type": "int",
+        "min": 0,
+        "max": 10
+      },
+      "ready_backpressure": {
+        "type": "enum",
+        "values": [
+          "none",
+          "light",
+          "heavy"
+        ]
+      }
+    },
+    "hard_constraints": [],
+    "coverage_guidance_constraints": [],
+    "objective": "maximize functional coverage across protocol scenarios and corner cases",
+    "coverage_feedback_adjustments": []
+  }
+}

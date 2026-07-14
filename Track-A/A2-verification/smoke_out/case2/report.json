@@ -1,0 +1,44 @@
+{
+  "report": {
+    "pipeline": {
+      "parse": {
+        "status": "passed",
+        "top_module": "axis_fifo_adapter",
+        "clock": "clk",
+        "reset": "rst"
+      },
+      "skeleton": {
+        "status": "passed",
+        "testbench_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case2\\generated_tb\\generated_test.py"
+      },
+      "constraint": {
+        "status": "passed",
+        "seed": 20260630,
+        "sequence_count": 100
+      },
+      "simulate": {
+        "status": "passed",
+        "exit_code": 0
+      },
+      "coverage": {
+        "status": "passed",
+        "line": 88.24,
+        "branch": 38.46,
+        "functional": 7.69
+      }
+    },
+    "artifacts": {
+      "design_json": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case2\\design.json",
+      "verification_skeleton_json": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case2\\verification_skeleton.json",
+      "generated_tb": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case2\\generated_tb",
+      "constraints_json": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case2\\constraints.json",
+      "coverage_bins_json": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case2\\coverage_bins.json",
+      "sim_log": "directory '/work/sim_build'\n/usr/local/lib/python3.12/dist-packages/cocotb_tools/makefiles/simulators/Makefile.verilator:69: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.\nrm -f results.xml\nCOCOTB_TEST_MODULES=generated_test COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=axis_fifo_adapter TOPLEVEL_LANG=verilog \\\n         sim_build/Vtop     \n     -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:93   in _embed_init_python              Using Python 3.12.4 interpreter at /usr/bin/python3\n     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:79   in gpi_print_registered_impl       VPI registered\n     0.00ns INFO     cocotb                             Running on Verilator version 5.050 2026-07-01\n     0.00ns INFO     cocotb                             Seeding Python random module with 1784031995\n     0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from /usr/local/lib/python3.12/dist-packages/cocotb\n     0.00ns INFO     cocotb.regression                  pytest not found, install it to enable better AssertionError messages\n     0.00ns INFO     cocotb                             Running tests\n     0.00ns INFO     cocotb.regression                  running generated_test.run_generated_test (1/1)\n                                                            win-ZCode 生成的约束随机测试\n     0.00ns WARNING  py.warnings                        /work/generated_test.py:80: DeprecationWarning: Use `handle.set(Immediate(...))` or `handle.value = Immediate(...)` instead.\n                                                          dut.rst.setimmediatevalue(0)\n   190.00ns WARNING  py.warnings                        /work/generated_test.py:130: DeprecationWarning: Use `handle.set(Immediate(...))` or `handle.value = Immediate(...)` instead.\n                                                          sig.setimmediatevalue(val)\n- :0: Verilog $finish\nmake[1]: Leaving directory '/work'\n=== MAKE_EXIT=0 ===\n",
+      "coverage_result_json": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case2\\coverage_result.json",
+      "functional_coverage_json": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case2\\functional_coverage.json"
+    },
+    "coverage_summary": {},
+    "reproducible_command": "python3 run.py --rtl testcases/A2_public_dataset/case2/rtl --top case2 --out smoke_out/case2 --seed 20260630 --num-seq 100",
+    "timestamp": "2026-07-14T20:26:36.151394"
+  }
+}

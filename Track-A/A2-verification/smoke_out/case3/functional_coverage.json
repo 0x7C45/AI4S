@@ -1,0 +1,360 @@
+{
+  "functional_coverage": {
+    "design": "axi_vfifo_raw_rd",
+    "status": "passed",
+    "source": "cocotb transaction sampling",
+    "covered_bins": 2,
+    "total_bins": 50,
+    "percent": 4.0,
+    "coverpoints": [
+      {
+        "name": "adapter_path",
+        "covered_bins": 0,
+        "total_bins": 4,
+        "bins": [
+          {
+            "name": "width_conversion",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "merge_master_beats",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "narrow_size_read",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "partial_last_beat",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "address_alignment",
+        "covered_bins": 0,
+        "total_bins": 4,
+        "bins": [
+          {
+            "name": "aligned_4_byte",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "aligned_2_byte",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "unaligned",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "near_4k_boundary",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "address_boundary",
+        "covered_bins": 0,
+        "total_bins": 3,
+        "bins": [
+          {
+            "name": "addr_zero",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "addr_max",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "addr_mid",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "backpressure",
+        "covered_bins": 0,
+        "total_bins": 4,
+        "bins": [
+          {
+            "name": "source_rready_pause",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "downstream_arready_pause",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "downstream_rvalid_pause",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "combined_pause",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "burst_size",
+        "covered_bins": 0,
+        "total_bins": 4,
+        "bins": [
+          {
+            "name": "size_1_byte",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "size_2_byte",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "size_4_byte",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "default_max_size",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "concurrent_access",
+        "covered_bins": 0,
+        "total_bins": 2,
+        "bins": [
+          {
+            "name": "simultaneous_rw",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "sequential_rw",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "data_alignment",
+        "covered_bins": 0,
+        "total_bins": 4,
+        "bins": [
+          {
+            "name": "byte_aligned",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "halfword_aligned",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "word_aligned",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "unaligned",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "data_width_boundary",
+        "covered_bins": 1,
+        "total_bins": 4,
+        "bins": [
+          {
+            "name": "min_width",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "half_width",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "full_width",
+            "hits": 50,
+            "covered": true
+          },
+          {
+            "name": "over_width",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "fifo_full_empty",
+        "covered_bins": 1,
+        "total_bins": 3,
+        "bins": [
+          {
+            "name": "fifo_empty_read",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "fifo_full_write",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "fifo_half",
+            "hits": 34,
+            "covered": true
+          }
+        ]
+      },
+      {
+        "name": "overflow_underflow",
+        "covered_bins": 0,
+        "total_bins": 3,
+        "bins": [
+          {
+            "name": "no_overflow",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "overflow",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "underflow",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "read_after_write",
+        "covered_bins": 0,
+        "total_bins": 2,
+        "bins": [
+          {
+            "name": "raw_same_addr",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "raw_diff_addr",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "read_length",
+        "covered_bins": 0,
+        "total_bins": 8,
+        "bins": [
+          {
+            "name": "1",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "2_to_3",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "4",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "5_to_15",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "16_to_31",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "32_to_63",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "64_to_127",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "128_to_256",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "sign_extension",
+        "covered_bins": 0,
+        "total_bins": 3,
+        "bins": [
+          {
+            "name": "positive_extend",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "negative_extend",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "zero_extend",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "write_after_read",
+        "covered_bins": 0,
+        "total_bins": 2,
+        "bins": [
+          {
+            "name": "war_same_addr",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "war_diff_addr",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      }
+    ]
+  }
+}
