@@ -39,6 +39,6 @@
     },
     "coverage_summary": {},
     "reproducible_command": "python3 run.py --rtl testcases/A2_public_dataset/case4/rtl --top case4 --out smoke_out/case4 --seed 20260630 --num-seq 100",
-    "timestamp": "2026-07-14T23:20:51.169910"
+    "timestamp": "2026-07-15T00:26:01.065278"
   }
 }
