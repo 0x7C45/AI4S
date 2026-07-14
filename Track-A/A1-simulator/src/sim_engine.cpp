@@ -37,6 +37,7 @@ static ASTNode *deepCopyModule(ASTNode *modNode) {
 }
 
 extern std::vector<ASTNode *> g_modules;
+extern bool g_parse_ok;
 extern std::vector<ASTNode *> parseFiles(const std::vector<std::string> &files);
 
 static SignalSigned g_signalSigneds;
@@ -818,6 +819,10 @@ int SimulationEngine::compile(const std::string &filelist, const std::string &to
     if (files.empty()) { simulatorWarning("empty filelist"); return 1; }
 
     parseFiles(files);
+    if (!g_parse_ok) {
+        simulatorWarning("parser rejected one or more source files");
+        return 1;
+    }
     if (g_modules.empty()) { simulatorWarning("no modules parsed"); return 1; }
 
     std::vector<ModuleDef *> defs;

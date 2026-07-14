@@ -67,7 +67,7 @@
 
 
 /* First part of user prologue.  */
-#line 13 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 13 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
 
 #include "ast.h"
 #include "preprocessor.h"
@@ -95,6 +95,7 @@ extern YY_BUFFER_STATE yy_scan_string(const char *str);
 extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
 std::vector<ASTNode *> g_modules;
+bool g_parse_ok = true;
 static const PreprocessResult *g_preprocess_result = nullptr;
 
 static ASTNode *makeNum(VerilogNum *n) {
@@ -105,7 +106,7 @@ static ASTNode *makeNum(VerilogNum *n) {
     return node;
 }
 
-#line 109 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 110 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -165,96 +166,112 @@ enum yysymbol_kind_t
   YYSYMBOL_GENERATE = 29,                  /* GENERATE  */
   YYSYMBOL_ENDGENERATE = 30,               /* ENDGENERATE  */
   YYSYMBOL_GENVAR = 31,                    /* GENVAR  */
-  YYSYMBOL_POSEDGE = 32,                   /* POSEDGE  */
-  YYSYMBOL_NEGEDGE = 33,                   /* NEGEDGE  */
-  YYSYMBOL_OR = 34,                        /* OR  */
-  YYSYMBOL_SYS_FOPEN = 35,                 /* SYS_FOPEN  */
-  YYSYMBOL_SYS_FCLOSE = 36,                /* SYS_FCLOSE  */
-  YYSYMBOL_SYS_FSCANF = 37,                /* SYS_FSCANF  */
-  YYSYMBOL_SYS_FGETS = 38,                 /* SYS_FGETS  */
-  YYSYMBOL_SYS_FDISPLAY = 39,              /* SYS_FDISPLAY  */
-  YYSYMBOL_SYS_DISPLAY = 40,               /* SYS_DISPLAY  */
-  YYSYMBOL_SYS_FINISH = 41,                /* SYS_FINISH  */
-  YYSYMBOL_SYS_CLOG2 = 42,                 /* SYS_CLOG2  */
-  YYSYMBOL_SYS_READMEMH = 43,              /* SYS_READMEMH  */
-  YYSYMBOL_SYS_READMEMB = 44,              /* SYS_READMEMB  */
-  YYSYMBOL_EQ = 45,                        /* EQ  */
-  YYSYMBOL_NE = 46,                        /* NE  */
-  YYSYMBOL_LE = 47,                        /* LE  */
-  YYSYMBOL_NONBLOCKING = 48,               /* NONBLOCKING  */
-  YYSYMBOL_GE = 49,                        /* GE  */
-  YYSYMBOL_LOGAND = 50,                    /* LOGAND  */
-  YYSYMBOL_LOGOR = 51,                     /* LOGOR  */
-  YYSYMBOL_SHL = 52,                       /* SHL  */
-  YYSYMBOL_SHR = 53,                       /* SHR  */
-  YYSYMBOL_SSHR = 54,                      /* SSHR  */
-  YYSYMBOL_NAND = 55,                      /* NAND  */
-  YYSYMBOL_NOR = 56,                       /* NOR  */
-  YYSYMBOL_XNOR = 57,                      /* XNOR  */
-  YYSYMBOL_58_ = 58,                       /* '?'  */
-  YYSYMBOL_59_ = 59,                       /* ':'  */
-  YYSYMBOL_60_ = 60,                       /* '|'  */
-  YYSYMBOL_61_ = 61,                       /* '^'  */
-  YYSYMBOL_62_ = 62,                       /* '&'  */
-  YYSYMBOL_63_ = 63,                       /* '<'  */
-  YYSYMBOL_64_ = 64,                       /* '>'  */
-  YYSYMBOL_65_ = 65,                       /* '+'  */
-  YYSYMBOL_66_ = 66,                       /* '-'  */
-  YYSYMBOL_67_ = 67,                       /* '*'  */
-  YYSYMBOL_68_ = 68,                       /* '/'  */
-  YYSYMBOL_69_ = 69,                       /* '%'  */
-  YYSYMBOL_POWER = 70,                     /* POWER  */
-  YYSYMBOL_71_ = 71,                       /* '!'  */
-  YYSYMBOL_72_ = 72,                       /* '~'  */
-  YYSYMBOL_UNARY = 73,                     /* UNARY  */
-  YYSYMBOL_74_ = 74,                       /* ';'  */
-  YYSYMBOL_75_ = 75,                       /* '#'  */
-  YYSYMBOL_76_ = 76,                       /* '('  */
-  YYSYMBOL_77_ = 77,                       /* ')'  */
-  YYSYMBOL_78_ = 78,                       /* ','  */
-  YYSYMBOL_79_ = 79,                       /* '='  */
-  YYSYMBOL_80_ = 80,                       /* '@'  */
-  YYSYMBOL_81_ = 81,                       /* '.'  */
-  YYSYMBOL_82_ = 82,                       /* '['  */
-  YYSYMBOL_83_ = 83,                       /* ']'  */
-  YYSYMBOL_84_ = 84,                       /* '{'  */
-  YYSYMBOL_85_ = 85,                       /* '}'  */
-  YYSYMBOL_YYACCEPT = 86,                  /* $accept  */
-  YYSYMBOL_source = 87,                    /* source  */
-  YYSYMBOL_module_list = 88,               /* module_list  */
-  YYSYMBOL_module = 89,                    /* module  */
-  YYSYMBOL_module_param_decls = 90,        /* module_param_decls  */
-  YYSYMBOL_module_param_decl = 91,         /* module_param_decl  */
-  YYSYMBOL_opt_port_list = 92,             /* opt_port_list  */
-  YYSYMBOL_port_list = 93,                 /* port_list  */
-  YYSYMBOL_port_decl_in_list = 94,         /* port_decl_in_list  */
-  YYSYMBOL_module_items = 95,              /* module_items  */
-  YYSYMBOL_module_item = 96,               /* module_item  */
-  YYSYMBOL_port_decl = 97,                 /* port_decl  */
-  YYSYMBOL_decl_list = 98,                 /* decl_list  */
-  YYSYMBOL_stmt = 99,                      /* stmt  */
-  YYSYMBOL_stmts = 100,                    /* stmts  */
-  YYSYMBOL_event_list = 101,               /* event_list  */
-  YYSYMBOL_event_expr = 102,               /* event_expr  */
-  YYSYMBOL_readmem_args = 103,             /* readmem_args  */
-  YYSYMBOL_gen_items = 104,                /* gen_items  */
-  YYSYMBOL_gen_item = 105,                 /* gen_item  */
-  YYSYMBOL_genvar_list = 106,              /* genvar_list  */
-  YYSYMBOL_gen_block = 107,                /* gen_block  */
-  YYSYMBOL_gen_body = 108,                 /* gen_body  */
-  YYSYMBOL_case_items = 109,               /* case_items  */
-  YYSYMBOL_case_item = 110,                /* case_item  */
-  YYSYMBOL_param_override = 111,           /* param_override  */
-  YYSYMBOL_param_list = 112,               /* param_list  */
-  YYSYMBOL_param_assign = 113,             /* param_assign  */
-  YYSYMBOL_port_conn_list = 114,           /* port_conn_list  */
-  YYSYMBOL_port_conn = 115,                /* port_conn  */
-  YYSYMBOL_range = 116,                    /* range  */
-  YYSYMBOL_expr = 117,                     /* expr  */
-  YYSYMBOL_prim_expr = 118,                /* prim_expr  */
-  YYSYMBOL_lvalue = 119,                   /* lvalue  */
-  YYSYMBOL_lvalue_list = 120,              /* lvalue_list  */
-  YYSYMBOL_expr_list = 121                 /* expr_list  */
+  YYSYMBOL_FUNCTION = 32,                  /* FUNCTION  */
+  YYSYMBOL_ENDFUNCTION = 33,               /* ENDFUNCTION  */
+  YYSYMBOL_POSEDGE = 34,                   /* POSEDGE  */
+  YYSYMBOL_NEGEDGE = 35,                   /* NEGEDGE  */
+  YYSYMBOL_OR = 36,                        /* OR  */
+  YYSYMBOL_SYS_FOPEN = 37,                 /* SYS_FOPEN  */
+  YYSYMBOL_SYS_FCLOSE = 38,                /* SYS_FCLOSE  */
+  YYSYMBOL_SYS_FSCANF = 39,                /* SYS_FSCANF  */
+  YYSYMBOL_SYS_FGETS = 40,                 /* SYS_FGETS  */
+  YYSYMBOL_SYS_FDISPLAY = 41,              /* SYS_FDISPLAY  */
+  YYSYMBOL_SYS_DISPLAY = 42,               /* SYS_DISPLAY  */
+  YYSYMBOL_SYS_FINISH = 43,                /* SYS_FINISH  */
+  YYSYMBOL_SYS_CLOG2 = 44,                 /* SYS_CLOG2  */
+  YYSYMBOL_SYS_READMEMH = 45,              /* SYS_READMEMH  */
+  YYSYMBOL_SYS_READMEMB = 46,              /* SYS_READMEMB  */
+  YYSYMBOL_SYS_DUMPFILE = 47,              /* SYS_DUMPFILE  */
+  YYSYMBOL_SYS_DUMPVARS = 48,              /* SYS_DUMPVARS  */
+  YYSYMBOL_SYS_ERROR = 49,                 /* SYS_ERROR  */
+  YYSYMBOL_SYS_UNSIGNED = 50,              /* SYS_UNSIGNED  */
+  YYSYMBOL_SYS_TIME = 51,                  /* SYS_TIME  */
+  YYSYMBOL_EQ = 52,                        /* EQ  */
+  YYSYMBOL_NE = 53,                        /* NE  */
+  YYSYMBOL_LE = 54,                        /* LE  */
+  YYSYMBOL_NONBLOCKING = 55,               /* NONBLOCKING  */
+  YYSYMBOL_GE = 56,                        /* GE  */
+  YYSYMBOL_LOGAND = 57,                    /* LOGAND  */
+  YYSYMBOL_LOGOR = 58,                     /* LOGOR  */
+  YYSYMBOL_SHL = 59,                       /* SHL  */
+  YYSYMBOL_SHR = 60,                       /* SHR  */
+  YYSYMBOL_SSHR = 61,                      /* SSHR  */
+  YYSYMBOL_NAND = 62,                      /* NAND  */
+  YYSYMBOL_NOR = 63,                       /* NOR  */
+  YYSYMBOL_XNOR = 64,                      /* XNOR  */
+  YYSYMBOL_PART_PLUS = 65,                 /* PART_PLUS  */
+  YYSYMBOL_PART_MINUS = 66,                /* PART_MINUS  */
+  YYSYMBOL_67_ = 67,                       /* '?'  */
+  YYSYMBOL_68_ = 68,                       /* ':'  */
+  YYSYMBOL_69_ = 69,                       /* '|'  */
+  YYSYMBOL_70_ = 70,                       /* '^'  */
+  YYSYMBOL_71_ = 71,                       /* '&'  */
+  YYSYMBOL_72_ = 72,                       /* '<'  */
+  YYSYMBOL_73_ = 73,                       /* '>'  */
+  YYSYMBOL_74_ = 74,                       /* '+'  */
+  YYSYMBOL_75_ = 75,                       /* '-'  */
+  YYSYMBOL_76_ = 76,                       /* '*'  */
+  YYSYMBOL_77_ = 77,                       /* '/'  */
+  YYSYMBOL_78_ = 78,                       /* '%'  */
+  YYSYMBOL_POWER = 79,                     /* POWER  */
+  YYSYMBOL_80_ = 80,                       /* '!'  */
+  YYSYMBOL_81_ = 81,                       /* '~'  */
+  YYSYMBOL_UNARY = 82,                     /* UNARY  */
+  YYSYMBOL_83_ = 83,                       /* ';'  */
+  YYSYMBOL_84_ = 84,                       /* '#'  */
+  YYSYMBOL_85_ = 85,                       /* '('  */
+  YYSYMBOL_86_ = 86,                       /* ')'  */
+  YYSYMBOL_87_ = 87,                       /* ','  */
+  YYSYMBOL_88_ = 88,                       /* '='  */
+  YYSYMBOL_89_ = 89,                       /* '@'  */
+  YYSYMBOL_90_ = 90,                       /* '.'  */
+  YYSYMBOL_91_ = 91,                       /* '['  */
+  YYSYMBOL_92_ = 92,                       /* ']'  */
+  YYSYMBOL_93_ = 93,                       /* '{'  */
+  YYSYMBOL_94_ = 94,                       /* '}'  */
+  YYSYMBOL_YYACCEPT = 95,                  /* $accept  */
+  YYSYMBOL_source = 96,                    /* source  */
+  YYSYMBOL_module_list = 97,               /* module_list  */
+  YYSYMBOL_module = 98,                    /* module  */
+  YYSYMBOL_module_param_decls = 99,        /* module_param_decls  */
+  YYSYMBOL_module_param_decl = 100,        /* module_param_decl  */
+  YYSYMBOL_opt_port_list = 101,            /* opt_port_list  */
+  YYSYMBOL_port_list = 102,                /* port_list  */
+  YYSYMBOL_port_decl_in_list = 103,        /* port_decl_in_list  */
+  YYSYMBOL_module_items = 104,             /* module_items  */
+  YYSYMBOL_module_item = 105,              /* module_item  */
+  YYSYMBOL_procedural_decl = 106,          /* procedural_decl  */
+  YYSYMBOL_function_items = 107,           /* function_items  */
+  YYSYMBOL_function_item = 108,            /* function_item  */
+  YYSYMBOL_function_port_decl = 109,       /* function_port_decl  */
+  YYSYMBOL_function_port_names = 110,      /* function_port_names  */
+  YYSYMBOL_gen_case_items = 111,           /* gen_case_items  */
+  YYSYMBOL_gen_case_item = 112,            /* gen_case_item  */
+  YYSYMBOL_port_decl = 113,                /* port_decl  */
+  YYSYMBOL_decl_list = 114,                /* decl_list  */
+  YYSYMBOL_stmt = 115,                     /* stmt  */
+  YYSYMBOL_stmts = 116,                    /* stmts  */
+  YYSYMBOL_event_list = 117,               /* event_list  */
+  YYSYMBOL_event_expr = 118,               /* event_expr  */
+  YYSYMBOL_readmem_args = 119,             /* readmem_args  */
+  YYSYMBOL_gen_items = 120,                /* gen_items  */
+  YYSYMBOL_gen_item = 121,                 /* gen_item  */
+  YYSYMBOL_genvar_list = 122,              /* genvar_list  */
+  YYSYMBOL_gen_block = 123,                /* gen_block  */
+  YYSYMBOL_gen_body = 124,                 /* gen_body  */
+  YYSYMBOL_case_items = 125,               /* case_items  */
+  YYSYMBOL_case_item = 126,                /* case_item  */
+  YYSYMBOL_param_override = 127,           /* param_override  */
+  YYSYMBOL_param_list = 128,               /* param_list  */
+  YYSYMBOL_param_assign = 129,             /* param_assign  */
+  YYSYMBOL_port_conn_list = 130,           /* port_conn_list  */
+  YYSYMBOL_port_conn = 131,                /* port_conn  */
+  YYSYMBOL_range = 132,                    /* range  */
+  YYSYMBOL_expr = 133,                     /* expr  */
+  YYSYMBOL_prim_expr = 134,                /* prim_expr  */
+  YYSYMBOL_lvalue = 135,                   /* lvalue  */
+  YYSYMBOL_lvalue_list = 136,              /* lvalue_list  */
+  YYSYMBOL_expr_list = 137                 /* expr_list  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -582,19 +599,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  6
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   2462
+#define YYLAST   3482
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  86
+#define YYNTOKENS  95
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  36
+#define YYNNTS  43
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  182
+#define YYNRULES  222
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  517
+#define YYNSTATES  632
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   314
+#define YYMAXUTOK   323
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -611,16 +628,16 @@ static const yytype_int8 yytranslate[] =
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,    71,     2,    75,     2,    69,    62,     2,
-      76,    77,    67,    65,    78,    66,    81,    68,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,    59,    74,
-      63,    79,    64,    58,    80,     2,     2,     2,     2,     2,
+       2,     2,     2,    80,     2,    84,     2,    78,    71,     2,
+      85,    86,    76,    74,    87,    75,    90,    77,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    68,    83,
+      72,    88,    73,    67,    89,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,    82,     2,    83,    61,     2,     2,     2,     2,     2,
+       2,    91,     2,    92,    70,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,    84,    60,    85,    72,     2,     2,     2,
+       2,     2,     2,    93,    69,    94,    81,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -639,32 +656,37 @@ static const yytype_int8 yytranslate[] =
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
       35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
       45,    46,    47,    48,    49,    50,    51,    52,    53,    54,
-      55,    56,    57,    70,    73
+      55,    56,    57,    58,    59,    60,    61,    62,    63,    64,
+      65,    66,    79,    82
 };
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    92,    92,    96,    97,   101,   108,   120,   121,   125,
-     130,   131,   135,   136,   140,   141,   142,   146,   147,   148,
-     152,   153,   166,   178,   180,   191,   201,   203,   205,   207,
-     209,   211,   213,   215,   219,   221,   230,   232,   234,   236,
-     238,   240,   243,   245,   247,   249,   250,   254,   265,   273,
-     283,   291,   301,   309,   319,   327,   337,   345,   355,   365,
-     376,   377,   381,   382,   383,   389,   395,   401,   408,   414,
-     424,   430,   437,   443,   450,   456,   463,   470,   471,   472,
-     477,   483,   489,   495,   500,   509,   519,   529,   536,   545,
-     546,   550,   552,   557,   559,   564,   569,   570,   574,   582,
-     591,   597,   604,   612,   613,   617,   618,   619,   623,   624,
-     625,   626,   630,   631,   635,   641,   648,   653,   661,   666,
-     667,   671,   675,   676,   680,   686,   694,   706,   707,   708,
-     709,   710,   711,   712,   713,   714,   715,   716,   717,   718,
-     719,   720,   721,   722,   723,   724,   725,   726,   727,   728,
-     729,   734,   735,   736,   737,   738,   739,   740,   741,   742,
-     746,   750,   755,   762,   768,   777,   788,   795,   807,   811,
-     817,   824,   829,   837,   842,   849,   855,   863,   873,   883,
-     884,   888,   889
+       0,    93,    93,    97,    98,   102,   109,   121,   122,   126,
+     131,   132,   136,   137,   141,   142,   143,   147,   148,   149,
+     153,   154,   167,   178,   180,   191,   201,   203,   205,   215,
+     217,   219,   221,   223,   227,   229,   238,   240,   242,   244,
+     246,   248,   257,   263,   265,   267,   270,   272,   274,   276,
+     277,   283,   290,   294,   300,   309,   318,   319,   320,   324,
+     325,   326,   330,   340,   350,   352,   356,   357,   361,   363,
+     369,   380,   388,   398,   406,   416,   424,   434,   442,   452,
+     460,   470,   480,   491,   492,   496,   497,   498,   499,   501,
+     503,   504,   510,   516,   522,   529,   535,   545,   551,   558,
+     564,   571,   577,   584,   591,   597,   604,   611,   612,   613,
+     618,   624,   630,   636,   641,   650,   660,   670,   677,   686,
+     687,   691,   693,   698,   700,   705,   710,   711,   715,   723,
+     732,   738,   745,   751,   759,   760,   764,   765,   766,   770,
+     771,   772,   773,   777,   778,   782,   788,   795,   800,   808,
+     813,   814,   818,   822,   823,   827,   833,   838,   846,   858,
+     859,   860,   861,   862,   863,   864,   865,   866,   867,   868,
+     869,   870,   871,   872,   873,   874,   875,   876,   877,   878,
+     879,   880,   881,   886,   887,   888,   889,   890,   891,   892,
+     893,   894,   898,   902,   904,   909,   917,   919,   924,   931,
+     937,   946,   954,   962,   973,   980,   992,   996,  1002,  1009,
+    1014,  1022,  1027,  1034,  1040,  1048,  1056,  1064,  1074,  1084,
+    1085,  1089,  1090
 };
 #endif
 
@@ -685,16 +707,20 @@ static const char *const yytname[] =
   "INTEGER_KW", "SIGNED", "LOCALPARAM", "PARAMETER", "ASSIGN", "ALWAYS",
   "INITIAL_KW", "BEGINKW", "END", "IF", "ELSE", "CASE", "ENDCASE",
   "DEFAULT", "FOR", "REPEAT", "WHILE", "GENERATE", "ENDGENERATE", "GENVAR",
-  "POSEDGE", "NEGEDGE", "OR", "SYS_FOPEN", "SYS_FCLOSE", "SYS_FSCANF",
-  "SYS_FGETS", "SYS_FDISPLAY", "SYS_DISPLAY", "SYS_FINISH", "SYS_CLOG2",
-  "SYS_READMEMH", "SYS_READMEMB", "EQ", "NE", "LE", "NONBLOCKING", "GE",
-  "LOGAND", "LOGOR", "SHL", "SHR", "SSHR", "NAND", "NOR", "XNOR", "'?'",
-  "':'", "'|'", "'^'", "'&'", "'<'", "'>'", "'+'", "'-'", "'*'", "'/'",
-  "'%'", "POWER", "'!'", "'~'", "UNARY", "';'", "'#'", "'('", "')'", "','",
-  "'='", "'@'", "'.'", "'['", "']'", "'{'", "'}'", "$accept", "source",
+  "FUNCTION", "ENDFUNCTION", "POSEDGE", "NEGEDGE", "OR", "SYS_FOPEN",
+  "SYS_FCLOSE", "SYS_FSCANF", "SYS_FGETS", "SYS_FDISPLAY", "SYS_DISPLAY",
+  "SYS_FINISH", "SYS_CLOG2", "SYS_READMEMH", "SYS_READMEMB",
+  "SYS_DUMPFILE", "SYS_DUMPVARS", "SYS_ERROR", "SYS_UNSIGNED", "SYS_TIME",
+  "EQ", "NE", "LE", "NONBLOCKING", "GE", "LOGAND", "LOGOR", "SHL", "SHR",
+  "SSHR", "NAND", "NOR", "XNOR", "PART_PLUS", "PART_MINUS", "'?'", "':'",
+  "'|'", "'^'", "'&'", "'<'", "'>'", "'+'", "'-'", "'*'", "'/'", "'%'",
+  "POWER", "'!'", "'~'", "UNARY", "';'", "'#'", "'('", "')'", "','", "'='",
+  "'@'", "'.'", "'['", "']'", "'{'", "'}'", "$accept", "source",
   "module_list", "module", "module_param_decls", "module_param_decl",
   "opt_port_list", "port_list", "port_decl_in_list", "module_items",
-  "module_item", "port_decl", "decl_list", "stmt", "stmts", "event_list",
+  "module_item", "procedural_decl", "function_items", "function_item",
+  "function_port_decl", "function_port_names", "gen_case_items",
+  "gen_case_item", "port_decl", "decl_list", "stmt", "stmts", "event_list",
   "event_expr", "readmem_args", "gen_items", "gen_item", "genvar_list",
   "gen_block", "gen_body", "case_items", "case_item", "param_override",
   "param_list", "param_assign", "port_conn_list", "port_conn", "range",
@@ -708,7 +734,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-455)
+#define YYPACT_NINF (-396)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -722,58 +748,70 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-      28,    77,    90,    28,  -455,   -12,  -455,  -455,    36,   107,
-      81,   104,  -455,    11,     9,   146,  -455,  -455,   967,   100,
-     150,  -455,  -455,     5,    83,   680,   188,  -455,    23,    10,
-      83,   199,  -455,   107,     7,    25,    12,   201,   217,    27,
-       2,     8,   539,   125,    87,   896,  -455,   115,   155,   102,
-     164,   104,  -455,   239,   249,   182,  -455,  -455,   190,   202,
-     680,   680,   680,   680,   680,   680,   680,   680,   680,   680,
-    2193,  -455,  -455,  -455,   284,  -455,    83,   285,   286,  -455,
-    -455,   214,   218,   222,   290,   223,    83,   300,  -455,   225,
-     229,   304,   227,     2,   231,   680,   235,   -17,   539,   236,
-     237,   240,   241,   242,   243,   244,   247,   248,    73,   251,
-     252,  -455,   310,   253,  -455,   -21,   257,   258,   322,    41,
-    -455,   254,  -455,  -455,  -455,  -455,   680,   265,  -455,  -455,
-    -455,   680,   328,   680,  -455,  -455,  -455,  -455,  -455,  -455,
-    -455,  -455,  1345,   960,   -33,   680,   680,   680,   680,   680,
-     680,   680,   680,   680,   680,   680,   680,   680,   680,   680,
-     680,   680,   680,   680,   680,   680,   338,   680,   680,  -455,
-     341,  -455,  -455,   -28,   254,   680,    21,    75,   680,    39,
-     342,    96,    40,   680,   680,   267,   680,  -455,   -19,   680,
-     446,    14,   680,  -455,   256,   680,   680,     2,   680,   680,
-     343,   680,   683,   723,  -455,   680,   680,   680,   274,   175,
-     680,    13,   680,    29,  -455,    74,  -455,  -455,   346,   158,
-    -455,  2268,   967,  1000,   160,  1374,  -455,   680,   680,  -455,
-     130,   130,   165,   165,  2318,  2293,   181,   181,   181,  2393,
-    2393,  2368,  2218,  1140,  2343,  2368,  2393,   165,   165,   144,
-     144,   680,  -455,  -455,  -455,  -455,   278,   350,   166,  -455,
-     176,  1751,  -455,   351,   680,    88,   282,  1777,  -455,  -455,
-     680,    94,   283,  -455,  1803,  1829,   680,  1035,     2,  -455,
-    1855,  -455,   356,   357,   287,    -1,  -455,  1881,  -455,  -455,
-    1403,  1432,   289,  1461,  1490,   293,  1519,   294,  2268,   178,
-     295,   180,  1548,   297,   288,   298,  -455,   359,   373,  1907,
-     301,   303,   305,  1933,  1577,   306,   379,  -455,   380,   311,
-    -455,   254,   920,   680,   307,  -455,   382,  -455,    26,  2268,
-     680,  -455,  -455,  -455,   312,   316,   314,   388,  -455,  -455,
-    1959,  -455,  -455,  -455,   114,  1985,  -455,  -455,  -455,  -455,
-    2011,   680,   319,  -455,  -455,  -455,  -455,   539,   228,   539,
-    -455,   539,   605,   680,   539,   539,   318,   329,   332,   333,
-     337,   345,   347,   349,   353,   325,   335,  -455,   392,   680,
-     680,  -455,   944,   680,   336,  -455,   680,  -455,  -455,  1175,
-     680,   340,   339,  2318,   640,  -455,  -455,   344,  -455,  -455,
-    -455,  -455,  1210,   680,  -455,  -455,  -455,   406,   513,   565,
-    -455,  1315,  2037,  -455,  -455,  -455,  -455,  -455,  -455,  -455,
-    -455,  -455,  -455,  -455,   355,   358,   191,   196,   203,   794,
-    -455,   408,  2063,   680,  1606,  -455,  1070,  -455,  -455,  -455,
-    1635,   124,  -455,  1105,   539,   539,  -455,  -455,  -455,   539,
-     680,   680,  -455,  -455,   360,   361,   362,   428,  -455,  -455,
-     818,   944,   680,  2089,  -455,   680,  -455,  -455,   364,   208,
-     680,  -455,  -455,  -455,  -455,  2243,  2115,  -455,  -455,  -455,
-     871,  -455,  -455,  -455,  -455,  2141,   680,  1245,  -455,   365,
-    1280,   539,     2,   847,     2,  2167,  -455,  -455,  -455,  -455,
-     354,  -455,   363,   438,   680,   680,   367,  1664,  1693,   680,
-     539,   944,  1722,  -455,  -455,   944,  -455
+      56,    11,    39,    56,  -396,    52,  -396,  -396,    49,   107,
+      -1,    85,  -396,    74,    23,   -18,  -396,  -396,  1759,   125,
+      95,  -396,  -396,     2,    72,  1377,   173,  -396,    14,    47,
+      72,   194,  -396,   107,     8,    15,    75,   203,   216,    20,
+       6,    -3,   921,   123,    33,   218,    21,   142,  1675,  -396,
+     147,   159,   157,   149,    85,  -396,   245,   276,   -19,  -396,
+    -396,   204,   209,   211,  -396,  1377,  1377,  1377,  1377,  1377,
+    1377,  1377,  1377,  1377,  1377,  3215,  -396,  -396,  -396,   315,
+    -396,    72,   322,   326,  -396,  -396,   257,   268,   272,   359,
+     277,    72,   363,  -396,   280,   281,   371,   285,     6,   289,
+    1377,    -6,   -36,    77,   381,   404,   313,   314,   318,   320,
+     321,   323,   324,   325,   327,   -32,   329,   334,   335,   341,
+     349,  -396,   395,   350,   353,  -396,   -30,  1377,   352,   354,
+     355,   218,   163,  -396,  -396,    46,   360,   401,   364,  -396,
+    -396,  -396,  -396,  1377,   372,  -396,  -396,  -396,  1169,  1377,
+     452,  1377,  1377,  -396,  -396,  -396,  -396,  -396,  -396,  -396,
+    -396,  2181,  1745,   -20,  1377,  1377,  1377,  1377,  1377,  1377,
+    1377,  1377,  1377,  1377,  1377,  1377,  1377,  1377,  1377,  1377,
+    1377,  1377,  1377,  1377,  1377,  1220,  1377,  1377,  -396,   454,
+    -396,  -396,   950,   364,  1377,    92,     3,  1377,   117,   455,
+     148,   124,  1377,  1377,   373,  1377,  -396,     9,  1377,   274,
+     921,    -5,  1377,  -396,   457,  -396,  -396,   461,  -396,   672,
+    1377,  1377,     6,  1377,  1377,   463,  1377,  1427,  1477,  -396,
+    1377,  1377,  1377,   464,  1377,  1377,   382,   156,  -396,  1377,
+    1012,  2212,  1377,  1377,    34,   126,  -396,  -396,  -396,   466,
+     721,   387,   468,   151,  -396,  3323,  1759,  -396,  3323,   169,
+    1788,   174,  2243,  2274,  -396,  1377,  1377,  -396,   193,   193,
+     198,   198,  3377,  3350,    45,    45,    45,  1457,  1457,  3404,
+    3242,  1906,   319,  3404,  1457,   198,   198,    31,    31,  1377,
+    -396,  -396,  -396,  -396,   390,   471,   176,  -396,  3323,   196,
+    2739,  -396,   472,  1377,   133,   394,  2767,  -396,  -396,  1377,
+     139,   396,  -396,  2795,  2823,  1377,  1825,     6,  -396,  2851,
+    -396,  -396,   475,   477,   398,   -23,  -396,  2879,   399,  -396,
+     399,   770,  -396,  -396,  2305,  2336,   393,  2367,  2398,   403,
+    2429,   405,   201,   406,   205,  2460,   408,   409,   413,   414,
+     212,   217,  -396,   479,   482,  2907,   410,   416,   419,  2935,
+    1702,  2491,  2522,   402,   502,  -396,  -396,    82,   423,   574,
+    -396,   424,  -396,   721,   425,  -396,   364,  1729,  -396,  1377,
+    1377,  1377,   417,  -396,   505,  -396,  -396,    10,  3323,  1377,
+    -396,  -396,  -396,   426,   429,  1270,   510,  -396,  -396,  2963,
+    -396,  -396,  -396,   145,  2991,  -396,  -396,  -396,  -396,  3019,
+    1377,  1377,  1377,   427,  -396,  -396,  -396,  -396,   921,   271,
+     921,  -396,   399,  -396,   819,   921,  1273,  1377,   921,   921,
+     431,   433,   434,   436,   437,   438,   439,   440,   441,   442,
+     445,   446,   444,   448,  -396,   527,  1377,  1377,  -396,  1557,
+    -396,   513,  1702,  1324,  1377,   449,  -396,   529,  -396,  -396,
+    -396,  -396,   623,  1377,  -396,  -396,  1933,  1960,  1987,  1377,
+     450,   447,  3377,  1374,  -396,  -396,   462,  -396,  -396,  -396,
+    -396,  2014,  2041,  2068,  1377,  -396,  -396,  -396,  -396,   518,
+     868,  1064,  -396,  2149,  3047,  -396,  -396,  -396,  -396,  -396,
+    -396,  -396,  -396,  -396,  -396,  -396,  -396,  -396,  -396,   459,
+     465,   221,   223,   227,   467,   218,   543,  -396,  -396,  1582,
+    1702,   531,   483,  1116,  -396,  3269,  3075,  1377,   469,  -396,
+    -396,  2553,  -396,  -396,  -396,  1852,  -396,  -396,  -396,  2584,
+    1166,  -396,  -396,  -396,  1879,   921,   921,  -396,  -396,  -396,
+     921,  1377,  1377,  -396,  -396,   474,   476,   478,  1377,   146,
+    1644,  -396,  -396,  -396,  -396,  1702,  1702,  -396,  -396,  1702,
+    1377,  3103,   551,   469,  -396,  1377,  -396,  -396,   480,   253,
+    1377,  -396,  -396,  -396,  -396,  3296,  3131,  -396,  -396,  -396,
+    2615,  -396,  1619,  -396,  -396,  -396,  3159,  1377,  -396,  2095,
+    -396,   481,  2122,   921,     6,  1702,  -396,     6,  3187,  -396,
+    -396,  -396,  -396,   470,   538,   485,   559,  1377,  1702,  1377,
+     486,  2646,  -396,  2677,  1377,   921,  1702,  2708,  -396,  -396,
+    1702,  -396
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -783,74 +821,88 @@ static const yytype_uint8 yydefact[] =
 {
        0,     0,     0,     2,     4,    11,     1,     3,     0,    16,
        0,     0,    14,     0,     0,     0,    13,    15,    19,     0,
-       0,     8,    48,     0,     0,     0,     0,    50,     0,     0,
+       0,     8,    71,     0,     0,     0,     0,    73,     0,     0,
        0,     0,    10,    16,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,    18,     0,     0,     0,
-      11,     0,    54,     0,     0,   161,   172,   160,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,    18,
+       0,     0,     0,    11,     0,    77,     0,     0,   197,   210,
+     192,     0,     0,     0,   193,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,   191,    70,    75,     0,
+      79,     0,     0,     0,    72,    12,     0,     0,    84,     0,
+      84,     0,     0,    84,     0,     0,     0,   211,     0,     0,
+       0,     0,   211,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,   159,    47,    52,     0,    56,     0,     0,     0,    49,
-      12,     0,     0,    61,     0,    61,     0,     0,    61,     0,
-       0,     0,   173,     0,     0,     0,     0,   173,     0,     0,
+       0,    85,     0,     0,     0,    44,     0,     0,     0,     0,
+       0,     0,     0,   127,   135,     0,     0,     0,     0,     5,
+      17,    20,    52,     0,     0,     7,    76,    81,     0,     0,
+       0,     0,     0,   186,   187,   189,   190,   188,   183,   184,
+     185,     0,   222,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,    62,     0,     0,    40,     0,     0,     0,     0,     0,
-      97,     0,     5,    17,    20,    46,     0,     0,     7,    53,
-      58,     0,     0,     0,   154,   155,   157,   158,   156,   151,
-     152,   153,     0,   182,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    74,     0,
+      78,    80,     0,     0,     0,     0,    84,     0,     0,     0,
+      84,     0,     0,     0,     0,     0,   220,     0,     0,     0,
+       0,     0,     0,    84,     0,    84,    87,     0,   120,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,   107,
+       0,     0,     0,     0,     0,     0,     0,     0,    90,     0,
+       0,     0,     0,     0,     0,     0,    49,   126,    43,     0,
+      58,     0,     0,     0,   151,     9,    19,   196,   222,     0,
+       0,     0,     0,     0,   206,     0,     0,   204,   170,   171,
+     174,   175,   180,   181,   176,   177,   178,   168,   169,   167,
+       0,     0,   165,   166,   164,   172,   173,   159,   160,     0,
+     161,   162,   163,    82,     0,     0,     0,   154,   157,     0,
+       0,    26,     0,     0,     0,     0,     0,    30,    84,     0,
+       0,     0,    32,     0,     0,     0,     0,     0,   218,     0,
+      40,    38,     0,     0,     0,     0,   122,     0,    55,    84,
+      53,     0,    86,   119,     0,     0,     0,     0,     0,     0,
+       0,   210,     0,   210,     0,     0,     0,   125,     0,     0,
+       0,     0,   109,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,   133,   134,     0,     0,     0,
+      57,     0,    61,    58,     0,   149,     0,     0,   195,     0,
+       0,     0,   199,   207,     0,   209,   194,     0,   221,     0,
+     158,   179,    48,     0,     0,     0,     0,    25,    83,     0,
+      23,    21,    29,     0,     0,    27,    22,    33,    34,     0,
+       0,     0,     0,   213,   219,    36,   123,   124,     0,     0,
+       0,    98,    54,    89,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,    51,
-       0,    55,    57,     0,     0,     0,     0,    61,     0,     0,
-       0,    61,     0,     0,     0,     0,     0,   180,     0,     0,
-       0,     0,     0,    90,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,    77,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,   104,     0,    45,    96,     0,     0,
-     120,     9,    19,     0,     0,     0,   168,     0,     0,   166,
-     138,   139,   142,   143,   148,   149,   144,   145,   146,   136,
-     137,   135,     0,     0,   133,   134,   132,   140,   141,   127,
-     128,     0,   129,   130,   131,    59,     0,     0,     0,   123,
-       0,     0,    26,     0,     0,     0,     0,     0,    30,    61,
-       0,     0,     0,    32,     0,     0,     0,     0,     0,   178,
-       0,    39,     0,     0,     0,     0,    92,     0,    63,    89,
-       0,     0,     0,     0,     0,     0,     0,   172,   182,     0,
-     172,     0,     0,     0,    95,     0,    79,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,   102,     0,     0,
-     118,     0,     0,     0,   163,   169,     0,   171,     0,   181,
-       0,   126,   147,    44,     0,     0,     0,     0,    25,    60,
-       0,    23,    21,    29,     0,     0,    27,    22,    33,    34,
-       0,     0,   175,   179,    36,    93,    94,     0,     0,     0,
-      71,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,    72,     0,     0,
-       0,    70,     0,     0,     0,   103,     0,   119,     6,     0,
-       0,     0,     0,   150,     0,    42,   122,     0,    24,    31,
-      28,    35,     0,     0,    37,    91,    38,    66,     0,     0,
-     113,     0,     0,    64,    65,    82,    83,    88,    87,    74,
-      73,    78,    75,    76,     0,     0,     0,     0,     0,     0,
-     107,   100,     0,     0,     0,   162,     0,   170,   167,   125,
-       0,     0,   174,     0,     0,     0,   117,    68,   112,     0,
-       0,     0,    80,    81,   169,     0,     0,     0,   110,   111,
-       0,     0,     0,     0,   121,     0,   165,   124,     0,     0,
-       0,   177,    67,   116,   114,     0,     0,    84,    85,    86,
-       0,   105,   108,   109,   101,     0,     0,     0,    43,     0,
-       0,     0,     0,     0,     0,     0,   164,    41,   176,   115,
-       0,   106,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,    69,    99,     0,    98
+       0,     0,     0,     0,    99,     0,     0,     0,    97,     0,
+     138,    50,     0,     0,     0,     0,    65,     0,    60,    42,
+      56,    59,     0,     0,   150,     6,     0,     0,     0,     0,
+       0,     0,   182,     0,    46,   153,     0,    24,    31,    28,
+      35,     0,     0,     0,     0,    37,   121,    39,    88,    93,
+       0,     0,   144,     0,     0,    91,    92,   112,   113,   118,
+     117,   101,   100,   108,   102,   103,   104,   105,   106,     0,
+       0,     0,     0,     0,     0,     0,     0,   141,   142,     0,
+       0,   130,     0,     0,    67,     0,     0,     0,    63,    65,
+      41,     0,   201,   202,   198,     0,   208,   205,   156,     0,
+       0,   215,   216,   212,     0,     0,     0,   148,    95,   143,
+       0,     0,     0,   110,   111,   207,     0,     0,     0,     0,
+       0,   136,   139,   140,    51,     0,     0,   132,    66,     0,
+       0,     0,     0,    62,   152,     0,   203,   155,     0,     0,
+       0,   217,    94,   147,   145,     0,     0,   114,   115,   116,
+       0,    43,     0,   131,    69,    68,     0,     0,    64,     0,
+      47,     0,     0,     0,     0,     0,   137,     0,     0,   200,
+      45,   214,   146,     0,    50,     0,     0,     0,     0,     0,
+       0,     0,    51,     0,     0,     0,     0,     0,    96,   129,
+       0,   128
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
-    -455,  -455,  -455,   440,  -455,   396,   398,  -455,   417,   230,
-     -16,    45,   -79,   -94,  -455,  -455,    95,   255,  -455,   -42,
-    -455,  -454,   -26,  -455,    47,  -455,   292,   137,    18,   127,
-     186,   -25,  -455,   -37,  -455,   -58
+    -396,  -396,  -396,   562,  -396,   512,   515,  -396,   536,   328,
+     -16,  -238,   202,  -361,  -396,    42,  -396,    55,    43,   -83,
+      -7,   248,  -396,   161,   351,  -396,   -43,  -127,  -395,    27,
+    -396,    90,  -396,   397,   213,    48,   208,    -8,   -25,  -396,
+     -37,  -396,    16
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int16 yydefgoto[] =
 {
-       0,     2,     3,     4,    20,    21,    10,    15,    16,    45,
-     430,    47,   176,   114,   194,   285,   286,   303,   119,   459,
-     215,   431,   460,   409,   410,    48,   219,   220,   258,   259,
-      26,   298,    71,   115,   188,   304
+       0,     2,     3,     4,    20,    21,    10,    15,    16,    48,
+     450,   124,   369,   370,   371,   528,   523,   524,    50,   195,
+     372,   219,   325,   326,   346,   132,   518,   135,   451,   519,
+     491,   492,    51,   253,   254,   296,   297,    26,   258,    76,
+     126,   207,   347
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -858,586 +910,806 @@ static const yytype_int16 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int16 yytable[] =
 {
-      70,   120,    46,    94,   193,    92,   179,   484,    52,   182,
-      81,   144,    27,    75,    22,    85,    55,    56,    57,    28,
-      29,    23,    30,    76,    24,    86,    73,   210,    83,   123,
-      90,   192,   315,   358,     1,   134,   135,   136,   137,   138,
-     139,   140,   141,   142,   143,   228,   282,   283,   310,   256,
-     311,   312,   229,   257,    17,    59,   187,   514,   211,   278,
-     316,   516,   116,     8,     9,   186,   279,   117,    60,    61,
-     190,   216,   118,    62,    63,    64,   359,   217,    17,    65,
-       5,   284,    82,    95,    66,    67,    93,    25,    96,    68,
-       6,    25,    25,    25,    25,   262,   281,    69,   265,   263,
-     289,   221,   271,    49,   228,    25,   223,    25,   225,    25,
-      12,   392,    11,   268,   273,    13,    14,   263,   263,    19,
-     230,   231,   232,   233,   234,   235,   236,   237,   238,   239,
-     240,   241,   242,   243,   244,   245,   246,   247,   248,   249,
-     250,   252,   253,   254,   299,   301,   116,   204,   317,   205,
-     261,   117,   318,   267,   264,    18,   118,    25,   274,   275,
-     292,   277,   341,   121,   280,    25,   263,   287,   346,   328,
-     290,   291,   263,   293,   294,   270,   296,   147,    25,   148,
-     302,   126,   151,   152,   153,   309,   313,   314,   399,   124,
-     344,    72,   263,   162,   163,   164,   165,   166,   167,   168,
-      31,   468,    79,   329,    88,   257,    46,   307,   308,    53,
-      54,   166,   167,   168,    74,    77,    78,   151,   152,   153,
-      89,    84,    87,    32,    33,    91,   332,    50,    51,   125,
-     164,   165,   166,   167,   168,   320,   321,   325,   326,   340,
-       9,   353,   129,   335,   336,   345,   164,   165,   166,   167,
-     168,   350,   130,   337,   321,   369,   228,   371,   228,    97,
-     282,   283,   170,   404,   131,   406,   132,   407,   454,   326,
-     413,   414,   180,   455,   228,    98,   288,    99,   133,   100,
-     456,   228,   101,   102,   103,   489,   336,   169,   171,   172,
-     173,   104,   105,   177,   174,   106,   107,   108,   389,   109,
-     110,   175,   178,   181,   183,   393,   123,   185,   184,   186,
-     189,   191,   195,   196,   446,   208,   197,   198,   199,   200,
-     201,   427,   428,   202,   203,   214,   402,   206,   207,   209,
-     111,   112,   224,   212,   213,   218,   113,   411,   412,   222,
-      93,    55,    56,    57,   255,   269,   276,   295,   306,   319,
-     472,   473,   333,   334,   339,   474,   342,   347,   432,   355,
-     356,   434,   375,   266,   357,   436,   228,   272,   363,   440,
-     366,   368,   370,    58,   373,   374,   376,   378,   443,   379,
-      59,   380,   384,   385,   411,   383,   391,   386,   394,   390,
-     395,   397,   415,    60,    61,   257,   426,   499,    62,    63,
-      64,   403,   424,   416,    65,   251,   417,   418,   463,    66,
-      67,   419,   425,   458,    68,   433,   513,   437,   483,   420,
-     441,   421,    69,   422,   438,   475,   476,   423,   444,   452,
-     461,   480,   453,   504,   477,   478,   479,   485,   488,   497,
-     487,   506,   505,     7,   482,   490,   509,   128,   127,    97,
-      80,   483,   322,   405,   493,   500,   448,   502,   387,   469,
-       0,   495,   305,   396,   458,    98,   260,    99,     0,   100,
-       0,     0,   101,   102,   103,     0,     0,   482,     0,   507,
-     508,   104,   105,     0,   512,   106,   107,   108,     0,   109,
-     110,   145,   146,   147,     0,   148,   149,   150,   151,   152,
-     153,   154,   155,   156,   157,     0,   159,   160,   161,   162,
-     163,   164,   165,   166,   167,   168,    97,     0,     0,     0,
-     111,   112,     0,     0,     0,     0,   113,     0,     0,     0,
-      93,     0,    98,     0,    99,     0,   100,     0,     0,   101,
-     102,   103,    97,     0,     0,     0,     0,     0,   104,   105,
-       0,     0,   106,   107,   108,     0,   109,   110,    98,     0,
-      99,     0,   100,     0,     0,   101,   102,   103,    55,    56,
-      57,     0,   445,     0,   104,   105,     0,     0,   106,   107,
-     108,     0,   109,   110,     0,     0,     0,   111,   112,   447,
-     408,     0,     0,   113,     0,     0,     0,    93,     0,     0,
-      58,     0,     0,     0,     0,     0,     0,    59,    55,    56,
-      57,     0,     0,   111,   112,     0,     0,     0,     0,   113,
-      60,    61,     0,    93,     0,    62,    63,    64,     0,     0,
-     408,    65,     0,     0,     0,     0,    66,    67,     0,     0,
-      58,    68,     0,    55,    56,    57,     0,    59,     0,    69,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-      60,    61,     0,     0,     0,    62,    63,    64,     0,     0,
-       0,    65,     0,     0,     0,    58,    66,    67,     0,     0,
-       0,    68,    59,    55,    56,    57,    55,   297,    57,    69,
-       0,     0,     0,     0,     0,    60,    61,     0,     0,     0,
-      62,    63,    64,     0,     0,     0,    65,     0,     0,     0,
-       0,    66,    67,     0,     0,    58,    68,   439,    58,     0,
-       0,     0,    59,     0,    69,    59,    55,   300,    57,     0,
-       0,     0,     0,     0,     0,    60,    61,     0,    60,    61,
-      62,    63,    64,    62,    63,    64,    65,     0,     0,    65,
-       0,    66,    67,     0,    66,    67,    68,     0,    58,    68,
-       0,     0,     0,     0,    69,    59,     0,    69,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,    60,    61,
-       0,     0,     0,    62,    63,    64,     0,     0,     0,    65,
-       0,     0,     0,     0,    66,    67,     0,    34,     0,    68,
-       0,     0,    13,    14,    35,    36,    37,    69,    38,    39,
-      40,    41,    42,     0,     0,   116,     0,     0,     0,     0,
-     117,    34,     0,    43,     0,   118,    13,    14,    35,    36,
-      37,     0,    38,    39,    40,    41,    42,     0,   481,   116,
-       0,     0,     0,     0,   117,     0,     0,    43,     0,   118,
-      34,     0,     0,   457,     0,    13,    14,    35,    36,    37,
-       0,    38,    39,    40,    41,    42,     0,   501,   116,    44,
-       0,     0,     0,   117,    34,     0,    43,     0,   118,    13,
-      14,    35,    36,    37,     0,    38,    39,    40,    41,    42,
-       0,     0,   116,    44,     0,     0,     0,   117,     0,    34,
-      43,     0,   118,   122,    13,    14,    35,    36,    37,     0,
-      38,    39,    40,    41,    42,     0,     0,     0,     0,     0,
-       0,     0,    44,    34,     0,    43,     0,   388,    13,    14,
-      35,    36,    37,     0,    38,    39,    40,    41,    42,     0,
-       0,     0,     0,     0,     0,     0,    44,    34,     0,    43,
-       0,     0,    13,    14,    35,    36,    37,     0,    38,    39,
-      40,    41,    42,   429,     0,     0,     0,     0,     0,     0,
-      34,    44,     0,    43,     0,    13,    14,    35,    36,    37,
-       0,    38,    39,    40,    41,    42,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,    44,    43,     0,     0,     0,
-       0,     0,     0,     0,     0,   145,   146,   147,     0,   148,
-     149,   150,   151,   152,   153,   154,   155,   156,   157,    44,
-     159,   160,   161,   162,   163,   164,   165,   166,   167,   168,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,    44,     0,   227,   145,   146,   147,     0,   148,
-     149,   150,   151,   152,   153,   154,   155,   156,   157,   323,
-     159,   160,   161,   162,   163,   164,   165,   166,   167,   168,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     145,   146,   147,   324,   148,   149,   150,   151,   152,   153,
-     154,   155,   156,   157,   351,   159,   160,   161,   162,   163,
-     164,   165,   166,   167,   168,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,   145,   146,   147,   352,   148,
-     149,   150,   151,   152,   153,   154,   155,   156,   157,   465,
-     159,   160,   161,   162,   163,   164,   165,   166,   167,   168,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     145,   146,   147,   466,   148,   149,   150,   151,   152,   153,
-     154,   155,   156,   157,   470,   159,   160,   161,   162,   163,
-     164,   165,   166,   167,   168,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,   145,   146,   147,   471,   148,
-     149,   150,   151,   152,   153,   154,   155,   156,   157,     0,
-     159,   160,   161,   162,   163,   164,   165,   166,   167,   168,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     145,   146,   147,   331,   148,   149,   150,   151,   152,   153,
-     154,   155,   156,   157,     0,   159,   160,   161,   162,   163,
-     164,   165,   166,   167,   168,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,   145,   146,   147,   435,   148,
-     149,   150,   151,   152,   153,   154,   155,   156,   157,     0,
-     159,   160,   161,   162,   163,   164,   165,   166,   167,   168,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     145,   146,   147,   442,   148,   149,   150,   151,   152,   153,
-     154,   155,   156,   157,     0,   159,   160,   161,   162,   163,
-     164,   165,   166,   167,   168,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,   145,   146,   147,   496,   148,
-     149,   150,   151,   152,   153,   154,   155,   156,   157,     0,
-     159,   160,   161,   162,   163,   164,   165,   166,   167,   168,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-     145,   146,   147,   498,   148,   149,   150,   151,   152,   153,
-     154,   155,   156,   157,   449,   159,   160,   161,   162,   163,
-     164,   165,   166,   167,   168,     0,     0,     0,     0,     0,
-     145,   146,   147,   450,   148,   149,   150,   151,   152,   153,
-     154,   155,   156,   157,     0,   159,   160,   161,   162,   163,
-     164,   165,   166,   167,   168,     0,     0,     0,     0,   145,
-     146,   147,   226,   148,   149,   150,   151,   152,   153,   154,
-     155,   156,   157,     0,   159,   160,   161,   162,   163,   164,
-     165,   166,   167,   168,     0,     0,     0,     0,   145,   146,
-     147,   327,   148,   149,   150,   151,   152,   153,   154,   155,
-     156,   157,     0,   159,   160,   161,   162,   163,   164,   165,
-     166,   167,   168,     0,     0,     0,     0,   145,   146,   147,
-     361,   148,   149,   150,   151,   152,   153,   154,   155,   156,
-     157,     0,   159,   160,   161,   162,   163,   164,   165,   166,
-     167,   168,     0,     0,     0,     0,   145,   146,   147,   362,
-     148,   149,   150,   151,   152,   153,   154,   155,   156,   157,
-       0,   159,   160,   161,   162,   163,   164,   165,   166,   167,
-     168,     0,     0,     0,     0,   145,   146,   147,   364,   148,
-     149,   150,   151,   152,   153,   154,   155,   156,   157,     0,
-     159,   160,   161,   162,   163,   164,   165,   166,   167,   168,
-       0,     0,     0,     0,   145,   146,   147,   365,   148,   149,
-     150,   151,   152,   153,   154,   155,   156,   157,     0,   159,
-     160,   161,   162,   163,   164,   165,   166,   167,   168,     0,
-       0,     0,     0,   145,   146,   147,   367,   148,   149,   150,
-     151,   152,   153,   154,   155,   156,   157,     0,   159,   160,
-     161,   162,   163,   164,   165,   166,   167,   168,     0,     0,
-       0,     0,   145,   146,   147,   372,   148,   149,   150,   151,
-     152,   153,   154,   155,   156,   157,     0,   159,   160,   161,
-     162,   163,   164,   165,   166,   167,   168,     0,     0,     0,
-       0,   145,   146,   147,   382,   148,   149,   150,   151,   152,
-     153,   154,   155,   156,   157,     0,   159,   160,   161,   162,
-     163,   164,   165,   166,   167,   168,     0,     0,     0,     0,
-     145,   146,   147,   464,   148,   149,   150,   151,   152,   153,
-     154,   155,   156,   157,     0,   159,   160,   161,   162,   163,
-     164,   165,   166,   167,   168,     0,     0,     0,     0,   145,
-     146,   147,   467,   148,   149,   150,   151,   152,   153,   154,
-     155,   156,   157,     0,   159,   160,   161,   162,   163,   164,
-     165,   166,   167,   168,     0,     0,     0,     0,   145,   146,
-     147,   510,   148,   149,   150,   151,   152,   153,   154,   155,
-     156,   157,     0,   159,   160,   161,   162,   163,   164,   165,
-     166,   167,   168,     0,     0,     0,     0,   145,   146,   147,
-     511,   148,   149,   150,   151,   152,   153,   154,   155,   156,
-     157,     0,   159,   160,   161,   162,   163,   164,   165,   166,
-     167,   168,     0,     0,     0,     0,   145,   146,   147,   515,
-     148,   149,   150,   151,   152,   153,   154,   155,   156,   157,
-       0,   159,   160,   161,   162,   163,   164,   165,   166,   167,
-     168,     0,   145,   146,   147,   338,   148,   149,   150,   151,
-     152,   153,   154,   155,   156,   157,     0,   159,   160,   161,
-     162,   163,   164,   165,   166,   167,   168,     0,   145,   146,
-     147,   343,   148,   149,   150,   151,   152,   153,   154,   155,
-     156,   157,     0,   159,   160,   161,   162,   163,   164,   165,
-     166,   167,   168,     0,   145,   146,   147,   348,   148,   149,
-     150,   151,   152,   153,   154,   155,   156,   157,     0,   159,
-     160,   161,   162,   163,   164,   165,   166,   167,   168,     0,
-     145,   146,   147,   349,   148,   149,   150,   151,   152,   153,
-     154,   155,   156,   157,     0,   159,   160,   161,   162,   163,
-     164,   165,   166,   167,   168,     0,   145,   146,   147,   354,
-     148,   149,   150,   151,   152,   153,   154,   155,   156,   157,
-       0,   159,   160,   161,   162,   163,   164,   165,   166,   167,
-     168,     0,   145,   146,   147,   360,   148,   149,   150,   151,
-     152,   153,   154,   155,   156,   157,     0,   159,   160,   161,
-     162,   163,   164,   165,   166,   167,   168,     0,   145,   146,
-     147,   377,   148,   149,   150,   151,   152,   153,   154,   155,
-     156,   157,     0,   159,   160,   161,   162,   163,   164,   165,
-     166,   167,   168,     0,   145,   146,   147,   381,   148,   149,
-     150,   151,   152,   153,   154,   155,   156,   157,     0,   159,
-     160,   161,   162,   163,   164,   165,   166,   167,   168,     0,
-     145,   146,   147,   398,   148,   149,   150,   151,   152,   153,
-     154,   155,   156,   157,     0,   159,   160,   161,   162,   163,
-     164,   165,   166,   167,   168,     0,   145,   146,   147,   400,
-     148,   149,   150,   151,   152,   153,   154,   155,   156,   157,
-       0,   159,   160,   161,   162,   163,   164,   165,   166,   167,
-     168,     0,   145,   146,   147,   401,   148,   149,   150,   151,
-     152,   153,   154,   155,   156,   157,     0,   159,   160,   161,
-     162,   163,   164,   165,   166,   167,   168,     0,   145,   146,
-     147,   451,   148,   149,   150,   151,   152,   153,   154,   155,
-     156,   157,     0,   159,   160,   161,   162,   163,   164,   165,
-     166,   167,   168,     0,   145,   146,   147,   462,   148,   149,
-     150,   151,   152,   153,   154,   155,   156,   157,     0,   159,
-     160,   161,   162,   163,   164,   165,   166,   167,   168,     0,
-     145,   146,   147,   486,   148,   149,   150,   151,   152,   153,
-     154,   155,   156,   157,     0,   159,   160,   161,   162,   163,
-     164,   165,   166,   167,   168,     0,   145,   146,   147,   492,
-     148,   149,   150,   151,   152,   153,   154,   155,   156,   157,
-       0,   159,   160,   161,   162,   163,   164,   165,   166,   167,
-     168,     0,   145,   146,   147,   494,   148,   149,   150,   151,
-     152,   153,   154,   155,   156,   157,     0,   159,   160,   161,
-     162,   163,   164,   165,   166,   167,   168,     0,   145,   146,
-     147,   503,   148,   149,   150,   151,   152,   153,   154,   155,
-     156,   157,   158,   159,   160,   161,   162,   163,   164,   165,
-     166,   167,   168,   145,   146,   147,     0,   148,   149,   150,
-     151,   152,   153,   154,   155,   156,   157,   330,   159,   160,
-     161,   162,   163,   164,   165,   166,   167,   168,   145,   146,
-     147,     0,   148,   149,   150,   151,   152,   153,   154,   155,
-     156,   157,   491,   159,   160,   161,   162,   163,   164,   165,
-     166,   167,   168,   145,   146,   147,     0,   148,   149,   150,
-     151,   152,   153,   154,   155,   156,   157,     0,   159,   160,
-     161,   162,   163,   164,   165,   166,   167,   168,   145,   146,
-     147,     0,   148,   149,     0,   151,   152,   153,   154,   155,
-     156,   157,     0,   159,   160,   161,   162,   163,   164,   165,
-     166,   167,   168,   145,   146,   147,     0,   148,     0,     0,
-     151,   152,   153,   154,   155,   156,   157,     0,   159,   160,
-     161,   162,   163,   164,   165,   166,   167,   168,   145,   146,
-     147,     0,   148,     0,     0,   151,   152,   153,   154,   155,
-     156,     0,     0,     0,   160,   161,   162,   163,   164,   165,
-     166,   167,   168,   145,   146,   147,     0,   148,     0,     0,
-     151,   152,   153,   154,   155,     0,     0,     0,     0,     0,
-     161,   162,   163,   164,   165,   166,   167,   168,   145,   146,
-     147,     0,   148,     0,     0,   151,   152,   153,     0,     0,
-       0,     0,     0,     0,     0,     0,   162,   163,   164,   165,
-     166,   167,   168
+      75,   133,    49,    99,   245,    55,    31,   198,   460,    97,
+     201,    86,   368,   419,     5,    56,    57,    78,    88,   212,
+      79,    82,    83,    95,   136,   239,    27,    89,    92,   322,
+     323,    96,   140,    28,    29,   125,    30,   363,   137,     6,
+     153,   154,   155,   156,   157,   158,   159,   160,   161,   162,
+      80,   229,    17,   230,   128,   205,   129,   521,   240,   130,
+      81,   206,     1,   420,   131,   364,   148,   266,    32,    33,
+     210,   324,   149,   189,   267,   209,    17,    22,    90,   211,
+     213,   100,    18,   199,    23,   456,   101,    24,    91,   247,
+     163,   303,    87,    25,    25,   214,   317,   266,   218,    98,
+      19,   460,   241,   318,   471,    25,    25,   185,   186,   187,
+      12,    25,    25,   304,    25,    13,    14,   310,   255,   183,
+     184,   185,   186,   187,   260,   564,   262,   263,    52,   248,
+     328,   368,   330,   249,    11,   368,     8,     9,    25,   268,
+     269,   270,   271,   272,   273,   274,   275,   276,   277,   278,
+     279,   280,   281,   282,   283,   284,   285,   286,   287,   288,
+     290,   291,   292,    25,   259,    25,    25,   298,    25,   300,
+     593,   594,   306,    25,   595,   301,    77,   313,   314,   302,
+     316,    53,    54,   319,   128,   336,   129,   327,   305,   130,
+     353,   354,   311,   246,   131,   334,   335,    84,   337,   338,
+     307,   340,   320,   321,   302,   345,    93,   312,   127,   365,
+     614,   302,   333,   249,   355,   359,   400,   361,   362,    94,
+     302,   134,   405,   622,   368,   403,   302,   138,   478,   591,
+     141,   629,   302,   249,     9,   631,   309,   375,   376,    25,
+      49,   388,   142,   342,   344,   143,   422,   166,   146,   167,
+     350,   351,   170,   171,   172,   378,   266,   170,   171,   172,
+     383,   384,   394,   395,   391,   181,   182,   183,   184,   185,
+     186,   187,   183,   184,   185,   186,   187,   102,   399,   147,
+     414,   387,   396,   376,   404,   103,   104,   433,   266,   150,
+     409,   435,   266,   105,   151,   106,   152,   107,   440,   266,
+     108,   109,   110,   441,   266,   322,   323,   555,   384,   556,
+     266,   111,   112,   557,   266,   113,   114,   115,   188,   116,
+     117,   118,   119,   120,   218,   190,   164,   165,   166,   191,
+     167,   168,   169,   170,   171,   172,   173,   174,   175,   601,
+     395,   176,   192,   178,   179,   180,   181,   182,   183,   184,
+     185,   186,   187,   193,   466,   467,   468,   121,   122,   457,
+     194,   140,   196,   123,   472,   197,   200,    98,   202,   203,
+     298,   164,   165,   166,   204,   167,   205,   208,   170,   171,
+     172,   173,   174,   175,   215,   481,   482,   483,   559,   179,
+     180,   181,   182,   183,   184,   185,   186,   187,   220,   221,
+     236,   493,   494,   222,   251,   223,   224,   102,   225,   226,
+     227,   485,   228,   487,   231,   103,   104,   333,   489,   232,
+     233,   495,   496,   105,   216,   106,   234,   107,   525,   526,
+     108,   109,   110,   517,   235,   237,   238,   242,   531,   243,
+     244,   111,   112,   250,   535,   113,   114,   115,   539,   116,
+     117,   118,   119,   120,   252,   256,   261,   293,   308,   544,
+     329,   315,   512,   513,   331,   352,   493,   339,   349,   366,
+     373,   374,   217,   392,   393,   398,   563,   401,   416,   406,
+     417,   427,   442,   547,   418,   443,   302,   121,   122,   430,
+     454,   432,   434,   123,   437,   445,   266,    98,   525,   438,
+     439,   446,   571,   562,   447,   455,   458,   461,   469,   470,
+     463,   473,   474,   476,   497,   298,   498,   499,   484,   500,
+     501,   502,   503,   504,   505,   506,   585,   586,   507,   508,
+     509,   511,   529,   590,   510,   520,   536,   527,   582,   583,
+     545,   537,   553,   584,   517,   596,   560,   540,   554,   563,
+     599,   566,   558,   565,   598,   602,   572,   587,   617,   588,
+     618,   589,   620,   600,   610,     7,   145,   613,   144,    85,
+     615,   573,   608,   619,   624,   462,   562,   102,   568,   424,
+     486,   549,   367,   348,   377,   103,   104,   592,   579,   464,
+     299,     0,   621,   105,   623,   106,   612,   107,     0,   627,
+     108,   109,   110,   475,     0,     0,     0,   459,     0,     0,
+       0,   111,   112,     0,     0,   113,   114,   115,   628,   116,
+     117,   118,   119,   120,     0,     0,   102,     0,     0,     0,
+       0,   367,     0,     0,   103,   104,     0,     0,     0,     0,
+       0,     0,   105,     0,   106,     0,   107,     0,     0,   108,
+     109,   110,     0,     0,     0,     0,   530,   121,   122,     0,
+     111,   112,     0,   123,   113,   114,   115,    98,   116,   117,
+     118,   119,   120,     0,     0,   102,     0,     0,     0,     0,
+       0,     0,     0,   103,   104,     0,     0,     0,     0,     0,
+       0,   105,   332,   106,     0,   107,     0,     0,   108,   109,
+     110,     0,     0,     0,     0,     0,   121,   122,     0,   111,
+     112,     0,   123,   113,   114,   115,    98,   116,   117,   118,
+     119,   120,     0,     0,   102,     0,     0,     0,     0,   367,
+       0,     0,   103,   104,     0,     0,     0,     0,     0,     0,
+     105,     0,   106,     0,   107,     0,     0,   108,   109,   110,
+       0,     0,     0,     0,     0,   121,   122,     0,   111,   112,
+       0,   123,   113,   114,   115,    98,   116,   117,   118,   119,
+     120,     0,     0,   102,     0,     0,     0,     0,     0,     0,
+       0,   103,   104,     0,     0,     0,     0,     0,     0,   105,
+     423,   106,     0,   107,     0,     0,   108,   109,   110,     0,
+       0,     0,     0,     0,   121,   122,     0,   111,   112,     0,
+     123,   113,   114,   115,    98,   116,   117,   118,   119,   120,
+       0,     0,   102,     0,     0,     0,     0,     0,     0,     0,
+     103,   104,     0,     0,     0,     0,     0,     0,   105,   488,
+     106,     0,   107,     0,     0,   108,   109,   110,     0,     0,
+       0,     0,     0,   121,   122,     0,   111,   112,     0,   123,
+     113,   114,   115,    98,   116,   117,   118,   119,   120,     0,
+       0,   102,     0,     0,     0,     0,     0,     0,     0,   103,
+     104,     0,     0,     0,     0,     0,     0,   105,     0,   106,
+       0,   107,     0,     0,   108,   109,   110,     0,     0,     0,
+       0,     0,   121,   122,     0,   111,   112,     0,   123,   113,
+     114,   115,    98,   116,   117,   118,   119,   120,     0,     0,
+       0,     0,     0,     0,   102,     0,     0,     0,     0,     0,
+       0,     0,   103,   104,     0,     0,   546,     0,     0,     0,
+     105,     0,   106,     0,   107,     0,     0,   108,   109,   110,
+       0,   121,   122,    58,    59,    60,     0,   123,   111,   112,
+       0,    98,   113,   114,   115,     0,   116,   117,   118,   119,
+     120,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,    61,     0,     0,
+       0,     0,     0,     0,    62,     0,     0,     0,     0,     0,
+      63,    64,     0,     0,   121,   122,     0,     0,     0,     0,
+     123,     0,    65,    66,    98,    58,    59,    60,     0,    67,
+      68,    69,     0,     0,     0,    70,     0,     0,     0,     0,
+      71,    72,     0,     0,     0,    73,   294,     0,     0,     0,
+     295,     0,     0,    74,     0,     0,     0,     0,     0,   356,
+       0,   357,   358,     0,     0,     0,    62,     0,     0,     0,
+       0,     0,    63,    64,     0,     0,     0,    58,    59,    60,
+       0,     0,     0,     0,    65,    66,     0,     0,     0,     0,
+       0,    67,    68,    69,     0,     0,     0,    70,   548,   490,
+       0,     0,    71,    72,     0,     0,     0,    73,     0,     0,
+       0,    61,     0,     0,     0,    74,     0,     0,    62,     0,
+       0,     0,     0,     0,    63,    64,     0,     0,     0,    58,
+      59,    60,     0,     0,     0,     0,    65,    66,     0,     0,
+       0,     0,     0,    67,    68,    69,     0,     0,     0,    70,
+     567,   522,     0,     0,    71,    72,     0,     0,     0,    73,
+       0,     0,     0,    61,     0,     0,     0,    74,     0,     0,
+      62,     0,     0,     0,     0,     0,    63,    64,     0,    58,
+      59,    60,    58,    59,    60,     0,     0,     0,    65,    66,
+       0,     0,     0,     0,     0,    67,    68,    69,     0,     0,
+       0,    70,     0,     0,     0,     0,    71,    72,     0,     0,
+       0,    73,     0,    61,     0,     0,    61,     0,     0,    74,
+      62,     0,     0,    62,     0,     0,    63,    64,     0,    63,
+      64,     0,     0,    58,    59,    60,     0,     0,    65,    66,
+       0,    65,    66,     0,     0,    67,    68,    69,    67,    68,
+      69,    70,     0,     0,    70,     0,    71,    72,     0,    71,
+      72,    73,   578,     0,    73,   257,   295,    61,     0,    74,
+       0,     0,    74,     0,    62,     0,     0,     0,     0,     0,
+      63,    64,     0,    58,    59,    60,    58,    59,    60,     0,
+       0,     0,    65,    66,     0,     0,     0,     0,     0,    67,
+      68,    69,     0,     0,     0,    70,   289,     0,   490,     0,
+      71,    72,     0,     0,     0,    73,     0,    61,     0,     0,
+      61,     0,     0,    74,    62,     0,     0,    62,     0,     0,
+      63,    64,     0,    63,    64,     0,     0,    58,    59,    60,
+       0,     0,    65,    66,     0,    65,    66,     0,     0,    67,
+      68,    69,    67,    68,    69,    70,     0,     0,    70,   522,
+      71,    72,     0,    71,    72,    73,     0,     0,    73,     0,
+     295,    61,     0,    74,     0,     0,    74,     0,    62,     0,
+       0,     0,     0,     0,    63,    64,     0,    58,    59,    60,
+      58,    59,    60,     0,     0,     0,    65,    66,     0,     0,
+       0,     0,     0,    67,    68,    69,     0,     0,     0,    70,
+       0,     0,     0,     0,    71,    72,     0,     0,     0,    73,
+       0,    61,     0,     0,    61,     0,     0,    74,    62,     0,
+       0,    62,     0,     0,    63,    64,     0,    63,    64,     0,
+      58,   341,    60,     0,     0,     0,    65,    66,     0,    65,
+      66,     0,     0,    67,    68,    69,    67,    68,    69,    70,
+       0,     0,    70,     0,    71,    72,     0,    71,    72,    73,
+     538,     0,    73,     0,    61,     0,     0,    74,     0,     0,
+      74,    62,     0,     0,     0,     0,     0,    63,    64,     0,
+      58,   343,    60,     0,     0,     0,     0,     0,     0,    65,
+      66,     0,     0,     0,     0,     0,    67,    68,    69,     0,
+       0,     0,    70,     0,     0,     0,     0,    71,    72,   164,
+     165,   166,    73,   167,    61,     0,   170,   171,   172,     0,
+      74,    62,     0,     0,     0,     0,     0,    63,    64,   181,
+     182,   183,   184,   185,   186,   187,     0,     0,     0,    65,
+      66,     0,     0,     0,     0,     0,    67,    68,    69,     0,
+       0,     0,    70,     0,     0,     0,     0,    71,    72,     0,
+      34,     0,    73,     0,     0,    13,    14,    35,    36,    37,
+      74,    38,    39,    40,    41,    42,     0,     0,   514,     0,
+     129,     0,     0,   130,     0,    34,    44,     0,   515,    46,
+      13,    14,    35,    36,    37,     0,    38,    39,    40,    41,
+      42,     0,   561,   514,     0,   129,     0,     0,   130,     0,
+       0,    44,     0,   515,    46,     0,     0,     0,     0,     0,
+       0,     0,    34,     0,     0,   516,     0,    13,    14,    35,
+      36,    37,     0,    38,    39,    40,    41,    42,     0,   606,
+     514,    47,   129,     0,     0,   130,     0,    34,    44,     0,
+     515,    46,    13,    14,    35,    36,    37,     0,    38,    39,
+      40,    41,    42,     0,     0,   514,    47,   129,     0,     0,
+     130,     0,     0,    44,     0,   515,    46,     0,    34,     0,
+       0,     0,   139,    13,    14,    35,    36,    37,     0,    38,
+      39,    40,    41,    42,     0,     0,    43,     0,     0,     0,
+       0,     0,     0,    47,    44,    34,    45,    46,     0,     0,
+      13,    14,    35,    36,    37,     0,    38,    39,    40,    41,
+      42,   449,     0,    43,     0,     0,     0,     0,    47,     0,
+       0,    44,    34,    45,    46,     0,   465,    13,    14,    35,
+      36,    37,     0,    38,    39,    40,    41,    42,     0,     0,
+      43,     0,     0,     0,     0,     0,     0,     0,    44,    47,
+      45,    46,    34,     0,     0,     0,     0,    13,    14,    35,
+      36,    37,     0,    38,    39,    40,    41,    42,     0,     0,
+      43,     0,     0,     0,     0,     0,    47,     0,    44,     0,
+      45,    46,     0,     0,     0,     0,     0,   164,   165,   166,
+       0,   167,   168,   169,   170,   171,   172,   173,   174,   175,
+       0,     0,   176,    47,   178,   179,   180,   181,   182,   183,
+     184,   185,   186,   187,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,   265,     0,
+     164,   165,   166,    47,   167,   168,   169,   170,   171,   172,
+     173,   174,   175,   379,   380,   176,   381,   178,   179,   180,
+     181,   182,   183,   184,   185,   186,   187,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,   164,   165,   166,
+     382,   167,   168,   169,   170,   171,   172,   173,   174,   175,
+     410,   411,   176,   412,   178,   179,   180,   181,   182,   183,
+     184,   185,   186,   187,   164,   165,   166,     0,   167,   168,
+     169,   170,   171,   172,   173,   174,   175,   413,     0,   176,
+     575,   178,   179,   180,   181,   182,   183,   184,   185,   186,
+     187,   164,   165,   166,     0,   167,   168,   169,   170,   171,
+     172,   173,   174,   175,   576,     0,   176,   580,   178,   179,
+     180,   181,   182,   183,   184,   185,   186,   187,   164,   165,
+     166,     0,   167,   168,   169,   170,   171,   172,   173,   174,
+     175,   581,     0,   176,     0,   178,   179,   180,   181,   182,
+     183,   184,   185,   186,   187,   164,   165,   166,     0,   167,
+     168,   169,   170,   171,   172,   173,   174,   175,   390,     0,
+     176,     0,   178,   179,   180,   181,   182,   183,   184,   185,
+     186,   187,   164,   165,   166,     0,   167,   168,   169,   170,
+     171,   172,   173,   174,   175,   532,     0,   176,     0,   178,
+     179,   180,   181,   182,   183,   184,   185,   186,   187,   164,
+     165,   166,     0,   167,   168,   169,   170,   171,   172,   173,
+     174,   175,   533,     0,   176,     0,   178,   179,   180,   181,
+     182,   183,   184,   185,   186,   187,   164,   165,   166,     0,
+     167,   168,   169,   170,   171,   172,   173,   174,   175,   534,
+       0,   176,     0,   178,   179,   180,   181,   182,   183,   184,
+     185,   186,   187,   164,   165,   166,     0,   167,   168,   169,
+     170,   171,   172,   173,   174,   175,   541,     0,   176,     0,
+     178,   179,   180,   181,   182,   183,   184,   185,   186,   187,
+     164,   165,   166,     0,   167,   168,   169,   170,   171,   172,
+     173,   174,   175,   542,     0,   176,     0,   178,   179,   180,
+     181,   182,   183,   184,   185,   186,   187,   164,   165,   166,
+       0,   167,   168,   169,   170,   171,   172,   173,   174,   175,
+     543,     0,   176,     0,   178,   179,   180,   181,   182,   183,
+     184,   185,   186,   187,   164,   165,   166,     0,   167,   168,
+     169,   170,   171,   172,   173,   174,   175,   609,     0,   176,
+       0,   178,   179,   180,   181,   182,   183,   184,   185,   186,
+     187,   164,   165,   166,     0,   167,   168,   169,   170,   171,
+     172,   173,   174,   175,   611,     0,   176,   550,   178,   179,
+     180,   181,   182,   183,   184,   185,   186,   187,     0,     0,
+       0,     0,     0,   164,   165,   166,   551,   167,   168,   169,
+     170,   171,   172,   173,   174,   175,     0,     0,   176,     0,
+     178,   179,   180,   181,   182,   183,   184,   185,   186,   187,
+       0,     0,     0,     0,   164,   165,   166,   264,   167,   168,
+     169,   170,   171,   172,   173,   174,   175,     0,     0,   176,
+       0,   178,   179,   180,   181,   182,   183,   184,   185,   186,
+     187,     0,     0,     0,     0,   164,   165,   166,   360,   167,
+     168,   169,   170,   171,   172,   173,   174,   175,     0,     0,
+     176,     0,   178,   179,   180,   181,   182,   183,   184,   185,
+     186,   187,     0,     0,     0,     0,   164,   165,   166,   385,
+     167,   168,   169,   170,   171,   172,   173,   174,   175,     0,
+       0,   176,     0,   178,   179,   180,   181,   182,   183,   184,
+     185,   186,   187,     0,     0,     0,     0,   164,   165,   166,
+     386,   167,   168,   169,   170,   171,   172,   173,   174,   175,
+       0,     0,   176,     0,   178,   179,   180,   181,   182,   183,
+     184,   185,   186,   187,     0,     0,     0,     0,   164,   165,
+     166,   425,   167,   168,   169,   170,   171,   172,   173,   174,
+     175,     0,     0,   176,     0,   178,   179,   180,   181,   182,
+     183,   184,   185,   186,   187,     0,     0,     0,     0,   164,
+     165,   166,   426,   167,   168,   169,   170,   171,   172,   173,
+     174,   175,     0,     0,   176,     0,   178,   179,   180,   181,
+     182,   183,   184,   185,   186,   187,     0,     0,     0,     0,
+     164,   165,   166,   428,   167,   168,   169,   170,   171,   172,
+     173,   174,   175,     0,     0,   176,     0,   178,   179,   180,
+     181,   182,   183,   184,   185,   186,   187,     0,     0,     0,
+       0,   164,   165,   166,   429,   167,   168,   169,   170,   171,
+     172,   173,   174,   175,     0,     0,   176,     0,   178,   179,
+     180,   181,   182,   183,   184,   185,   186,   187,     0,     0,
+       0,     0,   164,   165,   166,   431,   167,   168,   169,   170,
+     171,   172,   173,   174,   175,     0,     0,   176,     0,   178,
+     179,   180,   181,   182,   183,   184,   185,   186,   187,     0,
+       0,     0,     0,   164,   165,   166,   436,   167,   168,   169,
+     170,   171,   172,   173,   174,   175,     0,     0,   176,     0,
+     178,   179,   180,   181,   182,   183,   184,   185,   186,   187,
+       0,     0,     0,     0,   164,   165,   166,   452,   167,   168,
+     169,   170,   171,   172,   173,   174,   175,     0,     0,   176,
+       0,   178,   179,   180,   181,   182,   183,   184,   185,   186,
+     187,     0,     0,     0,     0,   164,   165,   166,   453,   167,
+     168,   169,   170,   171,   172,   173,   174,   175,     0,     0,
+     176,     0,   178,   179,   180,   181,   182,   183,   184,   185,
+     186,   187,     0,     0,     0,     0,   164,   165,   166,   574,
+     167,   168,   169,   170,   171,   172,   173,   174,   175,     0,
+       0,   176,     0,   178,   179,   180,   181,   182,   183,   184,
+     185,   186,   187,     0,     0,     0,     0,   164,   165,   166,
+     577,   167,   168,   169,   170,   171,   172,   173,   174,   175,
+       0,     0,   176,     0,   178,   179,   180,   181,   182,   183,
+     184,   185,   186,   187,     0,     0,     0,     0,   164,   165,
+     166,   605,   167,   168,   169,   170,   171,   172,   173,   174,
+     175,     0,     0,   176,     0,   178,   179,   180,   181,   182,
+     183,   184,   185,   186,   187,     0,     0,     0,     0,   164,
+     165,   166,   625,   167,   168,   169,   170,   171,   172,   173,
+     174,   175,     0,     0,   176,     0,   178,   179,   180,   181,
+     182,   183,   184,   185,   186,   187,     0,     0,     0,     0,
+     164,   165,   166,   626,   167,   168,   169,   170,   171,   172,
+     173,   174,   175,     0,     0,   176,     0,   178,   179,   180,
+     181,   182,   183,   184,   185,   186,   187,     0,     0,     0,
+       0,   164,   165,   166,   630,   167,   168,   169,   170,   171,
+     172,   173,   174,   175,     0,     0,   176,     0,   178,   179,
+     180,   181,   182,   183,   184,   185,   186,   187,     0,   164,
+     165,   166,   397,   167,   168,   169,   170,   171,   172,   173,
+     174,   175,     0,     0,   176,     0,   178,   179,   180,   181,
+     182,   183,   184,   185,   186,   187,     0,   164,   165,   166,
+     402,   167,   168,   169,   170,   171,   172,   173,   174,   175,
+       0,     0,   176,     0,   178,   179,   180,   181,   182,   183,
+     184,   185,   186,   187,     0,   164,   165,   166,   407,   167,
+     168,   169,   170,   171,   172,   173,   174,   175,     0,     0,
+     176,     0,   178,   179,   180,   181,   182,   183,   184,   185,
+     186,   187,     0,   164,   165,   166,   408,   167,   168,   169,
+     170,   171,   172,   173,   174,   175,     0,     0,   176,     0,
+     178,   179,   180,   181,   182,   183,   184,   185,   186,   187,
+       0,   164,   165,   166,   415,   167,   168,   169,   170,   171,
+     172,   173,   174,   175,     0,     0,   176,     0,   178,   179,
+     180,   181,   182,   183,   184,   185,   186,   187,     0,   164,
+     165,   166,   421,   167,   168,   169,   170,   171,   172,   173,
+     174,   175,     0,     0,   176,     0,   178,   179,   180,   181,
+     182,   183,   184,   185,   186,   187,     0,   164,   165,   166,
+     444,   167,   168,   169,   170,   171,   172,   173,   174,   175,
+       0,     0,   176,     0,   178,   179,   180,   181,   182,   183,
+     184,   185,   186,   187,     0,   164,   165,   166,   448,   167,
+     168,   169,   170,   171,   172,   173,   174,   175,     0,     0,
+     176,     0,   178,   179,   180,   181,   182,   183,   184,   185,
+     186,   187,     0,   164,   165,   166,   477,   167,   168,   169,
+     170,   171,   172,   173,   174,   175,     0,     0,   176,     0,
+     178,   179,   180,   181,   182,   183,   184,   185,   186,   187,
+       0,   164,   165,   166,   479,   167,   168,   169,   170,   171,
+     172,   173,   174,   175,     0,     0,   176,     0,   178,   179,
+     180,   181,   182,   183,   184,   185,   186,   187,     0,   164,
+     165,   166,   480,   167,   168,   169,   170,   171,   172,   173,
+     174,   175,     0,     0,   176,     0,   178,   179,   180,   181,
+     182,   183,   184,   185,   186,   187,     0,   164,   165,   166,
+     552,   167,   168,   169,   170,   171,   172,   173,   174,   175,
+       0,     0,   176,     0,   178,   179,   180,   181,   182,   183,
+     184,   185,   186,   187,     0,   164,   165,   166,   570,   167,
+     168,   169,   170,   171,   172,   173,   174,   175,     0,     0,
+     176,     0,   178,   179,   180,   181,   182,   183,   184,   185,
+     186,   187,     0,   164,   165,   166,   597,   167,   168,   169,
+     170,   171,   172,   173,   174,   175,     0,     0,   176,     0,
+     178,   179,   180,   181,   182,   183,   184,   185,   186,   187,
+       0,   164,   165,   166,   604,   167,   168,   169,   170,   171,
+     172,   173,   174,   175,     0,     0,   176,     0,   178,   179,
+     180,   181,   182,   183,   184,   185,   186,   187,     0,   164,
+     165,   166,   607,   167,   168,   169,   170,   171,   172,   173,
+     174,   175,     0,     0,   176,     0,   178,   179,   180,   181,
+     182,   183,   184,   185,   186,   187,     0,   164,   165,   166,
+     616,   167,   168,   169,   170,   171,   172,   173,   174,   175,
+       0,     0,   176,   177,   178,   179,   180,   181,   182,   183,
+     184,   185,   186,   187,   164,   165,   166,     0,   167,   168,
+     169,   170,   171,   172,   173,   174,   175,     0,     0,   176,
+     389,   178,   179,   180,   181,   182,   183,   184,   185,   186,
+     187,   164,   165,   166,     0,   167,   168,   169,   170,   171,
+     172,   173,   174,   175,     0,     0,   176,   569,   178,   179,
+     180,   181,   182,   183,   184,   185,   186,   187,   164,   165,
+     166,     0,   167,   168,   169,   170,   171,   172,   173,   174,
+     175,     0,     0,   176,   603,   178,   179,   180,   181,   182,
+     183,   184,   185,   186,   187,   164,   165,   166,     0,   167,
+     168,   169,   170,   171,   172,   173,   174,   175,     0,     0,
+     176,     0,   178,   179,   180,   181,   182,   183,   184,   185,
+     186,   187,   164,   165,   166,     0,   167,   168,     0,   170,
+     171,   172,   173,   174,   175,     0,     0,   176,     0,   178,
+     179,   180,   181,   182,   183,   184,   185,   186,   187,   164,
+     165,   166,     0,   167,     0,     0,   170,   171,   172,   173,
+     174,   175,     0,     0,   176,     0,   178,   179,   180,   181,
+     182,   183,   184,   185,   186,   187,   164,   165,   166,     0,
+     167,     0,     0,   170,   171,   172,   173,   174,     0,     0,
+       0,     0,     0,     0,     0,   180,   181,   182,   183,   184,
+     185,   186,   187
 };
 
 static const yytype_int16 yycheck[] =
 {
-      25,    43,    18,    40,    98,     3,    85,   461,     3,    88,
-       3,    69,     3,     3,     3,     3,     3,     4,     5,    10,
-      11,    10,    13,    13,    13,    13,     3,    48,     3,    45,
-       3,    48,     3,    34,     6,    60,    61,    62,    63,    64,
-      65,    66,    67,    68,    69,    78,    32,    33,    35,    77,
-      37,    38,    85,    81,     9,    42,    93,   511,    79,    78,
-      31,   515,    21,    75,    76,    82,    85,    26,    55,    56,
-      95,    30,    31,    60,    61,    62,    77,   119,    33,    66,
-       3,    67,    75,    75,    71,    72,    84,    82,    80,    76,
-       0,    82,    82,    82,    82,    74,   190,    84,   177,    78,
-     194,   126,   181,     3,    78,    82,   131,    82,   133,    82,
-       3,    85,    76,    74,    74,     8,     9,    78,    78,    15,
-     145,   146,   147,   148,   149,   150,   151,   152,   153,   154,
-     155,   156,   157,   158,   159,   160,   161,   162,   163,   164,
-     165,   166,   167,   168,   202,   203,    21,    74,    74,    76,
-     175,    26,    78,   178,    79,    74,    31,    82,   183,   184,
-     197,   186,    74,    76,   189,    82,    78,   192,    74,   227,
-     195,   196,    78,   198,   199,    79,   201,    47,    82,    49,
-     205,    79,    52,    53,    54,   210,   211,   212,    74,    74,
-     269,     3,    78,    63,    64,    65,    66,    67,    68,    69,
-      14,    77,     3,   228,     3,    81,   222,    32,    33,    23,
-      24,    67,    68,    69,    28,    29,    30,    52,    53,    54,
-       3,    35,    36,    77,    78,    39,   251,    77,    78,    74,
-      65,    66,    67,    68,    69,    77,    78,    77,    78,   264,
-      76,   278,     3,    77,    78,   270,    65,    66,    67,    68,
-      69,   276,     3,    77,    78,    77,    78,    77,    78,     3,
-      32,    33,    76,   357,    82,   359,    76,   361,    77,    78,
-     364,   365,    86,    77,    78,    19,    20,    21,    76,    23,
-      77,    78,    26,    27,    28,    77,    78,     3,     3,     3,
-      76,    35,    36,     3,    76,    39,    40,    41,   323,    43,
-      44,    79,    79,     3,    79,   330,   322,     3,    79,    82,
-      79,    76,    76,    76,   408,     5,    76,    76,    76,    76,
-      76,   379,   380,    76,    76,     3,   351,    76,    76,    76,
-      74,    75,     4,    76,    76,    81,    80,   362,   363,    74,
-      84,     3,     4,     5,     3,     3,    79,     4,    74,     3,
-     444,   445,    74,     3,     3,   449,    74,    74,   383,     3,
-       3,   386,     3,   177,    77,   390,    78,   181,    79,   394,
-      77,    77,    77,    35,    77,    77,     3,    76,   403,    76,
-      42,    76,     3,     3,   409,    79,     4,    76,    76,    82,
-      74,     3,    74,    55,    56,    81,     4,   491,    60,    61,
-      62,    82,    77,    74,    66,    67,    74,    74,   433,    71,
-      72,    74,    77,   429,    76,    79,   510,    77,   460,    74,
-      76,    74,    84,    74,    85,   450,   451,    74,    22,    74,
-      22,     3,    74,    79,    74,    74,    74,   462,    74,    74,
-     465,     3,    79,     3,   460,   470,    79,    51,    50,     3,
-      33,   493,   222,   358,   480,   492,   409,   494,   321,   441,
-      -1,   486,   207,   336,   480,    19,   174,    21,    -1,    23,
-      -1,    -1,    26,    27,    28,    -1,    -1,   493,    -1,   504,
-     505,    35,    36,    -1,   509,    39,    40,    41,    -1,    43,
-      44,    45,    46,    47,    -1,    49,    50,    51,    52,    53,
-      54,    55,    56,    57,    58,    -1,    60,    61,    62,    63,
-      64,    65,    66,    67,    68,    69,     3,    -1,    -1,    -1,
-      74,    75,    -1,    -1,    -1,    -1,    80,    -1,    -1,    -1,
-      84,    -1,    19,    -1,    21,    -1,    23,    -1,    -1,    26,
-      27,    28,     3,    -1,    -1,    -1,    -1,    -1,    35,    36,
-      -1,    -1,    39,    40,    41,    -1,    43,    44,    19,    -1,
-      21,    -1,    23,    -1,    -1,    26,    27,    28,     3,     4,
-       5,    -1,    59,    -1,    35,    36,    -1,    -1,    39,    40,
-      41,    -1,    43,    44,    -1,    -1,    -1,    74,    75,    24,
-      25,    -1,    -1,    80,    -1,    -1,    -1,    84,    -1,    -1,
-      35,    -1,    -1,    -1,    -1,    -1,    -1,    42,     3,     4,
-       5,    -1,    -1,    74,    75,    -1,    -1,    -1,    -1,    80,
-      55,    56,    -1,    84,    -1,    60,    61,    62,    -1,    -1,
-      25,    66,    -1,    -1,    -1,    -1,    71,    72,    -1,    -1,
-      35,    76,    -1,     3,     4,     5,    -1,    42,    -1,    84,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      55,    56,    -1,    -1,    -1,    60,    61,    62,    -1,    -1,
-      -1,    66,    -1,    -1,    -1,    35,    71,    72,    -1,    -1,
-      -1,    76,    42,     3,     4,     5,     3,     4,     5,    84,
-      -1,    -1,    -1,    -1,    -1,    55,    56,    -1,    -1,    -1,
-      60,    61,    62,    -1,    -1,    -1,    66,    -1,    -1,    -1,
-      -1,    71,    72,    -1,    -1,    35,    76,    77,    35,    -1,
-      -1,    -1,    42,    -1,    84,    42,     3,     4,     5,    -1,
-      -1,    -1,    -1,    -1,    -1,    55,    56,    -1,    55,    56,
-      60,    61,    62,    60,    61,    62,    66,    -1,    -1,    66,
-      -1,    71,    72,    -1,    71,    72,    76,    -1,    35,    76,
-      -1,    -1,    -1,    -1,    84,    42,    -1,    84,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    55,    56,
-      -1,    -1,    -1,    60,    61,    62,    -1,    -1,    -1,    66,
-      -1,    -1,    -1,    -1,    71,    72,    -1,     3,    -1,    76,
-      -1,    -1,     8,     9,    10,    11,    12,    84,    14,    15,
-      16,    17,    18,    -1,    -1,    21,    -1,    -1,    -1,    -1,
-      26,     3,    -1,    29,    -1,    31,     8,     9,    10,    11,
-      12,    -1,    14,    15,    16,    17,    18,    -1,    20,    21,
-      -1,    -1,    -1,    -1,    26,    -1,    -1,    29,    -1,    31,
-       3,    -1,    -1,    59,    -1,     8,     9,    10,    11,    12,
-      -1,    14,    15,    16,    17,    18,    -1,    20,    21,    75,
-      -1,    -1,    -1,    26,     3,    -1,    29,    -1,    31,     8,
-       9,    10,    11,    12,    -1,    14,    15,    16,    17,    18,
-      -1,    -1,    21,    75,    -1,    -1,    -1,    26,    -1,     3,
-      29,    -1,    31,     7,     8,     9,    10,    11,    12,    -1,
-      14,    15,    16,    17,    18,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    75,     3,    -1,    29,    -1,     7,     8,     9,
-      10,    11,    12,    -1,    14,    15,    16,    17,    18,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    75,     3,    -1,    29,
-      -1,    -1,     8,     9,    10,    11,    12,    -1,    14,    15,
-      16,    17,    18,    19,    -1,    -1,    -1,    -1,    -1,    -1,
-       3,    75,    -1,    29,    -1,     8,     9,    10,    11,    12,
-      -1,    14,    15,    16,    17,    18,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    75,    29,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    45,    46,    47,    -1,    49,
-      50,    51,    52,    53,    54,    55,    56,    57,    58,    75,
-      60,    61,    62,    63,    64,    65,    66,    67,    68,    69,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    75,    -1,    84,    45,    46,    47,    -1,    49,
-      50,    51,    52,    53,    54,    55,    56,    57,    58,    59,
-      60,    61,    62,    63,    64,    65,    66,    67,    68,    69,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      45,    46,    47,    83,    49,    50,    51,    52,    53,    54,
-      55,    56,    57,    58,    59,    60,    61,    62,    63,    64,
-      65,    66,    67,    68,    69,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    45,    46,    47,    83,    49,
-      50,    51,    52,    53,    54,    55,    56,    57,    58,    59,
-      60,    61,    62,    63,    64,    65,    66,    67,    68,    69,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      45,    46,    47,    83,    49,    50,    51,    52,    53,    54,
-      55,    56,    57,    58,    59,    60,    61,    62,    63,    64,
-      65,    66,    67,    68,    69,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    45,    46,    47,    83,    49,
-      50,    51,    52,    53,    54,    55,    56,    57,    58,    -1,
-      60,    61,    62,    63,    64,    65,    66,    67,    68,    69,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      45,    46,    47,    83,    49,    50,    51,    52,    53,    54,
-      55,    56,    57,    58,    -1,    60,    61,    62,    63,    64,
-      65,    66,    67,    68,    69,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    45,    46,    47,    83,    49,
-      50,    51,    52,    53,    54,    55,    56,    57,    58,    -1,
-      60,    61,    62,    63,    64,    65,    66,    67,    68,    69,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      45,    46,    47,    83,    49,    50,    51,    52,    53,    54,
-      55,    56,    57,    58,    -1,    60,    61,    62,    63,    64,
-      65,    66,    67,    68,    69,    -1,    -1,    -1,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    45,    46,    47,    83,    49,
-      50,    51,    52,    53,    54,    55,    56,    57,    58,    -1,
-      60,    61,    62,    63,    64,    65,    66,    67,    68,    69,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      45,    46,    47,    83,    49,    50,    51,    52,    53,    54,
-      55,    56,    57,    58,    59,    60,    61,    62,    63,    64,
-      65,    66,    67,    68,    69,    -1,    -1,    -1,    -1,    -1,
-      45,    46,    47,    78,    49,    50,    51,    52,    53,    54,
-      55,    56,    57,    58,    -1,    60,    61,    62,    63,    64,
-      65,    66,    67,    68,    69,    -1,    -1,    -1,    -1,    45,
-      46,    47,    77,    49,    50,    51,    52,    53,    54,    55,
-      56,    57,    58,    -1,    60,    61,    62,    63,    64,    65,
-      66,    67,    68,    69,    -1,    -1,    -1,    -1,    45,    46,
-      47,    77,    49,    50,    51,    52,    53,    54,    55,    56,
-      57,    58,    -1,    60,    61,    62,    63,    64,    65,    66,
-      67,    68,    69,    -1,    -1,    -1,    -1,    45,    46,    47,
-      77,    49,    50,    51,    52,    53,    54,    55,    56,    57,
-      58,    -1,    60,    61,    62,    63,    64,    65,    66,    67,
-      68,    69,    -1,    -1,    -1,    -1,    45,    46,    47,    77,
-      49,    50,    51,    52,    53,    54,    55,    56,    57,    58,
-      -1,    60,    61,    62,    63,    64,    65,    66,    67,    68,
-      69,    -1,    -1,    -1,    -1,    45,    46,    47,    77,    49,
-      50,    51,    52,    53,    54,    55,    56,    57,    58,    -1,
-      60,    61,    62,    63,    64,    65,    66,    67,    68,    69,
-      -1,    -1,    -1,    -1,    45,    46,    47,    77,    49,    50,
-      51,    52,    53,    54,    55,    56,    57,    58,    -1,    60,
-      61,    62,    63,    64,    65,    66,    67,    68,    69,    -1,
-      -1,    -1,    -1,    45,    46,    47,    77,    49,    50,    51,
-      52,    53,    54,    55,    56,    57,    58,    -1,    60,    61,
-      62,    63,    64,    65,    66,    67,    68,    69,    -1,    -1,
-      -1,    -1,    45,    46,    47,    77,    49,    50,    51,    52,
-      53,    54,    55,    56,    57,    58,    -1,    60,    61,    62,
-      63,    64,    65,    66,    67,    68,    69,    -1,    -1,    -1,
-      -1,    45,    46,    47,    77,    49,    50,    51,    52,    53,
-      54,    55,    56,    57,    58,    -1,    60,    61,    62,    63,
-      64,    65,    66,    67,    68,    69,    -1,    -1,    -1,    -1,
-      45,    46,    47,    77,    49,    50,    51,    52,    53,    54,
-      55,    56,    57,    58,    -1,    60,    61,    62,    63,    64,
-      65,    66,    67,    68,    69,    -1,    -1,    -1,    -1,    45,
-      46,    47,    77,    49,    50,    51,    52,    53,    54,    55,
-      56,    57,    58,    -1,    60,    61,    62,    63,    64,    65,
-      66,    67,    68,    69,    -1,    -1,    -1,    -1,    45,    46,
-      47,    77,    49,    50,    51,    52,    53,    54,    55,    56,
-      57,    58,    -1,    60,    61,    62,    63,    64,    65,    66,
-      67,    68,    69,    -1,    -1,    -1,    -1,    45,    46,    47,
-      77,    49,    50,    51,    52,    53,    54,    55,    56,    57,
-      58,    -1,    60,    61,    62,    63,    64,    65,    66,    67,
-      68,    69,    -1,    -1,    -1,    -1,    45,    46,    47,    77,
-      49,    50,    51,    52,    53,    54,    55,    56,    57,    58,
-      -1,    60,    61,    62,    63,    64,    65,    66,    67,    68,
-      69,    -1,    45,    46,    47,    74,    49,    50,    51,    52,
-      53,    54,    55,    56,    57,    58,    -1,    60,    61,    62,
-      63,    64,    65,    66,    67,    68,    69,    -1,    45,    46,
-      47,    74,    49,    50,    51,    52,    53,    54,    55,    56,
-      57,    58,    -1,    60,    61,    62,    63,    64,    65,    66,
-      67,    68,    69,    -1,    45,    46,    47,    74,    49,    50,
-      51,    52,    53,    54,    55,    56,    57,    58,    -1,    60,
-      61,    62,    63,    64,    65,    66,    67,    68,    69,    -1,
-      45,    46,    47,    74,    49,    50,    51,    52,    53,    54,
-      55,    56,    57,    58,    -1,    60,    61,    62,    63,    64,
-      65,    66,    67,    68,    69,    -1,    45,    46,    47,    74,
-      49,    50,    51,    52,    53,    54,    55,    56,    57,    58,
-      -1,    60,    61,    62,    63,    64,    65,    66,    67,    68,
-      69,    -1,    45,    46,    47,    74,    49,    50,    51,    52,
-      53,    54,    55,    56,    57,    58,    -1,    60,    61,    62,
-      63,    64,    65,    66,    67,    68,    69,    -1,    45,    46,
-      47,    74,    49,    50,    51,    52,    53,    54,    55,    56,
-      57,    58,    -1,    60,    61,    62,    63,    64,    65,    66,
-      67,    68,    69,    -1,    45,    46,    47,    74,    49,    50,
-      51,    52,    53,    54,    55,    56,    57,    58,    -1,    60,
-      61,    62,    63,    64,    65,    66,    67,    68,    69,    -1,
-      45,    46,    47,    74,    49,    50,    51,    52,    53,    54,
-      55,    56,    57,    58,    -1,    60,    61,    62,    63,    64,
-      65,    66,    67,    68,    69,    -1,    45,    46,    47,    74,
-      49,    50,    51,    52,    53,    54,    55,    56,    57,    58,
-      -1,    60,    61,    62,    63,    64,    65,    66,    67,    68,
-      69,    -1,    45,    46,    47,    74,    49,    50,    51,    52,
-      53,    54,    55,    56,    57,    58,    -1,    60,    61,    62,
-      63,    64,    65,    66,    67,    68,    69,    -1,    45,    46,
-      47,    74,    49,    50,    51,    52,    53,    54,    55,    56,
-      57,    58,    -1,    60,    61,    62,    63,    64,    65,    66,
-      67,    68,    69,    -1,    45,    46,    47,    74,    49,    50,
-      51,    52,    53,    54,    55,    56,    57,    58,    -1,    60,
-      61,    62,    63,    64,    65,    66,    67,    68,    69,    -1,
-      45,    46,    47,    74,    49,    50,    51,    52,    53,    54,
-      55,    56,    57,    58,    -1,    60,    61,    62,    63,    64,
-      65,    66,    67,    68,    69,    -1,    45,    46,    47,    74,
-      49,    50,    51,    52,    53,    54,    55,    56,    57,    58,
-      -1,    60,    61,    62,    63,    64,    65,    66,    67,    68,
-      69,    -1,    45,    46,    47,    74,    49,    50,    51,    52,
-      53,    54,    55,    56,    57,    58,    -1,    60,    61,    62,
-      63,    64,    65,    66,    67,    68,    69,    -1,    45,    46,
-      47,    74,    49,    50,    51,    52,    53,    54,    55,    56,
-      57,    58,    59,    60,    61,    62,    63,    64,    65,    66,
-      67,    68,    69,    45,    46,    47,    -1,    49,    50,    51,
-      52,    53,    54,    55,    56,    57,    58,    59,    60,    61,
-      62,    63,    64,    65,    66,    67,    68,    69,    45,    46,
-      47,    -1,    49,    50,    51,    52,    53,    54,    55,    56,
-      57,    58,    59,    60,    61,    62,    63,    64,    65,    66,
-      67,    68,    69,    45,    46,    47,    -1,    49,    50,    51,
-      52,    53,    54,    55,    56,    57,    58,    -1,    60,    61,
-      62,    63,    64,    65,    66,    67,    68,    69,    45,    46,
-      47,    -1,    49,    50,    -1,    52,    53,    54,    55,    56,
-      57,    58,    -1,    60,    61,    62,    63,    64,    65,    66,
-      67,    68,    69,    45,    46,    47,    -1,    49,    -1,    -1,
-      52,    53,    54,    55,    56,    57,    58,    -1,    60,    61,
-      62,    63,    64,    65,    66,    67,    68,    69,    45,    46,
-      47,    -1,    49,    -1,    -1,    52,    53,    54,    55,    56,
-      57,    -1,    -1,    -1,    61,    62,    63,    64,    65,    66,
-      67,    68,    69,    45,    46,    47,    -1,    49,    -1,    -1,
-      52,    53,    54,    55,    56,    -1,    -1,    -1,    -1,    -1,
-      62,    63,    64,    65,    66,    67,    68,    69,    45,    46,
-      47,    -1,    49,    -1,    -1,    52,    53,    54,    -1,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    63,    64,    65,    66,
-      67,    68,    69
+      25,    44,    18,    40,   131,     3,    14,    90,   369,     3,
+      93,     3,   250,    36,     3,    23,    24,     3,     3,    55,
+      28,    29,    30,     3,     3,    55,     3,    35,    36,    34,
+      35,    39,    48,    10,    11,    42,    13,     3,    46,     0,
+      65,    66,    67,    68,    69,    70,    71,    72,    73,    74,
+       3,    83,     9,    85,    21,    91,    23,   452,    88,    26,
+      13,    98,     6,    86,    31,    31,    85,    87,    86,    87,
+      76,    76,    91,    81,    94,   100,    33,     3,     3,    85,
+       3,    84,    83,    91,    10,     3,    89,    13,    13,   132,
+      74,    88,    84,    91,    91,   103,    87,    87,   105,    93,
+      15,   462,   127,    94,    94,    91,    91,    76,    77,    78,
+       3,    91,    91,   196,    91,     8,     9,   200,   143,    74,
+      75,    76,    77,    78,   149,   520,   151,   152,     3,    83,
+     213,   369,   215,    87,    85,   373,    84,    85,    91,   164,
+     165,   166,   167,   168,   169,   170,   171,   172,   173,   174,
+     175,   176,   177,   178,   179,   180,   181,   182,   183,   184,
+     185,   186,   187,    91,   148,    91,    91,   192,    91,   194,
+     565,   566,   197,    91,   569,    83,     3,   202,   203,    87,
+     205,    86,    87,   208,    21,   222,    23,   212,   196,    26,
+      34,    35,   200,    30,    31,   220,   221,     3,   223,   224,
+      83,   226,   209,   210,    87,   230,     3,    83,    85,    83,
+     605,    87,   219,    87,   239,   240,    83,   242,   243,     3,
+      87,     3,    83,   618,   462,   308,    87,    85,    83,    83,
+      83,   626,    87,    87,    85,   630,    88,    86,    87,    91,
+     256,   266,    83,   227,   228,    88,   329,    54,     3,    56,
+     234,   235,    59,    60,    61,    86,    87,    59,    60,    61,
+      86,    87,    86,    87,   289,    72,    73,    74,    75,    76,
+      77,    78,    74,    75,    76,    77,    78,     3,   303,     3,
+     317,   265,    86,    87,   309,    11,    12,    86,    87,    85,
+     315,    86,    87,    19,    85,    21,    85,    23,    86,    87,
+      26,    27,    28,    86,    87,    34,    35,    86,    87,    86,
+      87,    37,    38,    86,    87,    41,    42,    43,     3,    45,
+      46,    47,    48,    49,   331,     3,    52,    53,    54,     3,
+      56,    57,    58,    59,    60,    61,    62,    63,    64,    86,
+      87,    67,    85,    69,    70,    71,    72,    73,    74,    75,
+      76,    77,    78,    85,   379,   380,   381,    83,    84,   367,
+      88,   377,     3,    89,   389,    88,     3,    93,    88,    88,
+     395,    52,    53,    54,     3,    56,    91,    88,    59,    60,
+      61,    62,    63,    64,     3,   410,   411,   412,   515,    70,
+      71,    72,    73,    74,    75,    76,    77,    78,    85,    85,
+       5,   426,   427,    85,     3,    85,    85,     3,    85,    85,
+      85,   418,    85,   420,    85,    11,    12,   424,   425,    85,
+      85,   428,   429,    19,    20,    21,    85,    23,   453,   454,
+      26,    27,    28,   449,    85,    85,    83,    85,   463,    85,
+      85,    37,    38,    83,   469,    41,    42,    43,   473,    45,
+      46,    47,    48,    49,    90,    83,     4,     3,     3,   484,
+       3,    88,   446,   447,     3,    83,   491,     4,     4,     3,
+      83,     3,    68,    83,     3,     3,   519,    83,     3,    83,
+       3,    88,     3,   490,    86,     3,    87,    83,    84,    86,
+      88,    86,    86,    89,    86,    85,    87,    93,   523,    86,
+      86,    85,   527,   519,    85,     3,    83,    83,    91,     4,
+      85,    85,    83,     3,    83,   540,    83,    83,    91,    83,
+      83,    83,    83,    83,    83,    83,   551,   552,    83,    83,
+      86,     4,     3,   558,    86,    22,    86,    88,   545,   546,
+      22,    94,    83,   550,   560,   570,     3,    85,    83,   592,
+     575,    68,    85,    22,     3,   580,    87,    83,    88,    83,
+      22,    83,     3,    83,    83,     3,    54,   604,    53,    33,
+     607,   529,   597,    88,    88,   373,   592,     3,   523,   331,
+     419,   491,     8,   232,   256,    11,    12,   560,   540,   376,
+     193,    -1,   617,    19,   619,    21,   603,    23,    -1,   624,
+      26,    27,    28,   395,    -1,    -1,    -1,    33,    -1,    -1,
+      -1,    37,    38,    -1,    -1,    41,    42,    43,   625,    45,
+      46,    47,    48,    49,    -1,    -1,     3,    -1,    -1,    -1,
+      -1,     8,    -1,    -1,    11,    12,    -1,    -1,    -1,    -1,
+      -1,    -1,    19,    -1,    21,    -1,    23,    -1,    -1,    26,
+      27,    28,    -1,    -1,    -1,    -1,    33,    83,    84,    -1,
+      37,    38,    -1,    89,    41,    42,    43,    93,    45,    46,
+      47,    48,    49,    -1,    -1,     3,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    11,    12,    -1,    -1,    -1,    -1,    -1,
+      -1,    19,    20,    21,    -1,    23,    -1,    -1,    26,    27,
+      28,    -1,    -1,    -1,    -1,    -1,    83,    84,    -1,    37,
+      38,    -1,    89,    41,    42,    43,    93,    45,    46,    47,
+      48,    49,    -1,    -1,     3,    -1,    -1,    -1,    -1,     8,
+      -1,    -1,    11,    12,    -1,    -1,    -1,    -1,    -1,    -1,
+      19,    -1,    21,    -1,    23,    -1,    -1,    26,    27,    28,
+      -1,    -1,    -1,    -1,    -1,    83,    84,    -1,    37,    38,
+      -1,    89,    41,    42,    43,    93,    45,    46,    47,    48,
+      49,    -1,    -1,     3,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    11,    12,    -1,    -1,    -1,    -1,    -1,    -1,    19,
+      20,    21,    -1,    23,    -1,    -1,    26,    27,    28,    -1,
+      -1,    -1,    -1,    -1,    83,    84,    -1,    37,    38,    -1,
+      89,    41,    42,    43,    93,    45,    46,    47,    48,    49,
+      -1,    -1,     3,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      11,    12,    -1,    -1,    -1,    -1,    -1,    -1,    19,    20,
+      21,    -1,    23,    -1,    -1,    26,    27,    28,    -1,    -1,
+      -1,    -1,    -1,    83,    84,    -1,    37,    38,    -1,    89,
+      41,    42,    43,    93,    45,    46,    47,    48,    49,    -1,
+      -1,     3,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    11,
+      12,    -1,    -1,    -1,    -1,    -1,    -1,    19,    -1,    21,
+      -1,    23,    -1,    -1,    26,    27,    28,    -1,    -1,    -1,
+      -1,    -1,    83,    84,    -1,    37,    38,    -1,    89,    41,
+      42,    43,    93,    45,    46,    47,    48,    49,    -1,    -1,
+      -1,    -1,    -1,    -1,     3,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    11,    12,    -1,    -1,    68,    -1,    -1,    -1,
+      19,    -1,    21,    -1,    23,    -1,    -1,    26,    27,    28,
+      -1,    83,    84,     3,     4,     5,    -1,    89,    37,    38,
+      -1,    93,    41,    42,    43,    -1,    45,    46,    47,    48,
+      49,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    37,    -1,    -1,
+      -1,    -1,    -1,    -1,    44,    -1,    -1,    -1,    -1,    -1,
+      50,    51,    -1,    -1,    83,    84,    -1,    -1,    -1,    -1,
+      89,    -1,    62,    63,    93,     3,     4,     5,    -1,    69,
+      70,    71,    -1,    -1,    -1,    75,    -1,    -1,    -1,    -1,
+      80,    81,    -1,    -1,    -1,    85,    86,    -1,    -1,    -1,
+      90,    -1,    -1,    93,    -1,    -1,    -1,    -1,    -1,    37,
+      -1,    39,    40,    -1,    -1,    -1,    44,    -1,    -1,    -1,
+      -1,    -1,    50,    51,    -1,    -1,    -1,     3,     4,     5,
+      -1,    -1,    -1,    -1,    62,    63,    -1,    -1,    -1,    -1,
+      -1,    69,    70,    71,    -1,    -1,    -1,    75,    24,    25,
+      -1,    -1,    80,    81,    -1,    -1,    -1,    85,    -1,    -1,
+      -1,    37,    -1,    -1,    -1,    93,    -1,    -1,    44,    -1,
+      -1,    -1,    -1,    -1,    50,    51,    -1,    -1,    -1,     3,
+       4,     5,    -1,    -1,    -1,    -1,    62,    63,    -1,    -1,
+      -1,    -1,    -1,    69,    70,    71,    -1,    -1,    -1,    75,
+      24,    25,    -1,    -1,    80,    81,    -1,    -1,    -1,    85,
+      -1,    -1,    -1,    37,    -1,    -1,    -1,    93,    -1,    -1,
+      44,    -1,    -1,    -1,    -1,    -1,    50,    51,    -1,     3,
+       4,     5,     3,     4,     5,    -1,    -1,    -1,    62,    63,
+      -1,    -1,    -1,    -1,    -1,    69,    70,    71,    -1,    -1,
+      -1,    75,    -1,    -1,    -1,    -1,    80,    81,    -1,    -1,
+      -1,    85,    -1,    37,    -1,    -1,    37,    -1,    -1,    93,
+      44,    -1,    -1,    44,    -1,    -1,    50,    51,    -1,    50,
+      51,    -1,    -1,     3,     4,     5,    -1,    -1,    62,    63,
+      -1,    62,    63,    -1,    -1,    69,    70,    71,    69,    70,
+      71,    75,    -1,    -1,    75,    -1,    80,    81,    -1,    80,
+      81,    85,    86,    -1,    85,    86,    90,    37,    -1,    93,
+      -1,    -1,    93,    -1,    44,    -1,    -1,    -1,    -1,    -1,
+      50,    51,    -1,     3,     4,     5,     3,     4,     5,    -1,
+      -1,    -1,    62,    63,    -1,    -1,    -1,    -1,    -1,    69,
+      70,    71,    -1,    -1,    -1,    75,    76,    -1,    25,    -1,
+      80,    81,    -1,    -1,    -1,    85,    -1,    37,    -1,    -1,
+      37,    -1,    -1,    93,    44,    -1,    -1,    44,    -1,    -1,
+      50,    51,    -1,    50,    51,    -1,    -1,     3,     4,     5,
+      -1,    -1,    62,    63,    -1,    62,    63,    -1,    -1,    69,
+      70,    71,    69,    70,    71,    75,    -1,    -1,    75,    25,
+      80,    81,    -1,    80,    81,    85,    -1,    -1,    85,    -1,
+      90,    37,    -1,    93,    -1,    -1,    93,    -1,    44,    -1,
+      -1,    -1,    -1,    -1,    50,    51,    -1,     3,     4,     5,
+       3,     4,     5,    -1,    -1,    -1,    62,    63,    -1,    -1,
+      -1,    -1,    -1,    69,    70,    71,    -1,    -1,    -1,    75,
+      -1,    -1,    -1,    -1,    80,    81,    -1,    -1,    -1,    85,
+      -1,    37,    -1,    -1,    37,    -1,    -1,    93,    44,    -1,
+      -1,    44,    -1,    -1,    50,    51,    -1,    50,    51,    -1,
+       3,     4,     5,    -1,    -1,    -1,    62,    63,    -1,    62,
+      63,    -1,    -1,    69,    70,    71,    69,    70,    71,    75,
+      -1,    -1,    75,    -1,    80,    81,    -1,    80,    81,    85,
+      86,    -1,    85,    -1,    37,    -1,    -1,    93,    -1,    -1,
+      93,    44,    -1,    -1,    -1,    -1,    -1,    50,    51,    -1,
+       3,     4,     5,    -1,    -1,    -1,    -1,    -1,    -1,    62,
+      63,    -1,    -1,    -1,    -1,    -1,    69,    70,    71,    -1,
+      -1,    -1,    75,    -1,    -1,    -1,    -1,    80,    81,    52,
+      53,    54,    85,    56,    37,    -1,    59,    60,    61,    -1,
+      93,    44,    -1,    -1,    -1,    -1,    -1,    50,    51,    72,
+      73,    74,    75,    76,    77,    78,    -1,    -1,    -1,    62,
+      63,    -1,    -1,    -1,    -1,    -1,    69,    70,    71,    -1,
+      -1,    -1,    75,    -1,    -1,    -1,    -1,    80,    81,    -1,
+       3,    -1,    85,    -1,    -1,     8,     9,    10,    11,    12,
+      93,    14,    15,    16,    17,    18,    -1,    -1,    21,    -1,
+      23,    -1,    -1,    26,    -1,     3,    29,    -1,    31,    32,
+       8,     9,    10,    11,    12,    -1,    14,    15,    16,    17,
+      18,    -1,    20,    21,    -1,    23,    -1,    -1,    26,    -1,
+      -1,    29,    -1,    31,    32,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,     3,    -1,    -1,    68,    -1,     8,     9,    10,
+      11,    12,    -1,    14,    15,    16,    17,    18,    -1,    20,
+      21,    84,    23,    -1,    -1,    26,    -1,     3,    29,    -1,
+      31,    32,     8,     9,    10,    11,    12,    -1,    14,    15,
+      16,    17,    18,    -1,    -1,    21,    84,    23,    -1,    -1,
+      26,    -1,    -1,    29,    -1,    31,    32,    -1,     3,    -1,
+      -1,    -1,     7,     8,     9,    10,    11,    12,    -1,    14,
+      15,    16,    17,    18,    -1,    -1,    21,    -1,    -1,    -1,
+      -1,    -1,    -1,    84,    29,     3,    31,    32,    -1,    -1,
+       8,     9,    10,    11,    12,    -1,    14,    15,    16,    17,
+      18,    19,    -1,    21,    -1,    -1,    -1,    -1,    84,    -1,
+      -1,    29,     3,    31,    32,    -1,     7,     8,     9,    10,
+      11,    12,    -1,    14,    15,    16,    17,    18,    -1,    -1,
+      21,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    29,    84,
+      31,    32,     3,    -1,    -1,    -1,    -1,     8,     9,    10,
+      11,    12,    -1,    14,    15,    16,    17,    18,    -1,    -1,
+      21,    -1,    -1,    -1,    -1,    -1,    84,    -1,    29,    -1,
+      31,    32,    -1,    -1,    -1,    -1,    -1,    52,    53,    54,
+      -1,    56,    57,    58,    59,    60,    61,    62,    63,    64,
+      -1,    -1,    67,    84,    69,    70,    71,    72,    73,    74,
+      75,    76,    77,    78,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    93,    -1,
+      52,    53,    54,    84,    56,    57,    58,    59,    60,    61,
+      62,    63,    64,    65,    66,    67,    68,    69,    70,    71,
+      72,    73,    74,    75,    76,    77,    78,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    52,    53,    54,
+      92,    56,    57,    58,    59,    60,    61,    62,    63,    64,
+      65,    66,    67,    68,    69,    70,    71,    72,    73,    74,
+      75,    76,    77,    78,    52,    53,    54,    -1,    56,    57,
+      58,    59,    60,    61,    62,    63,    64,    92,    -1,    67,
+      68,    69,    70,    71,    72,    73,    74,    75,    76,    77,
+      78,    52,    53,    54,    -1,    56,    57,    58,    59,    60,
+      61,    62,    63,    64,    92,    -1,    67,    68,    69,    70,
+      71,    72,    73,    74,    75,    76,    77,    78,    52,    53,
+      54,    -1,    56,    57,    58,    59,    60,    61,    62,    63,
+      64,    92,    -1,    67,    -1,    69,    70,    71,    72,    73,
+      74,    75,    76,    77,    78,    52,    53,    54,    -1,    56,
+      57,    58,    59,    60,    61,    62,    63,    64,    92,    -1,
+      67,    -1,    69,    70,    71,    72,    73,    74,    75,    76,
+      77,    78,    52,    53,    54,    -1,    56,    57,    58,    59,
+      60,    61,    62,    63,    64,    92,    -1,    67,    -1,    69,
+      70,    71,    72,    73,    74,    75,    76,    77,    78,    52,
+      53,    54,    -1,    56,    57,    58,    59,    60,    61,    62,
+      63,    64,    92,    -1,    67,    -1,    69,    70,    71,    72,
+      73,    74,    75,    76,    77,    78,    52,    53,    54,    -1,
+      56,    57,    58,    59,    60,    61,    62,    63,    64,    92,
+      -1,    67,    -1,    69,    70,    71,    72,    73,    74,    75,
+      76,    77,    78,    52,    53,    54,    -1,    56,    57,    58,
+      59,    60,    61,    62,    63,    64,    92,    -1,    67,    -1,
+      69,    70,    71,    72,    73,    74,    75,    76,    77,    78,
+      52,    53,    54,    -1,    56,    57,    58,    59,    60,    61,
+      62,    63,    64,    92,    -1,    67,    -1,    69,    70,    71,
+      72,    73,    74,    75,    76,    77,    78,    52,    53,    54,
+      -1,    56,    57,    58,    59,    60,    61,    62,    63,    64,
+      92,    -1,    67,    -1,    69,    70,    71,    72,    73,    74,
+      75,    76,    77,    78,    52,    53,    54,    -1,    56,    57,
+      58,    59,    60,    61,    62,    63,    64,    92,    -1,    67,
+      -1,    69,    70,    71,    72,    73,    74,    75,    76,    77,
+      78,    52,    53,    54,    -1,    56,    57,    58,    59,    60,
+      61,    62,    63,    64,    92,    -1,    67,    68,    69,    70,
+      71,    72,    73,    74,    75,    76,    77,    78,    -1,    -1,
+      -1,    -1,    -1,    52,    53,    54,    87,    56,    57,    58,
+      59,    60,    61,    62,    63,    64,    -1,    -1,    67,    -1,
+      69,    70,    71,    72,    73,    74,    75,    76,    77,    78,
+      -1,    -1,    -1,    -1,    52,    53,    54,    86,    56,    57,
+      58,    59,    60,    61,    62,    63,    64,    -1,    -1,    67,
+      -1,    69,    70,    71,    72,    73,    74,    75,    76,    77,
+      78,    -1,    -1,    -1,    -1,    52,    53,    54,    86,    56,
+      57,    58,    59,    60,    61,    62,    63,    64,    -1,    -1,
+      67,    -1,    69,    70,    71,    72,    73,    74,    75,    76,
+      77,    78,    -1,    -1,    -1,    -1,    52,    53,    54,    86,
+      56,    57,    58,    59,    60,    61,    62,    63,    64,    -1,
+      -1,    67,    -1,    69,    70,    71,    72,    73,    74,    75,
+      76,    77,    78,    -1,    -1,    -1,    -1,    52,    53,    54,
+      86,    56,    57,    58,    59,    60,    61,    62,    63,    64,
+      -1,    -1,    67,    -1,    69,    70,    71,    72,    73,    74,
+      75,    76,    77,    78,    -1,    -1,    -1,    -1,    52,    53,
+      54,    86,    56,    57,    58,    59,    60,    61,    62,    63,
+      64,    -1,    -1,    67,    -1,    69,    70,    71,    72,    73,
+      74,    75,    76,    77,    78,    -1,    -1,    -1,    -1,    52,
+      53,    54,    86,    56,    57,    58,    59,    60,    61,    62,
+      63,    64,    -1,    -1,    67,    -1,    69,    70,    71,    72,
+      73,    74,    75,    76,    77,    78,    -1,    -1,    -1,    -1,
+      52,    53,    54,    86,    56,    57,    58,    59,    60,    61,
+      62,    63,    64,    -1,    -1,    67,    -1,    69,    70,    71,
+      72,    73,    74,    75,    76,    77,    78,    -1,    -1,    -1,
+      -1,    52,    53,    54,    86,    56,    57,    58,    59,    60,
+      61,    62,    63,    64,    -1,    -1,    67,    -1,    69,    70,
+      71,    72,    73,    74,    75,    76,    77,    78,    -1,    -1,
+      -1,    -1,    52,    53,    54,    86,    56,    57,    58,    59,
+      60,    61,    62,    63,    64,    -1,    -1,    67,    -1,    69,
+      70,    71,    72,    73,    74,    75,    76,    77,    78,    -1,
+      -1,    -1,    -1,    52,    53,    54,    86,    56,    57,    58,
+      59,    60,    61,    62,    63,    64,    -1,    -1,    67,    -1,
+      69,    70,    71,    72,    73,    74,    75,    76,    77,    78,
+      -1,    -1,    -1,    -1,    52,    53,    54,    86,    56,    57,
+      58,    59,    60,    61,    62,    63,    64,    -1,    -1,    67,
+      -1,    69,    70,    71,    72,    73,    74,    75,    76,    77,
+      78,    -1,    -1,    -1,    -1,    52,    53,    54,    86,    56,
+      57,    58,    59,    60,    61,    62,    63,    64,    -1,    -1,
+      67,    -1,    69,    70,    71,    72,    73,    74,    75,    76,
+      77,    78,    -1,    -1,    -1,    -1,    52,    53,    54,    86,
+      56,    57,    58,    59,    60,    61,    62,    63,    64,    -1,
+      -1,    67,    -1,    69,    70,    71,    72,    73,    74,    75,
+      76,    77,    78,    -1,    -1,    -1,    -1,    52,    53,    54,
+      86,    56,    57,    58,    59,    60,    61,    62,    63,    64,
+      -1,    -1,    67,    -1,    69,    70,    71,    72,    73,    74,
+      75,    76,    77,    78,    -1,    -1,    -1,    -1,    52,    53,
+      54,    86,    56,    57,    58,    59,    60,    61,    62,    63,
+      64,    -1,    -1,    67,    -1,    69,    70,    71,    72,    73,
+      74,    75,    76,    77,    78,    -1,    -1,    -1,    -1,    52,
+      53,    54,    86,    56,    57,    58,    59,    60,    61,    62,
+      63,    64,    -1,    -1,    67,    -1,    69,    70,    71,    72,
+      73,    74,    75,    76,    77,    78,    -1,    -1,    -1,    -1,
+      52,    53,    54,    86,    56,    57,    58,    59,    60,    61,
+      62,    63,    64,    -1,    -1,    67,    -1,    69,    70,    71,
+      72,    73,    74,    75,    76,    77,    78,    -1,    -1,    -1,
+      -1,    52,    53,    54,    86,    56,    57,    58,    59,    60,
+      61,    62,    63,    64,    -1,    -1,    67,    -1,    69,    70,
+      71,    72,    73,    74,    75,    76,    77,    78,    -1,    52,
+      53,    54,    83,    56,    57,    58,    59,    60,    61,    62,
+      63,    64,    -1,    -1,    67,    -1,    69,    70,    71,    72,
+      73,    74,    75,    76,    77,    78,    -1,    52,    53,    54,
+      83,    56,    57,    58,    59,    60,    61,    62,    63,    64,
+      -1,    -1,    67,    -1,    69,    70,    71,    72,    73,    74,
+      75,    76,    77,    78,    -1,    52,    53,    54,    83,    56,
+      57,    58,    59,    60,    61,    62,    63,    64,    -1,    -1,
+      67,    -1,    69,    70,    71,    72,    73,    74,    75,    76,
+      77,    78,    -1,    52,    53,    54,    83,    56,    57,    58,
+      59,    60,    61,    62,    63,    64,    -1,    -1,    67,    -1,
+      69,    70,    71,    72,    73,    74,    75,    76,    77,    78,
+      -1,    52,    53,    54,    83,    56,    57,    58,    59,    60,
+      61,    62,    63,    64,    -1,    -1,    67,    -1,    69,    70,
+      71,    72,    73,    74,    75,    76,    77,    78,    -1,    52,
+      53,    54,    83,    56,    57,    58,    59,    60,    61,    62,
+      63,    64,    -1,    -1,    67,    -1,    69,    70,    71,    72,
+      73,    74,    75,    76,    77,    78,    -1,    52,    53,    54,
+      83,    56,    57,    58,    59,    60,    61,    62,    63,    64,
+      -1,    -1,    67,    -1,    69,    70,    71,    72,    73,    74,
+      75,    76,    77,    78,    -1,    52,    53,    54,    83,    56,
+      57,    58,    59,    60,    61,    62,    63,    64,    -1,    -1,
+      67,    -1,    69,    70,    71,    72,    73,    74,    75,    76,
+      77,    78,    -1,    52,    53,    54,    83,    56,    57,    58,
+      59,    60,    61,    62,    63,    64,    -1,    -1,    67,    -1,
+      69,    70,    71,    72,    73,    74,    75,    76,    77,    78,
+      -1,    52,    53,    54,    83,    56,    57,    58,    59,    60,
+      61,    62,    63,    64,    -1,    -1,    67,    -1,    69,    70,
+      71,    72,    73,    74,    75,    76,    77,    78,    -1,    52,
+      53,    54,    83,    56,    57,    58,    59,    60,    61,    62,
+      63,    64,    -1,    -1,    67,    -1,    69,    70,    71,    72,
+      73,    74,    75,    76,    77,    78,    -1,    52,    53,    54,
+      83,    56,    57,    58,    59,    60,    61,    62,    63,    64,
+      -1,    -1,    67,    -1,    69,    70,    71,    72,    73,    74,
+      75,    76,    77,    78,    -1,    52,    53,    54,    83,    56,
+      57,    58,    59,    60,    61,    62,    63,    64,    -1,    -1,
+      67,    -1,    69,    70,    71,    72,    73,    74,    75,    76,
+      77,    78,    -1,    52,    53,    54,    83,    56,    57,    58,
+      59,    60,    61,    62,    63,    64,    -1,    -1,    67,    -1,
+      69,    70,    71,    72,    73,    74,    75,    76,    77,    78,
+      -1,    52,    53,    54,    83,    56,    57,    58,    59,    60,
+      61,    62,    63,    64,    -1,    -1,    67,    -1,    69,    70,
+      71,    72,    73,    74,    75,    76,    77,    78,    -1,    52,
+      53,    54,    83,    56,    57,    58,    59,    60,    61,    62,
+      63,    64,    -1,    -1,    67,    -1,    69,    70,    71,    72,
+      73,    74,    75,    76,    77,    78,    -1,    52,    53,    54,
+      83,    56,    57,    58,    59,    60,    61,    62,    63,    64,
+      -1,    -1,    67,    68,    69,    70,    71,    72,    73,    74,
+      75,    76,    77,    78,    52,    53,    54,    -1,    56,    57,
+      58,    59,    60,    61,    62,    63,    64,    -1,    -1,    67,
+      68,    69,    70,    71,    72,    73,    74,    75,    76,    77,
+      78,    52,    53,    54,    -1,    56,    57,    58,    59,    60,
+      61,    62,    63,    64,    -1,    -1,    67,    68,    69,    70,
+      71,    72,    73,    74,    75,    76,    77,    78,    52,    53,
+      54,    -1,    56,    57,    58,    59,    60,    61,    62,    63,
+      64,    -1,    -1,    67,    68,    69,    70,    71,    72,    73,
+      74,    75,    76,    77,    78,    52,    53,    54,    -1,    56,
+      57,    58,    59,    60,    61,    62,    63,    64,    -1,    -1,
+      67,    -1,    69,    70,    71,    72,    73,    74,    75,    76,
+      77,    78,    52,    53,    54,    -1,    56,    57,    -1,    59,
+      60,    61,    62,    63,    64,    -1,    -1,    67,    -1,    69,
+      70,    71,    72,    73,    74,    75,    76,    77,    78,    52,
+      53,    54,    -1,    56,    -1,    -1,    59,    60,    61,    62,
+      63,    64,    -1,    -1,    67,    -1,    69,    70,    71,    72,
+      73,    74,    75,    76,    77,    78,    52,    53,    54,    -1,
+      56,    -1,    -1,    59,    60,    61,    62,    63,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    71,    72,    73,    74,    75,
+      76,    77,    78
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
    state STATE-NUM.  */
-static const yytype_int8 yystos[] =
+static const yytype_uint8 yystos[] =
 {
-       0,     6,    87,    88,    89,     3,     0,    89,    75,    76,
-      92,    76,     3,     8,     9,    93,    94,    97,    74,    15,
-      90,    91,     3,    10,    13,    82,   116,     3,    10,    11,
-      13,   116,    77,    78,     3,    10,    11,    12,    14,    15,
-      16,    17,    18,    29,    75,    95,    96,    97,   111,     3,
-      77,    78,     3,   116,   116,     3,     4,     5,    35,    42,
-      55,    56,    60,    61,    62,    66,    71,    72,    76,    84,
-     117,   118,     3,     3,   116,     3,    13,   116,   116,     3,
-      94,     3,    75,     3,   116,     3,    13,   116,     3,     3,
-       3,   116,     3,    84,   119,    75,    80,     3,    19,    21,
-      23,    26,    27,    28,    35,    36,    39,    40,    41,    43,
-      44,    74,    75,    80,    99,   119,    21,    26,    31,   104,
-     105,    76,     7,    96,    74,    74,    79,    92,    91,     3,
-       3,    82,    76,    76,   117,   117,   117,   117,   117,   117,
-     117,   117,   117,   117,   121,    45,    46,    47,    49,    50,
-      51,    52,    53,    54,    55,    56,    57,    58,    59,    60,
-      61,    62,    63,    64,    65,    66,    67,    68,    69,     3,
-     116,     3,     3,    76,    76,    79,    98,     3,    79,    98,
-     116,     3,    98,    79,    79,     3,    82,   119,   120,    79,
-     117,    76,    48,    99,   100,    76,    76,    76,    76,    76,
-      76,    76,    76,    76,    74,    76,    76,    76,     5,    76,
-      48,    79,    76,    76,     3,   106,    30,   105,    81,   112,
-     113,   117,    74,   117,     4,   117,    77,    84,    78,    85,
-     117,   117,   117,   117,   117,   117,   117,   117,   117,   117,
-     117,   117,   117,   117,   117,   117,   117,   117,   117,   117,
-     117,    67,   117,   117,   117,     3,    77,    81,   114,   115,
-     112,   117,    74,    78,    79,    98,   116,   117,    74,     3,
-      79,    98,   116,    74,   117,   117,    79,   117,    78,    85,
-     117,    99,    32,    33,    67,   101,   102,   117,    20,    99,
-     117,   117,   119,   117,   117,     4,   117,     4,   117,   121,
-       4,   121,   117,   103,   121,   103,    74,    32,    33,   117,
-      35,    37,    38,   117,   117,     3,    31,    74,    78,     3,
-      77,    78,    95,    59,    83,    77,    78,    77,   121,   117,
-      59,    83,   117,    74,     3,    77,    78,    77,    74,     3,
-     117,    74,    74,    74,    98,   117,    74,    74,    74,    74,
-     117,    59,    83,   119,    74,     3,     3,    77,    34,    77,
-      74,    77,    77,    79,    77,    77,    77,    77,    77,    77,
-      77,    77,    77,    77,    77,     3,     3,    74,    76,    76,
-      76,    74,    77,    79,     3,     3,    76,   113,     7,   117,
-      82,     4,    85,   117,    76,    74,   115,     3,    74,    74,
-      74,    74,   117,    82,    99,   102,    99,    99,    25,   109,
-     110,   117,   117,    99,    99,    74,    74,    74,    74,    74,
-      74,    74,    74,    74,    77,    77,     4,   121,   121,    19,
-      96,   107,   117,    79,   117,    83,   117,    77,    85,    77,
-     117,    76,    83,   117,    22,    59,    99,    24,   110,    59,
-      78,    74,    74,    74,    77,    77,    77,    59,    96,   105,
-     108,    22,    74,   117,    77,    59,    83,    77,    77,   114,
-      59,    83,    99,    99,    99,   117,   117,    74,    74,    74,
-       3,    20,    96,   105,   107,   117,    74,   117,    74,    77,
-     117,    59,    74,   108,    74,   117,    83,    74,    83,    99,
-     119,    20,   119,    74,    79,    79,     3,   117,   117,    79,
-      77,    77,   117,    99,   107,    77,   107
+       0,     6,    96,    97,    98,     3,     0,    98,    84,    85,
+     101,    85,     3,     8,     9,   102,   103,   113,    83,    15,
+      99,   100,     3,    10,    13,    91,   132,     3,    10,    11,
+      13,   132,    86,    87,     3,    10,    11,    12,    14,    15,
+      16,    17,    18,    21,    29,    31,    32,    84,   104,   105,
+     113,   127,     3,    86,    87,     3,   132,   132,     3,     4,
+       5,    37,    44,    50,    51,    62,    63,    69,    70,    71,
+      75,    80,    81,    85,    93,   133,   134,     3,     3,   132,
+       3,    13,   132,   132,     3,   103,     3,    84,     3,   132,
+       3,    13,   132,     3,     3,     3,   132,     3,    93,   135,
+      84,    89,     3,    11,    12,    19,    21,    23,    26,    27,
+      28,    37,    38,    41,    42,    43,    45,    46,    47,    48,
+      49,    83,    84,    89,   106,   115,   135,    85,    21,    23,
+      26,    31,   120,   121,     3,   122,     3,   132,    85,     7,
+     105,    83,    83,    88,   101,   100,     3,     3,    85,    91,
+      85,    85,    85,   133,   133,   133,   133,   133,   133,   133,
+     133,   133,   133,   137,    52,    53,    54,    56,    57,    58,
+      59,    60,    61,    62,    63,    64,    67,    68,    69,    70,
+      71,    72,    73,    74,    75,    76,    77,    78,     3,   132,
+       3,     3,    85,    85,    88,   114,     3,    88,   114,   132,
+       3,   114,    88,    88,     3,    91,   135,   136,    88,   133,
+      76,    85,    55,     3,   132,     3,    20,    68,   115,   116,
+      85,    85,    85,    85,    85,    85,    85,    85,    85,    83,
+      85,    85,    85,    85,    85,    85,     5,    85,    83,    55,
+      88,   133,    85,    85,    85,   122,    30,   121,    83,    87,
+      83,     3,    90,   128,   129,   133,    83,    86,   133,   137,
+     133,     4,   133,   133,    86,    93,    87,    94,   133,   133,
+     133,   133,   133,   133,   133,   133,   133,   133,   133,   133,
+     133,   133,   133,   133,   133,   133,   133,   133,   133,    76,
+     133,   133,   133,     3,    86,    90,   130,   131,   133,   128,
+     133,    83,    87,    88,   114,   132,   133,    83,     3,    88,
+     114,   132,    83,   133,   133,    88,   133,    87,    94,   133,
+     115,   115,    34,    35,    76,   117,   118,   133,   114,     3,
+     114,     3,    20,   115,   133,   133,   135,   133,   133,     4,
+     133,     4,   137,     4,   137,   133,   119,   137,   119,     4,
+     137,   137,    83,    34,    35,   133,    37,    39,    40,   133,
+      86,   133,   133,     3,    31,    83,     3,     8,   106,   107,
+     108,   109,   115,    83,     3,    86,    87,   104,    86,    65,
+      66,    68,    92,    86,    87,    86,    86,   137,   133,    68,
+      92,   133,    83,     3,    86,    87,    86,    83,     3,   133,
+      83,    83,    83,   114,   133,    83,    83,    83,    83,   133,
+      65,    66,    68,    92,   135,    83,     3,     3,    86,    36,
+      86,    83,   114,    20,   116,    86,    86,    88,    86,    86,
+      86,    86,    86,    86,    86,    86,    86,    86,    86,    86,
+      86,    86,     3,     3,    83,    85,    85,    85,    83,    19,
+     105,   123,    86,    86,    88,     3,     3,   132,    83,    33,
+     108,    83,   107,    85,   129,     7,   133,   133,   133,    91,
+       4,    94,   133,    85,    83,   131,     3,    83,    83,    83,
+      83,   133,   133,   133,    91,   115,   118,   115,    20,   115,
+      25,   125,   126,   133,   133,   115,   115,    83,    83,    83,
+      83,    83,    83,    83,    83,    83,    83,    83,    83,    86,
+      86,     4,   137,   137,    21,    31,    68,   105,   121,   124,
+      22,   123,    25,   111,   112,   133,   133,    88,   110,     3,
+      33,   133,    92,    92,    92,   133,    86,    94,    86,   133,
+      85,    92,    92,    92,   133,    22,    68,   115,    24,   126,
+      68,    87,    83,    83,    83,    86,    86,    86,    85,   122,
+       3,    20,   105,   121,   123,    22,    68,    24,   112,    68,
+      83,   133,    87,   110,    86,    68,    92,    86,    86,   130,
+      68,    92,   115,   115,   115,   133,   133,    83,    83,    83,
+     133,    83,   124,   123,   123,   123,   133,    83,     3,   133,
+      83,    86,   133,    68,    83,    86,    20,    83,   133,    92,
+      83,    92,   115,   135,   123,   135,    83,    88,    22,    88,
+       3,   133,   123,   133,    88,    86,    86,   133,   115,   123,
+      86,   123
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
-static const yytype_int8 yyr1[] =
+static const yytype_uint8 yyr1[] =
 {
-       0,    86,    87,    88,    88,    89,    89,    90,    90,    91,
-      92,    92,    93,    93,    94,    94,    94,    95,    95,    95,
-      96,    96,    96,    96,    96,    96,    96,    96,    96,    96,
-      96,    96,    96,    96,    96,    96,    96,    96,    96,    96,
-      96,    96,    96,    96,    96,    96,    96,    97,    97,    97,
-      97,    97,    97,    97,    97,    97,    97,    97,    97,    97,
-      98,    98,    99,    99,    99,    99,    99,    99,    99,    99,
-      99,    99,    99,    99,    99,    99,    99,    99,    99,    99,
-      99,    99,    99,    99,    99,    99,    99,    99,    99,   100,
-     100,   101,   101,   102,   102,   103,   104,   104,   105,   105,
-     105,   105,   105,   106,   106,   107,   107,   107,   108,   108,
-     108,   108,   109,   109,   110,   110,   110,   110,   111,   112,
-     112,   113,   114,   114,   115,   115,   116,   117,   117,   117,
-     117,   117,   117,   117,   117,   117,   117,   117,   117,   117,
-     117,   117,   117,   117,   117,   117,   117,   117,   117,   117,
-     117,   117,   117,   117,   117,   117,   117,   117,   117,   117,
-     118,   118,   118,   118,   118,   118,   118,   118,   118,   118,
-     118,   118,   118,   119,   119,   119,   119,   119,   119,   120,
-     120,   121,   121
+       0,    95,    96,    97,    97,    98,    98,    99,    99,   100,
+     101,   101,   102,   102,   103,   103,   103,   104,   104,   104,
+     105,   105,   105,   105,   105,   105,   105,   105,   105,   105,
+     105,   105,   105,   105,   105,   105,   105,   105,   105,   105,
+     105,   105,   105,   105,   105,   105,   105,   105,   105,   105,
+     105,   105,   105,   106,   106,   106,   107,   107,   107,   108,
+     108,   108,   109,   109,   110,   110,   111,   111,   112,   112,
+     113,   113,   113,   113,   113,   113,   113,   113,   113,   113,
+     113,   113,   113,   114,   114,   115,   115,   115,   115,   115,
+     115,   115,   115,   115,   115,   115,   115,   115,   115,   115,
+     115,   115,   115,   115,   115,   115,   115,   115,   115,   115,
+     115,   115,   115,   115,   115,   115,   115,   115,   115,   116,
+     116,   117,   117,   118,   118,   119,   120,   120,   121,   121,
+     121,   121,   121,   121,   122,   122,   123,   123,   123,   124,
+     124,   124,   124,   125,   125,   126,   126,   126,   126,   127,
+     128,   128,   129,   130,   130,   131,   131,   131,   132,   133,
+     133,   133,   133,   133,   133,   133,   133,   133,   133,   133,
+     133,   133,   133,   133,   133,   133,   133,   133,   133,   133,
+     133,   133,   133,   133,   133,   133,   133,   133,   133,   133,
+     133,   133,   134,   134,   134,   134,   134,   134,   134,   134,
+     134,   134,   134,   134,   134,   134,   134,   134,   134,   134,
+     134,   135,   135,   135,   135,   135,   135,   135,   135,   136,
+     136,   137,   137
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -1446,21 +1718,25 @@ static const yytype_int8 yyr2[] =
        0,     2,     1,     2,     1,     6,    10,     3,     1,     4,
        3,     0,     3,     1,     1,     1,     0,     2,     1,     0,
        2,     5,     5,     5,     6,     5,     4,     5,     6,     5,
-       4,     6,     4,     5,     5,     6,     5,     6,     6,     4,
-       2,    10,     6,     9,     5,     3,     2,     3,     2,     3,
-       2,     4,     3,     4,     3,     4,     3,     4,     4,     5,
-       3,     0,     1,     3,     5,     5,     5,     7,     6,    13,
-       4,     4,     4,     5,     5,     5,     5,     2,     5,     3,
+       4,     6,     4,     5,     5,     6,     5,     6,     4,     6,
+       4,     6,     5,     3,     2,    10,     6,     9,     5,     3,
+       5,     7,     2,     3,     4,     3,     2,     1,     0,     2,
+       2,     1,     4,     3,     3,     0,     2,     1,     3,     3,
+       3,     2,     3,     2,     4,     3,     4,     3,     4,     3,
+       4,     4,     5,     3,     0,     1,     3,     2,     5,     4,
+       2,     5,     5,     5,     7,     6,    13,     4,     4,     4,
+       5,     5,     5,     5,     5,     5,     5,     2,     5,     3,
        6,     6,     5,     5,     7,     7,     7,     5,     5,     2,
        1,     3,     1,     2,     2,     1,     2,     1,    14,    13,
-       5,     7,     3,     3,     1,     3,     5,     1,     2,     2,
-       1,     1,     2,     1,     3,     5,     3,     2,     4,     3,
-       1,     5,     3,     1,     5,     4,     5,     3,     3,     3,
+       5,     7,     6,     3,     3,     1,     3,     5,     1,     2,
+       2,     1,     1,     2,     1,     3,     5,     3,     2,     4,
+       3,     1,     5,     3,     1,     5,     4,     1,     5,     3,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     3,     3,     3,     3,     3,     3,     4,     3,     3,
-       5,     2,     2,     2,     2,     2,     2,     2,     2,     1,
-       1,     1,     6,     4,     9,     7,     3,     6,     3,     4,
-       6,     4,     1,     1,     6,     4,     9,     7,     3,     3,
+       3,     3,     3,     3,     3,     3,     3,     3,     3,     4,
+       3,     3,     5,     2,     2,     2,     2,     2,     2,     2,
+       2,     1,     1,     1,     4,     4,     3,     1,     6,     4,
+       9,     6,     6,     7,     3,     6,     3,     4,     6,     4,
+       1,     1,     6,     4,     9,     6,     6,     7,     3,     3,
        1,     3,     1
 };
 
@@ -1925,30 +2201,30 @@ yyreduce:
   switch (yyn)
     {
   case 3: /* module_list: module_list module  */
-#line 96 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 97 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                        { g_modules.push_back((yyvsp[0].node)); }
-#line 1931 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2207 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 4: /* module_list: module  */
-#line 97 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 98 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                        { g_modules.push_back((yyvsp[0].node)); }
-#line 1937 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2213 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 5: /* module: MODULE IDENTIFIER opt_port_list ';' module_items ENDMODULE  */
-#line 102 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 103 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
     {
         (yyval.node) = makeNode(NodeType::MODULE, (yyvsp[-4].str), yylineno);
         free((yyvsp[-4].str));
         if ((yyvsp[-3].node)) { for (auto *c : (yyvsp[-3].node)->children) addChild((yyval.node), c); (yyvsp[-3].node)->children.clear(); freeTree((yyvsp[-3].node)); }
         if ((yyvsp[-1].node)) { for (auto *c : (yyvsp[-1].node)->children) { addChild((yyval.node), c); } (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node)); }
     }
-#line 1948 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2224 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 6: /* module: MODULE IDENTIFIER '#' '(' module_param_decls ')' opt_port_list ';' module_items ENDMODULE  */
-#line 109 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 110 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
     {
         (yyval.node) = makeNode(NodeType::MODULE, (yyvsp[-8].str), yylineno);
         free((yyvsp[-8].str));
@@ -1957,89 +2233,89 @@ yyreduce:
         if ((yyvsp[-3].node)) { for (auto *c : (yyvsp[-3].node)->children) addChild((yyval.node), c); (yyvsp[-3].node)->children.clear(); freeTree((yyvsp[-3].node)); }
         if ((yyvsp[-1].node)) { for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c); (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node)); }
     }
-#line 1961 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2237 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 7: /* module_param_decls: module_param_decls ',' module_param_decl  */
-#line 120 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 121 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                                              { addChild((yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); }
-#line 1967 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2243 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 8: /* module_param_decls: module_param_decl  */
-#line 121 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 122 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                                              { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 1973 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2249 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 9: /* module_param_decl: PARAMETER IDENTIFIER '=' expr  */
-#line 126 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 127 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::LOCALPARAM_DECL, (yyvsp[-2].str), yylineno); free((yyvsp[-2].str)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 1979 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2255 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 10: /* opt_port_list: '(' port_list ')'  */
-#line 130 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 131 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                       { (yyval.node) = (yyvsp[-1].node); }
-#line 1985 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2261 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 11: /* opt_port_list: %empty  */
-#line 131 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 132 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                       { (yyval.node) = nullptr; }
-#line 1991 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2267 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 12: /* port_list: port_list ',' port_decl_in_list  */
-#line 135 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 136 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                                     { if ((yyvsp[0].node)) addChild((yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); }
-#line 1997 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2273 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 13: /* port_list: port_decl_in_list  */
-#line 136 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 137 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                                     { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); if ((yyvsp[0].node)) addChild((yyval.node), (yyvsp[0].node)); }
-#line 2003 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2279 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 14: /* port_decl_in_list: IDENTIFIER  */
-#line 140 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 141 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                             { free((yyvsp[0].str)); (yyval.node) = nullptr; }
-#line 2009 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2285 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 15: /* port_decl_in_list: port_decl  */
-#line 141 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 142 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                             { (yyval.node) = (yyvsp[0].node); }
-#line 2015 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2291 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 16: /* port_decl_in_list: %empty  */
-#line 142 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 143 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                             { (yyval.node) = nullptr; }
-#line 2021 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2297 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 17: /* module_items: module_items module_item  */
-#line 146 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 147 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                              { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
-#line 2027 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2303 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 18: /* module_items: module_item  */
-#line 147 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 148 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                              { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2033 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2309 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 19: /* module_items: %empty  */
-#line 148 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 149 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                              { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); }
-#line 2039 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2315 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 21: /* module_item: WIRE range IDENTIFIER range ';'  */
-#line 154 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 155 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           /* Multi-dimensional wire: wire [msb:lsb] name[dim_msb:dim_lsb] */
           (yyval.node) = makeNode(NodeType::NET_DECL, "wire", yylineno);
@@ -2052,15 +2328,14 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2056 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2332 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 22: /* module_item: REG range IDENTIFIER range ';'  */
-#line 167 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 168 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           /* Unpacked memory: reg [data_msb:data_lsb] name[addr_msb:addr_lsb] */
-          (yyval.node) = makeNode(NodeType::NET_DECL, "reg memory", yylineno);
-          addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno));
+          (yyval.node) = makeNode(NodeType::MEMORY_DECL, (yyvsp[-2].str), yylineno);
           free((yyvsp[-2].str));
           (yyval.node)->msb = (yyvsp[-3].node)->msb; (yyval.node)->lsb = (yyvsp[-3].node)->lsb;
           for (auto *c : (yyvsp[-3].node)->children) addChild((yyval.node), c);
@@ -2068,17 +2343,17 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2072 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2347 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 23: /* module_item: WIRE range IDENTIFIER decl_list ';'  */
-#line 179 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 179 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::NET_DECL, "wire", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = (yyvsp[-3].node)->msb; (yyval.node)->lsb = (yyvsp[-3].node)->lsb; for (auto *c : (yyvsp[-3].node)->children) addChild((yyval.node), c); (yyvsp[-3].node)->children.clear(); freeTree((yyvsp[-3].node)); }
-#line 2078 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2353 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 24: /* module_item: WIRE range IDENTIFIER '=' expr ';'  */
-#line 181 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 181 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           /* Wire with initialization — store expr as child for later assign */
           auto *decl = makeNode(NodeType::NET_DECL, "wire", yylineno);
@@ -2089,11 +2364,11 @@ yyreduce:
           addChild(decl, (yyvsp[-1].node));  /* init expression */
           (yyval.node) = decl;
       }
-#line 2093 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2368 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 25: /* module_item: WIRE IDENTIFIER '=' expr ';'  */
-#line 192 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 192 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           auto *decl = makeNode(NodeType::NET_DECL, "wire", yylineno);
           addChild(decl, makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno));
@@ -2103,67 +2378,75 @@ yyreduce:
           addChild(decl, (yyvsp[-1].node));
           (yyval.node) = decl;
       }
-#line 2107 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2382 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 26: /* module_item: WIRE IDENTIFIER decl_list ';'  */
-#line 202 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 202 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::NET_DECL, "wire", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = 0; (yyval.node)->lsb = 0; }
-#line 2113 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2388 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 27: /* module_item: REG range IDENTIFIER decl_list ';'  */
-#line 204 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 204 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = (yyvsp[-3].node)->msb; (yyval.node)->lsb = (yyvsp[-3].node)->lsb; for (auto *c : (yyvsp[-3].node)->children) addChild((yyval.node), c); (yyvsp[-3].node)->children.clear(); freeTree((yyvsp[-3].node)); }
-#line 2119 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2394 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 28: /* module_item: REG range IDENTIFIER '=' expr ';'  */
-#line 206 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
-      { (yyval.node) = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno)); free((yyvsp[-3].str)); (yyval.node)->msb = (yyvsp[-4].node)->msb; (yyval.node)->lsb = (yyvsp[-4].node)->lsb; for (auto *c : (yyvsp[-4].node)->children) addChild((yyval.node), c); (yyvsp[-4].node)->children.clear(); freeTree((yyvsp[-4].node)); }
-#line 2125 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 206 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::NET_DECL, "reg", yylineno);
+          addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno));
+          free((yyvsp[-3].str));
+          (yyval.node)->msb = (yyvsp[-4].node)->msb; (yyval.node)->lsb = (yyvsp[-4].node)->lsb;
+          for (auto *c : (yyvsp[-4].node)->children) addChild((yyval.node), c);
+          (yyvsp[-4].node)->children.clear(); freeTree((yyvsp[-4].node));
+          addChild((yyval.node), (yyvsp[-1].node));
+      }
+#line 2408 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 29: /* module_item: REG IDENTIFIER '=' expr ';'  */
-#line 208 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 216 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno)); free((yyvsp[-3].str)); (yyval.node)->msb = 0; (yyval.node)->lsb = 0; }
-#line 2131 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2414 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 30: /* module_item: REG IDENTIFIER decl_list ';'  */
-#line 210 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 218 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = 0; (yyval.node)->lsb = 0; }
-#line 2137 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2420 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 31: /* module_item: REG SIGNED range IDENTIFIER decl_list ';'  */
-#line 212 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 220 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::NET_DECL, "reg signed", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = (yyvsp[-3].node)->msb; (yyval.node)->lsb = (yyvsp[-3].node)->lsb; for (auto *c : (yyvsp[-3].node)->children) addChild((yyval.node), c); (yyvsp[-3].node)->children.clear(); freeTree((yyvsp[-3].node)); }
-#line 2143 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2426 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 32: /* module_item: INTEGER_KW IDENTIFIER decl_list ';'  */
-#line 214 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 222 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::NET_DECL, "integer", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = 31; (yyval.node)->lsb = 0; }
-#line 2149 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2432 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 33: /* module_item: LOCALPARAM IDENTIFIER '=' expr ';'  */
-#line 216 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 224 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::LOCALPARAM_DECL, (yyvsp[-3].str), yylineno); free((yyvsp[-3].str)); addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 2157 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2440 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 34: /* module_item: PARAMETER IDENTIFIER '=' expr ';'  */
-#line 220 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 228 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::LOCALPARAM_DECL, (yyvsp[-3].str), yylineno); free((yyvsp[-3].str)); addChild((yyval.node), (yyvsp[-1].node)); }
-#line 2163 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2446 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 35: /* module_item: PARAMETER range IDENTIFIER '=' expr ';'  */
-#line 222 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 230 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::LOCALPARAM_DECL, (yyvsp[-3].str), yylineno);
           free((yyvsp[-3].str));
@@ -2172,77 +2455,263 @@ yyreduce:
           (yyvsp[-4].node)->children.clear();
           freeTree((yyvsp[-4].node));
       }
-#line 2176 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2459 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 36: /* module_item: ASSIGN lvalue '=' expr ';'  */
-#line 231 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 239 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::ASSIGN, "", yylineno); addChild((yyval.node), (yyvsp[-3].node)); addChild((yyval.node), (yyvsp[-1].node)); }
-#line 2182 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2465 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 37: /* module_item: ALWAYS '@' '(' '*' ')' stmt  */
-#line 233 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 241 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::ALWAYS_BLOCK, "@(*)", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2188 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2471 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 38: /* module_item: ALWAYS '@' '(' event_list ')' stmt  */
-#line 235 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 38: /* module_item: ALWAYS '@' '*' stmt  */
+#line 243 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      { (yyval.node) = makeNode(NodeType::ALWAYS_BLOCK, "@(*)", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
+#line 2477 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 39: /* module_item: ALWAYS '@' '(' event_list ')' stmt  */
+#line 245 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::ALWAYS_BLOCK, "@events", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2194 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2483 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 39: /* module_item: ALWAYS '#' expr stmt  */
-#line 237 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 40: /* module_item: ALWAYS '#' expr stmt  */
+#line 247 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::ALWAYS_BLOCK, "#delay", yylineno); addChild((yyval.node), (yyvsp[-1].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2200 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2489 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 40: /* module_item: INITIAL_KW stmt  */
-#line 239 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 41: /* module_item: FUNCTION range IDENTIFIER ';' function_items ENDFUNCTION  */
+#line 249 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::FUNCTION_DECL, (yyvsp[-3].str), yylineno);
+          free((yyvsp[-3].str));
+          (yyval.node)->msb = (yyvsp[-4].node)->msb; (yyval.node)->lsb = (yyvsp[-4].node)->lsb;
+          for (auto *c : (yyvsp[-4].node)->children) addChild((yyval.node), c);
+          (yyvsp[-4].node)->children.clear(); freeTree((yyvsp[-4].node));
+          if ((yyvsp[-1].node)) { for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c); (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node)); }
+      }
+#line 2502 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 42: /* module_item: FUNCTION IDENTIFIER ';' function_items ENDFUNCTION  */
+#line 258 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::FUNCTION_DECL, (yyvsp[-3].str), yylineno);
+          free((yyvsp[-3].str));
+          if ((yyvsp[-1].node)) { for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c); (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node)); }
+      }
+#line 2512 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 43: /* module_item: GENVAR genvar_list ';'  */
+#line 264 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      { (yyval.node) = makeNode(NodeType::PROCEDURAL_DECL, "genvar", yylineno); }
+#line 2518 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 44: /* module_item: INITIAL_KW stmt  */
+#line 266 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::INITIAL_BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2206 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2524 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 41: /* module_item: IDENTIFIER '#' '(' param_list ')' IDENTIFIER '(' port_conn_list ')' ';'  */
-#line 242 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 45: /* module_item: IDENTIFIER '#' '(' param_list ')' IDENTIFIER '(' port_conn_list ')' ';'  */
+#line 269 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::MODULE_INST, (yyvsp[-9].str), yylineno); free((yyvsp[-9].str)); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-4].str), yylineno)); free((yyvsp[-4].str)); for (auto *c : (yyvsp[-6].node)->children) addChild((yyval.node), c); (yyvsp[-6].node)->children.clear(); freeTree((yyvsp[-6].node)); for (auto *c : (yyvsp[-2].node)->children) addChild((yyval.node), c); (yyvsp[-2].node)->children.clear(); freeTree((yyvsp[-2].node)); }
-#line 2212 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2530 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 42: /* module_item: IDENTIFIER IDENTIFIER '(' port_conn_list ')' ';'  */
-#line 244 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 46: /* module_item: IDENTIFIER IDENTIFIER '(' port_conn_list ')' ';'  */
+#line 271 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::MODULE_INST, (yyvsp[-5].str), yylineno); free((yyvsp[-5].str)); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-4].str), yylineno)); free((yyvsp[-4].str)); for (auto *c : (yyvsp[-2].node)->children) addChild((yyval.node), c); (yyvsp[-2].node)->children.clear(); freeTree((yyvsp[-2].node)); }
-#line 2218 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2536 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 43: /* module_item: IDENTIFIER '#' '(' param_list ')' IDENTIFIER '(' ')' ';'  */
-#line 246 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 47: /* module_item: IDENTIFIER '#' '(' param_list ')' IDENTIFIER '(' ')' ';'  */
+#line 273 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::MODULE_INST, (yyvsp[-8].str), yylineno); free((yyvsp[-8].str)); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno)); free((yyvsp[-3].str)); for (auto *c : (yyvsp[-5].node)->children) addChild((yyval.node), c); (yyvsp[-5].node)->children.clear(); freeTree((yyvsp[-5].node)); }
-#line 2224 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2542 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 44: /* module_item: IDENTIFIER IDENTIFIER '(' ')' ';'  */
-#line 248 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 48: /* module_item: IDENTIFIER IDENTIFIER '(' ')' ';'  */
+#line 275 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::MODULE_INST, (yyvsp[-4].str), yylineno); free((yyvsp[-4].str)); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno)); free((yyvsp[-3].str)); }
-#line 2230 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2548 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 45: /* module_item: GENERATE gen_items ENDGENERATE  */
-#line 249 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 49: /* module_item: GENERATE gen_items ENDGENERATE  */
+#line 276 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                                      { (yyval.node) = (yyvsp[-1].node); }
-#line 2236 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2554 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 46: /* module_item: param_override ';'  */
-#line 250 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 50: /* module_item: IF '(' expr ')' gen_block  */
+#line 278 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::GENERATE_IF, "", yylineno);
+          addChild((yyval.node), (yyvsp[-2].node));
+          addChild((yyval.node), (yyvsp[0].node));
+      }
+#line 2564 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 51: /* module_item: IF '(' expr ')' gen_block ELSE gen_block  */
+#line 284 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::GENERATE_IF, "", yylineno);
+          addChild((yyval.node), (yyvsp[-4].node));
+          addChild((yyval.node), (yyvsp[-2].node));
+          addChild((yyval.node), (yyvsp[0].node));
+      }
+#line 2575 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 52: /* module_item: param_override ';'  */
+#line 290 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                          { (yyval.node) = (yyvsp[-1].node); }
-#line 2242 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2581 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 47: /* port_decl: INPUT range IDENTIFIER  */
-#line 255 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 53: /* procedural_decl: INTEGER_KW IDENTIFIER decl_list  */
+#line 295 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::PROCEDURAL_DECL, "integer", yylineno);
+          addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-1].str), yylineno));
+          free((yyvsp[-1].str));
+      }
+#line 2591 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 54: /* procedural_decl: REG range IDENTIFIER decl_list  */
+#line 301 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::PROCEDURAL_DECL, "reg", yylineno);
+          (yyval.node)->msb = (yyvsp[-2].node)->msb; (yyval.node)->lsb = (yyvsp[-2].node)->lsb;
+          addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-1].str), yylineno));
+          free((yyvsp[-1].str));
+          for (auto *c : (yyvsp[-2].node)->children) addChild((yyval.node), c);
+          (yyvsp[-2].node)->children.clear(); freeTree((yyvsp[-2].node));
+      }
+#line 2604 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 55: /* procedural_decl: REG IDENTIFIER decl_list  */
+#line 310 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::PROCEDURAL_DECL, "reg", yylineno);
+          addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-1].str), yylineno));
+          free((yyvsp[-1].str));
+      }
+#line 2614 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 56: /* function_items: function_items function_item  */
+#line 318 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+                                 { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
+#line 2620 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 57: /* function_items: function_item  */
+#line 319 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+                    { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
+#line 2626 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 58: /* function_items: %empty  */
+#line 320 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+                  { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); }
+#line 2632 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 59: /* function_item: function_port_decl ';'  */
+#line 324 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+                           { (yyval.node) = (yyvsp[-1].node); }
+#line 2638 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 60: /* function_item: procedural_decl ';'  */
+#line 325 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+                          { (yyval.node) = (yyvsp[-1].node); }
+#line 2644 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 61: /* function_item: stmt  */
+#line 326 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+           { (yyval.node) = (yyvsp[0].node); }
+#line 2650 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 62: /* function_port_decl: INPUT range IDENTIFIER function_port_names  */
+#line 331 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::PORT, "input", yylineno);
+          (yyval.node)->msb = (yyvsp[-2].node)->msb; (yyval.node)->lsb = (yyvsp[-2].node)->lsb;
+          addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-1].str), yylineno));
+          free((yyvsp[-1].str));
+          for (auto *c : (yyvsp[-2].node)->children) addChild((yyval.node), c);
+          (yyvsp[-2].node)->children.clear(); freeTree((yyvsp[-2].node));
+          if ((yyvsp[0].node)) { for (auto *c : (yyvsp[0].node)->children) addChild((yyval.node), c); (yyvsp[0].node)->children.clear(); freeTree((yyvsp[0].node)); }
+      }
+#line 2664 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 63: /* function_port_decl: INPUT IDENTIFIER function_port_names  */
+#line 341 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::PORT, "input", yylineno);
+          addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-1].str), yylineno));
+          free((yyvsp[-1].str));
+          if ((yyvsp[0].node)) { for (auto *c : (yyvsp[0].node)->children) addChild((yyval.node), c); (yyvsp[0].node)->children.clear(); freeTree((yyvsp[0].node)); }
+      }
+#line 2675 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 64: /* function_port_names: function_port_names ',' IDENTIFIER  */
+#line 351 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      { addChild((yyvsp[-2].node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno)); free((yyvsp[0].str)); (yyval.node) = (yyvsp[-2].node); }
+#line 2681 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 65: /* function_port_names: %empty  */
+#line 352 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+                  { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); }
+#line 2687 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 66: /* gen_case_items: gen_case_items gen_case_item  */
+#line 356 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+                                 { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
+#line 2693 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 67: /* gen_case_items: gen_case_item  */
+#line 357 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+                    { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
+#line 2699 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 68: /* gen_case_item: expr ':' gen_block  */
+#line 362 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      { (yyval.node) = makeNode(NodeType::CASE_ITEM, "", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
+#line 2705 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 69: /* gen_case_item: DEFAULT ':' gen_block  */
+#line 364 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      { (yyval.node) = makeNode(NodeType::CASE_ITEM, "default", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
+#line 2711 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 70: /* port_decl: INPUT range IDENTIFIER  */
+#line 370 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "input";
@@ -2253,11 +2722,11 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2257 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2726 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 48: /* port_decl: INPUT IDENTIFIER  */
-#line 266 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 71: /* port_decl: INPUT IDENTIFIER  */
+#line 381 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "input";
@@ -2265,11 +2734,11 @@ yyreduce:
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno));
           free((yyvsp[0].str));
       }
-#line 2269 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2738 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 49: /* port_decl: OUTPUT range IDENTIFIER  */
-#line 274 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 72: /* port_decl: OUTPUT range IDENTIFIER  */
+#line 389 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output";
@@ -2279,11 +2748,11 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2283 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2752 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 50: /* port_decl: OUTPUT IDENTIFIER  */
-#line 284 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 73: /* port_decl: OUTPUT IDENTIFIER  */
+#line 399 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output";
@@ -2291,11 +2760,11 @@ yyreduce:
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno));
           free((yyvsp[0].str));
       }
-#line 2295 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2764 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 51: /* port_decl: OUTPUT WIRE range IDENTIFIER  */
-#line 292 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 74: /* port_decl: OUTPUT WIRE range IDENTIFIER  */
+#line 407 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output";
@@ -2305,11 +2774,11 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2309 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2778 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 52: /* port_decl: OUTPUT WIRE IDENTIFIER  */
-#line 302 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 75: /* port_decl: OUTPUT WIRE IDENTIFIER  */
+#line 417 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output";
@@ -2317,11 +2786,11 @@ yyreduce:
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno));
           free((yyvsp[0].str));
       }
-#line 2321 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2790 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 53: /* port_decl: INPUT WIRE range IDENTIFIER  */
-#line 310 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 76: /* port_decl: INPUT WIRE range IDENTIFIER  */
+#line 425 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "input";
@@ -2331,11 +2800,11 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2335 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2804 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 54: /* port_decl: INPUT WIRE IDENTIFIER  */
-#line 320 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 77: /* port_decl: INPUT WIRE IDENTIFIER  */
+#line 435 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "input";
@@ -2343,11 +2812,11 @@ yyreduce:
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno));
           free((yyvsp[0].str));
       }
-#line 2347 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2816 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 55: /* port_decl: OUTPUT REG range IDENTIFIER  */
-#line 328 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 78: /* port_decl: OUTPUT REG range IDENTIFIER  */
+#line 443 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output reg";
@@ -2357,11 +2826,11 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2361 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2830 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 56: /* port_decl: OUTPUT REG IDENTIFIER  */
-#line 338 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 79: /* port_decl: OUTPUT REG IDENTIFIER  */
+#line 453 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output reg";
@@ -2369,11 +2838,11 @@ yyreduce:
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno));
           free((yyvsp[0].str));
       }
-#line 2373 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2842 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 57: /* port_decl: OUTPUT SIGNED range IDENTIFIER  */
-#line 346 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 80: /* port_decl: OUTPUT SIGNED range IDENTIFIER  */
+#line 461 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output signed";
@@ -2383,11 +2852,11 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2387 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2856 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 58: /* port_decl: INPUT SIGNED range IDENTIFIER  */
-#line 356 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 81: /* port_decl: INPUT SIGNED range IDENTIFIER  */
+#line 471 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "input signed";
@@ -2397,11 +2866,11 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2401 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2870 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 59: /* port_decl: OUTPUT REG SIGNED range IDENTIFIER  */
-#line 366 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 82: /* port_decl: OUTPUT REG SIGNED range IDENTIFIER  */
+#line 481 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output reg signed";
@@ -2409,80 +2878,104 @@ yyreduce:
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno));
           free((yyvsp[0].str)); freeTree((yyvsp[-1].node));
       }
-#line 2413 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2882 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 60: /* decl_list: decl_list ',' IDENTIFIER  */
-#line 376 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 83: /* decl_list: decl_list ',' IDENTIFIER  */
+#line 491 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                              { free((yyvsp[0].str)); }
-#line 2419 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2888 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 62: /* stmt: ';'  */
-#line 381 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 85: /* stmt: ';'  */
+#line 496 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); }
-#line 2425 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2894 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 63: /* stmt: BEGINKW stmts END  */
-#line 382 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 86: /* stmt: BEGINKW stmts END  */
+#line 497 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                              { (yyval.node) = (yyvsp[-1].node); }
-#line 2431 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2900 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 64: /* stmt: REPEAT '(' expr ')' stmt  */
-#line 384 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 87: /* stmt: BEGINKW END  */
+#line 498 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+                             { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); }
+#line 2906 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 88: /* stmt: BEGINKW ':' IDENTIFIER stmts END  */
+#line 500 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      { (yyval.node) = (yyvsp[-1].node); (yyval.node)->value = (yyvsp[-2].str); free((yyvsp[-2].str)); }
+#line 2912 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 89: /* stmt: BEGINKW ':' IDENTIFIER END  */
+#line 502 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      { (yyval.node) = makeNode(NodeType::BLOCK, (yyvsp[-1].str), yylineno); free((yyvsp[-1].str)); }
+#line 2918 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 90: /* stmt: procedural_decl ';'  */
+#line 503 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+                             { (yyval.node) = (yyvsp[-1].node); }
+#line 2924 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 91: /* stmt: REPEAT '(' expr ')' stmt  */
+#line 505 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::FOR, "repeat", yylineno);
           addChild((yyval.node), (yyvsp[-2].node));
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 2441 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2934 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 65: /* stmt: WHILE '(' expr ')' stmt  */
-#line 390 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 92: /* stmt: WHILE '(' expr ')' stmt  */
+#line 511 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::FOR, "while", yylineno);
           addChild((yyval.node), (yyvsp[-2].node));
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 2451 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2944 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 66: /* stmt: IF '(' expr ')' stmt  */
-#line 396 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 93: /* stmt: IF '(' expr ')' stmt  */
+#line 517 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::IF, "", yylineno);
           addChild((yyval.node), (yyvsp[-2].node));
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 2461 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2954 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 67: /* stmt: IF '(' expr ')' stmt ELSE stmt  */
-#line 402 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 94: /* stmt: IF '(' expr ')' stmt ELSE stmt  */
+#line 523 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::IF, "", yylineno);
           addChild((yyval.node), (yyvsp[-4].node));
           addChild((yyval.node), (yyvsp[-2].node));
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 2472 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2965 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 68: /* stmt: CASE '(' expr ')' case_items ENDCASE  */
-#line 409 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 95: /* stmt: CASE '(' expr ')' case_items ENDCASE  */
+#line 530 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::CASE, "", yylineno);
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 2482 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2975 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 69: /* stmt: FOR '(' lvalue '=' expr ';' expr ';' lvalue '=' expr ')' stmt  */
-#line 415 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 96: /* stmt: FOR '(' lvalue '=' expr ';' expr ';' lvalue '=' expr ')' stmt  */
+#line 536 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::FOR, "", yylineno);
           addChild((yyval.node), (yyvsp[-10].node));  /* init lvalue */
@@ -2492,145 +2985,177 @@ yyreduce:
           addChild((yyval.node), (yyvsp[-2].node)); /* update expr */
           addChild((yyval.node), (yyvsp[0].node)); /* body */
       }
-#line 2496 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2989 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 70: /* stmt: lvalue '=' expr ';'  */
-#line 425 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 97: /* stmt: lvalue '=' expr ';'  */
+#line 546 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BLOCKING_ASSIGN, "", yylineno);
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 2506 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 2999 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 71: /* stmt: IDENTIFIER NONBLOCKING expr ';'  */
-#line 431 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 98: /* stmt: IDENTIFIER NONBLOCKING expr ';'  */
+#line 552 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::NONBLOCKING_ASSIGN, "", yylineno);
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno));
           free((yyvsp[-3].str));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 2517 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3010 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 72: /* stmt: lvalue NONBLOCKING expr ';'  */
-#line 438 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 99: /* stmt: lvalue NONBLOCKING expr ';'  */
+#line 559 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::NONBLOCKING_ASSIGN, "", yylineno);
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 2527 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3020 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 73: /* stmt: SYS_DISPLAY '(' expr_list ')' ';'  */
-#line 444 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 100: /* stmt: SYS_DISPLAY '(' expr_list ')' ';'  */
+#line 565 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$display", yylineno);
           (yyval.node)->children = (yyvsp[-2].node)->children;
           (yyvsp[-2].node)->children.clear();
           freeTree((yyvsp[-2].node));
       }
-#line 2538 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3031 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 74: /* stmt: SYS_DISPLAY '(' STRING ')' ';'  */
-#line 451 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 101: /* stmt: SYS_DISPLAY '(' STRING ')' ';'  */
+#line 572 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$display", yylineno);
           addChild((yyval.node), makeNode(NodeType::STRING, (yyvsp[-2].str), yylineno));
           free((yyvsp[-2].str));
       }
-#line 2548 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3041 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 75: /* stmt: SYS_READMEMH '(' readmem_args ')' ';'  */
-#line 457 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 102: /* stmt: SYS_READMEMH '(' readmem_args ')' ';'  */
+#line 578 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$readmemh", yylineno);
           (yyval.node)->children = (yyvsp[-2].node)->children;
           (yyvsp[-2].node)->children.clear();
           freeTree((yyvsp[-2].node));
       }
-#line 2559 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3052 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 76: /* stmt: SYS_READMEMB '(' readmem_args ')' ';'  */
-#line 464 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 103: /* stmt: SYS_READMEMB '(' readmem_args ')' ';'  */
+#line 585 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$readmemb", yylineno);
           (yyval.node)->children = (yyvsp[-2].node)->children;
           (yyvsp[-2].node)->children.clear();
           freeTree((yyvsp[-2].node));
       }
-#line 2570 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3063 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 77: /* stmt: SYS_FINISH ';'  */
-#line 470 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 104: /* stmt: SYS_DUMPFILE '(' STRING ')' ';'  */
+#line 592 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::SYS_TASK, "$dumpfile", yylineno);
+          addChild((yyval.node), makeNode(NodeType::STRING, (yyvsp[-2].str), yylineno));
+          free((yyvsp[-2].str));
+      }
+#line 3073 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 105: /* stmt: SYS_DUMPVARS '(' expr_list ')' ';'  */
+#line 598 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::SYS_TASK, "$dumpvars", yylineno);
+          (yyval.node)->children = (yyvsp[-2].node)->children;
+          (yyvsp[-2].node)->children.clear();
+          freeTree((yyvsp[-2].node));
+      }
+#line 3084 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 106: /* stmt: SYS_ERROR '(' expr_list ')' ';'  */
+#line 605 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::SYS_TASK, "$error", yylineno);
+          (yyval.node)->children = (yyvsp[-2].node)->children;
+          (yyvsp[-2].node)->children.clear();
+          freeTree((yyvsp[-2].node));
+      }
+#line 3095 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 107: /* stmt: SYS_FINISH ';'  */
+#line 611 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                                    { (yyval.node) = makeNode(NodeType::SYS_TASK, "$finish", yylineno); }
-#line 2576 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3101 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 78: /* stmt: SYS_FINISH '(' expr ')' ';'  */
-#line 471 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 108: /* stmt: SYS_FINISH '(' expr ')' ';'  */
+#line 612 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                                    { (yyval.node) = makeNode(NodeType::SYS_TASK, "$finish", yylineno); addChild((yyval.node), (yyvsp[-2].node)); }
-#line 2582 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3107 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 79: /* stmt: '#' NUMBER ';'  */
-#line 473 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 109: /* stmt: '#' NUMBER ';'  */
+#line 614 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::DELAY, std::to_string((yyvsp[-1].num)->value), yylineno);
           free((yyvsp[-1].num));
       }
-#line 2591 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3116 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 80: /* stmt: '@' '(' POSEDGE IDENTIFIER ')' ';'  */
-#line 478 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 110: /* stmt: '@' '(' POSEDGE IDENTIFIER ')' ';'  */
+#line 619 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::DELAY, "posedge", yylineno);
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno));
           free((yyvsp[-2].str));
       }
-#line 2601 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3126 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 81: /* stmt: '@' '(' NEGEDGE IDENTIFIER ')' ';'  */
-#line 484 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 111: /* stmt: '@' '(' NEGEDGE IDENTIFIER ')' ';'  */
+#line 625 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::DELAY, "negedge", yylineno);
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno));
           free((yyvsp[-2].str));
       }
-#line 2611 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3136 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 82: /* stmt: SYS_FOPEN '(' STRING ')' ';'  */
-#line 490 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 112: /* stmt: SYS_FOPEN '(' STRING ')' ';'  */
+#line 631 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$fopen", yylineno);
           addChild((yyval.node), makeNode(NodeType::STRING, (yyvsp[-2].str), yylineno));
           free((yyvsp[-2].str));
       }
-#line 2621 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3146 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 83: /* stmt: SYS_FCLOSE '(' expr ')' ';'  */
-#line 496 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 113: /* stmt: SYS_FCLOSE '(' expr ')' ';'  */
+#line 637 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$fclose", yylineno);
           addChild((yyval.node), (yyvsp[-2].node));
       }
-#line 2630 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3155 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 84: /* stmt: lvalue '=' SYS_FOPEN '(' STRING ')' ';'  */
-#line 501 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 114: /* stmt: lvalue '=' SYS_FOPEN '(' STRING ')' ';'  */
+#line 642 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BLOCKING_ASSIGN, "", yylineno);
           addChild((yyval.node), (yyvsp[-6].node));
@@ -2639,11 +3164,11 @@ yyreduce:
           free((yyvsp[-2].str));
           addChild((yyval.node), fc);
       }
-#line 2643 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3168 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 85: /* stmt: lvalue '=' SYS_FSCANF '(' expr_list ')' ';'  */
-#line 510 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 115: /* stmt: lvalue '=' SYS_FSCANF '(' expr_list ')' ';'  */
+#line 651 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BLOCKING_ASSIGN, "", yylineno);
           addChild((yyval.node), (yyvsp[-6].node));
@@ -2653,11 +3178,11 @@ yyreduce:
           freeTree((yyvsp[-2].node));
           addChild((yyval.node), fc);
       }
-#line 2657 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3182 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 86: /* stmt: lvalue '=' SYS_FGETS '(' expr_list ')' ';'  */
-#line 520 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 116: /* stmt: lvalue '=' SYS_FGETS '(' expr_list ')' ';'  */
+#line 661 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BLOCKING_ASSIGN, "", yylineno);
           addChild((yyval.node), (yyvsp[-6].node));
@@ -2667,86 +3192,86 @@ yyreduce:
           freeTree((yyvsp[-2].node));
           addChild((yyval.node), fc);
       }
-#line 2671 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3196 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 87: /* stmt: SYS_FDISPLAY '(' expr_list ')' ';'  */
-#line 530 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 117: /* stmt: SYS_FDISPLAY '(' expr_list ')' ';'  */
+#line 671 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$fdisplay", yylineno);
           (yyval.node)->children = (yyvsp[-2].node)->children;
           (yyvsp[-2].node)->children.clear();
           freeTree((yyvsp[-2].node));
       }
-#line 2682 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3207 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 88: /* stmt: SYS_FDISPLAY '(' STRING ')' ';'  */
-#line 537 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 118: /* stmt: SYS_FDISPLAY '(' STRING ')' ';'  */
+#line 678 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$fdisplay", yylineno);
           addChild((yyval.node), makeNode(NodeType::STRING, (yyvsp[-2].str), yylineno));
           free((yyvsp[-2].str));
       }
-#line 2692 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3217 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 89: /* stmts: stmts stmt  */
-#line 545 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 119: /* stmts: stmts stmt  */
+#line 686 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
-#line 2698 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3223 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 90: /* stmts: stmt  */
-#line 546 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 120: /* stmts: stmt  */
+#line 687 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2704 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3229 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 91: /* event_list: event_list OR event_expr  */
-#line 551 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 121: /* event_list: event_list OR event_expr  */
+#line 692 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { addChild((yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); }
-#line 2710 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3235 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 92: /* event_list: event_expr  */
-#line 553 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 122: /* event_list: event_expr  */
+#line 694 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::EVENT_CTRL, "events", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2716 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3241 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 93: /* event_expr: POSEDGE IDENTIFIER  */
-#line 558 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 123: /* event_expr: POSEDGE IDENTIFIER  */
+#line 699 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::EVENT_CTRL, "posedge", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno)); free((yyvsp[0].str)); }
-#line 2722 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3247 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 94: /* event_expr: NEGEDGE IDENTIFIER  */
-#line 560 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 124: /* event_expr: NEGEDGE IDENTIFIER  */
+#line 701 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::EVENT_CTRL, "negedge", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno)); free((yyvsp[0].str)); }
-#line 2728 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3253 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 95: /* readmem_args: expr_list  */
-#line 565 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 125: /* readmem_args: expr_list  */
+#line 706 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = (yyvsp[0].node); }
-#line 2734 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3259 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 96: /* gen_items: gen_items gen_item  */
-#line 569 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 126: /* gen_items: gen_items gen_item  */
+#line 710 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                        { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
-#line 2740 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3265 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 97: /* gen_items: gen_item  */
-#line 570 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 127: /* gen_items: gen_item  */
+#line 711 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                        { (yyval.node) = makeNode(NodeType::GENERATE, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2746 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3271 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 98: /* gen_item: FOR '(' GENVAR IDENTIFIER '=' expr ';' expr ';' IDENTIFIER '=' expr ')' gen_block  */
-#line 575 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 128: /* gen_item: FOR '(' GENVAR IDENTIFIER '=' expr ';' expr ';' IDENTIFIER '=' expr ')' gen_block  */
+#line 716 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
     {
         (yyval.node) = makeNode(NodeType::GENERATE_FOR, "", yylineno);
         addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-10].str), yylineno)); free((yyvsp[-10].str));
@@ -2754,11 +3279,11 @@ yyreduce:
         addChild((yyval.node), (yyvsp[-6].node));
         addChild((yyval.node), (yyvsp[0].node));
     }
-#line 2758 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3283 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 99: /* gen_item: FOR '(' IDENTIFIER '=' expr ';' expr ';' lvalue '=' expr ')' gen_block  */
-#line 583 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 129: /* gen_item: FOR '(' IDENTIFIER '=' expr ';' expr ';' lvalue '=' expr ')' gen_block  */
+#line 724 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
     {
         /* for (name = expr; cond; name = expr) — genvar already declared */
         (yyval.node) = makeNode(NodeType::GENERATE_FOR, "", yylineno);
@@ -2767,201 +3292,220 @@ yyreduce:
         addChild((yyval.node), (yyvsp[-6].node));
         addChild((yyval.node), (yyvsp[0].node));
     }
-#line 2771 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3296 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 100: /* gen_item: IF '(' expr ')' gen_block  */
-#line 592 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 130: /* gen_item: IF '(' expr ')' gen_block  */
+#line 733 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
     {
         (yyval.node) = makeNode(NodeType::GENERATE_IF, "", yylineno);
         addChild((yyval.node), (yyvsp[-2].node));
         addChild((yyval.node), (yyvsp[0].node));
     }
-#line 2781 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3306 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 101: /* gen_item: IF '(' expr ')' gen_block ELSE gen_block  */
-#line 598 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 131: /* gen_item: IF '(' expr ')' gen_block ELSE gen_block  */
+#line 739 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
     {
         (yyval.node) = makeNode(NodeType::GENERATE_IF, "", yylineno);
         addChild((yyval.node), (yyvsp[-4].node));
         addChild((yyval.node), (yyvsp[-2].node));
         addChild((yyval.node), (yyvsp[0].node));
     }
-#line 2792 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3317 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 102: /* gen_item: GENVAR genvar_list ';'  */
-#line 605 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 132: /* gen_item: CASE '(' expr ')' gen_case_items ENDCASE  */
+#line 746 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+    {
+        (yyval.node) = makeNode(NodeType::CASE, "generate", yylineno);
+        addChild((yyval.node), (yyvsp[-3].node));
+        addChild((yyval.node), (yyvsp[-1].node));
+    }
+#line 3327 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 133: /* gen_item: GENVAR genvar_list ';'  */
+#line 752 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
     {
         /* genvar declaration — skip */
         (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno);
     }
-#line 2801 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3336 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 103: /* genvar_list: genvar_list ',' IDENTIFIER  */
-#line 612 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 134: /* genvar_list: genvar_list ',' IDENTIFIER  */
+#line 759 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                                { free((yyvsp[0].str)); }
-#line 2807 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3342 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 104: /* genvar_list: IDENTIFIER  */
-#line 613 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 135: /* genvar_list: IDENTIFIER  */
+#line 760 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                  { free((yyvsp[0].str)); }
-#line 2813 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3348 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 105: /* gen_block: BEGINKW gen_body END  */
-#line 617 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 136: /* gen_block: BEGINKW gen_body END  */
+#line 764 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                          { (yyval.node) = (yyvsp[-1].node); }
-#line 2819 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3354 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 106: /* gen_block: BEGINKW ':' IDENTIFIER gen_body END  */
-#line 618 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 137: /* gen_block: BEGINKW ':' IDENTIFIER gen_body END  */
+#line 765 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                                           { (yyval.node) = (yyvsp[-1].node); free((yyvsp[-2].str)); }
-#line 2825 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3360 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 107: /* gen_block: module_item  */
-#line 619 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 138: /* gen_block: module_item  */
+#line 766 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                          { (yyval.node) = (yyvsp[0].node); }
-#line 2831 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3366 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 108: /* gen_body: gen_body module_item  */
-#line 623 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 139: /* gen_body: gen_body module_item  */
+#line 770 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                          { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
-#line 2837 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3372 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 109: /* gen_body: gen_body gen_item  */
-#line 624 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 140: /* gen_body: gen_body gen_item  */
+#line 771 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
-#line 2843 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3378 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 110: /* gen_body: module_item  */
-#line 625 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 141: /* gen_body: module_item  */
+#line 772 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                          { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2849 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3384 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 111: /* gen_body: gen_item  */
-#line 626 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 142: /* gen_body: gen_item  */
+#line 773 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                          { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2855 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3390 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 112: /* case_items: case_items case_item  */
-#line 630 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 143: /* case_items: case_items case_item  */
+#line 777 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                          { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
-#line 2861 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3396 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 113: /* case_items: case_item  */
-#line 631 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 144: /* case_items: case_item  */
+#line 778 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                          { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2867 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3402 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 114: /* case_item: expr ':' stmt  */
-#line 636 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 145: /* case_item: expr ':' stmt  */
+#line 783 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::CASE_ITEM, "", yylineno);
           addChild((yyval.node), (yyvsp[-2].node));
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 2877 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3412 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 115: /* case_item: expr ',' expr ':' stmt  */
-#line 642 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 146: /* case_item: expr ',' expr ':' stmt  */
+#line 789 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::CASE_ITEM, "", yylineno);
           addChild((yyval.node), (yyvsp[-4].node));
           addChild((yyval.node), (yyvsp[-2].node));
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 2888 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3423 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 116: /* case_item: DEFAULT ':' stmt  */
-#line 649 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 147: /* case_item: DEFAULT ':' stmt  */
+#line 796 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::CASE_ITEM, "default", yylineno);
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 2897 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3432 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 117: /* case_item: DEFAULT stmt  */
-#line 654 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 148: /* case_item: DEFAULT stmt  */
+#line 801 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::CASE_ITEM, "default", yylineno);
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 2906 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3441 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 118: /* param_override: '#' '(' param_list ')'  */
-#line 662 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 149: /* param_override: '#' '(' param_list ')'  */
+#line 809 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
     { (yyval.node) = makeNode(NodeType::PARAM_OVERRIDE, "", yylineno); for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c); (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node)); }
-#line 2912 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3447 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 119: /* param_list: param_list ',' param_assign  */
-#line 666 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 150: /* param_list: param_list ',' param_assign  */
+#line 813 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                                 { if ((yyvsp[0].node)) addChild((yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); }
-#line 2918 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3453 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 120: /* param_list: param_assign  */
-#line 667 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 151: /* param_list: param_assign  */
+#line 814 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                                 { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); if ((yyvsp[0].node)) addChild((yyval.node), (yyvsp[0].node)); }
-#line 2924 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3459 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 121: /* param_assign: '.' IDENTIFIER '(' expr ')'  */
-#line 671 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 152: /* param_assign: '.' IDENTIFIER '(' expr ')'  */
+#line 818 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                                 { (yyval.node) = makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno); free((yyvsp[-3].str)); addChild((yyval.node), (yyvsp[-1].node)); }
-#line 2930 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3465 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 122: /* port_conn_list: port_conn_list ',' port_conn  */
-#line 675 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 153: /* port_conn_list: port_conn_list ',' port_conn  */
+#line 822 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                                  { addChild((yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); }
-#line 2936 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3471 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 123: /* port_conn_list: port_conn  */
-#line 676 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 154: /* port_conn_list: port_conn  */
+#line 823 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                                  { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2942 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3477 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 124: /* port_conn: '.' IDENTIFIER '(' expr ')'  */
-#line 681 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 155: /* port_conn: '.' IDENTIFIER '(' expr ')'  */
+#line 828 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT_CONN, (yyvsp[-3].str), yylineno);
           free((yyvsp[-3].str));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 2952 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3487 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 125: /* port_conn: '.' IDENTIFIER '(' ')'  */
-#line 687 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 156: /* port_conn: '.' IDENTIFIER '(' ')'  */
+#line 834 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT_CONN, (yyvsp[-2].str), yylineno);
           free((yyvsp[-2].str));
       }
-#line 2961 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3496 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 126: /* range: '[' expr ':' expr ']'  */
-#line 695 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 157: /* port_conn: expr  */
+#line 839 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::PORT_CONN, "", yylineno);
+          addChild((yyval.node), (yyvsp[0].node));
+      }
+#line 3505 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 158: /* range: '[' expr ':' expr ']'  */
+#line 847 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, "", yylineno);
           addChild((yyval.node), (yyvsp[-3].node));
@@ -2970,244 +3514,277 @@ yyreduce:
           if ((yyvsp[-3].node)->type == NodeType::NUMBER) (yyval.node)->msb = std::stoi((yyvsp[-3].node)->value);
           if ((yyvsp[-1].node)->type == NodeType::NUMBER) (yyval.node)->lsb = std::stoi((yyvsp[-1].node)->value);
       }
-#line 2974 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3518 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 127: /* expr: expr '+' expr  */
-#line 706 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 159: /* expr: expr '+' expr  */
+#line 858 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "+", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2980 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3524 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 128: /* expr: expr '-' expr  */
-#line 707 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 160: /* expr: expr '-' expr  */
+#line 859 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "-", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2986 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3530 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 129: /* expr: expr '*' expr  */
-#line 708 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 161: /* expr: expr '*' expr  */
+#line 860 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "*", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2992 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3536 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 130: /* expr: expr '/' expr  */
-#line 709 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 162: /* expr: expr '/' expr  */
+#line 861 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "/", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2998 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3542 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 131: /* expr: expr '%' expr  */
-#line 710 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 163: /* expr: expr '%' expr  */
+#line 862 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "%", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3004 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3548 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 132: /* expr: expr '&' expr  */
-#line 711 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 164: /* expr: expr '&' expr  */
+#line 863 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "&", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3010 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3554 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 133: /* expr: expr '|' expr  */
-#line 712 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 165: /* expr: expr '|' expr  */
+#line 864 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "|", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3016 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3560 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 134: /* expr: expr '^' expr  */
-#line 713 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 166: /* expr: expr '^' expr  */
+#line 865 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "^", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3022 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3566 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 135: /* expr: expr XNOR expr  */
-#line 714 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 167: /* expr: expr XNOR expr  */
+#line 866 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "~^", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3028 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3572 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 136: /* expr: expr NAND expr  */
-#line 715 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 168: /* expr: expr NAND expr  */
+#line 867 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "~&", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3034 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3578 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 137: /* expr: expr NOR expr  */
-#line 716 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 169: /* expr: expr NOR expr  */
+#line 868 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "~|", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3040 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3584 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 138: /* expr: expr EQ expr  */
-#line 717 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 170: /* expr: expr EQ expr  */
+#line 869 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "==", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3046 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3590 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 139: /* expr: expr NE expr  */
-#line 718 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 171: /* expr: expr NE expr  */
+#line 870 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "!=", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3052 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3596 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 140: /* expr: expr '<' expr  */
-#line 719 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 172: /* expr: expr '<' expr  */
+#line 871 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "<", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3058 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3602 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 141: /* expr: expr '>' expr  */
-#line 720 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 173: /* expr: expr '>' expr  */
+#line 872 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, ">", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3064 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3608 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 142: /* expr: expr LE expr  */
-#line 721 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 174: /* expr: expr LE expr  */
+#line 873 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "<=", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3070 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3614 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 143: /* expr: expr GE expr  */
-#line 722 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 175: /* expr: expr GE expr  */
+#line 874 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, ">=", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3076 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3620 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 144: /* expr: expr SHL expr  */
-#line 723 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 176: /* expr: expr SHL expr  */
+#line 875 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "<<", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3082 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3626 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 145: /* expr: expr SHR expr  */
-#line 724 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 177: /* expr: expr SHR expr  */
+#line 876 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, ">>", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3088 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3632 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 146: /* expr: expr SSHR expr  */
-#line 725 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 178: /* expr: expr SSHR expr  */
+#line 877 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, ">>>", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3094 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3638 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 147: /* expr: expr '*' '*' expr  */
-#line 726 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 179: /* expr: expr '*' '*' expr  */
+#line 878 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                                      { (yyval.node) = makeNode(NodeType::BINOP, "**", yylineno); addChild((yyval.node), (yyvsp[-3].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3100 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3644 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 148: /* expr: expr LOGAND expr  */
-#line 727 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 180: /* expr: expr LOGAND expr  */
+#line 879 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "&&", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3106 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3650 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 149: /* expr: expr LOGOR expr  */
-#line 728 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 181: /* expr: expr LOGOR expr  */
+#line 880 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "||", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3112 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3656 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 150: /* expr: expr '?' expr ':' expr  */
-#line 730 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 182: /* expr: expr '?' expr ':' expr  */
+#line 882 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::TERNARY, "", yylineno);
           addChild((yyval.node), (yyvsp[-4].node)); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node));
       }
-#line 3121 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3665 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 151: /* expr: '-' expr  */
-#line 734 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 183: /* expr: '-' expr  */
+#line 886 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "-", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3127 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3671 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 152: /* expr: '!' expr  */
-#line 735 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 184: /* expr: '!' expr  */
+#line 887 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "!", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3133 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3677 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 153: /* expr: '~' expr  */
-#line 736 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 185: /* expr: '~' expr  */
+#line 888 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "~", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3139 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3683 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 154: /* expr: NAND expr  */
-#line 737 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 186: /* expr: NAND expr  */
+#line 889 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "~&", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3145 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3689 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 155: /* expr: NOR expr  */
-#line 738 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 187: /* expr: NOR expr  */
+#line 890 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "~|", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3151 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3695 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 156: /* expr: '&' expr  */
-#line 739 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 188: /* expr: '&' expr  */
+#line 891 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "&", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3157 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3701 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 157: /* expr: '|' expr  */
-#line 740 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 189: /* expr: '|' expr  */
+#line 892 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "|", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3163 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3707 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 158: /* expr: '^' expr  */
-#line 741 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 190: /* expr: '^' expr  */
+#line 893 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "^", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3169 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3713 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 160: /* prim_expr: NUMBER  */
-#line 747 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 192: /* prim_expr: NUMBER  */
+#line 899 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNum((yyvsp[0].num));
       }
-#line 3177 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3721 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 161: /* prim_expr: IDENTIFIER  */
-#line 751 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 193: /* prim_expr: SYS_TIME  */
+#line 903 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      { (yyval.node) = makeNode(NodeType::SYS_TASK, "$time", yylineno); }
+#line 3727 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 194: /* prim_expr: SYS_UNSIGNED '(' expr ')'  */
+#line 905 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::SYS_TASK, "$unsigned", yylineno);
+          addChild((yyval.node), (yyvsp[-1].node));
+      }
+#line 3736 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 195: /* prim_expr: IDENTIFIER '(' expr_list ')'  */
+#line 910 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::FUNCTION_CALL, (yyvsp[-3].str), yylineno);
+          free((yyvsp[-3].str));
+          (yyval.node)->children = (yyvsp[-1].node)->children;
+          (yyvsp[-1].node)->children.clear();
+          freeTree((yyvsp[-1].node));
+      }
+#line 3748 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 196: /* prim_expr: IDENTIFIER '(' ')'  */
+#line 918 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      { (yyval.node) = makeNode(NodeType::FUNCTION_CALL, (yyvsp[-2].str), yylineno); free((yyvsp[-2].str)); }
+#line 3754 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 197: /* prim_expr: IDENTIFIER  */
+#line 920 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno);
           free((yyvsp[0].str));
       }
-#line 3186 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3763 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 162: /* prim_expr: IDENTIFIER '[' expr ':' expr ']'  */
-#line 756 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 198: /* prim_expr: IDENTIFIER '[' expr ':' expr ']'  */
+#line 925 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-5].str), yylineno);
           free((yyvsp[-5].str));
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3197 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3774 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 163: /* prim_expr: IDENTIFIER '[' expr ']'  */
-#line 763 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 199: /* prim_expr: IDENTIFIER '[' expr ']'  */
+#line 932 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-3].str), yylineno);
           free((yyvsp[-3].str));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3207 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3784 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 164: /* prim_expr: IDENTIFIER '[' expr ']' '[' expr ':' expr ']'  */
-#line 769 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 200: /* prim_expr: IDENTIFIER '[' expr ']' '[' expr ':' expr ']'  */
+#line 938 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           /* Double range-select: signal[idx][msb:lsb] — mark with msb=-1 to distinguish */
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-8].str), yylineno);
@@ -3216,11 +3793,35 @@ yyreduce:
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3220 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3797 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 165: /* prim_expr: IDENTIFIER '[' expr ']' '[' expr ']'  */
-#line 778 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 201: /* prim_expr: IDENTIFIER '[' expr PART_PLUS expr ']'  */
+#line 947 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-5].str), yylineno);
+          (yyval.node)->part_select_direction = PartSelectDirection::PLUS;
+          free((yyvsp[-5].str));
+          addChild((yyval.node), (yyvsp[-3].node));
+          addChild((yyval.node), (yyvsp[-1].node));
+      }
+#line 3809 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 202: /* prim_expr: IDENTIFIER '[' expr PART_MINUS expr ']'  */
+#line 955 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-5].str), yylineno);
+          (yyval.node)->part_select_direction = PartSelectDirection::MINUS;
+          free((yyvsp[-5].str));
+          addChild((yyval.node), (yyvsp[-3].node));
+          addChild((yyval.node), (yyvsp[-1].node));
+      }
+#line 3821 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 203: /* prim_expr: IDENTIFIER '[' expr ']' '[' expr ']'  */
+#line 963 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           /* Double bit-select: signal[idx][bit] — 3 children: [idx, bit, sentinel] */
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-6].str), yylineno);
@@ -3231,22 +3832,22 @@ yyreduce:
           sentinel->msb = -1;
           addChild((yyval.node), sentinel);
       }
-#line 3235 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3836 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 166: /* prim_expr: '{' expr_list '}'  */
-#line 789 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 204: /* prim_expr: '{' expr_list '}'  */
+#line 974 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::CONCAT, "", yylineno);
           (yyval.node)->children = (yyvsp[-1].node)->children;
           (yyvsp[-1].node)->children.clear();
           freeTree((yyvsp[-1].node));
       }
-#line 3246 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3847 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 167: /* prim_expr: '{' expr '{' expr_list '}' '}'  */
-#line 796 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 205: /* prim_expr: '{' expr '{' expr_list '}' '}'  */
+#line 981 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           /* Replication: {count{expr_list}} — expand into count copies */
           (yyval.node) = makeNode(NodeType::CONCAT, "", yylineno);
@@ -3258,88 +3859,88 @@ yyreduce:
           freeTree((yyvsp[-4].node));
           (yyvsp[-2].node)->children.clear(); freeTree((yyvsp[-2].node));
       }
-#line 3262 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3863 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 168: /* prim_expr: '(' expr ')'  */
-#line 808 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 206: /* prim_expr: '(' expr ')'  */
+#line 993 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = (yyvsp[-1].node);
       }
-#line 3270 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3871 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 169: /* prim_expr: SYS_FOPEN '(' STRING ')'  */
-#line 812 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 207: /* prim_expr: SYS_FOPEN '(' STRING ')'  */
+#line 997 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$fopen", yylineno);
           addChild((yyval.node), makeNode(NodeType::STRING, (yyvsp[-1].str), yylineno));
           free((yyvsp[-1].str));
       }
-#line 3280 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3881 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 170: /* prim_expr: SYS_FOPEN '(' STRING ',' STRING ')'  */
-#line 818 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 208: /* prim_expr: SYS_FOPEN '(' STRING ',' STRING ')'  */
+#line 1003 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$fopen", yylineno);
           addChild((yyval.node), makeNode(NodeType::STRING, (yyvsp[-3].str), yylineno));
           addChild((yyval.node), makeNode(NodeType::STRING, (yyvsp[-1].str), yylineno));
           free((yyvsp[-3].str)); free((yyvsp[-1].str));
       }
-#line 3291 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3892 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 171: /* prim_expr: SYS_CLOG2 '(' expr ')'  */
-#line 825 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 209: /* prim_expr: SYS_CLOG2 '(' expr ')'  */
+#line 1010 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$clog2", yylineno);
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3300 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3901 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 172: /* prim_expr: STRING  */
-#line 830 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 210: /* prim_expr: STRING  */
+#line 1015 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::STRING, (yyvsp[0].str), yylineno);
           free((yyvsp[0].str));
       }
-#line 3309 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3910 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 173: /* lvalue: IDENTIFIER  */
-#line 838 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 211: /* lvalue: IDENTIFIER  */
+#line 1023 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno);
           free((yyvsp[0].str));
       }
-#line 3318 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3919 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 174: /* lvalue: IDENTIFIER '[' expr ':' expr ']'  */
-#line 843 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 212: /* lvalue: IDENTIFIER '[' expr ':' expr ']'  */
+#line 1028 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-5].str), yylineno);
           free((yyvsp[-5].str));
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3329 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3930 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 175: /* lvalue: IDENTIFIER '[' expr ']'  */
-#line 850 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 213: /* lvalue: IDENTIFIER '[' expr ']'  */
+#line 1035 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-3].str), yylineno);
           free((yyvsp[-3].str));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3339 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3940 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 176: /* lvalue: IDENTIFIER '[' expr ']' '[' expr ':' expr ']'  */
-#line 856 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 214: /* lvalue: IDENTIFIER '[' expr ']' '[' expr ':' expr ']'  */
+#line 1041 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-8].str), yylineno);
           free((yyvsp[-8].str));
@@ -3347,11 +3948,35 @@ yyreduce:
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3351 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3952 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 177: /* lvalue: IDENTIFIER '[' expr ']' '[' expr ']'  */
-#line 864 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 215: /* lvalue: IDENTIFIER '[' expr PART_PLUS expr ']'  */
+#line 1049 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-5].str), yylineno);
+          (yyval.node)->part_select_direction = PartSelectDirection::PLUS;
+          free((yyvsp[-5].str));
+          addChild((yyval.node), (yyvsp[-3].node));
+          addChild((yyval.node), (yyvsp[-1].node));
+      }
+#line 3964 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 216: /* lvalue: IDENTIFIER '[' expr PART_MINUS expr ']'  */
+#line 1057 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+      {
+          (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-5].str), yylineno);
+          (yyval.node)->part_select_direction = PartSelectDirection::MINUS;
+          free((yyvsp[-5].str));
+          addChild((yyval.node), (yyvsp[-3].node));
+          addChild((yyval.node), (yyvsp[-1].node));
+      }
+#line 3976 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 217: /* lvalue: IDENTIFIER '[' expr ']' '[' expr ']'  */
+#line 1065 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-6].str), yylineno);
           free((yyvsp[-6].str));
@@ -3361,46 +3986,46 @@ yyreduce:
           sentinel->msb = -1;
           addChild((yyval.node), sentinel);
       }
-#line 3365 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 3990 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 178: /* lvalue: '{' lvalue_list '}'  */
-#line 874 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 218: /* lvalue: '{' lvalue_list '}'  */
+#line 1075 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::CONCAT, "", yylineno);
           (yyval.node)->children = (yyvsp[-1].node)->children;
           (yyvsp[-1].node)->children.clear();
           freeTree((yyvsp[-1].node));
       }
-#line 3376 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 4001 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 179: /* lvalue_list: lvalue_list ',' lvalue  */
-#line 883 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 219: /* lvalue_list: lvalue_list ',' lvalue  */
+#line 1084 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                            { addChild((yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); }
-#line 3382 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 4007 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 180: /* lvalue_list: lvalue  */
-#line 884 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 220: /* lvalue_list: lvalue  */
+#line 1085 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                            { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3388 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 4013 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 181: /* expr_list: expr_list ',' expr  */
-#line 888 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 221: /* expr_list: expr_list ',' expr  */
+#line 1089 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                        { addChild((yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); }
-#line 3394 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 4019 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 182: /* expr_list: expr  */
-#line 889 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+  case 222: /* expr_list: expr  */
+#line 1090 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
                        { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3400 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 4025 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
 
-#line 3404 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.c"
+#line 4029 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
 
       default: break;
     }
@@ -3593,10 +4218,11 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 892 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 1093 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
 
 
 void yyerror(const char *msg) {
+    g_parse_ok = false;
     const SourceRecord *record = g_preprocess_result == nullptr
                                      ? nullptr
                                      : sourceRecordForOutputLine(*g_preprocess_result,
@@ -3612,6 +4238,7 @@ void yyerror(const char *msg) {
 extern int yydebug;
 std::vector<ASTNode *> parseFiles(const std::vector<std::string> &files) {
     g_modules.clear();
+    g_parse_ok = true;
     PreprocessResult result = preprocessFiles(files);
     if (!result.ok) {
         for (const auto &message : result.diagnostics) {

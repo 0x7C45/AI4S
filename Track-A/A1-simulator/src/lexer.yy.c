@@ -1,6 +1,6 @@
-#line 2 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.yy.c"
+#line 2 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.yy.c"
 
-#line 4 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.yy.c"
+#line 4 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -374,8 +374,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 94
-#define YY_END_OF_BUFFER 95
+#define YY_NUM_RULES 104
+#define YY_END_OF_BUFFER 105
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -383,41 +383,46 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static const flex_int16_t yy_accept[304] =
+static const flex_int16_t yy_accept[354] =
     {   0,
-        0,    0,   95,   93,   91,   92,   80,   93,   57,   93,
-       75,   76,   50,   51,   73,   71,   47,   72,   56,   74,
-       88,   48,   49,   81,   84,   82,   83,   58,   89,   52,
-       53,   78,   93,   89,   89,   89,   89,   89,   89,   89,
-       89,   89,   89,   89,   89,   89,   89,   89,   89,   54,
-       77,   55,   79,   91,   60,    0,   90,    0,    0,    0,
-        0,   63,    0,    1,    0,   88,   65,   61,   59,   62,
-       66,   89,    0,    0,    0,   89,   89,   89,   89,   89,
-       89,   89,   89,   89,   21,   89,   89,   89,   89,   36,
-       89,   89,   89,   89,   89,   89,   89,   64,   68,   70,
+        0,    0,  105,  103,  101,  102,   90,  103,   65,  103,
+       85,   86,   58,   59,   83,   81,   55,   82,   64,   84,
+       98,   56,   57,   91,   94,   92,   93,   66,   99,   60,
+       61,   88,  103,   99,   99,   99,   99,   99,   99,   99,
+       99,   99,   99,   99,   99,   99,   99,   99,   99,   62,
+       87,   63,   89,  101,   68,    0,  100,    0,    0,    0,
+        0,    0,    0,    0,   71,    0,   79,   80,    0,    1,
+        0,   98,   73,   69,   67,   70,   74,   99,    0,    0,
+        0,   99,   99,   99,   99,   99,   99,   99,   99,   99,
+       99,   21,   99,   99,   99,   99,   38,   99,   99,   99,
 
-       69,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    1,    0,    0,    0,   67,    0,    0,    0,
-       89,   89,   89,   89,   89,   89,   20,   28,   89,   89,
-       89,   89,   89,   89,   89,   89,   89,   89,   11,   89,
-       89,   89,   89,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    2,   85,   87,   86,    0,    0,    0,   89,
-       89,   89,   23,   89,   22,   89,   89,   89,   89,   89,
-       89,   89,   89,   89,   89,   89,   89,   89,   89,   89,
-       89,   89,   10,    0,    0,    0,    0,    0,    0,    0,
-        0,    0,    0,    0,    0,   89,   89,   19,   25,   24,
+       99,   99,   99,   99,   72,   76,   78,   77,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    1,    0,    0,    0,   75,
+        0,    0,    0,   99,   99,   99,   99,   99,   99,   20,
+       28,   99,   99,   99,   99,   99,   99,   99,   99,   99,
+       99,   99,   11,   99,   99,   99,   99,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+       54,    0,    2,   95,   97,   96,    0,    0,    0,   99,
+       99,   99,   23,   99,   22,   99,   99,   99,   99,   99,
+       99,   99,   99,   99,   99,   99,   99,   99,   99,   99,
 
-       89,   89,   89,   89,   89,   89,   89,    8,   89,   89,
-       89,   89,   89,   89,   89,   89,   89,   30,   44,    0,
-        0,    0,   40,    0,   37,    0,    0,    0,    0,    0,
-       17,   16,   89,   89,   89,   89,   89,   33,   89,   89,
-       89,    6,   89,    9,   89,   89,   29,   13,    0,   38,
-        0,   43,   39,    0,    0,    0,    0,   27,   26,   89,
-       89,   89,   18,   12,   89,   35,   89,   34,   42,    0,
-        0,    0,    0,    0,   89,   89,   31,   89,   89,   41,
-       46,   45,    0,    4,    0,   89,    7,   89,   15,    0,
-        3,   89,   14,    0,    3,   32,    0,    0,    0,    0,
+       99,   99,   99,   99,   10,    0,    0,    0,    0,    0,
+        0,    0,    0,    0,    0,    0,   53,    0,    0,    0,
+        0,   99,   99,   19,   25,   24,   99,   99,   99,   99,
+       99,   99,   99,   99,   99,    8,   99,   99,   99,   99,
+       99,   99,   99,   99,   99,   30,   46,    0,    0,    0,
+       51,    0,    0,   42,    0,   39,    0,    0,    0,    0,
+        0,    0,   17,   16,   99,   99,   99,   99,   99,   99,
+       99,   33,   99,   99,   99,    6,   99,    9,   99,   99,
+       29,   13,    0,    0,    0,   40,    0,   45,   41,    0,
+        0,    0,    0,    0,   27,   26,   99,   99,   99,   99,
 
+       99,   18,   12,   99,   37,   99,   36,   44,    0,    0,
+        0,    0,    0,    0,    0,    0,   99,   99,   99,   34,
+       31,   99,   99,   49,   50,   43,   48,   47,   52,    0,
+        4,    0,   99,   99,    7,   99,   15,    0,    3,   99,
+       99,   14,    0,    3,   35,   32,    0,    0,    0,    0,
         5,    5,    0
     } ;
 
@@ -464,83 +469,95 @@ static const YY_CHAR yy_meta[67] =
         3,    4,    1,    1,    1,    1
     } ;
 
-static const flex_int16_t yy_base[311] =
+static const flex_int16_t yy_base[362] =
     {   0,
-        0,    0,  368,  369,  365,  369,  341,  360,  369,   25,
-      369,  355,  369,  369,  369,  369,  369,  369,  369,   56,
-       61,  369,  369,   48,  338,   50,  369,  369,    0,  369,
-      369,  369,   34,   29,  318,  321,  316,   34,  307,  314,
-       41,  305,  304,  311,   37,   47,  310,  305,   48,  369,
-      288,  369,   80,  349,  369,  345,  369,  300,  300,   55,
-      303,  369,  333,    0,   75,   92,  369,  369,  369,  369,
-      319,    0,  300,  299,  294,  282,  285,  293,  283,  292,
-      281,  292,  280,  282,    0,   67,  290,  288,  284,    0,
-      273,  274,  272,   47,  280,  277,  270,  369,  369,  369,
+        0,    0,  427,  428,  424,  428,  400,  419,  428,   25,
+      428,  414,  409,  428,  428,  399,  428,  398,  428,   58,
+       64,  428,  428,   48,  394,   52,  428,  428,    0,  428,
+      428,  428,   32,   38,  374,  377,  372,   40,   38,  371,
+       47,  362,  361,  368,   40,   56,  367,  362,   52,  428,
+      345,  428,   92,  406,  428,  402,  428,  357,   54,  351,
+       61,  360,  355,  351,  428,  388,  428,  428,  387,    0,
+       84,  100,  428,  428,  428,  428,  373,    0,  354,  353,
+      348,  336,  339,  347,  337,  346,  335,  346,  334,  336,
+      335,    0,   70,  343,  341,  337,    0,  326,  327,  325,
 
-      369,  271,  267,  272,  272,  275,  267,  264,  274,  275,
-      301,   91,    0,   95,  105,    0,  369,  268,  257,  261,
-      270,  261,  260,  263,  266,  261,   85,    0,   84,  248,
-      246,  258,  261,  243,  255,  245,  257,  252,    0,  251,
-      243,  244,  248,  245,  237,  237,  233,  231,  238,  241,
-      244,  240,  369,  100,  130,    0,  242,  237,  236,  218,
-      232,  226,   70,  219,    0,  235,  230,  221,  218,  231,
-      222,  213,  222,  218,  217,  222,  207,  213,  219,  221,
-      216,  215,    0,  238,  208,  201,  202,  199,  198,  201,
-      200,  200,  192,  192,  192,  191,  194,    0,    0,    0,
+       59,  333,  330,  323,  428,  428,  428,  428,  324,  320,
+      324,  319,  323,  323,  326,  318,  315,  325,  326,  315,
+      309,  350,  120,  349,  117,    0,  103,  123,    0,  428,
+      316,  305,  309,  318,  309,  308,  311,  314,  309,  103,
+        0,  310,   92,  295,  293,  305,  308,  290,  302,  292,
+      304,  299,    0,  298,  290,  291,  295,  292,  284,  283,
+      283,  282,  278,  276,  283,  286,  289,  285,  283,  278,
+      312,  121,  428,  128,  139,    0,  284,  279,  278,  260,
+      274,  268,   92,  261,    0,  277,  259,  271,  262,  257,
+      258,  271,  262,  253,  262,  258,  257,  262,  247,  253,
 
-      195,  188,  191,  198,  200,  185,  198,    0,  193,  183,
-      191,  188,  177,  188,  185,  174,  186,    0,  369,  188,
-      183,  177,  369,  178,  369,  179,  179,  173,  181,  178,
-        0,    0,  163,  171,  167,  149,  135,    0,  140,  134,
-      147,    0,  142,    0,  129,  140,    0,    0,  122,  369,
-      142,  369,  369,  131,  124,  130,  138,    0,    0,  123,
-      127,  131,    0,    0,  120,    0,  129,    0,  369,  111,
-       99,  133,  121,  120,  126,  119,    0,  121,  105,  369,
-      369,  369,  107,  369,  112,   98,    0,  103,    0,  108,
-        0,  104,    0,   91,    0,    0,   89,   80,   84,   92,
+      259,  261,  256,  255,    0,  278,  248,  106,  242,  240,
+      241,  238,  237,  240,  239,  239,  428,  242,  230,  230,
+      230,  229,  232,    0,    0,    0,  233,  226,  229,  228,
+      235,  229,  236,  221,  234,    0,  229,  219,  227,  224,
+      213,  224,  221,  210,  222,    0,  428,  224,  215,  222,
+      428,  217,  211,  428,  212,  428,  213,  213,  205,  206,
+      214,  211,    0,    0,  196,  207,  208,  205,  191,  195,
+      190,    0,  196,  190,  203,    0,  198,    0,  185,  196,
+        0,    0,  178,  189,  183,  428,  196,  428,  428,  185,
+      190,  177,  180,  185,    0,    0,  164,  146,  149,  146,
 
-        0,    0,  369,  192,  195,  199,  204,  117,  209,  213
+      152,    0,    0,  141,    0,  150,    0,  428,  149,  137,
+      130,   99,  146,  149,  137,  135,  134,  141,  136,    0,
+        0,  139,  124,  428,  428,  428,  428,  428,  428,  125,
+      428,  131,  122,  116,    0,  121,    0,  126,    0,  118,
+      124,    0,  111,    0,    0,    0,   99,   67,   71,   62,
+        0,    0,  428,  201,  204,  208,  213,  218,   76,  223,
+      227
     } ;
 
-static const flex_int16_t yy_def[311] =
+static const flex_int16_t yy_def[362] =
     {   0,
-      303,    1,  303,  303,  303,  303,  303,  304,  303,  303,
-      303,  303,  303,  303,  303,  303,  303,  303,  303,  303,
-      303,  303,  303,  303,  303,  303,  303,  303,  305,  303,
-      303,  303,  303,  305,  305,  305,  305,  305,  305,  305,
-      305,  305,  305,  305,  305,  305,  305,  305,  305,  303,
-      303,  303,  303,  303,  303,  304,  303,  303,  303,  303,
-      303,  303,  306,  307,  303,  303,  303,  303,  303,  303,
-      303,  305,  303,  303,  303,  305,  305,  305,  305,  305,
-      305,  305,  305,  305,  305,  305,  305,  305,  305,  305,
-      305,  305,  305,  305,  305,  305,  305,  303,  303,  303,
+      353,    1,  353,  353,  353,  353,  353,  354,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  355,  353,
+      353,  353,  353,  355,  355,  355,  355,  355,  355,  355,
+      355,  355,  355,  355,  355,  355,  355,  355,  355,  353,
+      353,  353,  353,  353,  353,  354,  353,  353,  353,  353,
+      353,  353,  353,  353,  353,  356,  353,  353,  357,  358,
+      353,  353,  353,  353,  353,  353,  353,  355,  353,  353,
+      353,  355,  355,  355,  355,  355,  355,  355,  355,  355,
+      355,  355,  355,  355,  355,  355,  355,  355,  355,  355,
 
-      303,  303,  303,  303,  303,  303,  303,  303,  303,  303,
-      306,  306,  307,  303,  303,  308,  303,  303,  303,  303,
-      305,  305,  305,  305,  305,  305,  305,  305,  305,  305,
-      305,  305,  305,  305,  305,  305,  305,  305,  305,  305,
-      305,  305,  305,  303,  303,  303,  303,  303,  303,  303,
-      303,  303,  303,  303,  303,  308,  303,  303,  303,  305,
-      305,  305,  305,  305,  305,  305,  305,  305,  305,  305,
-      305,  305,  305,  305,  305,  305,  305,  305,  305,  305,
-      305,  305,  305,  303,  303,  303,  303,  303,  303,  303,
-      303,  303,  303,  303,  303,  305,  305,  305,  305,  305,
+      355,  355,  355,  355,  353,  353,  353,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  356,  356,  357,  357,  358,  353,  353,  359,  353,
+      353,  353,  353,  355,  355,  355,  355,  355,  355,  355,
+      355,  355,  355,  355,  355,  355,  355,  355,  355,  355,
+      355,  355,  355,  355,  355,  355,  355,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      356,  356,  353,  353,  353,  359,  353,  353,  353,  355,
+      355,  355,  355,  355,  355,  355,  355,  355,  355,  355,
+      355,  355,  355,  355,  355,  355,  355,  355,  355,  355,
 
-      305,  305,  305,  305,  305,  305,  305,  305,  305,  305,
-      305,  305,  305,  305,  305,  305,  305,  305,  303,  303,
-      303,  303,  303,  303,  303,  303,  303,  303,  303,  303,
-      305,  305,  305,  305,  305,  305,  305,  305,  305,  305,
-      305,  305,  305,  305,  305,  305,  305,  305,  303,  303,
-      303,  303,  303,  303,  303,  303,  303,  305,  305,  305,
-      305,  305,  305,  305,  305,  305,  305,  305,  303,  303,
-      303,  303,  303,  303,  305,  305,  305,  305,  305,  303,
-      303,  303,  303,  303,  303,  305,  305,  305,  305,  303,
-      309,  305,  305,  303,  309,  305,  303,  303,  303,  303,
+      355,  355,  355,  355,  355,  353,  353,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  355,  355,  355,  355,  355,  355,  355,  355,  355,
+      355,  355,  355,  355,  355,  355,  355,  355,  355,  355,
+      355,  355,  355,  355,  355,  355,  353,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  355,  355,  355,  355,  355,  355,  355,  355,
+      355,  355,  355,  355,  355,  355,  355,  355,  355,  355,
+      355,  355,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  353,  353,  355,  355,  355,  355,  355,  355,
 
-      310,  310,    0,  303,  303,  303,  303,  303,  303,  303
+      355,  355,  355,  355,  355,  355,  355,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  355,  355,  355,  355,
+      355,  355,  355,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  355,  355,  355,  355,  355,  353,  360,  355,
+      355,  355,  353,  360,  355,  355,  353,  353,  353,  353,
+      361,  361,    0,  353,  353,  353,  353,  353,  353,  353,
+      353
     } ;
 
-static const flex_int16_t yy_nxt[436] =
+static const flex_int16_t yy_nxt[495] =
     {   0,
         4,    5,    6,    7,    8,    9,   10,   11,   12,    4,
        13,   14,   15,   16,   17,   18,   19,   20,   21,   21,
@@ -548,51 +565,58 @@ static const flex_int16_t yy_nxt[436] =
        29,   29,   29,   29,   30,   31,   32,   29,   33,   34,
        35,   36,   37,   38,   39,   40,   29,   41,   42,   43,
        44,   45,   46,   47,   48,   29,   29,   29,   49,   29,
-       29,   29,   50,   51,   52,   53,   58,   59,   63,   60,
-       65,   67,   68,   64,   70,   71,   73,   76,   61,   66,
-       66,   66,   81,   77,   82,   85,   92,   74,   99,   75,
-       90,   86,  139,   91,   96,   97,  104,  105,   93,  140,
+       29,   29,   50,   51,   52,   53,   58,   59,   60,   61,
+       69,   73,   74,   71,   79,   70,   76,   77,   62,  176,
+       63,   64,   72,   72,   72,   80,   82,   81,   87,   89,
+       88,   92,   83,   97,   90,   99,   98,   93,  103,  104,
 
-      106,   65,  107,  112,  114,  115,  108,  116,  153,  109,
-       66,   66,   66,  154,  130,  114,  100,  115,  154,  131,
-      156,  116,  132,  155,  155,  155,  166,  169,  154,  199,
-      167,  200,  154,  154,  168,  301,  300,  154,  155,  281,
-      299,  170,  155,  101,  298,  282,  297,  296,  155,  155,
-      155,  294,  293,  292,  154,  291,  154,  290,  289,  154,
-      288,  154,  287,  155,  155,  286,  155,  155,  285,  284,
-      283,  280,  279,  278,  277,  276,  275,  274,  273,  272,
-      271,  270,  269,  268,  267,  266,  265,  264,  263,  155,
-      262,  155,   56,   56,   56,   56,   56,   72,   72,  111,
+      106,  110,  113,  114,  153,  351,  115,  100,  116,   71,
+      111,  154,  117,  127,  128,  118,  129,  144,   72,   72,
+       72,  174,  145,  350,  127,  146,  128,  349,  107,  125,
+      129,  171,  172,  172,  173,  191,  174,  353,  353,  327,
+      174,  175,  175,  175,  186,  328,  174,  187,  188,  192,
+      249,  225,  189,  226,  348,  108,  175,  175,  175,  175,
+      175,  174,  174,  250,  174,  174,  347,  346,  345,  343,
+      342,  341,  175,  340,  339,  338,  175,  337,  336,  335,
+      334,  333,  175,  332,  175,  331,  330,  174,  329,  174,
+      326,  325,  324,  323,  322,  321,  320,  319,  175,  318,
 
-      111,  111,  111,  111,  113,  261,  113,  113,  113,  295,
-      260,  295,  295,  302,  259,  302,  302,  302,  258,  257,
-      256,  255,  254,  253,  252,  251,  250,  249,  248,  247,
-      246,  245,  244,  243,  242,  241,  240,  239,  238,  237,
-      236,  235,  234,  233,  232,  231,  230,  229,  228,  227,
-      226,  225,  224,  223,  222,  221,  220,  219,  218,  217,
-      216,  215,  214,  213,  212,  211,  210,  209,  208,  207,
-      206,  205,  204,  203,  202,  201,  198,  197,  196,  195,
-      194,  193,  192,  191,  190,  189,  188,  187,  186,  185,
-      184,  183,  182,  181,  180,  179,  178,  177,  176,  175,
+      175,   56,   56,   56,   56,   56,   78,   78,  122,  122,
+      122,  122,  122,  124,  124,  124,  124,  124,  126,  317,
+      126,  126,  126,  344,  316,  344,  344,  352,  315,  352,
+      352,  352,  314,  313,  312,  311,  310,  309,  308,  307,
+      306,  305,  304,  303,  302,  301,  300,  299,  298,  297,
+      296,  295,  294,  293,  292,  291,  290,  289,  288,  287,
+      286,  285,  284,  283,  282,  281,  280,  279,  278,  277,
+      276,  275,  274,  273,  272,  271,  270,  269,  268,  267,
+      266,  265,  264,  263,  262,  261,  260,  259,  258,  257,
+      256,  255,  254,  253,  252,  251,  248,  247,  246,  245,
 
-      174,  173,  172,  171,  165,  164,  163,  162,  161,  160,
-      159,  158,  157,  112,  152,  151,  150,  149,  148,  147,
-      146,  145,  144,  143,  142,  141,  138,  137,  136,  135,
-      134,  133,  129,  128,  127,  126,  125,  124,  123,  122,
-      121,  120,  119,  118,  117,  112,  110,  103,  102,   57,
-       54,   98,   95,   94,   89,   88,   87,   84,   83,   80,
-       79,   78,   69,   62,   57,   55,   54,  303,    3,  303,
-      303,  303,  303,  303,  303,  303,  303,  303,  303,  303,
-      303,  303,  303,  303,  303,  303,  303,  303,  303,  303,
-      303,  303,  303,  303,  303,  303,  303,  303,  303,  303,
+      244,  243,  242,  241,  240,  239,  238,  237,  236,  235,
+      234,  233,  232,  231,  230,  229,  228,  227,  224,  223,
+      222,  221,  220,  219,  123,  218,  217,  216,  215,  214,
+      213,  212,  211,  210,  209,  208,  207,  206,  205,  204,
+      203,  202,  201,  200,  199,  198,  197,  196,  195,  194,
+      193,  190,  185,  184,  183,  182,  181,  180,  179,  178,
+      177,  125,  123,  170,  169,  168,  167,  166,  165,  164,
+      163,  162,  161,  160,  159,  158,  157,  156,  155,  152,
+      151,  150,  149,  148,  147,  143,  142,  141,  140,  139,
+      138,  137,  136,  135,  134,  133,  132,  131,  130,  125,
 
-      303,  303,  303,  303,  303,  303,  303,  303,  303,  303,
-      303,  303,  303,  303,  303,  303,  303,  303,  303,  303,
-      303,  303,  303,  303,  303,  303,  303,  303,  303,  303,
-      303,  303,  303,  303,  303
+      123,  121,  120,  119,  112,  109,   57,   54,  105,  102,
+      101,   96,   95,   94,   91,   86,   85,   84,   75,   68,
+       67,   66,   65,   57,   55,   54,  353,    3,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  353,  353
+
     } ;
 
-static const flex_int16_t yy_chk[436] =
+static const flex_int16_t yy_chk[495] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -600,58 +624,66 @@ static const flex_int16_t yy_chk[436] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,   10,   10,   20,   10,
-       21,   24,   24,   20,   26,   26,   33,   34,   10,   21,
-       21,   21,   38,   34,   38,   41,   46,   33,   53,   33,
-       45,   41,   94,   45,   49,   49,   60,   60,   46,   94,
+        1,    1,    1,    1,    1,    1,   10,   10,   10,   10,
+       20,   24,   24,   21,   33,   20,   26,   26,   10,  359,
+       10,   10,   21,   21,   21,   33,   34,   33,   38,   39,
+       38,   41,   34,   45,   39,   46,   45,   41,   49,   49,
 
-       60,   66,   60,  112,   65,   65,   60,   65,  112,   60,
-       66,   66,   66,  114,   86,   65,   53,   65,  154,   86,
-      308,   65,   86,  115,  115,  115,  127,  129,  114,  163,
-      127,  163,  114,  154,  127,  300,  299,  154,  115,  271,
-      298,  129,  115,   53,  297,  271,  294,  292,  155,  155,
-      155,  290,  288,  286,  114,  285,  114,  283,  279,  154,
-      278,  154,  276,  155,  115,  275,  115,  155,  274,  273,
-      272,  270,  267,  265,  262,  261,  260,  257,  256,  255,
-      254,  251,  249,  246,  245,  243,  241,  240,  239,  155,
-      237,  155,  304,  304,  304,  304,  304,  305,  305,  306,
+       53,   59,   61,   61,  101,  350,   61,   46,   61,   72,
+       59,  101,   61,   71,   71,   61,   71,   93,   72,   72,
+       72,  127,   93,  349,   71,   93,   71,  348,   53,  125,
+       71,  123,  123,  172,  125,  143,  127,  123,  172,  312,
+      127,  128,  128,  128,  140,  312,  174,  140,  140,  143,
+      208,  183,  140,  183,  347,   53,  128,  175,  175,  175,
+      128,  174,  127,  208,  127,  174,  343,  341,  340,  338,
+      336,  334,  175,  333,  332,  330,  175,  323,  322,  319,
+      318,  317,  128,  316,  128,  315,  314,  174,  313,  174,
+      311,  310,  309,  306,  304,  301,  300,  299,  175,  298,
 
-      306,  306,  306,  306,  307,  236,  307,  307,  307,  309,
-      235,  309,  309,  310,  234,  310,  310,  310,  233,  230,
-      229,  228,  227,  226,  224,  222,  221,  220,  217,  216,
-      215,  214,  213,  212,  211,  210,  209,  207,  206,  205,
-      204,  203,  202,  201,  197,  196,  195,  194,  193,  192,
-      191,  190,  189,  188,  187,  186,  185,  184,  182,  181,
-      180,  179,  178,  177,  176,  175,  174,  173,  172,  171,
-      170,  169,  168,  167,  166,  164,  162,  161,  160,  159,
-      158,  157,  152,  151,  150,  149,  148,  147,  146,  145,
-      144,  143,  142,  141,  140,  138,  137,  136,  135,  134,
+      175,  354,  354,  354,  354,  354,  355,  355,  356,  356,
+      356,  356,  356,  357,  357,  357,  357,  357,  358,  297,
+      358,  358,  358,  360,  294,  360,  360,  361,  293,  361,
+      361,  361,  292,  291,  290,  287,  285,  284,  283,  280,
+      279,  277,  275,  274,  273,  271,  270,  269,  268,  267,
+      266,  265,  262,  261,  260,  259,  258,  257,  255,  253,
+      252,  250,  249,  248,  245,  244,  243,  242,  241,  240,
+      239,  238,  237,  235,  234,  233,  232,  231,  230,  229,
+      228,  227,  223,  222,  221,  220,  219,  218,  216,  215,
+      214,  213,  212,  211,  210,  209,  207,  206,  204,  203,
 
-      133,  132,  131,  130,  126,  125,  124,  123,  122,  121,
-      120,  119,  118,  111,  110,  109,  108,  107,  106,  105,
-      104,  103,  102,   97,   96,   95,   93,   92,   91,   89,
-       88,   87,   84,   83,   82,   81,   80,   79,   78,   77,
-       76,   75,   74,   73,   71,   63,   61,   59,   58,   56,
-       54,   51,   48,   47,   44,   43,   42,   40,   39,   37,
-       36,   35,   25,   12,    8,    7,    5,    3,  303,  303,
-      303,  303,  303,  303,  303,  303,  303,  303,  303,  303,
-      303,  303,  303,  303,  303,  303,  303,  303,  303,  303,
-      303,  303,  303,  303,  303,  303,  303,  303,  303,  303,
+      202,  201,  200,  199,  198,  197,  196,  195,  194,  193,
+      192,  191,  190,  189,  188,  187,  186,  184,  182,  181,
+      180,  179,  178,  177,  171,  170,  169,  168,  167,  166,
+      165,  164,  163,  162,  161,  160,  159,  158,  157,  156,
+      155,  154,  152,  151,  150,  149,  148,  147,  146,  145,
+      144,  142,  139,  138,  137,  136,  135,  134,  133,  132,
+      131,  124,  122,  121,  120,  119,  118,  117,  116,  115,
+      114,  113,  112,  111,  110,  109,  104,  103,  102,  100,
+       99,   98,   96,   95,   94,   91,   90,   89,   88,   87,
+       86,   85,   84,   83,   82,   81,   80,   79,   77,   69,
 
-      303,  303,  303,  303,  303,  303,  303,  303,  303,  303,
-      303,  303,  303,  303,  303,  303,  303,  303,  303,  303,
-      303,  303,  303,  303,  303,  303,  303,  303,  303,  303,
-      303,  303,  303,  303,  303
+       66,   64,   63,   62,   60,   58,   56,   54,   51,   48,
+       47,   44,   43,   42,   40,   37,   36,   35,   25,   18,
+       16,   13,   12,    8,    7,    5,    3,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  353,  353,  353,  353,  353,  353,  353,  353,
+      353,  353,  353,  353
+
     } ;
 
 /* Table of booleans, true if rule could match eol. */
-static const flex_int32_t yy_rule_can_match_eol[95] =
+static const flex_int32_t yy_rule_can_match_eol[105] =
     {   0,
 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0,     };
+    1, 0, 1, 0, 0,     };
 
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
@@ -667,8 +699,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-#line 5 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 1 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 5 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 #include "parser.tab.h"
 #include <cstdlib>
 #include <cstring>
@@ -679,8 +711,8 @@ static char *stralloc(const char *s) {
 
 static int g_paren_depth = 0;
 static bool g_continuous_expr = false;
-#line 683 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.yy.c"
-#line 684 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.yy.c"
+#line 715 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.yy.c"
+#line 716 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.yy.c"
 
 #define INITIAL 0
 
@@ -897,10 +929,10 @@ YY_DECL
 		}
 
 	{
-#line 17 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 17 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 
 
-#line 904 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.yy.c"
+#line 936 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -927,13 +959,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 304 )
+				if ( yy_current_state >= 354 )
 					yy_c = yy_meta[yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 369 );
+		while ( yy_base[yy_current_state] != 428 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -969,428 +1001,479 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 19 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 19 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 ;
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 20 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 20 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 ;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 22 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 22 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 ;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 23 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 23 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 ;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 24 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 24 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 ;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 26 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 26 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return MODULE; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 27 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 27 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return ENDMODULE; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 28 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 28 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return INPUT; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 29 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 29 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return OUTPUT; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 30 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 30 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return WIRE; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 31 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 31 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return REG; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 32 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 32 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return INTEGER_KW; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 33 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 33 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return SIGNED; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 34 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 34 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return LOCALPARAM; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 35 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 35 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return PARAMETER; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 36 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 36 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { g_continuous_expr = true; return ASSIGN; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 37 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 37 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return ALWAYS; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 38 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 38 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return INITIAL_KW; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 39 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 39 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return BEGINKW; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 40 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 40 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return END; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 41 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 41 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return IF; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 42 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 42 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return ELSE; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 43 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 43 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return CASE; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 44 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 44 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return CASE; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 45 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 45 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return CASE; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 46 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 46 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return ENDCASE; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 47 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 47 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return DEFAULT; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 48 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 48 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return FOR; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 49 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 49 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return REPEAT; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 50 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 50 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return WHILE; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 51 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 51 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return GENERATE; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 52 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 52 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return ENDGENERATE; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 53 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 53 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { return GENVAR; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 54 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return POSEDGE; }
+#line 54 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return FUNCTION; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 55 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return NEGEDGE; }
+#line 55 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return ENDFUNCTION; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 56 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return OR; }
+#line 56 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return POSEDGE; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 58 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return SYS_FOPEN; }
+#line 57 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return NEGEDGE; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 59 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return SYS_FCLOSE; }
+#line 58 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return OR; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 60 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return SYS_FSCANF; }
+#line 60 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SYS_FOPEN; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 61 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return SYS_FGETS; }
+#line 61 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SYS_FCLOSE; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 62 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return SYS_FDISPLAY; }
+#line 62 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SYS_FSCANF; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 63 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return SYS_DISPLAY; }
+#line 63 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SYS_FGETS; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 64 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return SYS_FINISH; }
+#line 64 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SYS_FDISPLAY; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 65 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return SYS_CLOG2; }
+#line 65 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SYS_DISPLAY; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 66 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return SYS_READMEMH; }
+#line 66 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SYS_FINISH; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 67 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return SYS_READMEMB; }
+#line 67 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SYS_CLOG2; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 69 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return ','; }
+#line 68 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SYS_READMEMH; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 70 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return ':'; }
+#line 69 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SYS_READMEMB; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 71 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ g_continuous_expr = false; return ';'; }
+#line 70 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SYS_DUMPFILE; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 72 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ ++g_paren_depth; return '('; }
+#line 71 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SYS_DUMPVARS; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 73 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ if (g_paren_depth > 0) --g_paren_depth; return ')'; }
+#line 72 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SYS_ERROR; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 74 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '['; }
+#line 73 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SYS_UNSIGNED; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 75 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return ']'; }
+#line 74 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SYS_TIME; }
 	YY_BREAK
 case 54:
+/* rule 54 can match eol */
 YY_RULE_SETUP
-#line 76 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '{'; }
+#line 76 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+;
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 77 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '}'; }
+#line 78 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return ','; }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 78 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '.'; }
+#line 79 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return ':'; }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 79 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '#'; }
+#line 80 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ g_continuous_expr = false; return ';'; }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 80 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '@'; }
+#line 81 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ ++g_paren_depth; return '('; }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 82 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return EQ; }
+#line 82 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ if (g_paren_depth > 0) --g_paren_depth; return ')'; }
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 83 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return NE; }
+#line 83 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '['; }
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 84 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return (g_continuous_expr || g_paren_depth > 0) ? LE : NONBLOCKING; }
+#line 84 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return ']'; }
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 85 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return GE; }
+#line 85 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '{'; }
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 86 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return LOGAND; }
+#line 86 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '}'; }
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 87 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return LOGOR; }
+#line 87 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '.'; }
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 88 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return SHL; }
+#line 88 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '#'; }
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 89 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return SHR; }
+#line 89 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '@'; }
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 90 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return SSHR; }
+#line 91 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return EQ; }
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 91 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return NAND; }
+#line 92 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return NE; }
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 92 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return NOR; }
+#line 93 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return (g_continuous_expr || g_paren_depth > 0) ? LE : NONBLOCKING; }
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 93 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return XNOR; }
+#line 94 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return GE; }
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 95 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '+'; }
+#line 95 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return LOGAND; }
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 96 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '-'; }
+#line 96 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return LOGOR; }
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 97 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '*'; }
+#line 97 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SHL; }
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 98 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '/'; }
+#line 98 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SHR; }
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 99 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '%'; }
+#line 99 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return SSHR; }
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 100 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '&'; }
+#line 100 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return NAND; }
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 101 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '|'; }
+#line 101 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return NOR; }
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 102 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '^'; }
+#line 102 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return XNOR; }
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 103 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '~'; }
+#line 104 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return PART_PLUS; }
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 104 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '!'; }
+#line 105 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return PART_MINUS; }
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 105 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '<'; }
+#line 106 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '+'; }
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 106 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '>'; }
+#line 107 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '-'; }
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 107 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '?'; }
+#line 108 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '*'; }
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 108 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
-{ return '='; }
+#line 109 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '/'; }
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 110 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 110 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '%'; }
+	YY_BREAK
+case 86:
+YY_RULE_SETUP
+#line 111 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '&'; }
+	YY_BREAK
+case 87:
+YY_RULE_SETUP
+#line 112 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '|'; }
+	YY_BREAK
+case 88:
+YY_RULE_SETUP
+#line 113 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '^'; }
+	YY_BREAK
+case 89:
+YY_RULE_SETUP
+#line 114 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '~'; }
+	YY_BREAK
+case 90:
+YY_RULE_SETUP
+#line 115 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '!'; }
+	YY_BREAK
+case 91:
+YY_RULE_SETUP
+#line 116 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '<'; }
+	YY_BREAK
+case 92:
+YY_RULE_SETUP
+#line 117 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '>'; }
+	YY_BREAK
+case 93:
+YY_RULE_SETUP
+#line 118 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '?'; }
+	YY_BREAK
+case 94:
+YY_RULE_SETUP
+#line 119 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+{ return '='; }
+	YY_BREAK
+case 95:
+YY_RULE_SETUP
+#line 121 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 {
     yylval.num = (VerilogNum *)malloc(sizeof(VerilogNum));
     yylval.num->value = 0;
@@ -1419,9 +1502,9 @@ YY_RULE_SETUP
     return NUMBER;
 }
 	YY_BREAK
-case 86:
+case 96:
 YY_RULE_SETUP
-#line 138 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 149 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 {
     yylval.num = (VerilogNum *)malloc(sizeof(VerilogNum));
     yylval.num->value = 0;
@@ -1451,9 +1534,9 @@ YY_RULE_SETUP
     return NUMBER;
 }
 	YY_BREAK
-case 87:
+case 97:
 YY_RULE_SETUP
-#line 167 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 178 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 {
     yylval.num = (VerilogNum *)malloc(sizeof(VerilogNum));
     yylval.num->value = 0;
@@ -1477,9 +1560,9 @@ YY_RULE_SETUP
     return NUMBER;
 }
 	YY_BREAK
-case 88:
+case 98:
 YY_RULE_SETUP
-#line 190 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 201 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 {
     yylval.num = (VerilogNum *)malloc(sizeof(VerilogNum));
     yylval.num->value = strtoull(yytext, NULL, 10);
@@ -1488,45 +1571,45 @@ YY_RULE_SETUP
     return NUMBER;
 }
 	YY_BREAK
-case 89:
+case 99:
 YY_RULE_SETUP
-#line 198 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 209 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 {
     yylval.str = stralloc(yytext);
     return IDENTIFIER;
 }
 	YY_BREAK
-case 90:
-/* rule 90 can match eol */
+case 100:
+/* rule 100 can match eol */
 YY_RULE_SETUP
-#line 203 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 214 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 {
     yylval.str = stralloc(yytext);
     return STRING;
 }
 	YY_BREAK
-case 91:
+case 101:
 YY_RULE_SETUP
-#line 208 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 219 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 ;
 	YY_BREAK
-case 92:
-/* rule 92 can match eol */
+case 102:
+/* rule 102 can match eol */
 YY_RULE_SETUP
-#line 209 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 220 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 ;
 	YY_BREAK
-case 93:
+case 103:
 YY_RULE_SETUP
-#line 210 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 221 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 { /* ignore unknown */ }
 	YY_BREAK
-case 94:
+case 104:
 YY_RULE_SETUP
-#line 212 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 223 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 1530 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.yy.c"
+#line 1613 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1823,7 +1906,7 @@ static int yy_get_next_buffer (void)
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 304 )
+			if ( yy_current_state >= 354 )
 				yy_c = yy_meta[yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
@@ -1851,11 +1934,11 @@ static int yy_get_next_buffer (void)
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 304 )
+		if ( yy_current_state >= 354 )
 			yy_c = yy_meta[yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + yy_c];
-	yy_is_jam = (yy_current_state == 303);
+	yy_is_jam = (yy_current_state == 353);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -2543,6 +2626,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 212 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/lexer.l"
+#line 223 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
 
 

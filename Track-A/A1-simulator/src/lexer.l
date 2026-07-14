@@ -51,6 +51,8 @@ static bool g_continuous_expr = false;
 "generate"      { return GENERATE; }
 "endgenerate"   { return ENDGENERATE; }
 "genvar"        { return GENVAR; }
+"function"      { return FUNCTION; }
+"endfunction"    { return ENDFUNCTION; }
 "posedge"       { return POSEDGE; }
 "negedge"       { return NEGEDGE; }
 "or"            { return OR; }
@@ -65,6 +67,13 @@ static bool g_continuous_expr = false;
 "$clog2"        { return SYS_CLOG2; }
 "$readmemh"     { return SYS_READMEMH; }
 "$readmemb"     { return SYS_READMEMB; }
+"$dumpfile"     { return SYS_DUMPFILE; }
+"$dumpvars"     { return SYS_DUMPVARS; }
+"$error"        { return SYS_ERROR; }
+"$unsigned"     { return SYS_UNSIGNED; }
+"$time"         { return SYS_TIME; }
+
+"(\*"([^*]|\*+[^*/])*"\*)"  ;
 
 ","             { return ','; }
 ":"             { return ':'; }
@@ -92,6 +101,8 @@ static bool g_continuous_expr = false;
 "~|"            { return NOR; }
 "~^"            { return XNOR; }
 
+"+:"            { return PART_PLUS; }
+"-:"            { return PART_MINUS; }
 "+"             { return '+'; }
 "-"             { return '-'; }
 "*"             { return '*'; }

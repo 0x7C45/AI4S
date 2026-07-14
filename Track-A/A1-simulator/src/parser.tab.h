@@ -35,8 +35,8 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 
-#ifndef YY_YY_HOME_KALI_DOCUMENTS_GITHUB_AI4S_CLAUDE_WORKTREES_AGENT_AC2EB0B62000F7378_TRACK_A_A1_SIMULATOR_SRC_PARSER_TAB_H_INCLUDED
-# define YY_YY_HOME_KALI_DOCUMENTS_GITHUB_AI4S_CLAUDE_WORKTREES_AGENT_AC2EB0B62000F7378_TRACK_A_A1_SIMULATOR_SRC_PARSER_TAB_H_INCLUDED
+#ifndef YY_YY_HOME_KALI_DOCUMENTS_GITHUB_AI4S_CLAUDE_WORKTREES_AGENT_A5E2BD0BB99FAB287_TRACK_A_A1_SIMULATOR_SRC_PARSER_TAB_H_INCLUDED
+# define YY_YY_HOME_KALI_DOCUMENTS_GITHUB_AI4S_CLAUDE_WORKTREES_AGENT_A5E2BD0BB99FAB287_TRACK_A_A1_SIMULATOR_SRC_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -45,7 +45,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 1 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 1 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
 
 #ifndef VERILOG_NUM_DEFINED
 #define VERILOG_NUM_DEFINED
@@ -57,7 +57,7 @@ struct VerilogNum {
 };
 #endif
 
-#line 61 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.h"
+#line 61 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.h"
 
 /* Token kinds.  */
 #ifndef YYTOKENTYPE
@@ -97,34 +97,43 @@ struct VerilogNum {
     GENERATE = 284,                /* GENERATE  */
     ENDGENERATE = 285,             /* ENDGENERATE  */
     GENVAR = 286,                  /* GENVAR  */
-    POSEDGE = 287,                 /* POSEDGE  */
-    NEGEDGE = 288,                 /* NEGEDGE  */
-    OR = 289,                      /* OR  */
-    SYS_FOPEN = 290,               /* SYS_FOPEN  */
-    SYS_FCLOSE = 291,              /* SYS_FCLOSE  */
-    SYS_FSCANF = 292,              /* SYS_FSCANF  */
-    SYS_FGETS = 293,               /* SYS_FGETS  */
-    SYS_FDISPLAY = 294,            /* SYS_FDISPLAY  */
-    SYS_DISPLAY = 295,             /* SYS_DISPLAY  */
-    SYS_FINISH = 296,              /* SYS_FINISH  */
-    SYS_CLOG2 = 297,               /* SYS_CLOG2  */
-    SYS_READMEMH = 298,            /* SYS_READMEMH  */
-    SYS_READMEMB = 299,            /* SYS_READMEMB  */
-    EQ = 300,                      /* EQ  */
-    NE = 301,                      /* NE  */
-    LE = 302,                      /* LE  */
-    NONBLOCKING = 303,             /* NONBLOCKING  */
-    GE = 304,                      /* GE  */
-    LOGAND = 305,                  /* LOGAND  */
-    LOGOR = 306,                   /* LOGOR  */
-    SHL = 307,                     /* SHL  */
-    SHR = 308,                     /* SHR  */
-    SSHR = 309,                    /* SSHR  */
-    NAND = 310,                    /* NAND  */
-    NOR = 311,                     /* NOR  */
-    XNOR = 312,                    /* XNOR  */
-    POWER = 313,                   /* POWER  */
-    UNARY = 314                    /* UNARY  */
+    FUNCTION = 287,                /* FUNCTION  */
+    ENDFUNCTION = 288,             /* ENDFUNCTION  */
+    POSEDGE = 289,                 /* POSEDGE  */
+    NEGEDGE = 290,                 /* NEGEDGE  */
+    OR = 291,                      /* OR  */
+    SYS_FOPEN = 292,               /* SYS_FOPEN  */
+    SYS_FCLOSE = 293,              /* SYS_FCLOSE  */
+    SYS_FSCANF = 294,              /* SYS_FSCANF  */
+    SYS_FGETS = 295,               /* SYS_FGETS  */
+    SYS_FDISPLAY = 296,            /* SYS_FDISPLAY  */
+    SYS_DISPLAY = 297,             /* SYS_DISPLAY  */
+    SYS_FINISH = 298,              /* SYS_FINISH  */
+    SYS_CLOG2 = 299,               /* SYS_CLOG2  */
+    SYS_READMEMH = 300,            /* SYS_READMEMH  */
+    SYS_READMEMB = 301,            /* SYS_READMEMB  */
+    SYS_DUMPFILE = 302,            /* SYS_DUMPFILE  */
+    SYS_DUMPVARS = 303,            /* SYS_DUMPVARS  */
+    SYS_ERROR = 304,               /* SYS_ERROR  */
+    SYS_UNSIGNED = 305,            /* SYS_UNSIGNED  */
+    SYS_TIME = 306,                /* SYS_TIME  */
+    EQ = 307,                      /* EQ  */
+    NE = 308,                      /* NE  */
+    LE = 309,                      /* LE  */
+    NONBLOCKING = 310,             /* NONBLOCKING  */
+    GE = 311,                      /* GE  */
+    LOGAND = 312,                  /* LOGAND  */
+    LOGOR = 313,                   /* LOGOR  */
+    SHL = 314,                     /* SHL  */
+    SHR = 315,                     /* SHR  */
+    SSHR = 316,                    /* SSHR  */
+    NAND = 317,                    /* NAND  */
+    NOR = 318,                     /* NOR  */
+    XNOR = 319,                    /* XNOR  */
+    PART_PLUS = 320,               /* PART_PLUS  */
+    PART_MINUS = 321,              /* PART_MINUS  */
+    POWER = 322,                   /* POWER  */
+    UNARY = 323                    /* UNARY  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -133,13 +142,13 @@ struct VerilogNum {
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 51 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.y"
+#line 52 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
 
     struct VerilogNum *num;
     char *str;
     struct ASTNode *node;
 
-#line 143 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-ac2eb0b62000f7378/Track-A/A1-simulator/src/parser.tab.h"
+#line 152 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -154,4 +163,4 @@ extern YYSTYPE yylval;
 int yyparse (void);
 
 
-#endif /* !YY_YY_HOME_KALI_DOCUMENTS_GITHUB_AI4S_CLAUDE_WORKTREES_AGENT_AC2EB0B62000F7378_TRACK_A_A1_SIMULATOR_SRC_PARSER_TAB_H_INCLUDED  */
+#endif /* !YY_YY_HOME_KALI_DOCUMENTS_GITHUB_AI4S_CLAUDE_WORKTREES_AGENT_A5E2BD0BB99FAB287_TRACK_A_A1_SIMULATOR_SRC_PARSER_TAB_H_INCLUDED  */
