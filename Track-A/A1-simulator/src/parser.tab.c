@@ -1966,7 +1966,7 @@ yyreduce:
 
   case 22: /* module_item: WIRE range IDENTIFIER decl_list ';'  */
 #line 159 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
-      { (yyval.node) = makeNode(NodeType::NET_DECL, "wire", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = (yyvsp[-3].node)->msb; (yyval.node)->lsb = (yyvsp[-3].node)->lsb; freeTree((yyvsp[-3].node)); }
+      { (yyval.node) = makeNode(NodeType::NET_DECL, "wire", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = (yyvsp[-3].node)->msb; (yyval.node)->lsb = (yyvsp[-3].node)->lsb; for (auto *c : (yyvsp[-3].node)->children) addChild((yyval.node), c); (yyvsp[-3].node)->children.clear(); freeTree((yyvsp[-3].node)); }
 #line 1971 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 

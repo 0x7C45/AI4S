@@ -156,7 +156,7 @@ module_item:
           $4->children.clear(); freeTree($4);
       }
     | WIRE range IDENTIFIER decl_list ';'
-      { $$ = makeNode(NodeType::NET_DECL, "wire", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno)); free($3); $$->msb = $2->msb; $$->lsb = $2->lsb; freeTree($2); }
+      { $$ = makeNode(NodeType::NET_DECL, "wire", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno)); free($3); $$->msb = $2->msb; $$->lsb = $2->lsb; for (auto *c : $2->children) addChild($$, c); $2->children.clear(); freeTree($2); }
     | WIRE range IDENTIFIER '=' expr ';'
       {
           /* Wire with initialization — store expr as child for later assign */

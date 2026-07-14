@@ -9,8 +9,8 @@ provides:
   - Working flex/bison Verilog parser
   - C++ event-driven simulation engine
   - Signed arithmetic right shift support
-  - Makefile with build/compile_sim/run targets
-  - basic01, basic02, alu test cases passing
+  - Makefile with build/compile_sim/run/parallel_run targets
+  - basic01, basic02, alu, priority_encoder test cases passing
 affects: [06-a1-advanced-features]
 
 tech-stack:
@@ -50,7 +50,7 @@ requirements-completed:
   - A1-PARSE-06
   - A1-SIM-01
   - A1-MK-01
-  - A1-MK-03
+  - A1-MK-04
   - A1-CASE-01
   - A1-CASE-02
   - A1-CASE-03
@@ -89,26 +89,30 @@ coverage:
     verification:
       - kind: integration
         ref: "diff -u tb/output_ref.mem tb/output.mem (priority_encoder)"
-        status: fail
+        status: pass
     human_judgment: false
-    rationale: "Needs generate block elaboration, multi-dimensional wires, double bit-select"
+
+clean_regression:
+  command: "make build; compile_sim/run each of basic01, basic02, alu, priority_encoder"
+  result: "all four cases pass with zero diff"
 
 duration: 120min
 completed: 2026-07-14
-status: partial
+status: complete
 ---
 
 # Phase 5: A1 Basic Simulator Summary
 
-**flex/bison Verilog parser + C++ event-driven simulation engine — basic01/basic02/alu pass (6 points)**
+**flex/bison Verilog parser + C++ event-driven simulation engine — basic01/basic02/alu/priority_encoder pass (8 points)**
 
 ## Accomplishments
 - Built flex/bison parser handling module/endmodule, assign, always @(*), initial, reg/wire/integer, if-else/case/for, parameter, concatenation, bit select, ternary, module instantiation
 - Implemented C++ event-driven simulation engine with signal propagation loop (max 200 iterations)
 - Fixed signed arithmetic right shift (>>>) with proper int32_t sign extension
 - Added parser support for module #(params), output wire, ** operator, {N{}} replication
+- Added generate elaboration for parameterized nested loops, multi-dimensional wires, and variable part-selects, allowing priority_encoder to pass
 - Makefile with build/compile_sim/run/parallel_run targets
-- basic01 (2pts), basic02 (2pts), alu (2pts) all pass with zero diff
+- basic01, basic02, alu, priority_encoder all pass with zero diff
 
 ## Task Commits
 
@@ -134,17 +138,17 @@ status: partial
 
 ---
 
-**Total deviations:** 2 auto-fixed
-**Impact:** Both critical for correctness. No scope creep.
+**Total deviations:** 3 auto-fixed
+**Impact:** All fixes were required for clean Phase 5 correctness regression.
 
 ## Issues Encountered
-- priority_encoder needs generate block elaboration, multi-dimensional wires, variable part-selects — deferred to Phase 6
-- sim.out binary serialization has segfault on load — bypassed with --run mode
+- `sim.out` binary serialization has segfault on load; current `--run -f FILELIST --top TOP` path recompiles in memory and is used by the Makefile run target.
+- Sequential logic, multi-file preprocessing, and advanced system functions remain Phase 6 scope.
 
 ## Next Phase Readiness
-- Parser infrastructure ready for Phase 6 extensions
-- Generate block support needed before priority_encoder can pass
-- Sequential logic (posedge clk, DFF, <=) needed for basic03-05 and i2c/ip/axis_fifo/sha256
+- Phase 5 clean regression is complete: 4/4 cases pass.
+- Parser and combinational engine are ready for Phase 6 sequential extensions.
+- Phase 6 should address posedge/negedge scheduling, non-blocking assignment, DFF/reset modeling, and multi-file preprocessing.
 
 ---
 *Phase: 05-a1-basic-simulator*

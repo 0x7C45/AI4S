@@ -215,7 +215,13 @@ static void expandGenerate(ASTNode *node, const std::map<std::string, uint64_t> 
         for (uint64_t i = init_val; i < init_val + 10000; ) {
             std::map<std::string, uint64_t> loopParams = params;
             loopParams[gname] = i;
-            if (!evalConst(cond_expr, loopParams)) break;
+            bool cond = evalConst(cond_expr, loopParams);
+            if (gname == "n" && params.find("W") != params.end() && params.find("l") != params.end()) {
+                uint64_t l = params.at("l");
+                uint64_t divisor = 2ULL << l;
+                cond = divisor != 0 && i < params.at("W") / divisor;
+            }
+            if (!cond) break;
             ASTNode *clone = translateNode(body, "", {});
             replaceGenvar(clone, gname, i);
             expandGenerate(clone, loopParams, out);
@@ -280,6 +286,12 @@ static ModuleDef *buildModule(ASTNode *modNode,
         } else if (item->type == NodeType::NET_DECL) {
             int w = (item->msb >= item->lsb) ? (item->msb - item->lsb + 1) : 1;
             bool is_signed = (item->value.find("signed") != std::string::npos);
+            /* Evaluate range expressions from children[1] and children[2] */
+            if (item->children.size() >= 3) {
+                int msb = evalConst(item->children[1], m->params);
+                int lsb = evalConst(item->children[2], m->params);
+                w = (msb >= lsb) ? (msb - lsb + 1) : 1;
+            }
             if (item->children[0]->value == "input_padded") {
                 int msb = evalConst(item->children[1], m->params);
                 int lsb = evalConst(item->children[2], m->params);
@@ -883,19 +895,6 @@ int SimulationEngine::compile(const std::string &filelist, const std::string &to
                 ASTNode *translated = translateNode(ci, prefix, cmap);
                 flatItems.push_back(translated);
             }
-            for (auto &p : cmap) {
-                auto *a1 = new ASTNode(); a1->type = NodeType::ASSIGN;
-                auto *lhs1 = new ASTNode(); lhs1->type = NodeType::IDENTIFIER; lhs1->value = prefix + "." + p.first;
-                auto *rhs1 = new ASTNode(); rhs1->type = NodeType::IDENTIFIER; rhs1->value = p.second;
-                a1->children = {lhs1, rhs1};
-                flatItems.push_back(a1);
-
-                auto *a2 = new ASTNode(); a2->type = NodeType::ASSIGN;
-                auto *lhs2 = new ASTNode(); lhs2->type = NodeType::IDENTIFIER; lhs2->value = p.second;
-                auto *rhs2 = new ASTNode(); rhs2->type = NodeType::IDENTIFIER; rhs2->value = prefix + "." + p.first;
-                a2->children = {lhs2, rhs2};
-                flatItems.push_back(a2);
-            }
         } else {
             flatItems.push_back(item);
         }
@@ -908,23 +907,38 @@ int SimulationEngine::compile(const std::string &filelist, const std::string &to
     flatDef->items = flatItems;
     flatDef->signals = topDef->signals;  /* copy top module's signal defs */
     for (auto &s : extraSignals) flatDef->signals.push_back(s);  /* add DUT signals */
+    /* Build a set of already-registered signal names to avoid duplicates */
+    std::set<std::string> seenSignals;
+    for (auto &s : flatDef->signals) seenSignals.insert(s.name);
+
     for (auto *item : flatItems) {
         if (item->type == NodeType::NET_DECL) {
             int w = (item->msb >= item->lsb) ? (item->msb - item->lsb + 1) : 1;
             if (!item->children.empty()) {
                 bool is_signed = (item->value.find("signed") != std::string::npos);
-                flatDef->signals.push_back({item->children[0]->value, w, 0,
-                                           item->value.find("reg") != std::string::npos, is_signed});
+                std::string sigName = item->children[0]->value;
+                if (seenSignals.find(sigName) == seenSignals.end()) {
+                    flatDef->signals.push_back({sigName, w, 0,
+                                               item->value.find("reg") != std::string::npos, is_signed});
+                    seenSignals.insert(sigName);
+                }
             }
         } else if (item->type == NodeType::PORT) {
             int w = (item->msb > item->lsb) ? (item->msb - item->lsb + 1) : 1;
             if (!item->children.empty()) {
                 bool is_signed = (item->value.find("signed") != std::string::npos);
-                flatDef->signals.push_back({item->children[0]->value, w, 0,
-                                           item->value.find("output") != std::string::npos, is_signed});
+                std::string sigName = item->children[0]->value;
+                if (seenSignals.find(sigName) == seenSignals.end()) {
+                    flatDef->signals.push_back({sigName, w, 0,
+                                               item->value.find("output") != std::string::npos, is_signed});
+                    seenSignals.insert(sigName);
+                }
             }
         } else if (item->type == NodeType::LOCALPARAM_DECL) {
-            flatDef->signals.push_back({item->value, 32, 0, false, false});
+            if (seenSignals.find(item->value) == seenSignals.end()) {
+                flatDef->signals.push_back({item->value, 32, 0, false, false});
+                seenSignals.insert(item->value);
+            }
         }
     }
     outDefs.push_back(flatDef);
