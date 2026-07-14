@@ -191,7 +191,9 @@ async def run_generated_test(dut):
                     # 检查是否是 input（简化：尝试赋值，cocotb 对 output 赋值会忽略）
                     val = rng.randrange(256)
                     sig.setimmediatevalue(val)
-            except (AttributeError, ValueError):
+            except (AttributeError, ValueError, TypeError):
+                # TypeError: cocotb 对不可写对象（output 端口/常量/结构句柄）setimmediatevalue 抛
+                # "Attempted setting an immutable object" —— 这正是过滤 output 的信号
                 pass
 
         # scoreboard 占位：valid-ready 接口的基本数据比对（驱动后采样输出）
