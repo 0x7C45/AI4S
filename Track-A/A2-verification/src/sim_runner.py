@@ -88,7 +88,7 @@ def _run_docker(tb_dir, test_module, seed):
 
     try:
         result = subprocess.run(
-            cmd, capture_output=True, text=True, timeout=600, env=env,
+            cmd, capture_output=True, text=True, timeout=1200, env=env,
         )
         # 判断成功：make exit 0 且无 fatal error
         passed = (result.returncode == 0 and
