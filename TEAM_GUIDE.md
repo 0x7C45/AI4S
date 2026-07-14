@@ -12,7 +12,7 @@
 |------|------|--------|------|------|
 | **你 (负责人)** | **A1 RTL 仿真器** | C++ + flex/bison | `Track-A/A1-simulator/` | 代码复用最多(NEMU/Verilator)，需要深入理解 |
 | 队友 | A3 逻辑综合 | Python + Yosys | `Track-A/A3-synthesis/` | Yosys 流程成熟，GSD 可直接辅助 |
-| 队友2 | A2 验证生成 | Python + cocotb + iverilog | `Track-A/A2-verification/` | 不变 |
+| 队友2 | A2 验证生成 | Python + cocotb + Verilator | `Track-A/A2-verification/` | 已切 Verilator 路线 |
 
 ## 评分公式
 
@@ -192,12 +192,14 @@ PPA Hypervolume (90分) + Runtime (5分) + Originality (5分) = 100分/电路
 
 ---
 
-# A2: 验证环境自动生成（队友2 — 不变）
+# A2: 验证环境自动生成（队友2 — 已切 Verilator 路线）
 
 ## 目标
 读取 RTL 设计，自动生成 cocotb testbench + 约束随机测试 + 覆盖率报告。
 
-## 技术方案: cocotb + iverilog + gcov
+## 技术方案: cocotb + Verilator 5.050 (--coverage-line/-branch/-toggle)
+
+**运行环境**: 主推 Docker (`verilator/verilator:5.050` 官方镜像, linux/amd64 三方统一); 开发期可用本机 native Verilator 提速, 提交前必须在 Docker linux/amd64 容器内复跑全部 case 验证覆盖率一致性, 无漂移才提交。详见 `Track-A/A2-verification/ENVIRONMENT.md`。
 
 ### 架构
 ```
@@ -207,8 +209,8 @@ src/
   skeleton_gen.py  — 验证骨架生成 (cocotb testbench 模板)
   constraint_gen.py — 约束随机测试生成
   coverage_gen.py  — 覆盖率 bin 定义
-  sim_runner.py    — 仿真执行器 (调用 iverilog + cocotb)
-  coverage_collect.py — 覆盖率收集 (gcov + 功能覆盖)
+  sim_runner.py    — 仿真执行器 (调用 Verilator + cocotb)
+  coverage_collect.py — 覆盖率收集 (Verilator coverage.dat + 功能覆盖)
   report_gen.py    — JSON 报告生成
 templates/
   cocotb_tb.py.j2  — cocotb testbench Jinja2 模板
@@ -225,9 +227,9 @@ requirements.txt   — cocotb, jinja2 等依赖
 - [ ] 通过 case1 骨架门禁
 
 **Phase 2: 覆盖率收集 (7分/电路)**
-- [ ] 行/分支覆盖率: gcov/lcov
+- [ ] 行/分支覆盖率: Verilator --coverage-line/--coverage-branch/--coverage-toggle
 - [ ] 功能覆盖 bin: cocotb 采样
-- [ ] 约束随机测试: 5000 序列, 固定 seed
+- [ ] 约束随机测试: 5000 序列, 固定 seed=20260630 (穿透到 random.Random)
 - [ ] 目标: C ≥ 85%
 
 **Phase 3: 通用化**

@@ -7,7 +7,7 @@
 | 子题 | 目标 | 负责人 | 技术栈 |
 |------|------|--------|--------|
 | **A1** | 轻量 RTL 仿真器 | 队长 | C++ + flex/bison |
-| **A2** | 验证环境自动生成 | 队友2 | Python + cocotb + iverilog |
+| **A2** | 验证环境自动生成 | 队友2 | Python + cocotb + Verilator |
 | **A3** | RTL 逻辑综合工具 | 队友 | Python + Yosys |
 
 **评分**: A1 + A2 + A3 各 100 分，取平均 = 赛道总分
@@ -53,7 +53,9 @@ ls Track-A/A3-synthesis/testcases/
 - Python 3.10+
 - Yosys 0.64+
 - Icarus Verilog 10.3+
+- Verilator 5.x（A2 覆盖率采集：`--coverage-line+branch`）
 - cocotb (pip install cocotb)
+- cocotb-test（A2 Verilator 后端）
 - flex/bison
 
 ## GSD 工具
