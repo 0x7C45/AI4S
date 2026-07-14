@@ -4,17 +4,17 @@ milestone: v1.0
 milestone_name: milestone
 current_phase: 10
 current_phase_name: A2 Generalization + Offline Packaging
-status: in_progress
-stopped_at: "Phase 10 Task1-3 done (通用化+timeout+wheelhouse)，待 Task4 5-case Docker 复验 + SUMMARY 收尾"
-last_updated: "2026-07-14T17:00:00+08:00"
+status: verifying
+stopped_at: Phase 10 complete — 5 case 端到端复验通过（7 个阻塞性 fix 已修），ready for verification
+last_updated: "2026-07-14T15:50:00+08:00"
 last_activity: 2026-07-14
-last_activity_desc: "A2 纳入根规划：Phase 8/9/10 迁移 + STATE/ROADMAP 对齐"
+last_activity_desc: Phase 10 Task4 完成 — 5 case composite 79/49/57/50/43%，7 fix（coverage-zero/timeout/传递依赖/TypeError/pip bootstrap/预装镜像/hit 容错）
 progress:
   total_phases: 10
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 5
   completed_plans: 4
-  percent: 30
+  percent: 40
 ---
 
 # Project State
@@ -28,12 +28,12 @@ See: .planning/PROJECT.md (updated 2026-07-14)
 
 ## Current Position
 
-Phase: 10 (A2 Generalization + Offline Packaging) — IN PROGRESS
-Plan: 10-01, Task 1-3 complete, Task 4 (5-case Docker 复验 + SUMMARY) pending
-Status: In progress
-Last activity: 2026-07-14 — A2 纳入根规划 + Phase 10 Task1-3 已提交
+Phase: 10 (A2 Generalization + Offline Packaging) — COMPLETE (ready for verification)
+Plan: 1 of 1 — 10-01 complete (5/5 cases pass, 7 fixes)
+Status: Phase complete — ready for verification
+Last activity: 2026-07-14 — Phase 10 Task4 完成，5 case 端到端复验
 
-Progress: [███░░░░░░░] 30%
+Progress: [████░░░░░░] 40%
 
 ### Completed Phases
 
