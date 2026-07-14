@@ -9,7 +9,8 @@ requires:
   - phase: none
     provides: Existing A3 implementation evidence in commit 87675ff
 provides:
-  - Phase 1 local implementation and 28-test evidence record
+  - Phase 1 local implementation, 28-test, and LSV01 point 1 synthesis evidence record
+  - Local Nangate45 mapped-netlist observation with explicit official-validation boundary
   - Explicit human-needed validation matrix for official synthesis and correctness checks
 affects:
   - A3 Phase 1 readiness
@@ -45,12 +46,22 @@ coverage:
       - kind: unit
         ref: "cd Track-A/A3-synthesis && make test"
         status: pass
+      - kind: local-synthesis
+        ref: "A3 Makefile synth; /tmp/a3-lsv01-p1/netlist.v"
+        status: observed
     human_judgment: false
   - id: D2
-    description: "Official-image synthesis, real LSV01 end-to-end synthesis, Nangate45 mapped-netlist inspection, and RTL/gate equivalence."
+    description: "Local LSV01 point 1 synthesis produces a mapped netlist with observed Nangate45 cells such as AND2_X1, MUX2_X1, and NAND2_X1."
+    verification:
+      - kind: inspection
+        ref: "/tmp/a3-lsv01-p1/netlist.v"
+        status: observed
+    human_judgment: false
+  - id: D3
+    description: "Official-image synthesis, RTL/gate equivalence, evaluator-relevant mapped-netlist acceptance, and final correctness."
     verification: []
     human_judgment: true
-    rationale: "The permitted evidence contains no official-image run or inspection result for these checks."
+    rationale: "Local synthesis is not official-image evidence and no equivalence or evaluator acceptance result is available."
 
 # Metrics
 duration: quick task
@@ -61,35 +72,44 @@ phase_status: incomplete
 
 # Phase 1: A3 Framework + RTL Frontend Summary
 
-**Commit 87675ff provides the A3 synthesis framework and local 28-test evidence, while official-image and correctness validation remain human-needed.**
+**Commit 87675ff provides the A3 synthesis framework, local 28-test evidence, and observed local LSV01 point 1 synthesis with a Nangate45 mapped netlist; official-image, equivalence, PPA, and submission validation remain pending.**
 
 ## Evidence Boundary
 
-This record uses only source commit `87675ff` (`feat(A3): add adaptive synthesis submission`) and the canonical command result:
+This record uses source commit `87675ff` (`feat(A3): add adaptive synthesis submission`) and the following local evidence:
 
 ```text
-cd Track-A/A3-synthesis && make test
+make -C Track-A/A3-synthesis test
 28 tests passed
+
+A3 Makefile synth -> /tmp/a3-lsv01-p1/netlist.v
+Observed cells: AND2_X1, MUX2_X1, NAND2_X1, ...
 ```
 
-The local result establishes implementation and test-suite evidence. It does not establish successful execution in the official image or correctness of an evaluated mapped netlist.
+The test and synthesis results establish local implementation evidence only. They do not establish successful execution in the official image, RTL/gate functional equivalence, OpenSTA PPA/runtime, or final competition correctness.
 
 ## Accomplishments
 
 - Recorded the Phase 1 implementation evidence from commit `87675ff`.
-- Recorded the canonical `cd Track-A/A3-synthesis && make test` result as 28 passing tests.
-- Separated complete local evidence from the four validation checks that still require human or official-environment confirmation.
+- Recorded the canonical `make -C Track-A/A3-synthesis test` result as 28 passing tests.
+- Recorded local real LSV01 point 1 synthesis through the A3 Makefile and the resulting `/tmp/a3-lsv01-p1/netlist.v`.
+- Recorded observed Nangate45 standard-cell mapping, including `AND2_X1`, `MUX2_X1`, and `NAND2_X1`.
+- Separated complete local evidence from official, equivalence, PPA/runtime, and packaging checks that remain pending.
 
 ## Validation Status
 
 | Check | Status | Evidence or gap |
 |---|---|---|
 | Source implementation at commit `87675ff` | pass | Commit exists and contains the A3 framework files. |
-| Canonical local test suite | pass | `cd Track-A/A3-synthesis && make test` passed 28 tests. |
-| Official-image synthesis | human_needed | No official-image execution result is included in the permitted evidence. |
-| Real LSV01 end-to-end synthesis | human_needed | No real LSV01 synthesis result is included in the permitted evidence. |
-| Nangate45 mapped-netlist inspection | human_needed | No mapped-netlist inspection result is included in the permitted evidence. |
-| RTL/gate equivalence | human_needed | No RTL-versus-gate equivalence result is included in the permitted evidence. |
+| Canonical local test suite | pass | `make -C Track-A/A3-synthesis test` passed 28 tests. |
+| Local real LSV01 point 1 synthesis | observed locally | A3 Makefile `synth` produced `/tmp/a3-lsv01-p1/netlist.v`. |
+| Local Nangate45 mapped-netlist observation | observed locally | Netlist contains observed cells including `AND2_X1`, `MUX2_X1`, and `NAND2_X1`. |
+| Official-image synthesis | human_needed | No official-image execution result is included. |
+| RTL/gate equivalence | human_needed | No RTL-versus-gate equivalence result is included. |
+| OpenSTA PPA/runtime | pending | OpenSTA/sta is unavailable on this machine. |
+| LSV01-LSV10 all-circuit, all-point correctness | pending | No complete functional evidence is included. |
+| Auto-tuning/Pareto measurements | pending | No measured search or Pareto evidence is included. |
+| Clean package, metadata, originality checks | pending | No final clean-package validation is included. |
 
 ## Task Commits
 
@@ -102,9 +122,10 @@ No implementation task commits were created by this planning synchronization. Th
 
 ## Decisions Made
 
-- Treat the 28-test Makefile result as local evidence, not as official correctness proof.
-- Leave the four unsupported validation checks as `human_needed`.
-- Keep Phase 1 incomplete until the human-needed checks are completed.
+- Treat the 28-test Makefile result and local LSV01/Nangate45 observations as local evidence, not official correctness proof.
+- Keep official-image synthesis and RTL/gate equivalence as `human_needed`.
+- Keep evaluator-relevant netlist acceptance, all-circuit/all-point correctness, OpenSTA PPA/runtime, auto-tuning/Pareto measurements, and clean-package checks pending.
+- Keep Phase 1 and Phases 2-4 incomplete until their remaining validation evidence exists.
 
 ## Deviations from Plan
 
@@ -116,7 +137,7 @@ None.
 
 ## Next Phase Readiness
 
-Phase 1 has recorded local implementation and test evidence. Official-image synthesis, real LSV01 E2E validation, Nangate45 mapped-netlist inspection, and RTL/gate equivalence remain required before Phase 1 can be marked complete. Phases 2-4 remain incomplete.
+Phase 1 has recorded local implementation, test, LSV01 point 1 synthesis, and Nangate45 mapping observations. Official-image synthesis, RTL/gate equivalence, evaluator-relevant netlist acceptance, all-circuit/all-point correctness, OpenSTA PPA/runtime, auto-tuning/Pareto measurements, and clean-package checks remain pending. Phases 2-4 remain incomplete.
 
 ---
 *Phase: 01-a3-framework-rtl-frontend*
