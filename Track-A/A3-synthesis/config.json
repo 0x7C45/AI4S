@@ -77,7 +77,7 @@
     {"name": "dc2-buf4-t75", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 75, "buffer_strength": 4},
     {"name": "amap-ultra-dc2", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"},
     {"name": "amap-ultra-dc2-buf4-t75", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0", "buffer_fanout_threshold": 75, "buffer_strength": 4},
-    {"name": "amap-ultra-dc2-buf4-t200", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0", "buffer_fanout_threshold": 200, "buffer_strength": 4},
+    {"name": "balanced-buf8-t65-c200", "profile": "balanced", "buffer_fanout_threshold": 65, "buffer_strength": 8, "critical_path_upsize_cells": 200},
     {"name": "amap-ultra-dc2-buf4-t300", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0", "buffer_fanout_threshold": 300, "buffer_strength": 4}
   ],
   "LSV10": [

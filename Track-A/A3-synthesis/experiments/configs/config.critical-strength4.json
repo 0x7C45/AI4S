@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name":"balanced-buf8-c25-x4","profile":"balanced","buffer_fanout_threshold":65,"buffer_strength":8,"critical_path_upsize_cells":25,"critical_path_strength":4},
+    {"name":"balanced-buf8-c50-x4","profile":"balanced","buffer_fanout_threshold":65,"buffer_strength":8,"critical_path_upsize_cells":50,"critical_path_strength":4},
+    {"name":"balanced-buf8-c100-x4","profile":"balanced","buffer_fanout_threshold":65,"buffer_strength":8,"critical_path_upsize_cells":100,"critical_path_strength":4},
+    {"name":"balanced-buf8-c200-x4","profile":"balanced","buffer_fanout_threshold":65,"buffer_strength":8,"critical_path_upsize_cells":200,"critical_path_strength":4},
+    {"name":"resub-fast-c25-x4","profile":"balanced","abc_script":"balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance","upsize_fanout_threshold":25,"upsize_strength":2,"buffer_fanout_threshold":40,"buffer_strength":8,"critical_path_upsize_cells":25,"critical_path_strength":4},
+    {"name":"resub-fast-c50-x4","profile":"balanced","abc_script":"balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance","upsize_fanout_threshold":25,"upsize_strength":2,"buffer_fanout_threshold":40,"buffer_strength":8,"critical_path_upsize_cells":50,"critical_path_strength":4},
+    {"name":"resub-fast-c100-x4","profile":"balanced","abc_script":"balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance","upsize_fanout_threshold":25,"upsize_strength":2,"buffer_fanout_threshold":40,"buffer_strength":8,"critical_path_upsize_cells":100,"critical_path_strength":4}
+  ]
+}
