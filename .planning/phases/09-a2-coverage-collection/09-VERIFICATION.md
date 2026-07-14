@@ -1,11 +1,12 @@
 ---
 phase: 09-a2-coverage-collection
 verified: 2026-07-14T23:45:00Z
-status: gaps_found
+status: partial_closed
 score: 6/10 must-haves verified
 behavior_unverified: 0
 overrides_applied: 0
 gaps:
+
   - truth: "RTL 静态分析：generate/if 死码识别，只对可达分支采 bin（避免 case1 53% 死码天花板）"
     status: failed
     reason: >
@@ -18,11 +19,14 @@ gaps:
       parameterized dead code, so case1 line% is capped at ~82% instead of reaching
       the >95% that proper dead-code filtering would yield. SC #5 is unmet.
     artifacts:
+
       - path: "Track-A/A2-verification/src/dead_code_analyzer.py"
         issue: "Module exists, has if/else-block boundary bug (marks active else-branch as dead); never imported by run.py"
+
       - path: "Track-A/A2-verification/run.py"
         issue: "Stage 5 collect_cov() call omits dead_code_info; dead_code_analyzer not imported"
     missing:
+
       - "Import dead_code_analyzer in run.py, call analyze(), pass DeadCodeInfo to collect_cov()"
       - "Fix if/else-block boundary matching in dead_code_analyzer so the active else-branch is not marked dead"
   - truth: "生成的 testbench 含 functional_coverage.hit() 真实事务采样（不空 hit，不初始化一次性 hit）— 对 4 类模板普遍适用"
@@ -40,9 +44,11 @@ gaps:
       (placeholder). SC #2 requires real transaction sampling for the 4 templates;
       only the AXI template is truly sampled.
     artifacts:
+
       - path: "Track-A/A2-verification/templates/cocotb_tb.py.j2"
         issue: "Lines 214-221: non-AXI branch uses index-modulo placeholder sampling, not real transaction sampling; scoreboard marked 占位"
     missing:
+
       - "Implement real functional bin sampling for the non-AXI (valid-ready/SRAM/AXIS) driver path based on actual driven/sampled transaction state"
   - truth: "三类覆盖率齐全 + 综合 C>=65%（保底档），冲 C>=85%（满分档）— Phase 9 ROADMAP goal"
     status: failed
@@ -55,11 +61,14 @@ gaps:
       being near-zero on case2-5 (placeholder sampling gap above) and 5000-seq not
       actually run (deviation: only 100 seq executed).
     artifacts:
+
       - path: "Track-A/A2-verification/smoke_out/case2/coverage_result.json"
         issue: "C=49.14%, below 65% baseline (functional=7.69% due to placeholder sampling)"
+
       - path: "Track-A/A2-verification/smoke_out/case5/coverage_result.json"
         issue: "C=43.52%, below 45% floor (functional=0.00%)"
     missing:
+
       - "Real functional bin sampling for non-AXI cases to lift functional coverage"
       - "Run at the required 5000 sequences (currently only 100 executed per the run.sequence_count field)"
   - truth: "约束随机：5000 序列，seed=20260630 穿透 random.Random(seed) + directed 边界值 — 端到端实际执行 5000 笔"
@@ -74,10 +83,13 @@ gaps:
       produce outputs. The infrastructure supports 5000; the deliverable evidence is
       at 100.
     artifacts:
+
       - path: "Track-A/A2-verification/smoke_out/case2/coverage_result.json"
         issue: "run.sequence_count=100, not 5000"
     missing:
+
       - "Execute and produce outputs at num-seq=5000 (the evaluation scale) to prove no timeout at the required scale"
+
 ---
 
 # Phase 9: A2 Coverage Collection — Verification Report
@@ -200,13 +212,16 @@ None beyond the gap closure items. The remaining items are concrete code/wiring 
 ---
 
 **Suggested override (if the team accepts the non-AXI sampling as framework-complete):**
+
 ```yaml
 overrides:
+
   - must_have: "功能 bin 真实事务采样 — 4 类模板普遍适用"
     reason: "AXI template has real transaction sampling; non-AXI uses simplified modulo sampling as Phase 9 framework scope. Real per-protocol sampling deferred."
     accepted_by: "<team>"
     accepted_at: "<ISO timestamp>"
 ```
+
 Note: even with this override, gaps #1 (dead-code wiring), #3 (C≥65%), and #4 (5000-seq) remain blocking.
 
 _Verified: 2026-07-14T23:45:00Z_
