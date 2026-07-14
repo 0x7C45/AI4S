@@ -5,9 +5,19 @@ per D-11: 行覆盖率 LCOV DA 解析
 per D-12: 分支覆盖率 LCOV BRDA 解析
 per D-14: 按文件过滤排除 wrapper
 per D-15: 死码过滤（从分母排除不可达行）
+
+Coverage source priority (Phase 10 fix — coverage-zero bug):
+  1. NATIVE parse of coverage.dat (\x01f\x02...\x01l\x02...\x01t\x02...)
+     — always works, no Docker, no verilator_coverage binary required.
+     Critical for the offline eval machine (评测机断网, Docker may be absent).
+  2. Docker verilator_coverage -write-info (LCOV) — optional, kept for parity.
+The native parser was added because the Docker path silently produced empty
+LCOV under run.py (subprocess mount context), yielding coverage_result.json
+all-zero. Native parse is now the primary source of truth.
 """
 
 import json
+import re
 import subprocess
 import os
 from dataclasses import dataclass, field
@@ -46,13 +56,16 @@ def collect(sim_out_dir, design_info, dead_code_info=None, use_docker=True):
     sim_path = Path(sim_out_dir)
     cov_dat = sim_path / "coverage.dat"
 
-    # ── 1. 转 LCOV .info ──
-    info_text = ""
+    # ── 1. NATIVE parse coverage.dat (primary — works offline, no Docker) ──
+    file_data = {}
     if cov_dat.exists():
-        info_text = _convert_to_lcov(cov_dat, use_docker)
+        file_data = _parse_native(cov_dat)
 
-    # ── 2. 解析 LCOV ──
-    file_data = _parse_lcov(info_text) if info_text else {}
+    # ── 1b. Fallback: Docker verilator_coverage LCOV (only if native found nothing) ──
+    if not file_data and cov_dat.exists() and use_docker:
+        info_text = _convert_to_lcov(cov_dat, use_docker)
+        if info_text:
+            file_data = _parse_lcov(info_text)
 
     # ── 3. 按文件过滤（排除 wrapper，per D-14）──
     rtl_files = {Path(f).name: f for f in design_info.files}
@@ -162,6 +175,82 @@ def _convert_to_lcov(cov_dat_path, use_docker=True):
             return r.stdout
         except (subprocess.TimeoutExpired, FileNotFoundError):
             return ""
+
+
+def _parse_native(cov_dat_path):
+    """NATIVE parser for Verilator coverage.dat (Phase 10 fix — coverage-zero bug).
+
+    coverage.dat records use \x01 as the key/value separator within quoted C lines:
+        C '\x01f\x02<filepath>\x01l\x02<line>\x01n\x02<count_or_block>\x01t\x02<type>...' <hit_count>
+
+    Where <type> is one of: line, branch, toggle.
+    - line records → DA (line hit)
+    - branch records → BRDA (branch hit); <n> is the branch-id, trailing integer is hits
+    - toggle records are signal-value transitions → ignored for line/branch scoring
+
+    Returns the same {filename: {DA, BRDA, line_pct, branch_pct}} shape as _parse_lcov
+    so the downstream filtering/aggregation code is unchanged.
+
+    Per D-14, wrapper exclusion happens in the caller (_is_wrapper filter).
+    """
+    # Match one coverage record. The Verilator coverage.dat format is:
+    #   C '\x01f\x02<filepath>\x01l\x02<line>\x01n\x02<nb>\x01t\x02<type>...<other keys>...' <hit_count>
+    # Path is everything up to the \x01l key (no \x01 bytes appear inside the path).
+    # Each record is a single physical line in the file, so use MULTILINE + match line-by-line.
+    REC = re.compile(
+        rb"\x01f\x02([^\x01]*?)\x01l\x02(\d+)\x01n\x02(\d+)\x01t\x02(\w+)"
+        rb"[^\n]*?' (\d+)\s*$",
+        re.MULTILINE,
+    )
+    # Per-file, per-line aggregation. A single line may carry multiple records
+    # (e.g. one `line` + several `branch`/`toggle`), so we aggregate by (file, line, type).
+    files = {}  # short_name -> {"DA": {(line): hit}, "BRDA": {(line, branch): hit}}
+
+    raw = Path(cov_dat_path).read_bytes()
+    for m in REC.finditer(raw):
+        fp = m.group(1).decode("utf-8", "replace")
+        lineno = int(m.group(2))
+        nb = m.group(3).decode("utf-8", "replace")
+        typ = m.group(4).decode("utf-8", "replace")
+        hits = int(m.group(5))
+
+        short = fp.split("/")[-1]
+        slot = files.setdefault(short, {"DA": {}, "BRDA": {}})
+
+        if typ == "line":
+            # Keep the max hit if the same line appears twice (it shouldn't, but be safe)
+            slot["DA"][lineno] = max(slot["DA"].get(lineno, 0), hits)
+        elif typ == "branch":
+            # nb is the branch-id within the line; combine (line, branch_id) as the key
+            key = (lineno, nb)
+            slot["BRDA"][key] = max(slot["BRDA"].get(key, 0), hits)
+        # toggle → ignored (signal transition coverage, not line/branch)
+
+    # Normalize to the _parse_lcov output shape
+    out = {}
+    for short, slot in files.items():
+        da_list = [(ln, hits) for ln, hits in sorted(slot["DA"].items())]
+        # BRDA tuple shape per LCOV: (line, block, branch, taken_str)
+        # We store (line, branch_id) → hits; emit block="0", taken=hits-as-str
+        brda_list = [
+            (ln, "0", bid, str(hits))
+            for (ln, bid), hits in sorted(slot["BRDA"].items())
+        ]
+        line_pct = (
+            100.0 * sum(1 for _, h in da_list if h > 0) / len(da_list)
+            if da_list else 0.0
+        )
+        branch_pct = (
+            100.0 * sum(1 for b in brda_list if int(b[3] or 0) > 0) / len(brda_list)
+            if brda_list else 0.0
+        )
+        out[short] = {
+            "DA": da_list,
+            "BRDA": brda_list,
+            "line_pct": line_pct,
+            "branch_pct": branch_pct,
+        }
+    return out
 
 
 def _parse_lcov(info_text):
