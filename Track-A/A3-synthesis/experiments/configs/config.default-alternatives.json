@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "adaptive-area", "profile": "area", "adaptive": true, "fallback_on_error": true},
+    {"name": "adaptive-deep-area", "profile": "deep-area", "adaptive": true, "fallback_on_error": true},
+    {"name": "adaptive-deep-timing", "profile": "deep-timing", "adaptive": true, "fallback_on_error": true},
+    {"name": "adaptive-resub", "profile": "balanced", "adaptive": true, "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "fallback_on_error": true},
+    {"name": "adaptive-dc2", "profile": "balanced", "adaptive": true, "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "fallback_on_error": true},
+    {"name": "adaptive-gia-r160", "profile": "balanced", "adaptive": true, "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m -R 160; &dch -f; &nf -R 20 -p; &put", "fallback_on_error": true},
+    {"name": "adaptive-gia-nf-r60", "profile": "balanced", "adaptive": true, "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put", "fallback_on_error": true}
+  ]
+}

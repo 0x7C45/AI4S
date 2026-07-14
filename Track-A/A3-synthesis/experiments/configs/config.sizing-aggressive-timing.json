@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name":"timing-x2-f5","profile":"timing","upsize_fanout_threshold":5,"upsize_strength":2},
+    {"name":"timing-x4-f5","profile":"timing","upsize_fanout_threshold":5,"upsize_strength":4},
+    {"name":"timing-x2-f10","profile":"timing","upsize_fanout_threshold":10,"upsize_strength":2},
+    {"name":"timing-x4-f10","profile":"timing","upsize_fanout_threshold":10,"upsize_strength":4},
+    {"name":"deep-timing-x2-f10","profile":"deep-timing","upsize_fanout_threshold":10,"upsize_strength":2},
+    {"name":"deep-timing-x4-f10","profile":"deep-timing","upsize_fanout_threshold":10,"upsize_strength":4},
+    {"name":"deep-timing-x4-f20","profile":"deep-timing","upsize_fanout_threshold":20,"upsize_strength":4}
+  ]
+}

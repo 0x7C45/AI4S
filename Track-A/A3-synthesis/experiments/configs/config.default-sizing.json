@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "adaptive-timing-x2-f10", "profile": "timing", "adaptive": true, "upsize_fanout_threshold": 10, "upsize_strength": 2, "fallback_on_error": true},
+    {"name": "adaptive-timing-x4-f10", "profile": "timing", "adaptive": true, "upsize_fanout_threshold": 10, "upsize_strength": 4, "fallback_on_error": true},
+    {"name": "adaptive-resub-x2-f10", "profile": "balanced", "adaptive": true, "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 10, "upsize_strength": 2, "fallback_on_error": true},
+    {"name": "adaptive-resub-x4-f10", "profile": "balanced", "adaptive": true, "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 10, "upsize_strength": 4, "fallback_on_error": true},
+    {"name": "adaptive-resub-x2-f25", "profile": "balanced", "adaptive": true, "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 25, "upsize_strength": 2, "fallback_on_error": true},
+    {"name": "adaptive-resub-x4-f25", "profile": "balanced", "adaptive": true, "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 25, "upsize_strength": 4, "fallback_on_error": true},
+    {"name": "adaptive-resub-x2-f50", "profile": "balanced", "adaptive": true, "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 50, "upsize_strength": 2, "fallback_on_error": true}
+  ]
+}

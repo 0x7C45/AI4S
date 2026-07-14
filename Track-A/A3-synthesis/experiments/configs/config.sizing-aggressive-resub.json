@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name":"resub-x2-f5","profile":"balanced","abc_script":"balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance","upsize_fanout_threshold":5,"upsize_strength":2},
+    {"name":"resub-x4-f5","profile":"balanced","abc_script":"balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance","upsize_fanout_threshold":5,"upsize_strength":4},
+    {"name":"resub-x2-f10","profile":"balanced","abc_script":"balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance","upsize_fanout_threshold":10,"upsize_strength":2},
+    {"name":"resub-x4-f10","profile":"balanced","abc_script":"balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance","upsize_fanout_threshold":10,"upsize_strength":4},
+    {"name":"resub-x2-f15","profile":"balanced","abc_script":"balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance","upsize_fanout_threshold":15,"upsize_strength":2},
+    {"name":"resub-x4-f15","profile":"balanced","abc_script":"balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance","upsize_fanout_threshold":15,"upsize_strength":4},
+    {"name":"resub-x4-f20","profile":"balanced","abc_script":"balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance","upsize_fanout_threshold":20,"upsize_strength":4}
+  ]
+}

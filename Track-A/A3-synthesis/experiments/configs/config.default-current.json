@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "adaptive-balanced", "profile": "balanced", "adaptive": true, "fallback_on_error": true},
+    {"name": "adaptive-timing", "profile": "timing", "adaptive": true, "fallback_on_error": true},
+    {"name": "adaptive-resub-sized", "profile": "balanced", "adaptive": true, "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 50, "upsize_strength": 4, "fallback_on_error": true},
+    {"name": "adaptive-gia-r0", "profile": "balanced", "adaptive": true, "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m -R 0; &dch -f; &nf -R 20 -p; &put", "fallback_on_error": true},
+    {"name": "adaptive-gia-r80", "profile": "balanced", "adaptive": true, "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m -R 80; &dch -f; &nf -R 20 -p; &put", "fallback_on_error": true},
+    {"name": "adaptive-gia-amap-q030", "profile": "balanced", "adaptive": true, "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.30", "fallback_on_error": true},
+    {"name": "adaptive-gia-amap-q001", "profile": "balanced", "adaptive": true, "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.01", "fallback_on_error": true}
+  ]
+}
