@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: A2-verification
-current_phase: 2
-current_phase_name: 覆盖率收集 — 行/分支/功能 + 约束随机
+current_phase: 3
+current_phase_name: 通用化 + 离线打包
 status: ready_to_plan
-stopped_at: "Phase 1 完成（骨架门禁 case1 验收通过），待 gsd-plan-phase 2"
-last_updated: "2026-07-14T07:30:00.000Z"
+stopped_at: "Phase 2 完成（覆盖率收集 case1 7JSON 验收通过），待 gsd-plan-phase 3"
+last_updated: "2026-07-14T09:00:00.000Z"
 last_activity: 2026-07-14
-last_activity_desc: Phase 1 执行完成 — 8 文件实现 + case1 门禁五项通过
+last_activity_desc: Phase 2 执行完成 — 5 新模块 + 3 更新 + case1 7JSON 端到端
 progress:
   total_phases: 3
-  completed_phases: 1
-  total_plans: 1
-  completed_plans: 1
-  percent: 33
+  completed_phases: 2
+  total_plans: 2
+  completed_plans: 2
+  percent: 67
 ---
 
 # Project State
