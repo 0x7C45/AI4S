@@ -16,7 +16,7 @@
 |---|---|---|---|
 | **mac-CC** | macOS / Claude Code | 独立实现 A2 全流水线；定期把本机进度/发现/坑同步给另外两方 | `exec/mac-cc` |
 | **win-CC** | Windows / Claude Code | 独立实现 A2 全流水线 | `exec/win-cc` |
-| **mac-Codex** | macOS / Codex CLI | 独立实现 A2 全流水线 | `exec/mac-codex` |
+| **win-ZCode** | Windows / ZCode | 独立实现 A2 全流水线 | `exec/win-zcode` |
 
 约定：
 - 三方各自从 `master` 拉工作分支，**不直接在 `master` 上开发**。
@@ -103,7 +103,7 @@
 ```bash
 # 1. 切到自己的工作分支（勿直接用 master）
 git checkout master && git pull
-git checkout -b exec/mac-cc      # win-CC → exec/win-cc；mac-Codex → exec/mac-codex
+git checkout -b exec/mac-cc      # win-CC → exec/win-cc；win-ZCode → exec/win-zcode
 
 # 2. 跑公开 case（只读，勿改 testcases/）
 ./run.sh \
@@ -161,9 +161,10 @@ ls submission_out/case4/
 
 | 角色 | 主推环境 | 说明 |
 |---|---|---|
-| 三方统一 | **Docker**：`verilator/verilator:5.050`，`linux/amd64` | 与评测 OS 同构，作为覆盖率跨平台一致性基准；mac-CC / mac-Codex 提交前**必须**在容器内复跑全部 case，无漂移才提交 |
-| mac-CC / mac-Codex | 开发期：本机 native Verilator（brew 5.050）提速 | macOS arm64 与 linux/amd64 行 / 分支覆盖可能漂移，提交前以 Docker 复验为准 |
+| 三方统一 | **Docker**：`verilator/verilator:5.050`，`linux/amd64` | 与评测 OS 同构，作为覆盖率跨平台一致性基准；mac-CC 提交前**必须**在容器内复跑全部 case，无漂移才提交 |
+| mac-CC | 开发期：本机 native Verilator（brew 5.050）提速 | macOS arm64 与 linux/amd64 行 / 分支覆盖可能漂移，提交前以 Docker 复验为准 |
 | win-CC | WSL2（原生 linux/amd64） | 最接近评测 OS |
+| win-ZCode | **Docker linux/amd64**（Windows + Docker Desktop） | 与评测 OS 完全同构，开发即交付环境，覆盖率数字直接可用，无需额外平台复验 |
 | fallback | venv3.12 + `install.sh` | Docker 不可用时使用 |
 
 > Verilator 版本**锁定 5.050**（`--coverage-line/-toggle` 在不同主版本间行为可能漂移）。`spec / scoring` 不强制 Docker 也不强制 VCS；本队走 cocotb + Verilator 路线。

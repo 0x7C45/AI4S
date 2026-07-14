@@ -1,6 +1,6 @@
 # A2 验证环境自动生成 · 运行环境（ENVIRONMENT）
 
-> 范围：仅 A2。本文只约束「硬约束 + 适用工具菜单」，**不替 mac-CC / mac-Codex / win-CC 三方定方案**；各机自选开发环境，统一以 §1 硬约束为最终交付门槛。
+> 范围：仅 A2。本文只约束「硬约束 + 适用工具菜单」，**不替 mac-CC / win-CC / win-ZCode 三方定方案**；各机自选开发环境，统一以 §1 硬约束为最终交付门槛。
 > 关联：[PLAN.md](./PLAN.md)（cocotb+Verilator 路线）、[EXECUTOR.md](./EXECUTOR.md)（三方分工）、[spec.md](./spec.md) / [scoring.md](./scoring.md)（官方 locked，禁改）。
 
 ---
@@ -24,7 +24,7 @@
 
 三套方案任选；每条标注 **coverage 数字效力**，决定是否需要 §5 复验。
 
-### 2.1 macOS native（brew + 源码编译，mac-CC / mac-Codex）
+### 2.1 macOS native（brew + 源码编译，mac-CC）
 
 ```bash
 # Verilator 5.050：brew 默认版本可能非 5.050，须源码锁版本
@@ -37,9 +37,9 @@ pip install -r requirements.txt
 cocotb-config --makefiles    # 验证 cocotb Makefile 路径
 ```
 
-- **coverage 数字效力：仅开发参考**（macOS arm64 与评测 Linux x86_64 架构不同，插桩数字可能漂移）；提交前必须在 §2.3 Docker linux/amd64 复跑全部 case。
+- **coverage 数字效力：仅开发参考**（macOS arm64 与评测 Linux x86_64 架构不同，插桩数字可能漂移）；提交前必须在 §2.4 Docker linux/amd64 复跑全部 case。
 
-### 2.2 Windows + WSL2（win-CC，三方中唯一原生 x86_64）
+### 2.2 Windows + WSL2（win-CC）
 
 ```bash
 # WSL2 Ubuntu 22.04+ 内：apt verilator 只到 5.020，须源码编译到 5.050
@@ -53,9 +53,31 @@ python3.12 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-- **coverage 数字效力：可交付参考**（WSL2 原生 linux/amd64，与评测 OS 架构一致，漂移风险最低；但仍建议提交前过一次 §2.3 Docker 复验，与队友环境对齐）。
+- **coverage 数字效力：可交付参考**（WSL2 原生 linux/amd64，与评测 OS 架构一致，漂移风险最低；但仍建议提交前过一次 §2.4 Docker 复验，与队友环境对齐）。
 
-### 2.3 Docker linux/amd64（三方统一复验口径）
+### 2.3 Windows + Docker linux/amd64（win-ZCode，主运行环境）
+
+win-ZCode 的主运行环境 = Docker linux/amd64（Windows 主机 + Docker Desktop），**与评测 OS 完全同构**，开发即交付环境，覆盖率数字直接可用，无需额外平台复验。
+
+```bash
+# Windows (PowerShell / Git Bash) + Docker Desktop，拉取官方镜像
+docker pull --platform linux/amd64 verilator/verilator:5.050
+docker run --rm --platform linux/amd64 verilator/verilator:5.050 verilator --version    # 必须 5.050
+# 挂载 A2-verification 到容器 /work，常驻交互
+docker run --rm -it --platform linux/amd64 \
+    -v "$(pwd)/Track-A/A2-verification:/work" -w /work \
+    verilator/verilator:5.050 bash
+# 容器内补装 Python 3.12 + 离线装依赖（见 §4 离线打包）
+apt-get update && apt-get install -y software-properties-common
+add-apt-repository -y ppa:deadsnakes/ppa && apt-get update
+apt-get install -y python3.12 python3.12-venv python3.12-dev
+python3.12 -m venv venv && source venv/bin/activate
+pip install --no-index --find-links=offline_pkgs/ -r requirements.txt
+```
+
+- **coverage 数字效力：可交付**（评测同构环境，权威基线；与 §2.4 同口径，是三方最终仲裁平台）。
+
+### 2.4 Docker linux/amd64（三方统一复验口径）
 
 ```bash
 # verilator 官方按 release 自动打 tag，5.050 存在

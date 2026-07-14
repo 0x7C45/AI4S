@@ -23,7 +23,7 @@
 
 > **版本号说明**：
 > - 已硬锁（task3 实测 2026-07-13）：`cocotb==2.0.1`（1.8.1 macOS arm64 无 wheel、源码构建失败；2.0.1 有 cp312 macosx arm64 wheel；评测机两版本都有 manylinux x86_64 wheel）、`cocotb-test==0.2.6`、`cocotbext-axi==0.1.28`、`Jinja2==3.1.6`、`PyVerilog==1.3.0`、`z3-solver==4.16.0.0`（可选，task3 网络未装上，PyPI 确认 arm64 wheel 存在）、`Verilator==5.050`、`Python==3.12`。
-> - 依 `CONSTRAINTS.md §11` 红线 #6，所有包在 `requirements.txt` 钉死精确版本 `==X.Y.Z`，三方（mac-CC / win-CC / mac-Codex）对齐。
+> - 依 `CONSTRAINTS.md §11` 红线 #6，所有包在 `requirements.txt` 钉死精确版本 `==X.Y.Z`，三方（mac-CC / win-CC / win-ZCode）对齐。
 > - `cocotbext-axi 0.1.28` 与 cocotb 2.0.1 实测全兼容：**issue #119 已过期**（cocotb-bus 0.3.0 + cocotbext-axi 0.1.28 的 requires_dist 为 `cocotb>=1.6.0`，无 `<2.0` 上界）。
 
 ---
@@ -137,7 +137,7 @@ pip download -r requirements.txt -d offline_pkgs/ \
 pip install --no-index --find-links=offline_pkgs/ -r requirements.txt
 ```
 
-- `--platform manylinux2014_x86_64 --only-binary=:all:`：锁 Linux x86_64（评测 OS），与三方开发机架构解耦（mac-CC / mac-Codex 为 macOS arm64，win-CC 为 Windows，均非评测 OS）。
+- `--platform manylinux2014_x86_64 --only-binary=:all:`：锁 Linux x86_64（评测 OS），与三方开发机架构解耦（mac-CC 为 macOS arm64，win-CC 为 Windows，win-ZCode 为 Windows + Docker linux/amd64；评测 OS 统一为 Linux x86_64）。
 - 若存在必须源码编译的依赖（如 z3-solver 在个别平台无预编译 wheel），需一并 vendored 进离线 wheel 目录，并在 README 注明编译前置条件。
 - **Verilator 二进制不打入离线 wheel 目录**，由评测机自带。
 

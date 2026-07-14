@@ -1,7 +1,7 @@
 # A2 验证子题硬约束清单 (CONSTRAINTS.md)
 
 > 适用范围：仅 A2（验证环境自动生成）。A1/A3 不受本文件约束。
-> 维护者：A2 负责人。三方实现（mac-CC / win-CC / mac-Codex）一律遵守。
+> 维护者：A2 负责人。三方实现（mac-CC / win-CC / win-ZCode）一律遵守。
 > 上游权威：`spec.md` / `scoring.md` / `testcases/`（官方 locked，不得修改）、`PLAN.md`、`EXECUTOR.md`。
 > 冲突裁定：本文件与上游冲突时一律以上游 locked 文件为准，本文件仅汇总，不修订上游。发现冲突提 issue。
 
@@ -193,9 +193,9 @@ $$ \text{功能覆盖率} = \frac{\text{命中次数} > 0 \text{ 的 bin 数}}{\
 
 ---
 
-## 13. 三方协同约束（mac-CC / win-CC / mac-Codex）
+## 13. 三方协同约束（mac-CC / win-CC / win-ZCode）
 
-- **分支命名**：`exec/<instance>`（`exec/mac-cc`、`exec/win-cc`、`exec/mac-codex`）；从 master 拉工作分支，不直接在 master 开发。
+- **分支命名**：`exec/<instance>`（`exec/mac-cc`、`exec/win-cc`、`exec/win-zcode`）；从 master 拉工作分支，不直接在 master 开发。
 - **产物隔离前缀**：`coverage_result.<instance>.json`、`dataset_result.<instance>.json`。
 - **大文件**：仿真波形 / 编译产物等不进 repo，仅本地保留；repo 内只提交关键 JSON 产物 + 最终 `run.py` / `src/` 实现。
 - **locked 文件**：`spec.md` / `scoring.md` / `testcases/` 严禁修改。
@@ -203,10 +203,11 @@ $$ \text{功能覆盖率} = \frac{\text{命中次数} > 0 \text{ 的 bin 数}}{\
 - **commit 风格**：`A2: <描述> (<细节>)`，中文。
 - **合并时机**：末段（评测前）合并，由 A2 负责人裁定；可取各方最优段（骨架 / 参考模型 / 覆盖率采集）拼接。
 - **里程碑**：M1 骨架 / M2 参考模型+约束随机 / M3 覆盖率 / M4 反馈闭环；完成时在 issue 报进度。
-- **三方 OS gap（核心风险）**：mac-CC / mac-Codex 为 macOS arm64，win-CC 为 Windows，**无人在评测 OS（Linux x86_64）上原生跑过**。Verilator 覆盖率数值（行/分支/toggle）在不同 OS / 架构间可能漂移，跨平台一致性是核心风险。
+- **三方 OS gap（核心风险）**：mac-CC 为 macOS arm64，win-CC 为 Windows（WSL2），win-ZCode 为 Windows（Docker linux/amd64）。其中 **win-ZCode 主运行环境 = Docker linux/amd64，与评测 OS 同构**，无跨平台漂移风险；mac-CC / win-CC 则需 Docker 复验。Verilator 覆盖率数值（行/分支/toggle）在不同 OS / 架构间可能漂移，跨平台一致性是核心风险。
 - **开发与提交策略（覆盖率跨平台复验硬约束）**：
-  - mac-CC / mac-Codex 开发期用本机 native Verilator 5.050（brew）提速；**提交前必须在 Docker `verilator/verilator:5.050`（linux/amd64）容器内复跑全部 case**，确认覆盖率与本地无漂移才提交。
+  - mac-CC 开发期用本机 native Verilator 5.050（brew）提速；**提交前必须在 Docker `verilator/verilator:5.050`（linux/amd64）容器内复跑全部 case**，确认覆盖率与本地无漂移才提交。
   - win-CC 验证环境用 WSL2（原生 linux/amd64，最接近评测 OS）。
+  - **win-ZCode 验证环境用 Docker linux/amd64（Windows + Docker Desktop），与评测 OS 完全同构，开发即交付环境**，覆盖率数字直接可用，无需额外平台复验。
   - 三方统一 `linux/amd64` 作为最终覆盖率仲裁平台；Docker 与服务器二选一，不强制 Docker 也不强制 VCS。
   - Fallback：Docker 不可用时回退 `venv3.12 + install.sh`（本机 Verilator 5.050 + 离线 wheelhouse），同样必须在 Linux x86_64 上复验。
 
