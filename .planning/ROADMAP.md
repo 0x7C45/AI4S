@@ -16,7 +16,7 @@
 - [ ] **Phase 7: A1 Performance + GEMM** - GEMM test case, incremental compilation, multicore parallel simulation *(你)*
 - [x] **Phase 8: A2 Skeleton Gate — RTL Parse + testbench Gen** - RTL 解析 + cocotb/Verilator testbench 骨架 + case1 门禁 *(队友2)*
 - [x] **Phase 9: A2 Coverage Collection** - 行/分支/功能覆盖率 + 约束随机 5000 序列 + 综合 C≥65% *(队友2)*
-- [ ] **Phase 10: A2 Generalization + Offline Packaging** - 10 隐藏电路通用化 + wheelhouse 离线包 + Docker 复验 *(队友2)*
+- [x] **Phase 10: A2 Generalization + Offline Packaging** - 10 隐藏电路通用化 + wheelhouse 离线包 + Docker 复验 *(队友2)*
 
 ## Phase Details
 
@@ -126,11 +126,11 @@ Plans:
   4. Docker linux/amd64 复跑 5 公开 case，覆盖率与本地无漂移
   5. run.sh 独自跑通完整流水线，评测人员无需手改任何生成文件
 
-**Plans**: 1 plan (in progress — Task 1-3 done, Task 4 验收 pending)
+**Plans**: 1 plan (complete)
 
 Plans:
 
-- [ ] 10-01-PLAN.md — A2 通用化+离线打包：非AXI接口适配 + 死码精化 + timeout=1200 + wheelhouse(7包) + README/run.sh 离线安装 + 5 case Docker 复验
+- [x] 10-01-PLAN.md — A2 通用化+离线打包：非AXI接口适配 + 死码精化 + timeout=1200 + wheelhouse(7包) + README/run.sh 离线安装 + 5 case Docker 复验
 
 ## Progress
 
@@ -141,4 +141,4 @@ Plans:
 | 7. A1 Performance + GEMM | 0/0 | Not started | - |
 | 8. A2 Skeleton Gate | 1/1 | **Complete** | 2026-07-14 |
 | 9. A2 Coverage Collection | 1/1 | **Complete** | 2026-07-14 |
-| 10. A2 Generalization + Packaging | 0/1 | In Progress (Task 1-3) | - |
+| 10. A2 Generalization + Packaging | 1/1 | **Complete** | 2026-07-14 |

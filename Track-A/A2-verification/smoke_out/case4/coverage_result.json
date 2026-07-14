@@ -1,0 +1,32 @@
+{
+  "coverage_result": {
+    "simulator": "Verilator 5.050",
+    "coverage_scope": "RTL subtree (wrapper excluded)",
+    "run": {
+      "seed": 20260630,
+      "sequence_count": 100,
+      "sim_time_ns": 0
+    },
+    "coverage": {
+      "line": {
+        "covered": 39,
+        "total": 41,
+        "percent": 95.12
+      },
+      "branch": {
+        "covered": 16,
+        "total": 42,
+        "percent": 38.1
+      },
+      "functional": {
+        "covered": 1,
+        "total": 38,
+        "percent": 2.63
+      },
+      "composite": {
+        "formula": "0.4 * line + 0.3 * branch + 0.3 * functional",
+        "percent": 50.27
+      }
+    }
+  }
+}

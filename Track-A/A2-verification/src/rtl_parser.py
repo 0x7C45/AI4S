@@ -31,6 +31,27 @@ class DesignInfo:
     reset_active: str = "high"   # high / low
     inferred_protocols: list = field(default_factory=list)
 
+    def has_axi_bus(self, prefix: str) -> bool:
+        """检查 DUT 是否有一条可用的 AXI 总线（per Phase 10 通用化）。
+
+        cocotbext-axi 的 AxiReadBus.from_prefix(dut, prefix) 会要求以下关键信号
+        存在且非 None：{prefix}_arvalid / _arready / _rvalid / _rready。
+        缺任一个 → from_prefix 返回残缺总线 → 实例化时 None.setimmediatevalue 崩溃。
+
+        这用于区分：
+          - case1: s_axi + m_axi 都完整 → 走完整 AXI 驱动路径
+          - case3: 只有 m_axi（DUT 是 master），无 s_axi → 不能实例化 s_axi master
+          - case4: 只有 s_axi（axi_ram slave），无 m_axi → 不能实例化 m_axi RAM
+          - case5: s_axi 部分信号 → 按关键信号判断是否可用
+        """
+        names = {p.name for p in self.ports}
+        # read channel 必需信号（AR + R 握手）
+        required = (
+            f"{prefix}_arvalid", f"{prefix}_arready",
+            f"{prefix}_rvalid", f"{prefix}_rready",
+        )
+        return all(sig in names for sig in required)
+
     def to_design_json(self, path: str):
         """写 design.json（spec §3 schema）"""
         ports_json = []

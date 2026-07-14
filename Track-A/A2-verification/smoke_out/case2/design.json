@@ -1,0 +1,194 @@
+{
+  "design": {
+    "name": "axis_fifo_adapter",
+    "top_module": "axis_fifo_adapter",
+    "rtl_files": [
+      "E:\\AI4S\\Track-A\\A2-verification\\testcases\\A2_public_dataset\\case2\\rtl\\case2.v",
+      "E:\\AI4S\\Track-A\\A2-verification\\testcases\\A2_public_dataset\\case2\\rtl\\case2_1.v",
+      "E:\\AI4S\\Track-A\\A2-verification\\testcases\\A2_public_dataset\\case2\\rtl\\case2_2.v"
+    ],
+    "parameters": {
+      "DEPTH": "4096",
+      "S_DATA_WIDTH": "8",
+      "S_KEEP_ENABLE": "(S_DATA_WIDTH>8",
+      "S_KEEP_WIDTH": "((S_DATA_WIDTH+7",
+      "M_DATA_WIDTH": "8",
+      "M_KEEP_ENABLE": "(M_DATA_WIDTH>8",
+      "M_KEEP_WIDTH": "((M_DATA_WIDTH+7",
+      "ID_ENABLE": "0",
+      "ID_WIDTH": "8",
+      "DEST_ENABLE": "0",
+      "DEST_WIDTH": "8",
+      "USER_ENABLE": "1",
+      "USER_WIDTH": "1",
+      "RAM_PIPELINE": "1",
+      "OUTPUT_FIFO_ENABLE": "0",
+      "FRAME_FIFO": "0",
+      "USER_BAD_FRAME_VALUE": "1'b1",
+      "USER_BAD_FRAME_MASK": "1'b1",
+      "DROP_OVERSIZE_FRAME": "FRAME_FIFO",
+      "DROP_BAD_FRAME": "0",
+      "DROP_WHEN_FULL": "0",
+      "MARK_WHEN_FULL": "0",
+      "PAUSE_ENABLE": "0",
+      "FRAME_PAUSE": "FRAME_FIFO"
+    },
+    "clock_reset": {
+      "clock": "clk",
+      "reset": "rst",
+      "reset_active": "high"
+    },
+    "ports": [
+      {
+        "name": "clk",
+        "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "clock"
+      },
+      {
+        "name": "rst",
+        "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "reset"
+      },
+      {
+        "name": "s_axis_tkeep",
+        "direction": "input",
+        "width": "S_KEEP_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "s_axis_tvalid",
+        "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "valid_ready"
+      },
+      {
+        "name": "s_axis_tready",
+        "direction": "output",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "valid_ready"
+      },
+      {
+        "name": "s_axis_tlast",
+        "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "s_axis_tid",
+        "direction": "input",
+        "width": "ID_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "s_axis_tdest",
+        "direction": "input",
+        "width": "DEST_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "s_axis_tuser",
+        "direction": "input",
+        "width": "USER_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "m_axis_tkeep",
+        "direction": "output",
+        "width": "M_KEEP_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "m_axis_tvalid",
+        "direction": "output",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "valid_ready"
+      },
+      {
+        "name": "m_axis_tready",
+        "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "valid_ready"
+      },
+      {
+        "name": "m_axis_tlast",
+        "direction": "output",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "m_axis_tid",
+        "direction": "output",
+        "width": "ID_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "m_axis_tdest",
+        "direction": "output",
+        "width": "DEST_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "m_axis_tuser",
+        "direction": "output",
+        "width": "USER_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "pause_ack",
+        "direction": "output",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "status_depth_commit",
+        "direction": "output",
+        "width": "$clog2(DEPTH):0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "status_overflow",
+        "direction": "output",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "status_bad_frame",
+        "direction": "output",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "status_good_frame",
+        "direction": "output",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "other"
+      }
+    ],
+    "inferred_protocols": [
+      "valid-ready"
+    ]
+  }
+}

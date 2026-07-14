@@ -4,17 +4,17 @@ milestone: v1.0
 milestone_name: milestone
 current_phase: 10
 current_phase_name: A2 Generalization + Offline Packaging
-status: executing
-stopped_at: Phase 10 Task 4 pending
-last_updated: "2026-07-14T16:48:41.345Z"
-last_activity: 2026-07-14
-last_activity_desc: A2 Phase 10 Docker validation pending
+status: complete
+stopped_at: Phase 10 complete
+last_updated: "2026-07-15T01:00:00+08:00"
+last_activity: 2026-07-15
+last_activity_desc: A2 Phase 10 complete; 5/5 public cases validated
 progress:
   total_phases: 6
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 4
-  completed_plans: 3
-  percent: 50
+  completed_plans: 4
+  percent: 67
 ---
 
 # Project State
@@ -28,24 +28,25 @@ See: .planning/PROJECT.md (updated 2026-07-14)
 
 ## Current Position
 
-Phase: 10 (A2 Generalization + Offline Packaging) — EXECUTING
-Plan: 1 of 1, Task 4 pending
-Status: In progress
-Last activity: 2026-07-14 — A2 Phase 10 Docker validation pending
+Phase: 10 (A2 Generalization + Offline Packaging) — COMPLETE
+Plan: 1 of 1 complete
+Status: Complete
+Last activity: 2026-07-15 — 5/5 public cases validated
 
-Progress: [█████░░░░░] 50%
+Progress: [███████░░░] 67%
 
 ### Completed Phases
 
 - **Phase 5** (A1 Basic Simulator) ✅ — flex/bison + combinational sim, basic01-05/alu/priority_encoder
 - **Phase 8** (A2 Skeleton Gate) ✅ — run.py + rtl_parser + skeleton_gen + sim_runner, case1 门禁通过
 - **Phase 9** (A2 Coverage Collection) ✅ — constraint_gen + coverage_gen(4类bin) + LCOV 解析 + report_gen, case1 7JSON
+- **Phase 10** (A2 Generalization + Offline Packaging) ✅ — 5/5 public cases validated, offline package complete
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 2 (Phase 5×1, Phase 8×1, Phase 9×1, Phase 10 partial)
+- Total plans completed: 4 (Phase 5×1, Phase 8×1, Phase 9×1, Phase 10×1)
 - Average duration: ~120 min
 - Total execution time: ~8 hours
 
@@ -56,11 +57,11 @@ Progress: [█████░░░░░] 50%
 | 5. A1 Basic Simulator | 1/1 | Complete | 2026-07-14 |
 | 8. A2 Skeleton Gate | 1/1 | Complete | 2026-07-14 |
 | 9. A2 Coverage Collection | 1/1 | Complete | 2026-07-14 |
-| 10. A2 Generalization + Packaging | 0/1 | In Progress (Task 1-3) | - |
+| 10. A2 Generalization + Packaging | 1/1 | Complete | 2026-07-14 |
 
 **Recent Trend:**
 
-- Last 5 plans: Phase 8, Phase 9, Phase 10-partial
+- Last 5 plans: Phase 8, Phase 9, Phase 10
 - Trend: A2 track steady progress (3 phases in one day)
 
 ## Accumulated Context
@@ -78,13 +79,12 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-- Phase 10 Task 4: 5 公开 case Docker 复验 + 红线合规扫描 + 最终验收
-- Phase 10 SUMMARY 收尾 + VERIFICATION
+- None for A2 Phase 10
 
 ### Blockers/Concerns
 
 - Deadline: 2026-07-15 10:00（约 16 小时）
-- A2 Phase 10 Task 4 的 Docker 复验与最终验收仍未完成
+- No active A2 Phase 10 blocker
 
 ## Deferred Items
 
@@ -96,5 +96,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-07-14T16:48:41.340Z
-Stopped at: Phase 10 Task 4 pending
+Stopped at: Phase 10 complete
 Resume file: None

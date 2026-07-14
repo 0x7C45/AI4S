@@ -17,14 +17,14 @@
         "sequence_count": 100
       },
       "simulate": {
-        "status": "failed",
+        "status": "passed",
         "exit_code": 0
       },
       "coverage": {
         "status": "passed",
-        "line": 0.0,
-        "branch": 0.0,
-        "functional": 0.0
+        "line": 96.08,
+        "branch": 41.67,
+        "functional": 42.11
       }
     },
     "artifacts": {
@@ -33,12 +33,12 @@
       "generated_tb": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case1\\generated_tb",
       "constraints_json": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case1\\constraints.json",
       "coverage_bins_json": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case1\\coverage_bins.json",
-      "sim_log": "=== [1/4] bootstrap pip (镜像无 pip) ===\n=== [2/4] 离线装依赖 ===\n/usr/bin/python3: No module named pip\n=== [3/4] 确认工具链 ===\n=== [4/4] 仿真 (SIM=verilator) ===\nmake: cocotb-config: No such file or directory\nMakefile:22: /Makefile.sim: No such file or directory\nmake: *** No rule to make target '/Makefile.sim'.  Stop.\n=== MAKE_EXIT=2 ===\n",
+      "sim_log": "r/local/lib/python3.12/dist-packages/cocotbext/axi/reset.py:59: DeprecationWarning: Use `signal.value_change` instead.\n                                                          await Edge(reset_signal)\n    30.00ns WARNING  py.warnings                        /usr/local/lib/python3.12/dist-packages/cocotbext/axi/stream.py:156: DeprecationWarning: `task.kill()` is deprecated in favor of `task.cancel()`\n                                                          self._run_cr.kill()\n    30.00ns WARNING  py.warnings                        /usr/local/lib/python3.12/dist-packages/cocotbext/axi/axi_master.py:845: DeprecationWarning: `task.kill()` is deprecated in favor of `task.cancel()`\n                                                          self._process_read_cr.kill()\n    30.00ns WARNING  py.warnings                        /usr/local/lib/python3.12/dist-packages/cocotbext/axi/axi_master.py:848: DeprecationWarning: `task.kill()` is deprecated in favor of `task.cancel()`\n                                                          self._process_read_resp_cr.kill()\n    30.00ns WARNING  py.warnings                        /usr/local/lib/python3.12/dist-packages/cocotbext/axi/axi_slave.py:266: DeprecationWarning: `task.kill()` is deprecated in favor of `task.cancel()`\n                                                          self._process_read_cr.kill()\n   260.00ns WARNING  py.warnings                        /usr/local/lib/python3.12/dist-packages/cocotbext/axi/axi_master.py:1030: DeprecationWarning: The data field will be removed in a future release.\n                                                          cmd.event.set(read_resp)\n   260.00ns WARNING  py.warnings                        /usr/local/lib/python3.12/dist-packages/cocotbext/axi/axi_master.py:834: DeprecationWarning: The data field will be removed in a future release.\n                                                          return event.data\n- :0: Verilog $finish\nmake[1]: Leaving directory '/work'\n=== MAKE_EXIT=0 ===\n",
       "coverage_result_json": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case1\\coverage_result.json",
       "functional_coverage_json": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case1\\functional_coverage.json"
     },
     "coverage_summary": {},
     "reproducible_command": "python3 run.py --rtl testcases/A2_public_dataset/case1/rtl --top case1 --out smoke_out/case1 --seed 20260630 --num-seq 100",
-    "timestamp": "2026-07-14T16:53:35.775943"
+    "timestamp": "2026-07-15T00:21:52.314148"
   }
 }

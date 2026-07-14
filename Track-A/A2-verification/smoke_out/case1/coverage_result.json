@@ -9,23 +9,23 @@
     },
     "coverage": {
       "line": {
-        "covered": 0,
-        "total": 0,
-        "percent": 0.0
+        "covered": 49,
+        "total": 51,
+        "percent": 96.08
       },
       "branch": {
-        "covered": 0,
-        "total": 0,
-        "percent": 0.0
+        "covered": 15,
+        "total": 36,
+        "percent": 41.67
       },
       "functional": {
-        "covered": 0,
-        "total": 0,
-        "percent": 0.0
+        "covered": 16,
+        "total": 38,
+        "percent": 42.11
       },
       "composite": {
         "formula": "0.4 * line + 0.3 * branch + 0.3 * functional",
-        "percent": 0.0
+        "percent": 63.57
       }
     }
   }

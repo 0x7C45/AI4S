@@ -56,9 +56,9 @@ def analyze(rtl_files, parameters=None):
         for i, line in enumerate(lines, 1):
             stripped = line.strip()
 
-            # 检测 if (PARAM OP VALUE)
+            # 检测 if (PARAM OP VALUE) — 包括 generate if
             m = _RE_IF_PARAM.search(stripped) or _RE_GENERATE_IF.search(stripped)
-            if m:
+            if m and not in_dead_block:
                 param_name, op, val_str = m.group(1), m.group(2), m.group(3)
                 is_dead = _evaluate_condition(param_name, op, val_str, parameters, derived)
                 if is_dead:
@@ -66,13 +66,47 @@ def analyze(rtl_files, parameters=None):
                     dead_start = i
                     dead_reason = f"{param_name} {op} {val_str} 为假（参数配置使条件恒假）"
 
-            # 追踪块结束（简化：else / endmodule / 下一条件 重置）
+            # 追踪块结束
             if in_dead_block:
-                if re.match(r'\s*else\b', stripped) or 'endgenerate' in stripped:
+                # 用缩进区分链级 else 与嵌套 else。
+                # 链级（if/else-if/else 的顶层分支）在 indent 4（always 块内一级）。
+                # 嵌套 else（case 语句内、内层 if）缩进更深，不终止死块追踪。
+                indent = len(line) - len(line.lstrip())
+                # `end else if (PARAM OP VALUE)` — 链级 else-if（indent 4）
+                m_else_if = re.search(r'end\s*else\s+if\s*\(\s*([A-Z_][A-Z0-9_]*)\s*(==|!=|>=|<=|>|<)\s*(\w+)\s*\)', stripped)
+                if m_else_if and indent <= 4:
+                    # 当前死块到此结束（到上一行的 end）
+                    dead_ranges.append((dead_start, i - 1, dead_reason))
+                    unreachable.extend(range(dead_start, i))
+                    # 评估新 else-if 条件：若也死，继续；若活，跳出（激活分支）
+                    p2, op2, v2 = m_else_if.group(1), m_else_if.group(2), m_else_if.group(3)
+                    if _evaluate_condition(p2, op2, v2, parameters, derived):
+                        in_dead_block = True
+                        dead_start = i
+                        dead_reason = f"{p2} {op2} {v2} 为假（参数配置使条件恒假）"
+                    else:
+                        in_dead_block = False
+                # `end else begin` / `end else` (无 if) — 链级激活 fallback（indent 4）
+                elif indent <= 4 and re.search(r'end\s*else\b', stripped) and not re.search(r'end\s*else\s+if', stripped):
                     dead_ranges.append((dead_start, i - 1, dead_reason))
                     unreachable.extend(range(dead_start, i))
                     in_dead_block = False
-                    # else 块是激活的，不标记死码
+                # generate 块结束
+                elif 'endgenerate' in stripped:
+                    # generate-if 块内常含多个独立 if（如 case5 的 S_ACCEPT/S_THREADS/
+                    # M_REGIONS 各自独立的 generate-if），它们之间用 `end` 分隔而非 else。
+                    # 若死块跨多个独立 if（无中间 else 终止），可能误标激活块为死码。
+                    # 保守：generate 块的死码过滤仅在块内只有单一 if（无中间 end + 新 if）
+                    # 时启用。检测中间是否有 `end\n  if` 模式（独立 generate-if 序列）。
+                    block_text = "\n".join(lines[dead_start-1:i-1])
+                    # 统计块内顶层 if 数（indent 4 的 if）
+                    independent_ifs = len(re.findall(r'^    if\s*\(', block_text, re.MULTILINE))
+                    if independent_ifs <= 1:
+                        # 单一 generate-if，安全过滤
+                        dead_ranges.append((dead_start, i, dead_reason))
+                        unreachable.extend(range(dead_start, i + 1))
+                    # else: 多个独立 generate-if，跳过（保守不过滤，避免误标激活块）
+                    in_dead_block = False
 
         # 块未正常关闭
         if in_dead_block:

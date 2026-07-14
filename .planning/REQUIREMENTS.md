@@ -75,7 +75,7 @@
 #### 输出格式与运行入口
 
 - [x] **A2-OUT-01**: run.sh/run.py 入口 — RTL 到结果完整流水线
-- [ ] **A2-OUT-02**: 完整 JSON 报告（design/verification_skeleton/constraints/coverage_bins/functional_coverage/coverage_result/report）
+- [x] **A2-OUT-02**: 完整 JSON 报告（design/verification_skeleton/constraints/coverage_bins/functional_coverage/coverage_result/report）
 
 ## v2 Requirements
 
@@ -132,7 +132,7 @@
 | A2-COV-01 | teammate 2 | Phase 9 | Complete |
 | A2-COV-02 | teammate 2 | Phase 9 | Complete (framework ready, case1 C=47%) |
 | A2-OUT-01 | teammate 2 | Phase 8 | Complete |
-| A2-OUT-02 | teammate 2 | Phase 10 | In Progress |
+| A2-OUT-02 | teammate 2 | Phase 10 | Complete |
 
 **Coverage:**
 
