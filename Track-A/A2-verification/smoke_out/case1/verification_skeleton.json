@@ -31,8 +31,8 @@
       }
     ],
     "scoreboard": {
-      "model": "byte-addressed memory model on m_axi side",
-      "compare": "assert read.data == expected_data after each transaction"
+      "model": "byte-addressed memory model on m_axi side (AxiRamRead)",
+      "compare": "ram.write expected then master.read, assert read.data == expected_data per transaction"
     },
     "dut_outputs": [
       "s_axi_arready",
@@ -42,6 +42,7 @@
       "s_axi_rlast",
       "s_axi_ruser",
       "s_axi_rvalid",
+      "m_axi_arid",
       "m_axi_araddr",
       "m_axi_arlen",
       "m_axi_arsize",

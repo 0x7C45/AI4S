@@ -1,9 +1,9 @@
 """Auto-generated cocotb testbench — win-ZCode A2 验证环境自动生成
 
-DUT: axi_ram
+DUT: axi_adapter_rd
 Clock: clk, Reset: rst (high active)
 Protocols: AXI
-Seed: 20260630, Sequences: 100
+Seed: 20260630, Sequences: 5000
 """
 import json
 import logging
@@ -31,9 +31,9 @@ def load_constraints():
     """从环境变量或默认 constraints.json 加载约束配置"""
     path = os.environ.get("CONSTRAINT_JSON", "constraints.json")
     if not os.path.exists(path):
-        return {"seed": 20260630, "sequence_count": 100}
+        return {"seed": 20260630, "sequence_count": 5000}
     with open(path, "r", encoding="utf-8") as f:
-        return json.load(f).get("constraint_random_test", {"seed": 20260630, "sequence_count": 100})
+        return json.load(f).get("constraint_random_test", {"seed": 20260630, "sequence_count": 5000})
 
 
 def cycle_pause():
@@ -94,7 +94,7 @@ async def run_generated_test(dut):
     """win-ZCode 生成的约束随机测试"""
     config = load_constraints()
     seed = int(config.get("seed", 20260630))
-    sequence_count = int(config.get("sequence_count", 100))
+    sequence_count = int(config.get("sequence_count", 5000))
     rng = random.Random(seed)  # seed 穿透（CONSTRAINTS §3 硬约束）
 
     logging.getLogger("cocotb").setLevel(logging.WARNING)
@@ -102,23 +102,25 @@ async def run_generated_test(dut):
     # 时钟生成（per D-04：cocotb 2.0 unit= 非 units=）
     cocotb.start_soon(Clock(dut.clk, 10, unit="ns").start())
 
-
-    # invariant（case3/case5）：状态对象记录上一次值
-    class _InvState: pass
-    _inv_state = _InvState()
-
-    # AXI 仅 s_axi（slave 侧，如 case4 axi_ram）— 只建 master 驱动，无 m_axi RAM
+    # AXI 驱动（per D-08：cocotbext-axi）— DUT 有完整 s_axi + m_axi 总线（如 case1 读适配器）
     master = AxiMasterRead(AxiReadBus.from_prefix(dut, "s_axi"), dut.clk, dut.rst)
+    ram = AxiRamRead(AxiReadBus.from_prefix(dut, "m_axi"), dut.clk, dut.rst, size=2**16)
+
     master.log.setLevel(logging.WARNING)
+    ram.log.setLevel(logging.WARNING)
+
+    # ready 反压（per 门禁五项第4项：valid/ready 接口必须设反压）
     master.ar_channel.set_pause_generator(random_pause(random.Random(seed ^ 0x13579), 1, 11))
     master.r_channel.set_pause_generator(cycle_pause())
+    ram.ar_channel.set_pause_generator(random_pause(random.Random(seed ^ 0x2468), 1, 13))
+    ram.r_channel.set_pause_generator(random_pause(random.Random(seed ^ 0x369c), 1, 7))
 
     await reset_dut(dut)
 
     # 功能覆盖初始化（per D-13, D-18：bin 从 coverage_gen 注入，真实事务采样）
     coverage = None
     if _HAS_FC:
-        coverage = FunctionalCoverage("axi_ram", {"adapter_path": ["width_conversion", "merge_master_beats", "narrow_size_read", "partial_last_beat"], "address_alignment": ["aligned_4_byte", "aligned_2_byte", "unaligned", "near_4k_boundary"], "backpressure": ["source_rready_pause", "downstream_arready_pause", "downstream_rvalid_pause", "combined_pause"], "burst_size": ["size_1_byte", "size_2_byte", "size_4_byte", "default_max_size"], "data_alignment": ["byte_aligned", "halfword_aligned", "word_aligned", "unaligned"], "data_width_boundary": ["min_width", "half_width", "full_width", "over_width"], "overflow_underflow": ["no_overflow", "overflow", "underflow"], "read_length": ["1", "2_to_3", "4", "5_to_15", "16_to_31", "32_to_63", "64_to_127", "128_to_256"], "sign_extension": ["positive_extend", "negative_extend", "zero_extend"]})
+        coverage = FunctionalCoverage("axi_adapter_rd", {"adapter_path": ["width_conversion", "merge_master_beats", "narrow_size_read", "partial_last_beat"], "address_alignment": ["aligned_4_byte", "aligned_2_byte", "unaligned", "near_4k_boundary"], "backpressure": ["source_rready_pause", "downstream_arready_pause", "downstream_rvalid_pause", "combined_pause"], "burst_size": ["size_1_byte", "size_2_byte", "size_4_byte", "default_max_size"], "data_alignment": ["byte_aligned", "halfword_aligned", "word_aligned", "unaligned"], "data_width_boundary": ["min_width", "half_width", "full_width", "over_width"], "overflow_underflow": ["no_overflow", "overflow", "underflow"], "read_length": ["1", "2_to_3", "4", "5_to_15", "16_to_31", "32_to_63", "64_to_127", "128_to_256"], "sign_extension": ["positive_extend", "negative_extend", "zero_extend"]})
 
     size_choices = [None, 0, 1, 2]
     test_count = 0
@@ -127,20 +129,40 @@ async def run_generated_test(dut):
         addr = read_address(rng, index, length)
         # 写入 RAM 预期数据（scoreboard 比对基准）
         data = bytes((index + offset * 19 + rng.randrange(256)) & 0xff for offset in range(length))
-        # AXI slave only golden（case4 axi_ram）— master.read + assert readback
-        # per 门禁 #5：真实比对 DUT 行为（复用 case1 RAM 比对模式）
+        ram.write(addr, data)
+
         size = size_choices[index % len(size_choices)]
-        # 读 DUT（slave RAM）当前地址内容
-        read = await master.read(addr, length, size=size)
-        # assert 读回非空且有效（证明读了真值，非 orphaned driver）
-        assert read is not None, f"case4 master.read returned None @idx={index}"
-        # 读回数据应为合法字节（非全 X）；至少证明 master 真的与 DUT 交互
-        test_count += 1
+
+        # 功能覆盖 hit()（per D-18：真实事务采样，非空 hit）
         if coverage:
-            if index % 2 == 0:
-                coverage.hit("data_width_boundary", "full_width")
-            if index % 3 == 0:
-                coverage.hit("fifo_full_empty", "fifo_half")
+            # read_length bin
+            if length == 1: lb = "1"
+            elif length <= 3: lb = "2_to_3"
+            elif length == 4: lb = "4"
+            elif length <= 15: lb = "5_to_15"
+            elif length <= 31: lb = "16_to_31"
+            elif length <= 63: lb = "32_to_63"
+            elif length <= 127: lb = "64_to_127"
+            else: lb = "128_to_256"
+            coverage.hit("read_length", lb)
+            # address_alignment bin
+            if addr // 4096 != (addr + length - 1) // 4096 or addr % 4096 >= 4032:
+                coverage.hit("address_alignment", "near_4k_boundary")
+            elif addr % 4 == 0:
+                coverage.hit("address_alignment", "aligned_4_byte")
+            elif addr % 2 == 0:
+                coverage.hit("address_alignment", "aligned_2_byte")
+            else:
+                coverage.hit("address_alignment", "unaligned")
+            # burst_size bin
+            sb = {None: "default_max_size", 0: "size_1_byte", 1: "size_2_byte", 2: "size_4_byte"}[size]
+            coverage.hit("burst_size", sb)
+
+        # 读 + scoreboard 比对（per 门禁五项第5项：scoreboard 实际比对，不静默）
+        read = await master.read(addr, length, size=size)
+        assert read.data == data, \
+            "read %d addr=0x%x len=%d size=%s mismatch" % (index, addr, length, size)
+        test_count += 1
 
         if index % 257 == 0:
             for _ in range(rng.randint(0, 8)):

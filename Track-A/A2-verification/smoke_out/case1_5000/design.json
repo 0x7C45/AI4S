@@ -42,13 +42,6 @@
         "protocol_group": "reset"
       },
       {
-        "name": "s_axi_arid",
-        "direction": "input",
-        "width": "ID_WIDTH-1:0",
-        "type": "wire",
-        "protocol_group": "axi_slave"
-      },
-      {
         "name": "s_axi_araddr",
         "direction": "input",
         "width": "ADDR_WIDTH-1:0",
@@ -180,13 +173,6 @@
         "width": "1",
         "type": "wire",
         "protocol_group": "axi_slave"
-      },
-      {
-        "name": "m_axi_arid",
-        "direction": "output",
-        "width": "ID_WIDTH-1:0",
-        "type": "wire",
-        "protocol_group": "axi_master"
       },
       {
         "name": "m_axi_araddr",

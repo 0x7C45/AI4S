@@ -14,9 +14,9 @@
         "percent": 95.12
       },
       "branch": {
-        "covered": 16,
+        "covered": 23,
         "total": 42,
-        "percent": 38.1
+        "percent": 54.76
       },
       "functional": {
         "covered": 1,
@@ -25,7 +25,7 @@
       },
       "composite": {
         "formula": "0.4 * line + 0.3 * branch + 0.3 * functional",
-        "percent": 50.27
+        "percent": 55.27
       }
     }
   }

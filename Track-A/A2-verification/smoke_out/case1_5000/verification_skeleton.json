@@ -1,6 +1,6 @@
 {
   "verification_skeleton": {
-    "top_module": "axi_ram",
+    "top_module": "axi_adapter_rd",
     "clock_reset_generation": {
       "clock": "clk",
       "clock_period_ns": 10,
@@ -31,23 +31,31 @@
       }
     ],
     "scoreboard": {
-      "model": "AXI slave DUT (RAM-like): master drives s_axi, reads back",
-      "compare": "master.read(addr) + assert readback matches expected per transaction"
+      "model": "byte-addressed memory model on m_axi side",
+      "compare": "assert read.data == expected_data after each transaction"
     },
     "dut_outputs": [
-      "s_axi_awready",
-      "s_axi_wready",
-      "s_axi_bid",
-      "s_axi_bresp",
-      "s_axi_bvalid",
       "s_axi_arready",
       "s_axi_rid",
       "s_axi_rdata",
       "s_axi_rresp",
       "s_axi_rlast",
-      "s_axi_rvalid"
+      "s_axi_ruser",
+      "s_axi_rvalid",
+      "m_axi_araddr",
+      "m_axi_arlen",
+      "m_axi_arsize",
+      "m_axi_arburst",
+      "m_axi_arlock",
+      "m_axi_arcache",
+      "m_axi_arprot",
+      "m_axi_arqos",
+      "m_axi_arregion",
+      "m_axi_aruser",
+      "m_axi_arvalid",
+      "m_axi_rready"
     ],
-    "generated_testbench_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case4\\generated_tb\\generated_test.py",
-    "makefile_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case4\\generated_tb\\Makefile"
+    "generated_testbench_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case1_5000\\generated_tb\\generated_test.py",
+    "makefile_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case1_5000\\generated_tb\\Makefile"
   }
 }
