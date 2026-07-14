@@ -1,42 +1,41 @@
 # Phase 6: A1 Advanced Features - Context
 
-**Gathered:** 2026-07-14
-**Status:** Ready for planning
+**Gathered:** 2026-07-15
+**Status:** Ready for replanning
 
 <domain>
 ## Phase Boundary
 
-Extend the Phase 5 flex/bison C++ RTL simulator from combinational execution to sequential RTL simulation and multi-file designs. The phase must target basic03, basic04, basic05, i2c, ip, axis_fifo, and sha256, including clocked logic, DFF/reset behavior, non-blocking assignment, preprocessing, memory initialization, and hierarchical multi-file module elaboration. Each completed testcase must pass from a clean build with zero output diff.
+快速完成 A1 RTL 仿真器的最小时序扩展，优先让 basic03、basic04、basic05 从 clean build 到 `compile_sim`、`run`、精确 `diff` 全部通过，并回归 Phase 5 的 basic01、basic02、alu、priority_encoder。只实现这三个目标用例实际需要的时序、预处理、内存、层次和系统任务语义；不在本阶段追求其余高级公开用例或性能能力。
 
 </domain>
 
 <decisions>
 ## Implementation Decisions
 
-### Timing and Scheduling
-- **D-01:** Use a discrete simulation-time event queue. `#delay` advances simulation time, clock generators schedule future toggles, and posedge/negedge waits trigger only on actual signal transitions.
-- **D-02:** Implement standard Active/NBA/delta semantics: execute active statements first, collect non-blocking assignments, commit all NBA updates at the same simulation time, then re-evaluate combinational logic until delta convergence.
-- **D-03:** Support both synchronous reset conditions and asynchronous reset edges, including common forms such as `posedge clk or posedge rst` and `negedge rst`.
-- **D-04:** End simulation when the event queue is exhausted, while honoring `$finish` as an immediate termination that flushes/ closes observable output state.
+### Scope and Priority
+- **D-01:** 本阶段只把 basic03、basic04、basic05 作为 Phase 6 功能目标；i2c、ip、axis_fifo、sha256 不阻塞本阶段完成，延期到后续阶段。
+- **D-02:** 每个目标用例必须从 clean build 开始，运行 `compile_sim`、无参数 `run`，并对 `tb/output.mem` 与 `tb/output_ref.mem` 执行精确 `diff -u`。
+- **D-03:** Phase 5 的 basic01、basic02、alu、priority_encoder 必须在修改后继续通过精确零差异回归。
 
-### Preprocessing, Memory, and System Functions
-- **D-05:** Support common Verilog preprocessing: object-like macros, function-like macros, nested includes, and include recursion protection. The implementation should cover the existing `def.v` and `i2c` macro/include patterns without requiring a full SystemVerilog preprocessor.
-- **D-06:** Resolve `` `include `` paths relative to the including source file. Resolve `$fopen`, `$readmemh`, and `$readmemb` paths relative to the testbench/runtime working directory, with absolute paths preserved.
-- **D-07:** Support both `$readmemh` and `$readmemb`, including optional start/end address ranges, numeric token parsing, and writes into unpacked memory arrays.
-- **D-08:** Implement `$time` as the current simulation time and keep `$display` formatting functional. Implement full VCD waveform output for `$dumpfile`/`$dumpvars` so waveform probes are observable and do not merely parse.
+### Minimal Sequential Semantics
+- **D-04:** 采用实现 basic03/basic05 所需的最小离散时间调度：支持 `always @(posedge clk)`、实际时钟翻转、`@(posedge clk)` 等待和 `#delay` 事件。
+- **D-05:** 支持非阻塞赋值的基本 NBA 行为：同一时刻先执行 active 语句，再提交 NBA 更新，然后重新传播组合逻辑；不为未覆盖的 Verilog 语义扩展复杂调度器。
+- **D-06:** 支持 basic03/basic05 中的同步复位条件和寄存器保持/更新行为；异步复位、复杂多边沿敏感列表仅在不增加回归风险时实现，不作为本阶段验收门槛。
+
+### Required Preprocessing, Memory, and System Tasks
+- **D-07:** 支持 basic04/basic05 所需的对象宏、`include`（相对包含文件目录解析）和已存在的 `def.v` 形式；完整 SystemVerilog 预处理延期。
+- **D-08:** 支持 `$readmemh`，并保留 `$readmemb` 的最小兼容入口；支持 basic04/basic05 使用的 unpacked memory、变量索引和初始化文件路径。
+- **D-09:** 支持 `$time` 的当前仿真时间、现有 `$fopen`/`$fgets`/`$fscanf`/`$fdisplay`/`$display`/`$finish` 路径；`$dumpvars` 只要求可执行且不使 basic05 崩溃，不要求完整 VCD 波形文件。
 
 ### Hierarchy and Data Model
-- **D-09:** Collect all modules from all filelist sources before elaboration, then resolve parameter overrides, instantiate the hierarchy, connect ports by direction, and flatten/execute the resulting design.
-- **D-10:** Preserve the Phase 5 AST and `uint64_t` scalar signal model where possible, extending it with packed vectors plus unpacked memory arrays. Support variable-index memory reads/writes from procedural and combinational logic.
-
-### Test Strategy and Completion
-- **D-11:** Prioritize basic03, basic04, and basic05 first because they validate the core sequential, preprocessing, and memory features. Then proceed to i2c, ip, axis_fifo, and sha256.
-- **D-12:** A testcase is complete only after clean build, `compile_sim`, `run`, and exact `diff` against its reference output all pass. Partial output matching or merely non-crashing execution does not count as completion.
+- **D-10:** 保留 Phase 5 的 AST、`uint64_t` 信号值、前缀扁平化命名和现有组合传播模式；只补 basic04/basic05 所需的参数化子模块、端口连接、generate 和 memory metadata。
+- **D-11:** 多文件全局模块收集和通用层次 elaboration 不是本阶段目标；只保证 basic04/basic05 的实际 filelist、include 和两个 `add_leaf`/`basic05_leaf` 子模块路径可运行。
 
 ### Claude's Discretion
-- Choose the concrete event-queue data structures, AST extensions, and internal ownership/lifetime strategy.
-- Choose the exact VCD handling as long as `$dumpvars` does not break Phase 6 testcases and `$time` is correct.
-- Choose implementation order within the stated priority and stop lower-priority work if the deadline requires preserving already-passing cases.
+- 事件队列的具体容器、NBA 暂存结构和时钟生成实现。
+- 是否以最小 no-op 方式记录 `$dumpvars`，只要 `$time` 和 basic05 输出正确。
+- basic03/basic04/basic05 的实现顺序；建议 basic03 → basic04 → basic05，每完成一个即运行精确 diff。
 
 </decisions>
 
@@ -45,27 +44,26 @@ Extend the Phase 5 flex/bison C++ RTL simulator from combinational execution to 
 
 **Downstream agents MUST read these before planning or implementing.**
 
-### Phase definition and requirements
-- `.planning/ROADMAP.md` §Phase 6 — phase goal, requirements, and success criteria.
-- `.planning/REQUIREMENTS.md` §A1 — parser, simulator, incremental, parallel, Makefile, and testcase requirements.
-- `.planning/phases/05-a1-basic-simulator/05-01-SUMMARY.md` — locked Phase 5 architecture, decisions, known serialization limitation, and clean regression result.
+### Phase definition and prior implementation
+- `.planning/ROADMAP.md` §Phase 6 — original phase goal and requirement mapping; this context narrows the immediate acceptance gate.
+- `.planning/REQUIREMENTS.md` §A1 — simulator requirements and public testcase definitions.
+- `.planning/phases/05-a1-basic-simulator/05-01-SUMMARY.md` — Phase 5 architecture and four-case zero-diff baseline.
+- `.planning/phases/06-a1-advanced-features/06-01-SUMMARY.md` — completed frontend/preprocessor/AST work already on the main branch.
 
-### Existing simulator implementation
-- `Track-A/A1-simulator/src/parser.y` — current AST grammar, non-blocking assignment node, event controls, module instances, and generated constructs.
-- `Track-A/A1-simulator/src/lexer.l` — current tokenization and directive handling boundary.
-- `Track-A/A1-simulator/src/sim_engine.cpp` — current compilation, hierarchy flattening, signal propagation, procedural execution, and delay handling.
-- `Track-A/A1-simulator/src/eval_expr.cpp` — current expression, bit-select, concatenation, parameter, and `$clog2` evaluation.
-- `Track-A/A1-simulator/src/sim_data.h` — current `ModuleDef`, `SignalDef`, and serialized simulation data model.
-- `Track-A/A1-simulator/Makefile` — build, compile_sim, run, and parallel_run interface.
+### Target testcases
+- `Track-A/A1-simulator/testcases/sim_public/benchmark/basic03/rtl/dut.v` and `Track-A/A1-simulator/testcases/sim_public/benchmark/basic03/tb/tb.v` — posedge clock, NBA register, generate, parameterized leaf.
+- `Track-A/A1-simulator/testcases/sim_public/benchmark/basic04/rtl/dut.v` and `Track-A/A1-simulator/testcases/sim_public/benchmark/basic04/rtl/def.v` — include, macro, readmemh, unpacked memory, combinational selection.
+- `Track-A/A1-simulator/testcases/sim_public/benchmark/basic05/rtl/dut.v` and `Track-A/A1-simulator/testcases/sim_public/benchmark/basic05/rtl/def.v` — include, memory, parameterized hierarchy, sequential q, `$time`, `$dumpvars`.
+- `Track-A/A1-simulator/testcases/sim_public/benchmark/basic03/tb/output_ref.mem` — exact expected sequential output.
+- `Track-A/A1-simulator/testcases/sim_public/benchmark/basic04/tb/output_ref.mem` — exact expected memory output.
+- `Track-A/A1-simulator/testcases/sim_public/benchmark/basic05/tb/output_ref.mem` — exact expected sequential/memory output.
 
-### Phase 6 reference testcases
-- `Track-A/A1-simulator/testcases/sim_public/benchmark/basic03/rtl/dut.v` and `Track-A/A1-simulator/testcases/sim_public/benchmark/basic03/tb/tb.v` — first sequential target.
-- `Track-A/A1-simulator/testcases/sim_public/benchmark/basic04/rtl/dut.v` and `Track-A/A1-simulator/testcases/sim_public/benchmark/basic04/rtl/def.v` — include/macro and memory initialization target.
-- `Track-A/A1-simulator/testcases/sim_public/benchmark/basic05/rtl/dut.v` and `Track-A/A1-simulator/testcases/sim_public/benchmark/basic05/rtl/def.v` — sequential, memory, parameter, `$time`, and `$dumpvars` syntax target.
-- `Track-A/A1-simulator/testcases/sim_public/benchmark/i2c/filelist.txt` and `Track-A/A1-simulator/testcases/sim_public/benchmark/i2c/rtl/i2c_master_defines.v` — multi-file hierarchy and include target.
-- `Track-A/A1-simulator/testcases/sim_public/benchmark/ip/filelist.txt` — multi-file IP target.
-- `Track-A/A1-simulator/testcases/sim_public/benchmark/axis_fifo/filelist.txt` — sequential FIFO target.
-- `Track-A/A1-simulator/testcases/sim_public/benchmark/sha256/filelist.txt` — multi-file sequential/hash target.
+### Existing implementation
+- `Track-A/A1-simulator/src/sim_engine.cpp` — current runtime, signal propagation, hierarchy and delay handling.
+- `Track-A/A1-simulator/src/eval_expr.cpp` — current expression, bit-select, concat and parameter evaluation.
+- `Track-A/A1-simulator/src/system_funcs.cpp` — current file I/O and system task implementations.
+- `Track-A/A1-simulator/src/ast.h` — current AST nodes after Phase 6 frontend expansion.
+- `Track-A/A1-simulator/Makefile` — build, compile_sim and run contract.
 
 </canonical_refs>
 
@@ -73,43 +71,45 @@ Extend the Phase 5 flex/bison C++ RTL simulator from combinational execution to 
 ## Existing Code Insights
 
 ### Reusable Assets
-- Flex/bison parser and AST node model already cover modules, parameters, generate constructs, blocking/non-blocking assignment nodes, event controls, and system tasks.
-- `propagateSignals()` already provides combinational fixed-point evaluation and can become the delta-cycle combinational phase after NBA commits.
-- Existing filelist-relative source resolution and Makefile targets provide the Phase 6 command-line/test harness foundation.
-- Existing `$fopen`, `$fscanf`, `$fgets`, `$fdisplay`, `$display`, `$finish`, and `$fclose` handling can be extended rather than replaced.
+- `propagateSignals()` already computes combinational fixed points and should remain the post-NBA propagation path.
+- Existing system function handlers already cover most testbench file I/O and should be extended narrowly.
+- The Phase 6 frontend commits already add preprocessing, event/function/system-task tokens, and serialized metadata; Wave 2 should consume those interfaces rather than replace them.
 
 ### Established Patterns
-- Signal values are stored as `uint64_t`, with separate width and signedness maps.
-- Module hierarchy is currently flattened with prefixed signal names; Phase 6 should preserve this observable naming pattern while making port direction and multi-file elaboration correct.
-- AST node types map directly to Verilog constructs; new timing/preprocessor/memory behavior should follow the same mapping rather than introduce an unrelated frontend.
-- Every testcase is validated through `compile_sim`, `run`, and exact output comparison.
+- Signals are stored as `uint64_t` with width/signedness maps.
+- Hierarchy is flattened with prefixed signal names.
+- AST node types map directly to Verilog constructs.
+- Testcases are validated through testcase-relative `compile_sim`, argument-free `run`, and exact output diff.
 
 ### Integration Points
-- Parser/lexer changes feed `ASTNode` trees consumed by `buildModule()`, hierarchy elaboration, and `SimulationEngine::run()`.
-- `sim_data` is the compile/run handoff boundary, though the current in-memory `--run -f FILELIST --top TOP` path is the reliable execution path and its serialization limitation is documented.
-- Testbench file I/O is relative to the testcase runtime directory; generated `tb/output.mem` remains the primary observable artifact.
+- `parser.y`/`lexer.l` feed ASTs consumed by `SimulationEngine::run()`.
+- `sim_engine.cpp` owns scheduling, initial/always execution, signal propagation and module elaboration.
+- `eval_expr.cpp` handles memory indexing and parameter expressions.
+- `system_funcs.cpp` handles `$time`, `$readmemh`, file I/O and `$dumpvars` compatibility.
 
 </code_context>
 
 <specifics>
 ## Specific Ideas
 
-- The intended timing behavior is conventional Verilog-like discrete time, not the Phase 5 wait-driven clock approximation.
-- The priority is explicit: finish basic03-05 before spending effort on i2c, ip, axis_fifo, and sha256.
-- Full VCD support was considered but is not a Phase 6 acceptance requirement; `$dumpvars` must remain executable and `$time` must be meaningful.
+- Time is critical: prefer a small, test-driven implementation over a general Verilog simulator.
+- Run the exact diff after each target case; do not wait until the end to discover a scheduler mismatch.
+- Preserve the already passing Phase 5 cases at every meaningful runtime change.
 
 </specifics>
 
 <deferred>
 ## Deferred Ideas
 
-- 完整 VCD 波形生成（包括 `$dumpfile`/`$dumpvars`）已纳入 Phase 6，因为这是本次讨论中明确选择的实现范围。
-- GEMM performance, incremental compilation, and multicore speedup remain Phase 7 scope.
-- Broader SystemVerilog preprocessing beyond common Verilog macros/includes remains outside this phase.
+- i2c, ip, axis_fifo and sha256 full functional support — later A1 advanced phase.
+- Full VCD generation for `$dumpfile`/`$dumpvars` — not needed for basic03-05.
+- Complete asynchronous reset and arbitrary multi-edge sensitivity semantics — later hardening.
+- Incremental compilation, GEMM, multicore simulation and performance tuning — Phase 7.
+- Full Phase 6 four-wave plan and its broad exact-diff matrix — replaced by this short critical-path plan.
 
 </deferred>
 
 ---
 
-*Phase: 6-A1 Advanced Features*
-*Context gathered: 2026-07-14*
+*Phase: 6-a1-advanced-features*
+*Context gathered: 2026-07-15*
