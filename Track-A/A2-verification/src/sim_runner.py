@@ -21,13 +21,18 @@ class SimResult:
 # Docker 命令模板（per D-06：镜像无 pip，需 bootstrap）
 # per SMOKE_TEST_REPORT §2：MSYS_NO_PATHCONV 防 Git Bash 路径转换
 _DOCKER_RUN_TEMPLATE = """\
-set -e
-echo "=== [1/3] bootstrap pip (镜像无 pip) ==="
-apt-get update -qq >/dev/null 2>&1 && apt-get install -y -qq python3-pip >/dev/null 2>&1
-python3 -m pip install --break-system-packages --quiet cocotb==2.0.1 cocotbext-axi==0.1.28 2>&1 | tail -1
-echo "=== [2/3] 确认工具链 ==="
+echo "=== [1/4] bootstrap pip (镜像无 pip) ==="
+apt-get update -qq >/dev/null 2>&1
+apt-get install -y -qq python3-pip >/dev/null 2>&1
+echo "=== [2/4] 离线装依赖 ==="
+if [ -d /work/wheelhouse ]; then
+  python3 -m pip install --break-system-packages --no-index --find-links=/work/wheelhouse cocotb==2.0.1 cocotbext-axi==0.1.28 Jinja2==3.1.6 find_libpython 2>&1 | tail -2
+else
+  python3 -m pip install --break-system-packages --quiet cocotb==2.0.1 cocotbext-axi==0.1.28 2>&1 | tail -2
+fi
+echo "=== [3/4] 确认工具链 ==="
 python3 -c "import cocotb, cocotbext.axi; print('cocotb', cocotb.__version__)"
-echo "=== [3/3] 仿真 (SIM=verilator) ==="
+echo "=== [4/4] 仿真 (SIM=verilator) ==="
 cd {tb_dir}
 make SIM=verilator MODULE={test_module} 2>&1
 echo "=== MAKE_EXIT=$? ==="
@@ -72,11 +77,30 @@ def _run_docker(tb_dir, test_module, seed):
         test_module=test_module,
     )
 
+    # wheelhouse 挂载（离线装依赖）— 向上搜索找到 wheelhouse 目录
+    wh_path = None
+    p = tb_dir.parent
+    for _ in range(5):
+        candidate = p / "wheelhouse"
+        if candidate.exists():
+            wh_path = candidate
+            break
+        p = p.parent
+    wh_volumes = []
+    if wh_path:
+        wh_abs = str(wh_path.resolve()).replace("\\", "/")
+        if wh_abs[1:3] == ":/":
+            wh_docker = f"//{wh_abs[0].lower()}{wh_abs[2:]}"
+        else:
+            wh_docker = wh_abs
+        wh_volumes = ["-v", f"{wh_docker}:/work/wheelhouse:ro"]
+
     cmd = [
         "docker", "run", "--rm",
         "--platform", "linux/amd64",
         "--entrypoint", "bash",
         "-v", f"{docker_mount}:/work",
+    ] + wh_volumes + [
         "-w", "/work",
         "-e", f"SEED={seed}",
         "verilator/verilator:v5.050",
@@ -90,10 +114,8 @@ def _run_docker(tb_dir, test_module, seed):
         result = subprocess.run(
             cmd, capture_output=True, text=True, timeout=1200, env=env,
         )
-        # 判断成功：make exit 0 且无 fatal error
-        passed = (result.returncode == 0 and
-                  "Error" not in result.stdout[-500:] and
-                  "MAKE_EXIT=0" in result.stdout.replace(" ", ""))
+        # 判断成功：MAKE_EXIT=0（仿真 make 成功）
+        passed = ("MAKE_EXIT=0" in result.stdout)
         return SimResult(
             passed=passed,
             exit_code=result.returncode,

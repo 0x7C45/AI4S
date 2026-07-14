@@ -1,0 +1,37 @@
+{
+  "report": {
+    "pipeline": {
+      "parse": {
+        "status": "passed",
+        "top_module": "axi_adapter_rd",
+        "clock": "clk",
+        "reset": "rst"
+      },
+      "skeleton": {
+        "status": "passed",
+        "testbench_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case1_gatecheck\\generated_tb\\generated_test.py"
+      },
+      "constraint": {
+        "status": "skipped_phase1",
+        "note": "Phase 2: seed+num_seq 约束随机生成"
+      },
+      "simulate": {
+        "status": "passed",
+        "exit_code": 0
+      },
+      "coverage": {
+        "status": "skipped_phase1",
+        "note": "Phase 2: line/branch/functional 覆盖率收集"
+      }
+    },
+    "artifacts": {
+      "design_json": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case1_gatecheck\\design.json",
+      "verification_skeleton_json": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case1_gatecheck\\verification_skeleton.json",
+      "generated_tb": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case1_gatecheck\\generated_tb",
+      "sim_log": "r/local/lib/python3.12/dist-packages/cocotbext/axi/reset.py:59: DeprecationWarning: Use `signal.value_change` instead.\n                                                          await Edge(reset_signal)\n    30.00ns WARNING  py.warnings                        /usr/local/lib/python3.12/dist-packages/cocotbext/axi/stream.py:156: DeprecationWarning: `task.kill()` is deprecated in favor of `task.cancel()`\n                                                          self._run_cr.kill()\n    30.00ns WARNING  py.warnings                        /usr/local/lib/python3.12/dist-packages/cocotbext/axi/axi_master.py:845: DeprecationWarning: `task.kill()` is deprecated in favor of `task.cancel()`\n                                                          self._process_read_cr.kill()\n    30.00ns WARNING  py.warnings                        /usr/local/lib/python3.12/dist-packages/cocotbext/axi/axi_master.py:848: DeprecationWarning: `task.kill()` is deprecated in favor of `task.cancel()`\n                                                          self._process_read_resp_cr.kill()\n    30.00ns WARNING  py.warnings                        /usr/local/lib/python3.12/dist-packages/cocotbext/axi/axi_slave.py:266: DeprecationWarning: `task.kill()` is deprecated in favor of `task.cancel()`\n                                                          self._process_read_cr.kill()\n   260.00ns WARNING  py.warnings                        /usr/local/lib/python3.12/dist-packages/cocotbext/axi/axi_master.py:1030: DeprecationWarning: The data field will be removed in a future release.\n                                                          cmd.event.set(read_resp)\n   260.00ns WARNING  py.warnings                        /usr/local/lib/python3.12/dist-packages/cocotbext/axi/axi_master.py:834: DeprecationWarning: The data field will be removed in a future release.\n                                                          return event.data\n- :0: Verilog $finish\nmake[1]: Leaving directory '/work'\n=== MAKE_EXIT=0 ===\n"
+    },
+    "coverage_summary": {},
+    "reproducible_command": "python3 run.py --rtl testcases/A2_public_dataset/case1/rtl --top case1 --out smoke_out/case1_gatecheck --seed 20260630 --num-seq 5000",
+    "timestamp": "2026-07-14T14:01:06.777816"
+  }
+}
