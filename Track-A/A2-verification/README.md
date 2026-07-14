@@ -197,3 +197,42 @@ ls submission_out/case4/
 **已弃用路线（仅作历史说明，禁止在产物与文档主体中出现）**：
 - `cocotb + iverilog + gcov`：iverilog 原生不支持 RTL 行 / 分支覆盖率，gcov 测的是 C++ 源码而非 RTL → 行 / 分支 70% 拿不到。`TEAM_GUIDE.md` A2 节仍残留此旧方案，以 `PLAN.md` 为准。
 - VCS / URG：`spec / scoring` 不强制 VCS，未用 VCS 不是罚分项；公开 case 用 VCS 测得的数据仅作标杆参考，本路线采用 Verilator 原生覆盖率（`--coverage-line --coverage-toggle` + `verilator_coverage` 合并）。
+
+---
+
+## 9. 离线安装与运行（win-ZCode 提交包）
+
+### 9.1 离线依赖安装（评测机断网）
+
+`wheelhouse/` 目录预生成 manylinux2014_x86_64 wheel（cocotb/cocotbext-axi/jinja2/pyverilog 等 7 包），评测机断网时离线安装：
+
+```bash
+# 镜像 verilator/verilator:v5.050 无 pip，需先 bootstrap
+apt-get update && apt-get install -y python3-pip python3-venv 2>/dev/null || true
+python3 -m ensurepip 2>/dev/null || true
+
+# 离线安装（不联网）
+pip3 install --no-index --find-links=wheelhouse -r requirements.txt
+```
+
+### 9.2 运行（Docker linux/amd64）
+
+```bash
+# Docker 容器内执行完整流水线
+./run.sh \
+  --rtl benchmark/rtl \
+  --top dut \
+  --out submission_out/case_name \
+  --seed 20260630 \
+  --num-seq 5000
+```
+
+### 9.3 必交文件清单
+
+- `run.sh` / `run.py` — 统一入口
+- `src/` — 7 模块（rtl_parser/skeleton_gen/sim_runner/constraint_gen/coverage_gen/coverage_collect/report_gen/dead_code_analyzer）
+- `templates/cocotb_tb.py.j2` — cocotb testbench 模板
+- `requirements.txt` — 锁版本依赖
+- `wheelhouse/` — 离线 wheel 包（manylinux2014_x86_64）
+- `THIRD_PARTY.md` — 第三方依赖版本/许可/调用边界
+- `README.md` — 本文件（离线安装运行说明）
