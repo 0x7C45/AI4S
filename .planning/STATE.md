@@ -67,7 +67,8 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-None yet.
+- A3 evidence audit: `.planning/quick/260714-ovt-a3-gsd-87675ff-a3-phase-1-4-summary-veri/260714-ovt-SUMMARY.md`
+- A3 Phase 1 local implementation and `cd Track-A/A3-synthesis && make test` (28 tests) are recorded from commit `87675ff`; official-image validation is still pending.
 
 ### Blockers/Concerns
 
@@ -75,6 +76,8 @@ None yet.
 - A1 teammate (teammate 1) has no EDA background — relying entirely on GSD
 - A2 teammate (teammate 2) has no EDA background — relying entirely on GSD
 - If A1 or A2 stalls, final score = (A1 + A2 + A3) / 3 suffers
+- A3 official-image all-point synthesis and RTL/gate equivalence for LSV01-LSV10 are not evidenced.
+- A3 OpenSTA area/arrival/PPA and runtime measurements, Pareto/auto-tuning results, and clean-package/metadata/originality checks are not evidenced.
 
 ## Deferred Items
 
@@ -83,6 +86,12 @@ None yet.
 | A3-V2 | Per-circuit 7-point expansion | Deferred to Phase 3 | Roadmap init |
 | A3-V2 | Hidden circuit $default handling | Deferred to Phase 3 | Roadmap init |
 | A3-V2 | Custom Yosys pass | Out of scope v1 | Roadmap init |
+
+## Quick Tasks Completed
+
+| Quick Task | Result | Completed |
+|------------|--------|-----------|
+| `260714-ovt` | A3 Phase 1-4 evidence audit synchronized; official-image correctness/PPA/runtime/package evidence remains pending | 2026-07-14 |
 
 ## Session Continuity
 
