@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "ultra-e001-buf4-t75", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -E 0.01 -Q 0.0", "buffer_fanout_threshold": 75, "buffer_strength": 4},
+    {"name": "ultra-e001-buf4-t100", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -E 0.01 -Q 0.0", "buffer_fanout_threshold": 100, "buffer_strength": 4},
+    {"name": "ultra-e001-buf4-t125", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -E 0.01 -Q 0.0", "buffer_fanout_threshold": 125, "buffer_strength": 4},
+    {"name": "ultra-e001-buf4-t150", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -E 0.01 -Q 0.0", "buffer_fanout_threshold": 150, "buffer_strength": 4},
+    {"name": "ultra-e001-buf4-t200", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -E 0.01 -Q 0.0", "buffer_fanout_threshold": 200, "buffer_strength": 4},
+    {"name": "ultra-e001-buf8-t75", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -E 0.01 -Q 0.0", "buffer_fanout_threshold": 75, "buffer_strength": 8},
+    {"name": "ultra-e001-buf8-t100", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -E 0.01 -Q 0.0", "buffer_fanout_threshold": 100, "buffer_strength": 8}
+  ]
+}

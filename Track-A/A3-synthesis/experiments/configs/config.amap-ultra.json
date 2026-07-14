@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "amap-f16-a32-c5000", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"},
+    {"name": "amap-f32-a64-c5000", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 32 -A 64 -C 5000 -Q 0.0"},
+    {"name": "amap-f8-a32-c5000", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 8 -A 32 -C 5000 -Q 0.0"},
+    {"name": "amap-e00001", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -E 0.00001 -Q 0.0"},
+    {"name": "amap-e001", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -E 0.01 -Q 0.0"},
+    {"name": "amap-dc2-only", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"},
+    {"name": "amap-syn2-only", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"}
+  ]
+}

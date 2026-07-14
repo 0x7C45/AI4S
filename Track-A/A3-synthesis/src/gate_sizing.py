@@ -114,6 +114,7 @@ def insert_high_fanout_buffers(
     *,
     threshold: int,
     strength: int,
+    group_size: int | None = None,
 ) -> int:
     """Insert one strong, pin-compatible buffer after overloaded drivers.
 
@@ -133,6 +134,15 @@ def insert_high_fanout_buffers(
     if not _liberty_buffer_is_compatible(liberty_text, buffer_cell):
         return 0
     matches = list(_INSTANCE_RE.finditer(text))
+    if group_size is not None:
+        return _insert_grouped_buffers(
+            netlist,
+            text,
+            matches,
+            buffer_cell=buffer_cell,
+            threshold=threshold,
+            group_size=group_size,
+        )
     connection_count: dict[str, int] = {}
     for match in matches:
         for _, net in _PIN_RE.findall(match.group("pins")):
@@ -186,3 +196,83 @@ def insert_high_fanout_buffers(
     rewritten = rewritten[: module.end()] + "".join(declarations) + rewritten[module.end() :]
     netlist.write_text(rewritten, encoding="utf-8")
     return len(declarations)
+
+
+def _insert_grouped_buffers(
+    netlist: Path,
+    text: str,
+    matches: list[re.Match[str]],
+    *,
+    buffer_cell: str,
+    threshold: int,
+    group_size: int,
+) -> int:
+    """Split a large sink set across parallel buffers of bounded fanout."""
+
+    connections: dict[str, list[tuple[int, str, int, int]]] = {}
+    for match_index, match in enumerate(matches):
+        pins = match.group("pins")
+        for pin_match in _PIN_RE.finditer(pins):
+            pin = pin_match.group(1)
+            net = pin_match.group(2).strip()
+            start = match.start("pins") + pin_match.start(2)
+            end = match.start("pins") + pin_match.end(2)
+            connections.setdefault(net, []).append((match_index, pin, start, end))
+
+    edits: list[tuple[int, int, str]] = []
+    declarations: list[str] = []
+    insertions: dict[int, list[str]] = {}
+    generated_index = 0
+    inserted_buffers = 0
+
+    def fresh(kind: str) -> str:
+        nonlocal generated_index
+        while True:
+            name = f"__a3_buffer_{kind}_{generated_index}"
+            generated_index += 1
+            if name not in text:
+                return name
+
+    for net, records in connections.items():
+        drivers = [record for record in records if record[1] in _OUTPUT_PINS]
+        sinks = [record for record in records if record[1] not in _OUTPUT_PINS]
+        if len(drivers) != 1 or len(sinks) < threshold:
+            continue
+        groups = [sinks[index : index + group_size] for index in range(0, len(sinks), group_size)]
+        if len(groups) < 2:
+            continue
+
+        driver_match_index, _, driver_start, driver_end = drivers[0]
+        source_net = fresh("source")
+        declarations.append(f"  wire {source_net};\n")
+        edits.append((driver_start, driver_end, source_net))
+        driver = matches[driver_match_index]
+        buffers: list[str] = []
+        for group_index, group in enumerate(groups):
+            if group_index == 0:
+                output_net = net
+            else:
+                output_net = fresh("net")
+                declarations.append(f"  wire {output_net};\n")
+                for _, _, sink_start, sink_end in group:
+                    edits.append((sink_start, sink_end, output_net))
+            instance = fresh("inst")
+            buffers.append(
+                f"\n{driver.group('indent')}{buffer_cell} {instance} "
+                f"( .A({source_net}), .Z({_verilog_net(output_net)}) );"
+            )
+            inserted_buffers += 1
+        insertions.setdefault(driver.end(), []).extend(buffers)
+
+    if not inserted_buffers:
+        return 0
+    edits.extend((position, position, "".join(lines)) for position, lines in insertions.items())
+    rewritten = text
+    for start, end, replacement in sorted(edits, key=lambda edit: (edit[0], edit[1]), reverse=True):
+        rewritten = rewritten[:start] + replacement + rewritten[end:]
+    module = _MODULE_RE.search(rewritten)
+    if module is None:
+        return 0
+    rewritten = rewritten[: module.end()] + "".join(declarations) + rewritten[module.end() :]
+    netlist.write_text(rewritten, encoding="utf-8")
+    return inserted_buffers

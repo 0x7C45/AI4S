@@ -1,3 +1,4 @@
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -141,3 +142,32 @@ class GateSizingTests(unittest.TestCase):
             netlist.write_text(original)
             self.assertEqual(insert_high_fanout_buffers(netlist, liberty, threshold=2, strength=8), 0)
             self.assertEqual(netlist.read_text(), original)
+
+    def test_groups_high_fanout_sinks_across_parallel_buffers(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            liberty = root / "cells.lib"
+            liberty.write_text(
+                "cell (BUF_X8) { pin (A) { direction: input; } pin (Z) { direction: output; } }\n"
+            )
+            netlist = root / "netlist.v"
+            netlist.write_text(
+                "module top(input a, output y0, y1, y2, y3, y4);\nwire n;\n"
+                "INV_X1 d (.A(a), .ZN(n));\n"
+                "INV_X1 u0 (.A(n), .ZN(y0));\n"
+                "INV_X1 u1 (.A(n), .ZN(y1));\n"
+                "INV_X1 u2 (.A(n), .ZN(y2));\n"
+                "INV_X1 u3 (.A(n), .ZN(y3));\n"
+                "INV_X1 u4 (.A(n), .ZN(y4));\nendmodule\n"
+            )
+            changed = insert_high_fanout_buffers(
+                netlist, liberty, threshold=5, strength=8, group_size=2
+            )
+            text = netlist.read_text()
+            self.assertEqual(changed, 3)
+            self.assertIn(".ZN(__a3_buffer_source_", text)
+            self.assertEqual(text.count("BUF_X8 __a3_buffer_inst_"), 3)
+            self.assertEqual(text.count(".A(n)"), 2)
+            grouped_loads = re.findall(r"INV_X1 u[2-4] \(\.A\((__a3_buffer_net_\d+)\)", text)
+            self.assertEqual(len(grouped_loads), 3)
+            self.assertEqual(len(set(grouped_loads)), 2)

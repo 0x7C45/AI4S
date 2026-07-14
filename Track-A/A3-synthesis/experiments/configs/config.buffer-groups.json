@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "balanced-bg8-t35", "profile": "balanced", "buffer_fanout_threshold": 35, "buffer_strength": 8, "buffer_group_size": 8},
+    {"name": "balanced-bg16-t35", "profile": "balanced", "buffer_fanout_threshold": 35, "buffer_strength": 8, "buffer_group_size": 16},
+    {"name": "balanced-bg16-t50", "profile": "balanced", "buffer_fanout_threshold": 50, "buffer_strength": 8, "buffer_group_size": 16},
+    {"name": "balanced-bg24-t75", "profile": "balanced", "buffer_fanout_threshold": 75, "buffer_strength": 8, "buffer_group_size": 24},
+    {"name": "dc2-bg16-t50", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 50, "buffer_strength": 8, "buffer_group_size": 16},
+    {"name": "amap-bg16-t75", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.001", "buffer_fanout_threshold": 75, "buffer_strength": 8, "buffer_group_size": 16},
+    {"name": "resub-x2-bg16-t35", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 25, "upsize_strength": 2, "buffer_fanout_threshold": 35, "buffer_strength": 16, "buffer_group_size": 16}
+  ]
+}
