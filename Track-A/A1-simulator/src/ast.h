@@ -1,6 +1,7 @@
 #ifndef A1_SIMULATOR_AST_H
 #define A1_SIMULATOR_AST_H
 
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -38,15 +39,37 @@ enum class NodeType {
     GENERATE_IF,
     LOCALPARAM_DECL,
     GENERATE_BLOCK,
+    EVENT_LIST,
+    FUNCTION_DECL,
+    FUNCTION_RETURN,
+    FUNCTION_CALL,
+    PROCEDURAL_DECL,
+    MEMORY_DECL,
+};
+
+enum class EventEdge : uint8_t {
+    NONE = 0,
+    POSEDGE = 1,
+    NEGEDGE = 2,
+    LEVEL = 3,
+};
+
+enum class PartSelectDirection : uint8_t {
+    NONE = 0,
+    PLUS = 1,
+    MINUS = 2,
 };
 
 struct ASTNode {
-    NodeType type;
+    NodeType type = NodeType::BLOCK;
     std::string value;
     std::vector<ASTNode *> children;
-    int msb;
-    int lsb;
-    int line_no;
+    int msb = 0;
+    int lsb = 0;
+    int line_no = 0;
+    std::string source_file;
+    EventEdge event_edge = EventEdge::NONE;
+    PartSelectDirection part_select_direction = PartSelectDirection::NONE;
 };
 
 ASTNode *makeNode(NodeType type, std::string value = {}, int line_no = 0);

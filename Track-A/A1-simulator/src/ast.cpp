@@ -3,7 +3,11 @@
 #include <utility>
 
 ASTNode *makeNode(NodeType type, std::string value, int line_no) {
-    return new ASTNode{type, std::move(value), {}, 0, 0, line_no};
+    auto *node = new ASTNode();
+    node->type = type;
+    node->value = std::move(value);
+    node->line_no = line_no;
+    return node;
 }
 
 void addChild(ASTNode *parent, ASTNode *child) {
