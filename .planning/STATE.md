@@ -80,18 +80,24 @@ Recent decisions affecting current work:
 
 - Phase 10 Task 4: 5 公开 case Docker 复验 + 红线合规扫描 + 最终验收
 - Phase 10 SUMMARY 收尾 + VERIFICATION
-- A3 evidence audit: `.planning/quick/260714-ovt-a3-gsd-87675ff-a3-phase-1-4-summary-veri/260714-ovt-SUMMARY.md`
-- A3 Phase 1 local implementation and `make -C Track-A/A3-synthesis test` (28 tests) are recorded from commit `87675ff`.
-- Local LSV01 point 1 synthesis completed through the A3 Makefile to `/tmp/a3-lsv01-p1/netlist.v`; Nangate45 cells including `AND2_X1`, `MUX2_X1`, and `NAND2_X1` were observed in the local mapped netlist.
-- This local synthesis/netlist evidence does not establish official-image validation, RTL/gate equivalence, evaluator acceptance, or final competition correctness.
+- A3 Phase 1-4 remain incomplete: complete official-image validation and evaluator-relevant acceptance.
+- A3 complete RTL/gate equivalence for all ten circuits and all points; LSV07/LSV09/LSV10 require initialization-aware verification because gate-level X/uninitialized state blocked local comparison.
+- Add OpenSTA/`sta`-backed PPA, area, timing, and runtime measurements; complete multi-point auto-tuning and Pareto evidence.
+- Complete clean package, metadata, originality, official image, and full submission validation.
+- A3 local evidence anchor: commit `87675ff`, `make -C Track-A/A3-synthesis test` with 28 tests passed, and LSV01-LSV10 point 1 local Yosys+Nangate45 synthesis observed_success.
+- Equivalence pass samples: LSV01 500, LSV02 200, LSV03 200, LSV04 100, LSV05 100, LSV06 100, and LSV08 100.
+- LSV07/LSV09/LSV10 are `not_verified`/N/A due to gate-level X/uninitialized state; this is neither an equivalence pass nor a synthesis-defect finding.
+- No OpenSTA/`sta` is available locally; PPA, area, timing, and runtime remain unverified.
 
 ### Blockers/Concerns
 
 - Deadline: 2026-07-15 10:00（约 16 小时）
 - A1/A3 赛道进度需继续通过各自 GSD 工作流更新
 - A2 Phase 10 Task 4 的 Docker 复验与最终验收仍未完成
-- A3 official-image synthesis, real LSV01 E2E, Nangate45 mapped-netlist inspection, and RTL/gate equivalence are `human_needed`; all-point synthesis and RTL/gate equivalence for LSV01-LSV10 are not evidenced.
-- A3 OpenSTA area/arrival/PPA and runtime measurements, Pareto/auto-tuning results, and clean-package/metadata/originality checks are not evidenced.
+- A3 point 1 synthesis observations are local Yosys+Nangate45 evidence only; official image execution, evaluator acceptance, and full ten-circuit/all-point equivalence are not verified.
+- LSV07/LSV09/LSV10 local equivalence is `not_verified`/N/A because gate-level X/uninitialized state blocked comparison; this must not be interpreted as synthesis failure.
+- OpenSTA/`sta` is unavailable, so A3 PPA, area, timing, and runtime are unverified; auto-tuning and Pareto evidence are pending.
+- A3 official image, clean package, metadata, and originality checks remain pending.
 
 ## Deferred Items
 
@@ -110,6 +116,7 @@ Recent decisions affecting current work:
 | `260714-ovt` | A3 Phase 1-4 evidence audit synchronized; official-image correctness/PPA/runtime/package evidence remains pending | 2026-07-14 |
 | `260714-pee` | A3 Phase 1 records synchronized to commit 87675ff and 28 canonical tests; four Phase 1 checks remain human_needed | 2026-07-14 |
 | `260714-a3-evidence-reconcile-local-lsv01` | Reconciled local LSV01 point 1 synthesis and Nangate45 mapped-netlist evidence; A3 Phases 1-4 remain incomplete | 2026-07-14 |
+| `260714-a3-gsd-mainline-sync` | Synchronized commit 87675ff, 28 tests, LSV01-LSV10 point 1 local synthesis, equivalence sample matrix, and pending validation boundaries; A3 Phases 1-4 remain incomplete | 2026-07-14 |
 
 ## Session Continuity
 

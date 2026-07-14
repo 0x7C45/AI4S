@@ -48,4 +48,23 @@ The following independent reconciliation section is appended without changing th
 
 `not_verified` for LSV07/09/10 is neither pass nor a synthesis-defect determination. Dedicated initialization handling and the official testbench are required. All ten point 1 synthesis observations are local Yosys plus Nangate45 Liberty generated-netlist observations. `make -C Track-A/A3-synthesis test` passed 28 tests. OpenSTA/`sta` is unavailable locally, so PPA, area, timing, and runtime remain unverified. Official-image execution, full ten-circuit/all-point equivalence, auto-tuning/Pareto, final clean package/metadata/originality, and Phase 1-4 completion remain pending.
 
-`STATE.md` unchanged because unresolved merge conflict; existing user content preserved. No safe conflict-external append-only location was proven.
+The mainline `STATE.md` synchronization is recorded in quick task `260714-a3-gsd-mainline-sync`; the A3 phase remains incomplete.
+
+## Mainline Synchronization Matrix: 2026-07-14
+
+This append-only matrix synchronizes the A3 evidence boundary to commit `87675ff`. It does not advance any A3 phase.
+
+| Circuit | point1 synthesis | equivalence status | pass samples | interpretation |
+|---|---|---|---:|---|
+| LSV01 | observed_success (local Yosys+Nangate45) | pass | 500 | local randomized RTL/gate equivalence |
+| LSV02 | observed_success (local Yosys+Nangate45) | pass | 200 | local randomized RTL/gate equivalence |
+| LSV03 | observed_success (local Yosys+Nangate45) | pass | 200 | local randomized RTL/gate equivalence |
+| LSV04 | observed_success (local Yosys+Nangate45) | pass | 100 | local randomized RTL/gate equivalence |
+| LSV05 | observed_success (local Yosys+Nangate45) | pass | 100 | local randomized RTL/gate equivalence |
+| LSV06 | observed_success (local Yosys+Nangate45) | pass | 100 | local randomized RTL/gate equivalence |
+| LSV07 | observed_success (local Yosys+Nangate45) | not_verified/N/A | N/A | gate-level X/uninitialized; neither equivalence pass nor synthesis defect |
+| LSV08 | observed_success (local Yosys+Nangate45) | pass | 100 | local randomized RTL/gate equivalence |
+| LSV09 | observed_success (local Yosys+Nangate45) | not_verified/N/A | N/A | gate-level X/uninitialized; neither equivalence pass nor synthesis defect |
+| LSV10 | observed_success (local Yosys+Nangate45) | not_verified/N/A | N/A | gate-level X/uninitialized; neither equivalence pass nor synthesis defect |
+
+The canonical local test result is `make -C Track-A/A3-synthesis test`: **28 tests passed**. No OpenSTA/`sta` is available, so PPA, area, timing, and runtime are unverified. Official-image validation, full ten-circuit/all-point equivalence, auto-tuning, Pareto, clean package/metadata/originality checks, and final evaluator acceptance remain pending.
