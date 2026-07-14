@@ -68,7 +68,7 @@ Recent decisions affecting current work:
 ### Pending Todos
 
 - A3 evidence audit: `.planning/quick/260714-ovt-a3-gsd-87675ff-a3-phase-1-4-summary-veri/260714-ovt-SUMMARY.md`
-- A3 Phase 1 local implementation and `cd Track-A/A3-synthesis && make test` (28 tests) are recorded from commit `87675ff`; official-image validation is still pending.
+- A3 Phase 1 local implementation and `cd Track-A/A3-synthesis && make test` (28 tests) are recorded from commit `87675ff`; official-image synthesis, real LSV01 E2E, Nangate45 mapped-netlist inspection, and RTL/gate equivalence remain `human_needed`.
 
 ### Blockers/Concerns
 
@@ -76,7 +76,7 @@ Recent decisions affecting current work:
 - A1 teammate (teammate 1) has no EDA background — relying entirely on GSD
 - A2 teammate (teammate 2) has no EDA background — relying entirely on GSD
 - If A1 or A2 stalls, final score = (A1 + A2 + A3) / 3 suffers
-- A3 official-image all-point synthesis and RTL/gate equivalence for LSV01-LSV10 are not evidenced.
+- A3 official-image synthesis, real LSV01 E2E, Nangate45 mapped-netlist inspection, and RTL/gate equivalence are `human_needed`; all-point synthesis and RTL/gate equivalence for LSV01-LSV10 are not evidenced.
 - A3 OpenSTA area/arrival/PPA and runtime measurements, Pareto/auto-tuning results, and clean-package/metadata/originality checks are not evidenced.
 
 ## Deferred Items
@@ -92,6 +92,7 @@ Recent decisions affecting current work:
 | Quick Task | Result | Completed |
 |------------|--------|-----------|
 | `260714-ovt` | A3 Phase 1-4 evidence audit synchronized; official-image correctness/PPA/runtime/package evidence remains pending | 2026-07-14 |
+| `260714-pee` | A3 Phase 1 records synchronized to commit 87675ff and 28 canonical tests; four Phase 1 checks remain human_needed | 2026-07-14 |
 
 ## Session Continuity
 

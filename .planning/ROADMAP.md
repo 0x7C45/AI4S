@@ -11,7 +11,7 @@
 - **A1 Track** (你): Phases 5-7, sequential dependency chain
 - **A2 Track** (队友2): Independent, runs throughout
 
-- [ ] **Phase 1: A3 Framework + RTL Frontend** - Local implementation and 28-test evidence observed in commit `87675ff`; official-image validation remains pending *(队友)*
+- [ ] **Phase 1: A3 Framework + RTL Frontend** - Local implementation and 28-test evidence observed in commit `87675ff`; official-image synthesis, real LSV01 E2E, Nangate45 mapped-netlist inspection, and RTL/gate equivalence remain `human_needed` *(队友)*
 - [ ] **Phase 2: A3 Correctness — All 10 Public Circuits** - Every circuit LSV01-LSV10 produces functionally correct netlist; all-point equivalence evidence pending *(队友)*
 - [ ] **Phase 3: A3 Multi-Point PPA + Auto-Tuning** - Up to 7 points per circuit, config-driven optimization, auto-search for best PPA; official OpenSTA PPA/runtime evidence pending *(队友)*
 - [ ] **Phase 4: A3 Submission Package** - Final integration, all deliverables verified, submission archive ready; clean-image/package/metadata/originality evidence pending *(队友)*
@@ -133,7 +133,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. A3 Framework + RTL Frontend | 0/1 | Local implementation/test evidenced; official validation pending | 87675ff / 260714-ovt |
+| 1. A3 Framework + RTL Frontend | 0/1 | Local implementation/test evidenced; four official checks remain `human_needed` | 87675ff / 260714-pee |
 | 2. A3 Correctness — All 10 Circuits | 0/2 | Implementation present; all-10 per-point equivalence unverified | 260714-ovt |
 | 3. A3 Multi-Point PPA + Auto-Tuning | 0/2 | Profiles/experiments present; OpenSTA PPA/runtime and auto-tuning results pending | 260714-ovt |
 | 4. A3 Submission Package | 0/1 | Required artifacts present; clean package/metadata/originality checks pending | 260714-ovt |
