@@ -142,3 +142,24 @@ Phase 1 has recorded local implementation, test, LSV01 point 1 synthesis, and Na
 ---
 *Phase: 01-a3-framework-rtl-frontend*
 *Evidence recorded: 2026-07-14*
+
+## Dated Reconciliation: 2026-07-14
+
+The following independent reconciliation section is appended without changing the preceding summary.
+
+| Circuit | synthesis_observed | equivalence_status | samples | note |
+|---|---|---|---:|---|
+| LSV01 | point1: observed_success | pass | 500 | local randomized RTL/gate equivalence passed |
+| LSV02 | point1: observed_success | pass | 200 | local randomized RTL/gate equivalence passed |
+| LSV03 | point1: observed_success | pass | 200 | local randomized RTL/gate equivalence passed |
+| LSV04 | point1: observed_success | pass | 100 | local randomized RTL/gate equivalence passed |
+| LSV05 | point1: observed_success | pass | 100 | local randomized RTL/gate equivalence passed |
+| LSV06 | point1: observed_success | pass | 100 | local randomized RTL/gate equivalence passed |
+| LSV07 | point1: observed_success | not_verified | N/A | verifier blocked by gate-level X/uninitialized state |
+| LSV08 | point1: observed_success | pass | 100 | local randomized RTL/gate equivalence passed |
+| LSV09 | point1: observed_success | not_verified | N/A | verifier blocked by gate-level X/uninitialized state |
+| LSV10 | point1: observed_success | not_verified | N/A | verifier blocked by gate-level X/uninitialized state |
+
+`not_verified` for LSV07/09/10 is neither pass nor a synthesis-defect determination. Dedicated initialization handling and the official testbench are required. All ten point 1 synthesis observations are local Yosys plus Nangate45 Liberty generated-netlist observations. `make -C Track-A/A3-synthesis test` passed 28 tests. OpenSTA/`sta` is unavailable locally, so PPA, area, timing, and runtime remain unverified. Official-image execution, full ten-circuit/all-point equivalence, auto-tuning/Pareto, final clean package/metadata/originality, and Phase 1-4 completion remain pending.
+
+`STATE.md` unchanged because unresolved merge conflict; existing user content preserved. No safe conflict-external append-only location was proven.
