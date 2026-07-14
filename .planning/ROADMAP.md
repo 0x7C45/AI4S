@@ -107,19 +107,25 @@ Plans:
 ### Phase 6: A1 Advanced Features
 **Goal**: Sequential logic simulation (posedge clk, DFF, non-blocking assign), multi-file hierarchy, passing i2c/ip/axis_fifo/sha256 (8 points)
 **Depends on**: Phase 5
-**Requirements**: A1-PARSE-07, A1-SIM-02, A1-SIM-03, A1-SIM-04, A1-INC-01, A1-CASE-01, A1-CASE-04, A1-CASE-05, A1-CASE-06, A1-CASE-07
+**Requirements**: A1-PARSE-07, A1-SIM-02, A1-SIM-03, A1-SIM-04, A1-CASE-01, A1-CASE-04, A1-CASE-05, A1-CASE-06, A1-CASE-07
 **Success Criteria**:
   1. Always @(posedge clk) with non-blocking assignment (<=) works correctly
   2. DFF with async reset modeled properly
   3. `define / `include preprocessing works
   4. Multi-file module hierarchy instantiation works (i2c has 5 RTL files)
   5. tb/output.mem matches reference for i2c, ip, axis_fifo, sha256
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 06-01-PLAN.md — Frontend preprocessing, AST/data contracts, and Phase 6 grammar
+- [ ] 06-02-PLAN.md — Discrete Active/NBA/delta scheduler and system functions
+- [ ] 06-03-PLAN.md — Global hierarchy elaboration and packed/unpacked memory execution
+- [ ] 06-04-PLAN.md — Deterministic Makefile interface and clean exact-diff regression
 
 ### Phase 7: A1 Performance + GEMM
 **Goal**: GEMM test case passes with competitive performance (11 points — compile perf + sim perf + multicore speedup)
 **Depends on**: Phase 6
-**Requirements**: A1-MK-04, A1-PAR-01, A1-PAR-02, A1-CASE-08
+**Requirements**: A1-INC-01, A1-MK-04, A1-PAR-01, A1-PAR-02, A1-CASE-08
 **Success Criteria**:
   1. GEMM tb/output.mem matches reference
   2. Incremental compilation: file-level dependency analysis, single-file change only recompiles affected modules

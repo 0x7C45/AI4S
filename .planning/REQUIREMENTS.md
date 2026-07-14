@@ -173,7 +173,7 @@
 | A1-SIM-02 | teammate 1 | Parallel | Pending |
 | A1-SIM-03 | teammate 1 | Parallel | Pending |
 | A1-SIM-04 | teammate 1 | Parallel | Pending |
-| A1-INC-01 | teammate 1 | Parallel | Pending |
+| A1-INC-01 | teammate 1 | Phase 7 | Pending |
 | A1-PAR-01 | teammate 1 | Parallel | Pending |
 | A1-PAR-02 | teammate 1 | Parallel | Pending |
 | A1-MK-01 | teammate 1 | Parallel | Pending |
