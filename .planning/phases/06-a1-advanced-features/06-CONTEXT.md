@@ -103,7 +103,7 @@ Extend the Phase 5 flex/bison C++ RTL simulator from combinational execution to 
 <deferred>
 ## Deferred Ideas
 
-- Full VCD waveform generation with `$dumpfile`/`$dumpvars` output is deferred unless a target testcase requires it.
+- 完整 VCD 波形生成（包括 `$dumpfile`/`$dumpvars`）已纳入 Phase 6，因为这是本次讨论中明确选择的实现范围。
 - GEMM performance, incremental compilation, and multicore speedup remain Phase 7 scope.
 - Broader SystemVerilog preprocessing beyond common Verilog macros/includes remains outside this phase.
 

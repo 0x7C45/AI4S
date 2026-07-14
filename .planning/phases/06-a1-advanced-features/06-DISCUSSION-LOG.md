@@ -78,7 +78,7 @@
 | Full VCD | Generate VCD waveforms including `$dumpfile` and `$dumpvars`. | ✓ |
 | Syntax compatibility | Parse and silently ignore probes. | |
 
-**User's choice:** Full VCD was selected during discussion, but the phase boundary keeps VCD generation deferred unless a testcase requires it; `$time` and runnable `$dumpvars` remain mandatory.
+**User's choice:** Full VCD waveform generation. This is included in Phase 6; `$time`, `$dumpfile`, and `$dumpvars` must have observable semantics.
 
 ---
 
