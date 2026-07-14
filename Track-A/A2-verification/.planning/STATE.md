@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: A2-verification
-current_phase: 1
-current_phase_name: 骨架门禁 — RTL 解析 + cocotb/Verilator testbench 生成
-status: planning
-stopped_at: "GSD 工作区已初始化，环境烟雾测试通过，待 gsd-plan-phase 1"
-last_updated: "2026-07-14T06:00:00.000Z"
+current_phase: 2
+current_phase_name: 覆盖率收集 — 行/分支/功能 + 约束随机
+status: ready_to_plan
+stopped_at: "Phase 1 完成（骨架门禁 case1 验收通过），待 gsd-plan-phase 2"
+last_updated: "2026-07-14T07:30:00.000Z"
 last_activity: 2026-07-14
-last_activity_desc: win-ZCode GSD 工作区初始化 + case1 烟雾测试通过
+last_activity_desc: Phase 1 执行完成 — 8 文件实现 + case1 门禁五项通过
 progress:
   total_phases: 3
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  completed_phases: 1
+  total_plans: 1
+  completed_plans: 1
+  percent: 33
 ---
 
 # Project State
