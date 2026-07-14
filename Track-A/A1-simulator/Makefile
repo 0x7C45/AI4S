@@ -15,6 +15,7 @@ SRC_DIR := $(SIM_DIR)/src
 SIMULATOR_SOURCES := \
 	$(SRC_DIR)/lexer.yy.c \
 	$(SRC_DIR)/parser.tab.c \
+	$(SRC_DIR)/preprocessor.cpp \
 	$(SRC_DIR)/ast.cpp \
 	$(SRC_DIR)/eval_expr.cpp \
 	$(SRC_DIR)/sim_engine.cpp \

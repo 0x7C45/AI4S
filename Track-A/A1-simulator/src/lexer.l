@@ -9,6 +9,9 @@
 static char *stralloc(const char *s) {
     return strdup(s);
 }
+
+static int g_paren_depth = 0;
+static bool g_continuous_expr = false;
 %}
 
 %%
@@ -30,7 +33,7 @@ static char *stralloc(const char *s) {
 "signed"        { return SIGNED; }
 "localparam"    { return LOCALPARAM; }
 "parameter"     { return PARAMETER; }
-"assign"        { return ASSIGN; }
+"assign"        { g_continuous_expr = true; return ASSIGN; }
 "always"        { return ALWAYS; }
 "initial"       { return INITIAL_KW; }
 "begin"         { return BEGINKW; }
@@ -43,11 +46,14 @@ static char *stralloc(const char *s) {
 "endcase"       { return ENDCASE; }
 "default"       { return DEFAULT; }
 "for"           { return FOR; }
+"repeat"        { return REPEAT; }
+"while"         { return WHILE; }
 "generate"      { return GENERATE; }
 "endgenerate"   { return ENDGENERATE; }
 "genvar"        { return GENVAR; }
 "posedge"       { return POSEDGE; }
 "negedge"       { return NEGEDGE; }
+"or"            { return OR; }
 
 "$fopen"        { return SYS_FOPEN; }
 "$fclose"       { return SYS_FCLOSE; }
@@ -57,12 +63,14 @@ static char *stralloc(const char *s) {
 "$display"      { return SYS_DISPLAY; }
 "$finish"       { return SYS_FINISH; }
 "$clog2"        { return SYS_CLOG2; }
+"$readmemh"     { return SYS_READMEMH; }
+"$readmemb"     { return SYS_READMEMB; }
 
 ","             { return ','; }
 ":"             { return ':'; }
-";"             { return ';'; }
-"("             { return '('; }
-")"             { return ')'; }
+";"             { g_continuous_expr = false; return ';'; }
+"("             { ++g_paren_depth; return '('; }
+")"             { if (g_paren_depth > 0) --g_paren_depth; return ')'; }
 "["             { return '['; }
 "]"             { return ']'; }
 "{"             { return '{'; }
@@ -73,7 +81,7 @@ static char *stralloc(const char *s) {
 
 "=="            { return EQ; }
 "!="            { return NE; }
-"<="            { return LE; }
+"<="            { return (g_continuous_expr || g_paren_depth > 0) ? LE : NONBLOCKING; }
 ">="            { return GE; }
 "&&"            { return LOGAND; }
 "||"            { return LOGOR; }
@@ -99,7 +107,7 @@ static char *stralloc(const char *s) {
 "?"             { return '?'; }
 "="             { return '='; }
 
-[0-9]+\'[bB][01_xXzZ]+[ \t]* {
+[0-9]+\'[bB][01_xXzZ]+ {
     yylval.num = (VerilogNum *)malloc(sizeof(VerilogNum));
     yylval.num->value = 0;
     yylval.num->width = 0;
@@ -127,7 +135,7 @@ static char *stralloc(const char *s) {
     return NUMBER;
 }
 
-[0-9]+\'[hH][0-9a-fA-F_xXzZ]+[ \t]* {
+[0-9]+\'[hH][0-9a-fA-F_xXzZ]+ {
     yylval.num = (VerilogNum *)malloc(sizeof(VerilogNum));
     yylval.num->value = 0;
     yylval.num->width = 0;
@@ -156,7 +164,7 @@ static char *stralloc(const char *s) {
     return NUMBER;
 }
 
-[0-9]+\'[dD][0-9_xXzZ]+[ \t]* {
+[0-9]+\'[dD][0-9_xXzZ]+ {
     yylval.num = (VerilogNum *)malloc(sizeof(VerilogNum));
     yylval.num->value = 0;
     yylval.num->width = 0;

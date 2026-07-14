@@ -12,6 +12,7 @@ struct VerilogNum {
 
 %{
 #include "ast.h"
+#include "preprocessor.h"
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
@@ -30,8 +31,13 @@ extern int yylex(void);
 extern int yylineno;
 void yyerror(const char *msg);
 extern FILE *yyin;
+struct yy_buffer_state;
+using YY_BUFFER_STATE = struct yy_buffer_state *;
+extern YY_BUFFER_STATE yy_scan_string(const char *str);
+extern void yy_delete_buffer(YY_BUFFER_STATE buffer);
 
 std::vector<ASTNode *> g_modules;
+static const PreprocessResult *g_preprocess_result = nullptr;
 
 static ASTNode *makeNum(VerilogNum *n) {
     ASTNode *node = makeNode(NodeType::NUMBER, std::to_string(n->value), yylineno);
@@ -52,10 +58,10 @@ static ASTNode *makeNum(VerilogNum *n) {
 %token <num> NUMBER
 %token MODULE ENDMODULE INPUT OUTPUT WIRE REG INTEGER_KW SIGNED
 %token LOCALPARAM PARAMETER ASSIGN ALWAYS INITIAL_KW
-%token BEGINKW END IF ELSE CASE ENDCASE DEFAULT FOR
-%token GENERATE ENDGENERATE GENVAR POSEDGE NEGEDGE
-%token SYS_FOPEN SYS_FCLOSE SYS_FSCANF SYS_FGETS SYS_FDISPLAY SYS_DISPLAY SYS_FINISH SYS_CLOG2
-%token EQ NE LE GE LOGAND LOGOR SHL SHR SSHR NAND NOR XNOR
+%token BEGINKW END IF ELSE CASE ENDCASE DEFAULT FOR REPEAT WHILE
+%token GENERATE ENDGENERATE GENVAR POSEDGE NEGEDGE OR
+%token SYS_FOPEN SYS_FCLOSE SYS_FSCANF SYS_FGETS SYS_FDISPLAY SYS_DISPLAY SYS_FINISH SYS_CLOG2 SYS_READMEMH SYS_READMEMB
+%token EQ NE LE NONBLOCKING GE LOGAND LOGOR SHL SHR SSHR NAND NOR XNOR
 
 %type <node> module_list module module_items stmts port_list port_decl_in_list opt_port_list
 %type <node> port_decl module_item stmt expr prim_expr lvalue range
@@ -63,6 +69,8 @@ static ASTNode *makeNum(VerilogNum *n) {
 %type <node> param_list param_assign expr_list lvalue_list port_conn_list case_items
 %type <node> gen_items gen_item gen_block gen_body
 %type <node> module_param_decls module_param_decl
+%type <node> event_list event_expr
+%type <node> readmem_args
 
 %left LOGOR
 %left LOGAND
@@ -155,6 +163,18 @@ module_item:
           for (auto *c : $4->children) addChild($$, c);
           $4->children.clear(); freeTree($4);
       }
+    | REG range IDENTIFIER range ';'
+      {
+          /* Unpacked memory: reg [data_msb:data_lsb] name[addr_msb:addr_lsb] */
+          $$ = makeNode(NodeType::NET_DECL, "reg memory", yylineno);
+          addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno));
+          free($3);
+          $$->msb = $2->msb; $$->lsb = $2->lsb;
+          for (auto *c : $2->children) addChild($$, c);
+          $2->children.clear(); freeTree($2);
+          for (auto *c : $4->children) addChild($$, c);
+          $4->children.clear(); freeTree($4);
+      }
     | WIRE range IDENTIFIER decl_list ';'
       { $$ = makeNode(NodeType::NET_DECL, "wire", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $3, yylineno)); free($3); $$->msb = $2->msb; $$->lsb = $2->lsb; for (auto *c : $2->children) addChild($$, c); $2->children.clear(); freeTree($2); }
     | WIRE range IDENTIFIER '=' expr ';'
@@ -166,6 +186,16 @@ module_item:
           decl->msb = $2->msb; decl->lsb = $2->lsb;
           for (auto *c : $2->children) addChild(decl, c); $2->children.clear(); freeTree($2);
           addChild(decl, $5);  /* init expression */
+          $$ = decl;
+      }
+    | WIRE IDENTIFIER '=' expr ';'
+      {
+          auto *decl = makeNode(NodeType::NET_DECL, "wire", yylineno);
+          addChild(decl, makeNode(NodeType::IDENTIFIER, $2, yylineno));
+          free($2);
+          decl->msb = 0;
+          decl->lsb = 0;
+          addChild(decl, $4);
           $$ = decl;
       }
     | WIRE IDENTIFIER decl_list ';'
@@ -188,14 +218,21 @@ module_item:
       }
     | PARAMETER IDENTIFIER '=' expr ';'
       { $$ = makeNode(NodeType::LOCALPARAM_DECL, $2, yylineno); free($2); addChild($$, $4); }
+    | PARAMETER range IDENTIFIER '=' expr ';'
+      {
+          $$ = makeNode(NodeType::LOCALPARAM_DECL, $3, yylineno);
+          free($3);
+          addChild($$, $5);
+          for (auto *c : $2->children) addChild($$, c);
+          $2->children.clear();
+          freeTree($2);
+      }
     | ASSIGN lvalue '=' expr ';'
       { $$ = makeNode(NodeType::ASSIGN, "", yylineno); addChild($$, $2); addChild($$, $4); }
     | ALWAYS '@' '(' '*' ')' stmt
       { $$ = makeNode(NodeType::ALWAYS_BLOCK, "@(*)", yylineno); addChild($$, $6); }
-    | ALWAYS '@' '(' POSEDGE IDENTIFIER ')' stmt
-      { $$ = makeNode(NodeType::ALWAYS_BLOCK, "@(posedge " + std::string($5) + ")", yylineno); addChild($$, $7); free($5); }
-    | ALWAYS '@' '(' NEGEDGE IDENTIFIER ')' stmt
-      { $$ = makeNode(NodeType::ALWAYS_BLOCK, "@(negedge " + std::string($5) + ")", yylineno); addChild($$, $7); free($5); }
+    | ALWAYS '@' '(' event_list ')' stmt
+      { $$ = makeNode(NodeType::ALWAYS_BLOCK, "@events", yylineno); addChild($$, $6); }
     | ALWAYS '#' expr stmt
       { $$ = makeNode(NodeType::ALWAYS_BLOCK, "#delay", yylineno); addChild($$, $3); addChild($$, $4); }
     | INITIAL_KW stmt
@@ -341,7 +378,20 @@ decl_list:
     ;
 
 stmt:
-    BEGINKW stmts END      { $$ = $2; }
+    ';'                       { $$ = makeNode(NodeType::BLOCK, "", yylineno); }
+    | BEGINKW stmts END      { $$ = $2; }
+    | REPEAT '(' expr ')' stmt
+      {
+          $$ = makeNode(NodeType::FOR, "repeat", yylineno);
+          addChild($$, $3);
+          addChild($$, $5);
+      }
+    | WHILE '(' expr ')' stmt
+      {
+          $$ = makeNode(NodeType::FOR, "while", yylineno);
+          addChild($$, $3);
+          addChild($$, $5);
+      }
     | IF '(' expr ')' stmt
       {
           $$ = makeNode(NodeType::IF, "", yylineno);
@@ -377,7 +427,14 @@ stmt:
           addChild($$, $1);
           addChild($$, $3);
       }
-    | lvalue LE expr ';'
+    | IDENTIFIER NONBLOCKING expr ';'
+      {
+          $$ = makeNode(NodeType::NONBLOCKING_ASSIGN, "", yylineno);
+          addChild($$, makeNode(NodeType::IDENTIFIER, $1, yylineno));
+          free($1);
+          addChild($$, $3);
+      }
+    | lvalue NONBLOCKING expr ';'
       {
           $$ = makeNode(NodeType::NONBLOCKING_ASSIGN, "", yylineno);
           addChild($$, $1);
@@ -395,6 +452,20 @@ stmt:
           $$ = makeNode(NodeType::SYS_TASK, "$display", yylineno);
           addChild($$, makeNode(NodeType::STRING, $3, yylineno));
           free($3);
+      }
+    | SYS_READMEMH '(' readmem_args ')' ';'
+      {
+          $$ = makeNode(NodeType::SYS_TASK, "$readmemh", yylineno);
+          $$->children = $3->children;
+          $3->children.clear();
+          freeTree($3);
+      }
+    | SYS_READMEMB '(' readmem_args ')' ';'
+      {
+          $$ = makeNode(NodeType::SYS_TASK, "$readmemb", yylineno);
+          $$->children = $3->children;
+          $3->children.clear();
+          freeTree($3);
       }
     | SYS_FINISH ';'               { $$ = makeNode(NodeType::SYS_TASK, "$finish", yylineno); }
     | SYS_FINISH '(' expr ')' ';'  { $$ = makeNode(NodeType::SYS_TASK, "$finish", yylineno); addChild($$, $3); }
@@ -473,6 +544,25 @@ stmt:
 stmts:
     stmts stmt { addChild($1, $2); $$ = $1; }
     | stmt     { $$ = makeNode(NodeType::BLOCK, "", yylineno); addChild($$, $1); }
+    ;
+
+event_list:
+    event_list OR event_expr
+      { addChild($1, $3); $$ = $1; }
+    | event_expr
+      { $$ = makeNode(NodeType::EVENT_CTRL, "events", yylineno); addChild($$, $1); }
+    ;
+
+event_expr:
+    POSEDGE IDENTIFIER
+      { $$ = makeNode(NodeType::EVENT_CTRL, "posedge", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $2, yylineno)); free($2); }
+    | NEGEDGE IDENTIFIER
+      { $$ = makeNode(NodeType::EVENT_CTRL, "negedge", yylineno); addChild($$, makeNode(NodeType::IDENTIFIER, $2, yylineno)); free($2); }
+    ;
+
+readmem_args:
+    expr_list
+      { $$ = $1; }
     ;
 
 gen_items:
@@ -644,6 +734,8 @@ expr:
     | '-' expr %prec UNARY    { $$ = makeNode(NodeType::UNOP, "-", yylineno); addChild($$, $2); }
     | '!' expr %prec UNARY    { $$ = makeNode(NodeType::UNOP, "!", yylineno); addChild($$, $2); }
     | '~' expr %prec UNARY    { $$ = makeNode(NodeType::UNOP, "~", yylineno); addChild($$, $2); }
+    | NAND expr %prec UNARY   { $$ = makeNode(NodeType::UNOP, "~&", yylineno); addChild($$, $2); }
+    | NOR expr %prec UNARY    { $$ = makeNode(NodeType::UNOP, "~|", yylineno); addChild($$, $2); }
     | '&' expr %prec UNARY    { $$ = makeNode(NodeType::UNOP, "&", yylineno); addChild($$, $2); }
     | '|' expr %prec UNARY    { $$ = makeNode(NodeType::UNOP, "|", yylineno); addChild($$, $2); }
     | '^' expr %prec UNARY    { $$ = makeNode(NodeType::UNOP, "^", yylineno); addChild($$, $2); }
@@ -800,19 +892,33 @@ expr_list:
 %%
 
 void yyerror(const char *msg) {
+    const SourceRecord *record = g_preprocess_result == nullptr
+                                     ? nullptr
+                                     : sourceRecordForOutputLine(*g_preprocess_result,
+                                                                  static_cast<std::size_t>(yylineno));
+    if (record != nullptr) {
+        std::fprintf(stderr, "%s:%zu: parser error: %s\n",
+                     record->location.file.c_str(), record->location.line, msg);
+    } else {
+        std::fprintf(stderr, "parser error at generated line %d: %s\n", yylineno, msg);
+    }
 }
 
 extern int yydebug;
 std::vector<ASTNode *> parseFiles(const std::vector<std::string> &files) {
     g_modules.clear();
-    for (auto &f : files) {
-        yylineno = 1;
-        yyin = fopen(f.c_str(), "r");
-        if (!yyin) {
-            continue;
+    PreprocessResult result = preprocessFiles(files);
+    if (!result.ok) {
+        for (const auto &message : result.diagnostics) {
+            std::fprintf(stderr, "preprocessor: %s\n", message.c_str());
         }
-        yyparse();
-        fclose(yyin);
+        return g_modules;
     }
+    g_preprocess_result = &result;
+    yylineno = 1;
+    YY_BUFFER_STATE buffer = yy_scan_string(result.source.c_str());
+    yyparse();
+    yy_delete_buffer(buffer);
+    g_preprocess_result = nullptr;
     return g_modules;
 }
