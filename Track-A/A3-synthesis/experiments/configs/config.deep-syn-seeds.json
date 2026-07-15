@@ -1,0 +1,6 @@
+{
+  "$default": [
+    {"name":"deep-syn-s1","profile":"balanced","timeout_seconds":180,"abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &deepsyn -I 3 -T 10 -S 1; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"},
+    {"name":"deep-syn-s42","profile":"balanced","timeout_seconds":180,"abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &deepsyn -I 3 -T 10 -S 42; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"}
+  ]
+}

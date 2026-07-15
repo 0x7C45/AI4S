@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name":"amap-buffer-g100-n20","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0; buffer -G 100 -N 20"},
+    {"name":"amap-buffer-g200-n20","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0; buffer -G 200 -N 20"},
+    {"name":"amap-buffer-g300-n20","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0; buffer -G 300 -N 20"},
+    {"name":"amap-buffer-g200-n10","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0; buffer -G 200 -N 10"},
+    {"name":"amap-buffer-g300-n50","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0; buffer -G 300 -N 50"},
+    {"name":"amap-size-only","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0; buffer -s -G 200 -N 20"},
+    {"name":"amap-upsize","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0; upsize -I 200 -J 25 -T 10"}
+  ]
+}

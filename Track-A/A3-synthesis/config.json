@@ -13,13 +13,7 @@
     {"name": "resub-area", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance"}
   ],
   "LSV02": [
-    {"name": "timing-x2-f5", "profile": "timing", "upsize_fanout_threshold": 5, "upsize_strength": 2},
-    {"name": "deep-timing-x4-f20", "profile": "deep-timing", "upsize_fanout_threshold": 20, "upsize_strength": 4},
-    {"name": "resub-x2-f15", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 15, "upsize_strength": 2},
-    {"name": "gia-syn2-r80", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m -R 80; &dch -f; &nf -R 20 -p; &put"},
-    {"name": "dc2-area", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance"},
-    {"name": "amap-ultra-dc2", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"},
-    {"name": "amap-dc2-f8-a16", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 8 -A 16 -C 5000 -Q 0.0"}
+    {"name": "deep-syn-s1", "profile": "balanced", "timeout_seconds": 180, "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &deepsyn -I 3 -T 10 -S 1; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"}
   ],
   "LSV03": [
     {"name": "timing", "profile": "timing"},
@@ -30,11 +24,11 @@
   "LSV04": [
     {"name": "resub-x4-f5", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 5, "upsize_strength": 4},
     {"name": "resub-x2-f5", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 5, "upsize_strength": 2},
-    {"name": "resub-x2-f15", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 15, "upsize_strength": 2},
     {"name": "gia-syn2-r0", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m -R 0; &dch -f; &nf -R 20 -p; &put"},
     {"name": "gia-dc2-syn2", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 20 -p; &put"},
     {"name": "amap-ultra-e001", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -E 0.01 -Q 0.0"},
-    {"name": "amap-ultra-syn2", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"}
+    {"name": "amap-ultra-syn2", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"},
+    {"name": "deep-syn-s1", "profile": "balanced", "timeout_seconds": 180, "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &deepsyn -I 3 -T 10 -S 1; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"}
   ],
   "LSV05": [
     {"name": "balanced", "profile": "balanced"},
@@ -59,8 +53,8 @@
     {"name": "dc2-buf4-t75", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 75, "buffer_strength": 4},
     {"name": "gia-nf-r60-c25", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put", "critical_path_upsize_cells": 25},
     {"name": "dc2-buf4-t75-c25", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 75, "buffer_strength": 4, "critical_path_upsize_cells": 25},
-    {"name": "nf-ultra-area-r60", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -a -p -F 16 -A 16 -C 32 -R 60; &put"},
-    {"name": "nf-ultra-area-r100-e20", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -a -p -F 32 -A 32 -C 32 -R 100 -E 20; &put"}
+    {"name": "deep-syn-s42", "profile": "balanced", "timeout_seconds": 180, "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &deepsyn -I 3 -T 10 -S 42; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"},
+    {"name": "syn4-area", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn4; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"}
   ],
   "LSV08": [
     {"name": "deep-timing", "profile": "deep-timing"},
@@ -73,20 +67,20 @@
   ],
   "LSV09": [
     {"name": "resub-x2-f25-buf8-t40", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 25, "upsize_strength": 2, "buffer_fanout_threshold": 40, "buffer_strength": 8},
-    {"name": "balanced-buf8-t65", "profile": "balanced", "buffer_fanout_threshold": 65, "buffer_strength": 8},
     {"name": "dc2-buf4-t75", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 75, "buffer_strength": 4},
-    {"name": "amap-ultra-dc2", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"},
     {"name": "amap-ultra-dc2-buf4-t75", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0", "buffer_fanout_threshold": 75, "buffer_strength": 4},
     {"name": "balanced-buf8-t65-c200", "profile": "balanced", "buffer_fanout_threshold": 65, "buffer_strength": 8, "critical_path_upsize_cells": 200},
-    {"name": "amap-ultra-dc2-buf4-t300", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0", "buffer_fanout_threshold": 300, "buffer_strength": 4}
+    {"name": "amap-ultra-dc2-buf4-t300", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0", "buffer_fanout_threshold": 300, "buffer_strength": 4},
+    {"name": "deep-syn-s1", "profile": "balanced", "timeout_seconds": 180, "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &deepsyn -I 3 -T 10 -S 1; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"},
+    {"name": "deep-syn-s42", "profile": "balanced", "timeout_seconds": 180, "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &deepsyn -I 3 -T 10 -S 42; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"}
   ],
   "LSV10": [
     {"name": "balanced-buf8-t35", "profile": "balanced", "buffer_fanout_threshold": 35, "buffer_strength": 8},
     {"name": "dc2-buf8-t55", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 55, "buffer_strength": 8},
-    {"name": "amap-ultra-e001", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -E 0.01 -Q 0.0"},
     {"name": "amap-ultra-e001-buf4-t75", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -E 0.01 -Q 0.0", "buffer_fanout_threshold": 75, "buffer_strength": 4},
-    {"name": "amap-ultra-e001-buf4-t200", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -E 0.01 -Q 0.0", "buffer_fanout_threshold": 200, "buffer_strength": 4},
     {"name": "amap-q0001-buf4-t100-c10", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.001", "buffer_fanout_threshold": 100, "buffer_strength": 4, "critical_path_upsize_cells": 10},
-    {"name": "resub-x2-buf16-t35-c10", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 25, "upsize_strength": 2, "buffer_fanout_threshold": 35, "buffer_strength": 16, "critical_path_upsize_cells": 10}
+    {"name": "resub-x2-buf16-t35-c10", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 25, "upsize_strength": 2, "buffer_fanout_threshold": 35, "buffer_strength": 16, "critical_path_upsize_cells": 10},
+    {"name": "deep-syn-s1", "profile": "balanced", "timeout_seconds": 180, "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &deepsyn -I 3 -T 10 -S 1; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"},
+    {"name": "deep-syn-s42", "profile": "balanced", "timeout_seconds": 180, "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &deepsyn -I 3 -T 10 -S 42; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"}
   ]
 }

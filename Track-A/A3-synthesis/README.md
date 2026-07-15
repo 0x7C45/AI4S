@@ -1,6 +1,6 @@
 # A3 AdaptiveYosys 逻辑综合工具
 
-本目录包含 A3 提交源码和公开题复现实验。工具在官方离线镜像中调用 Yosys 0.54、其内置 Berkeley ABC 与 OpenSTA 2.7.0，根据 `config.json` 为每个电路选择 1–7 个综合 point，并输出 Nangate45 门级网表。
+本目录包含 A3 提交源码和公开题复现实验。工具在官方离线镜像中调用 Yosys 0.54、其内置 Berkeley ABC 与 OpenSTA 2.7.0，根据 `config.json` 为每个电路选择 1–7 个综合 point，并输出 Nangate45 门级网表。面积端 point 使用固定 seed、固定时限的 ABC `&deepsyn`，保证离线可重复和单线程执行。
 
 ## 提交内容
 
@@ -41,7 +41,7 @@ make -j1 synth \
 make -j1 test
 ```
 
-测试覆盖配置选择、隐藏电路 `$default` 回退、SDC 解析、自适应策略、ABC 脚本、gate sizing、高扇出缓冲、OpenSTA 关键路径 sizing、改写失败回退和 Makefile 端到端接口。所有映射后改写都会由 Yosys 重新解析和检查，失败时自动恢复未改写网表。官方镜像中的公开 61 点复现实验可运行：
+测试覆盖配置选择、隐藏电路 `$default` 回退、SDC 解析、自适应策略、ABC 脚本、gate sizing、高扇出缓冲、OpenSTA 关键路径 sizing、改写失败回退和 Makefile 端到端接口。所有映射后改写都会由 Yosys 重新解析和检查，失败时自动恢复未改写网表。官方镜像中的公开 55 点正式复现实验可运行：
 
 ```bash
 python3 experiments/run_submission_baseline.py --output /tmp/a3-official-baseline
