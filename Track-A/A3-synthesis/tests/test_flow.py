@@ -102,6 +102,7 @@ class FlowTests(unittest.TestCase):
                     rtl=rtl,
                     top="top",
                     liberty=liberty,
+                    sdc=rtl,
                     final_output=output,
                     point=point,
                     features=features,
@@ -111,6 +112,50 @@ class FlowTests(unittest.TestCase):
             self.assertEqual(calls, 2)
             self.assertEqual(metadata["resolved_profile"], "balanced")
             self.assertTrue(output.is_file())
+
+    def test_invalid_post_map_rewrite_is_reverted(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            rtl = root / "design.v"
+            liberty = root / "cells.lib"
+            original = "module top(input a, output y); assign y=a; endmodule\n"
+            rtl.write_text(original, encoding="utf-8")
+            liberty.write_text("library(test) {}\n", encoding="utf-8")
+            output = root / "out" / "netlist.v"
+            output.parent.mkdir()
+
+            def fake_run(command, **kwargs):
+                pending = output.parent / ".synth_tool" / "netlist.pending.v"
+                pending.write_text(original, encoding="utf-8")
+                return subprocess.CompletedProcess(command, 0, "", "")
+
+            def corrupt_netlist(path, *args, **kwargs):
+                path.write_text("not valid Verilog\n", encoding="utf-8")
+                return 1
+
+            point = PointConfig(
+                name="buffered", profile="balanced", buffer_fanout_threshold=2, buffer_strength=8
+            )
+            features = RtlFeatures(1, 0, 0, 0, 0, 0)
+            with patch("yosys_flow._resolve_yosys", return_value="/fake/yosys"), patch(
+                "yosys_flow.subprocess.run", side_effect=fake_run
+            ), patch("yosys_flow.insert_high_fanout_buffers", side_effect=corrupt_netlist), patch(
+                "yosys_flow._validate_mapped_netlist", return_value=(False, "/tmp/validate.log")
+            ):
+                metadata = run_yosys(
+                    rtl=rtl,
+                    top="top",
+                    liberty=liberty,
+                    sdc=rtl,
+                    final_output=output,
+                    point=point,
+                    features=features,
+                    delay_ps=10000,
+                )
+
+            self.assertEqual(output.read_text(encoding="utf-8"), original)
+            self.assertEqual(metadata["inserted_buffers"], 0)
+            self.assertEqual(metadata["post_map_validation"], "reverted")
 
     def test_verifier_parses_escaped_scalar_ports(self):
         rtl = self.temp_file(

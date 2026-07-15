@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "amap-f4-a8-c1000", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -F 4 -A 8 -C 1000 -Q 0.0"},
+    {"name": "amap-m-f4-a8-c1000", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 4 -A 8 -C 1000 -Q 0.0"},
+    {"name": "amap-m-f8-a16-c2000", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 8 -A 16 -C 2000 -Q 0.0"},
+    {"name": "amap-m-s-f4-a8", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -s -F 4 -A 8 -C 1000 -Q 0.0"},
+    {"name": "amap-m-i-f4-a8", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -i -F 4 -A 8 -C 1000 -Q 0.0"},
+    {"name": "amap-xoff-f4-a8", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -x -F 4 -A 8 -C 1000 -Q 0.0"},
+    {"name": "amap-resyn-f4-a8", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite; rewrite -z; balance; refactor -z; rewrite -z; balance; amap -m -F 4 -A 8 -C 1000 -Q 0.0"}
+  ]
+}

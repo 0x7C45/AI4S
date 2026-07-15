@@ -1,0 +1,133 @@
+{
+  "coverage_bins": {
+    "name": "axi_vfifo_raw_rd_functional_bins",
+    "measurement": "Bin hits are sampled by generated testbench via FunctionalCoverage.hit() and reported in functional_coverage.json.",
+    "active_templates": [
+      "AXI",
+      "DATAPATH",
+      "MEMORY"
+    ],
+    "bins": [
+      {
+        "name": "read_length",
+        "values": [
+          "1",
+          "2_to_3",
+          "4",
+          "5_to_15",
+          "16_to_31",
+          "32_to_63",
+          "64_to_127",
+          "128_to_256"
+        ]
+      },
+      {
+        "name": "address_alignment",
+        "values": [
+          "aligned_4_byte",
+          "aligned_2_byte",
+          "unaligned",
+          "near_4k_boundary"
+        ]
+      },
+      {
+        "name": "burst_size",
+        "values": [
+          "size_1_byte",
+          "size_2_byte",
+          "size_4_byte",
+          "default_max_size"
+        ]
+      },
+      {
+        "name": "adapter_path",
+        "values": [
+          "width_conversion",
+          "merge_master_beats",
+          "narrow_size_read",
+          "partial_last_beat"
+        ]
+      },
+      {
+        "name": "backpressure",
+        "values": [
+          "source_rready_pause",
+          "downstream_arready_pause",
+          "downstream_rvalid_pause",
+          "combined_pause"
+        ]
+      },
+      {
+        "name": "data_width_boundary",
+        "values": [
+          "min_width",
+          "half_width",
+          "full_width",
+          "over_width"
+        ]
+      },
+      {
+        "name": "data_alignment",
+        "values": [
+          "byte_aligned",
+          "halfword_aligned",
+          "word_aligned",
+          "unaligned"
+        ]
+      },
+      {
+        "name": "sign_extension",
+        "values": [
+          "positive_extend",
+          "negative_extend",
+          "zero_extend"
+        ]
+      },
+      {
+        "name": "overflow_underflow",
+        "values": [
+          "no_overflow",
+          "overflow",
+          "underflow"
+        ]
+      },
+      {
+        "name": "read_after_write",
+        "values": [
+          "raw_same_addr",
+          "raw_diff_addr"
+        ]
+      },
+      {
+        "name": "write_after_read",
+        "values": [
+          "war_same_addr",
+          "war_diff_addr"
+        ]
+      },
+      {
+        "name": "address_boundary",
+        "values": [
+          "addr_zero",
+          "addr_max",
+          "addr_mid"
+        ]
+      },
+      {
+        "name": "fifo_full_empty",
+        "values": [
+          "fifo_empty_read",
+          "fifo_full_write",
+          "fifo_half"
+        ]
+      },
+      {
+        "name": "concurrent_access",
+        "values": [
+          "simultaneous_rw",
+          "sequential_rw"
+        ]
+      }
+    ]
+  }
+}

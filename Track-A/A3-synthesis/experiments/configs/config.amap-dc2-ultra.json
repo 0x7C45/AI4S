@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "dc2-f8-a16", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 8 -A 16 -C 5000 -Q 0.0"},
+    {"name": "dc2-f16-a32", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"},
+    {"name": "dc2-f32-a64", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 32 -A 64 -C 5000 -Q 0.0"},
+    {"name": "dc2-e001", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -E 0.01 -Q 0.0"},
+    {"name": "dc2-no-mux", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -F 16 -A 32 -C 5000 -Q 0.0"},
+    {"name": "dc2-xoff", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -x -F 16 -A 32 -C 5000 -Q 0.0"},
+    {"name": "dc2-c10000", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 10000 -Q 0.0"}
+  ]
+}

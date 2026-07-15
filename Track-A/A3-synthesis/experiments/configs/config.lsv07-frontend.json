@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "nf60-nofsm", "profile": "balanced", "synth_options": ["-nofsm"], "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put"},
+    {"name": "nf60-noalumacc", "profile": "balanced", "synth_options": ["-noalumacc"], "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put"},
+    {"name": "nf60-noshare", "profile": "balanced", "synth_options": ["-noshare"], "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put"},
+    {"name": "nf60-noalu-noshare", "profile": "balanced", "synth_options": ["-noalumacc", "-noshare"], "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put"},
+    {"name": "nf60-nordff", "profile": "balanced", "synth_options": ["-nordff"], "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put"},
+    {"name": "nf60-no-rw-check", "profile": "balanced", "synth_options": ["-no-rw-check"], "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put"},
+    {"name": "nf60-minimal", "profile": "balanced", "synth_options": ["-nofsm", "-noalumacc", "-noshare"], "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put"}
+  ]
+}

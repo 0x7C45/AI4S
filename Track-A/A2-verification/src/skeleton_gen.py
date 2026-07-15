@@ -22,6 +22,40 @@ class SkeletonResult:
     generated_tests_dir: str   # generated_tests/ 目录
 
 
+def _derive_scoreboard(design_info):
+    """从 design_info 的协议推断派生 scoreboard 描述（per gap-closure Task 2：去伪造）。
+
+    原 skeleton_gen 对所有 case 硬编码同一 scoreboard 字符串（"assert read.data == expected_data"），
+    对 case2-5（无比对器）是伪造。改为按协议派生，诚实反映 testbench 实际比对逻辑。
+    """
+    protos = set(design_info.inferred_protocols or [])
+    port_names = {p.name for p in design_info.ports}
+    has_s_axi = design_info.has_axi_bus("s_axi") if hasattr(design_info, "has_axi_bus") else False
+    has_m_axi = design_info.has_axi_bus("m_axi") if hasattr(design_info, "has_axi_bus") else False
+
+    if has_s_axi and has_m_axi:
+        return {
+            "model": "byte-addressed memory model on m_axi side (AxiRamRead)",
+            "compare": "ram.write expected then master.read, assert read.data == expected_data per transaction",
+        }
+    if has_s_axi and not has_m_axi:
+        return {
+            "model": "AXI slave DUT (RAM-like): master drives s_axi, reads back",
+            "compare": "master.read(addr) + assert readback matches expected per transaction",
+        }
+    # 纯 valid-ready stream（case2-only 条件：无 AXI + 有 axis 数据端口）
+    if "valid-ready" in protos and "AXI" not in protos and "m_axis_tdata" in port_names and "s_axis_tdata" in port_names:
+        return {
+            "model": "shift-register golden queue for valid-ready stream (axis_fifo_adapter is pure delay when S==M)",
+            "compare": "on (m_axis_tvalid & m_axis_tready) handshake, assert dut.m_axis_tdata.value == golden_queue.popleft()",
+        }
+    # case3/case5 或其它：invariant checks
+    return {
+        "model": "protocol-state invariant checks (no simple golden model for master/address-decoder DUTs)",
+        "compare": "assert output signal legality + pointer monotonicity (e.g. rd_finish_ptr_out never regresses)",
+    }
+
+
 # Makefile 模板（per D-03 -Wno-fatal, D-05 SIM=verilator）
 _MAKEFILE_TEMPLATE = """\
 # Auto-generated Makefile — win-ZCode A2 验证环境自动生成
@@ -148,10 +182,7 @@ def generate(design_info, out_dir, seed, num_seq):
             },
             "input_drivers": drivers,
             "output_monitors": monitors,
-            "scoreboard": {
-                "model": "byte-addressed memory model on m_axi side",
-                "compare": "assert read.data == expected_data after each transaction",
-            },
+            "scoreboard": _derive_scoreboard(design_info),
             "dut_outputs": [p.name for p in design_info.ports if p.direction == "output"],
             "generated_testbench_path": str(tb_path),
             "makefile_path": str(makefile_path),

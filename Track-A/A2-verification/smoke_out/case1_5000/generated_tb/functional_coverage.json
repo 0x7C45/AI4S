@@ -1,0 +1,265 @@
+{
+  "functional_coverage": {
+    "design": "axi_adapter_rd",
+    "status": "passed",
+    "source": "cocotb transaction sampling",
+    "covered_bins": 16,
+    "total_bins": 38,
+    "percent": 42.11,
+    "coverpoints": [
+      {
+        "name": "adapter_path",
+        "covered_bins": 0,
+        "total_bins": 4,
+        "bins": [
+          {
+            "name": "width_conversion",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "merge_master_beats",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "narrow_size_read",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "partial_last_beat",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "address_alignment",
+        "covered_bins": 4,
+        "total_bins": 4,
+        "bins": [
+          {
+            "name": "aligned_4_byte",
+            "hits": 1446,
+            "covered": true
+          },
+          {
+            "name": "aligned_2_byte",
+            "hits": 1119,
+            "covered": true
+          },
+          {
+            "name": "unaligned",
+            "hits": 2299,
+            "covered": true
+          },
+          {
+            "name": "near_4k_boundary",
+            "hits": 136,
+            "covered": true
+          }
+        ]
+      },
+      {
+        "name": "backpressure",
+        "covered_bins": 0,
+        "total_bins": 4,
+        "bins": [
+          {
+            "name": "source_rready_pause",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "downstream_arready_pause",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "downstream_rvalid_pause",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "combined_pause",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "burst_size",
+        "covered_bins": 4,
+        "total_bins": 4,
+        "bins": [
+          {
+            "name": "size_1_byte",
+            "hits": 1250,
+            "covered": true
+          },
+          {
+            "name": "size_2_byte",
+            "hits": 1250,
+            "covered": true
+          },
+          {
+            "name": "size_4_byte",
+            "hits": 1250,
+            "covered": true
+          },
+          {
+            "name": "default_max_size",
+            "hits": 1250,
+            "covered": true
+          }
+        ]
+      },
+      {
+        "name": "data_alignment",
+        "covered_bins": 0,
+        "total_bins": 4,
+        "bins": [
+          {
+            "name": "byte_aligned",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "halfword_aligned",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "word_aligned",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "unaligned",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "data_width_boundary",
+        "covered_bins": 0,
+        "total_bins": 4,
+        "bins": [
+          {
+            "name": "min_width",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "half_width",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "full_width",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "over_width",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "overflow_underflow",
+        "covered_bins": 0,
+        "total_bins": 3,
+        "bins": [
+          {
+            "name": "no_overflow",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "overflow",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "underflow",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      },
+      {
+        "name": "read_length",
+        "covered_bins": 8,
+        "total_bins": 8,
+        "bins": [
+          {
+            "name": "1",
+            "hits": 69,
+            "covered": true
+          },
+          {
+            "name": "2_to_3",
+            "hits": 121,
+            "covered": true
+          },
+          {
+            "name": "4",
+            "hits": 44,
+            "covered": true
+          },
+          {
+            "name": "5_to_15",
+            "hits": 565,
+            "covered": true
+          },
+          {
+            "name": "16_to_31",
+            "hits": 798,
+            "covered": true
+          },
+          {
+            "name": "32_to_63",
+            "hits": 1608,
+            "covered": true
+          },
+          {
+            "name": "64_to_127",
+            "hits": 1782,
+            "covered": true
+          },
+          {
+            "name": "128_to_256",
+            "hits": 13,
+            "covered": true
+          }
+        ]
+      },
+      {
+        "name": "sign_extension",
+        "covered_bins": 0,
+        "total_bins": 3,
+        "bins": [
+          {
+            "name": "positive_extend",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "negative_extend",
+            "hits": 0,
+            "covered": false
+          },
+          {
+            "name": "zero_extend",
+            "hits": 0,
+            "covered": false
+          }
+        ]
+      }
+    ]
+  }
+}

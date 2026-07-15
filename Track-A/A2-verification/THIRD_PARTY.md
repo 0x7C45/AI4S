@@ -16,14 +16,17 @@
 | 2 | **cocotb** | Python 包 | **==2.0.1** | MIT | 是（离线 wheel） | 验证框架主体，驱动 RTL 仿真、采样功能覆盖 bin |
 | 3 | **cocotb-test** | Python 包 | **==0.2.6** | MIT | 是（离线 wheel） | cocotb 的 Python 测试入口，配 Verilator 后端（`SIM=verilator`） |
 | 4 | **cocotbext-axi** | Python 包 | **==0.1.28** | MIT | 是（离线 wheel） | AXI4 / AXI4-Lite / AXI-Stream 接口驱动与监视 |
-| 5 | **Jinja2** | Python 包 | **==3.1.6** | BSD-3-Clause | 是（离线 wheel） | 渲染 `templates/cocotb_tb.py.j2`，生成 testbench 骨架与 7-JSON |
-| 6 | **PyVerilog** | Python 包 | **==1.3.0** | MIT | 是（离线 wheel） | RTL 解析（`spec.md §5` 明确允许的开源库） |
-| 7 | **Z3** (`z3-solver`) | Python 包 | **==4.16.0.0**（可选） | MIT | 是（离线 wheel） | 约束随机求解（`spec.md §5` 明确允许的开源库） |
-| 8 | **Verilator** | 系统二进制 | **5.050**（硬锁，见 §5） | LGPL-3.0 或 Artistic-2.0（双许可） | 否（评测机自带；若赛方不提供，README 注明须 = 5.050） | 仿真器 + 覆盖率插桩 |
+| 5 | **cocotb-bus** | Python 包 | **==0.3.0** | MIT | 是（离线 wheel） | cocotbext-axi 的传递依赖（总线驱动基类），离线安装 cocotbext-axi 时必需 |
+| 6 | **scapy** | Python 包 | **==2.7.0** | GPL-2.0-or-later | 是（离线 wheel） | cocotb-bus 的传递依赖（包构造），离线安装 cocotb-bus 时必需 |
+| 7 | **Jinja2** | Python 包 | **==3.1.6** | BSD-3-Clause | 是（离线 wheel） | 渲染 `templates/cocotb_tb.py.j2`，生成 testbench 骨架与 7-JSON |
+| 8 | **PyVerilog** | Python 包 | **==1.3.0** | MIT | 是（离线 wheel） | RTL 解析（`spec.md §5` 明确允许的开源库） |
+| 9 | **Z3** (`z3-solver`) | Python 包 | **==4.16.0.0**（可选） | MIT | 是（离线 wheel） | 约束随机求解（`spec.md §5` 明确允许的开源库） |
+| 10 | **Verilator** | 系统二进制 | **5.050**（硬锁，见 §5） | LGPL-3.0 或 Artistic-2.0（双许可） | 否（评测机自带；若赛方不提供，README 注明须 = 5.050） | 仿真器 + 覆盖率插桩 |
 
 > **版本号说明**：
-> - 已硬锁（task3 实测 2026-07-13）：`cocotb==2.0.1`（1.8.1 macOS arm64 无 wheel、源码构建失败；2.0.1 有 cp312 macosx arm64 wheel；评测机两版本都有 manylinux x86_64 wheel）、`cocotb-test==0.2.6`、`cocotbext-axi==0.1.28`、`Jinja2==3.1.6`、`PyVerilog==1.3.0`、`z3-solver==4.16.0.0`（可选，task3 网络未装上，PyPI 确认 arm64 wheel 存在）、`Verilator==5.050`、`Python==3.12`。
+> - 已硬锁（task3 实测 2026-07-13 + Phase 10 补充传递依赖）：`cocotb==2.0.1`、`cocotb-test==0.2.6`、`cocotbext-axi==0.1.28`、`cocotb-bus==0.3.0`、`scapy==2.7.0`、`Jinja2==3.1.6`、`PyVerilog==1.3.0`、`z3-solver==4.16.0.0`（可选）、`Verilator==5.050`、`Python==3.12`。
 > - 依 `CONSTRAINTS.md §11` 红线 #6，所有包在 `requirements.txt` 钉死精确版本 `==X.Y.Z`，三方（mac-CC / win-CC / win-ZCode）对齐。
+> - **传递依赖补充声明（Phase 10）**：cocotbext-axi 0.1.28 经 `Requires-Dist` 依赖 cocotb-bus（未钉版本），cocotb-bus 又依赖 scapy。离线 `pip install --no-index` 必须把这两个传递依赖一并打入 wheelhouse，否则 case2-5 仿真阶段会因 `pip install cocotbext-axi` 拉不到 cocotb-bus 而整体失败（cocotb 也装不上 → cocotb-config 缺失 → make 失败）。Phase 10 实测 case2 验证了这一传递链。
 > - `cocotbext-axi 0.1.28` 与 cocotb 2.0.1 实测全兼容：**issue #119 已过期**（cocotb-bus 0.3.0 + cocotbext-axi 0.1.28 的 requires_dist 为 `cocotb>=1.6.0`，无 `<2.0` 上界）。
 
 ---
@@ -170,8 +173,9 @@ pip install --no-index --find-links=offline_pkgs/ -r requirements.txt
 
 | 许可证 | 涉及依赖 | 合规要点 |
 |--------|----------|----------|
-| MIT | cocotb、cocotb-test、cocotbext-axi、PyVerilog、Z3 | 宽松，保留版权声明即可。本队分发提交包时随包保留各 wheel 自带 LICENSE。 |
+| MIT | cocotb、cocotb-test、cocotbext-axi、cocotb-bus、PyVerilog、Z3 | 宽松，保留版权声明即可。本队分发提交包时随包保留各 wheel 自带 LICENSE。 |
 | BSD-3-Clause | Jinja2 | 宽松，保留版权声明。 |
+| GPL-2.0-or-later | scapy | scapy 为 cocotb-bus 的传递依赖（包构造用），本队仅作为运行时依赖调用其公开 API，不修改、不分发其源码衍生品；竞赛用途的非商业分发，保留其 LICENSE 即可合规。 |
 | PSF-2.0 | Python | 宽松，商用友好。 |
 | LGPL-3.0 / Artistic-2.0（双许可） | Verilator | **作为系统二进制由评测机自带，本队不分发 Verilator 二进制**，仅调用其 CLI；如需分发须遵 LGPL 动态链接例外或 Artistic 条款。 |
 

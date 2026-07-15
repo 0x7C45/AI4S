@@ -1,0 +1,53 @@
+{
+  "verification_skeleton": {
+    "top_module": "axi_ram",
+    "clock_reset_generation": {
+      "clock": "clk",
+      "clock_period_ns": 10,
+      "reset": "rst",
+      "reset_active": "high",
+      "reset_sequence": "rst high 8 cycles, then low 8 cycles"
+    },
+    "input_drivers": [
+      {
+        "name": "s_axi_read_master",
+        "interface": "AXI slave read",
+        "class": "AxiMasterRead(AxiReadBus.from_prefix(dut, 's_axi'))"
+      },
+      {
+        "name": "m_axi_memory_model",
+        "interface": "AXI master read (RAM)",
+        "class": "AxiRamRead(AxiReadBus.from_prefix(dut, 'm_axi'), size=2**16)"
+      }
+    ],
+    "output_monitors": [
+      {
+        "name": "s_axi_read_monitor",
+        "sample_at": "transaction complete"
+      },
+      {
+        "name": "m_axi_read_monitor",
+        "sample_at": "RAM read/write"
+      }
+    ],
+    "scoreboard": {
+      "model": "AXI slave DUT (RAM-like): master drives s_axi, reads back",
+      "compare": "master.read(addr) + assert readback matches expected per transaction"
+    },
+    "dut_outputs": [
+      "s_axi_awready",
+      "s_axi_wready",
+      "s_axi_bid",
+      "s_axi_bresp",
+      "s_axi_bvalid",
+      "s_axi_arready",
+      "s_axi_rid",
+      "s_axi_rdata",
+      "s_axi_rresp",
+      "s_axi_rlast",
+      "s_axi_rvalid"
+    ],
+    "generated_testbench_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case4\\generated_tb\\generated_test.py",
+    "makefile_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case4\\generated_tb\\Makefile"
+  }
+}

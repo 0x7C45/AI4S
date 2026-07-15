@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "timing-x4-f10-buf5", "profile": "timing", "upsize_fanout_threshold": 10, "upsize_strength": 4, "buffer_fanout_threshold": 5, "buffer_strength": 16},
+    {"name": "timing-x4-f10-buf10", "profile": "timing", "upsize_fanout_threshold": 10, "upsize_strength": 4, "buffer_fanout_threshold": 10, "buffer_strength": 16},
+    {"name": "timing-x4-f10-buf20", "profile": "timing", "upsize_fanout_threshold": 10, "upsize_strength": 4, "buffer_fanout_threshold": 20, "buffer_strength": 16},
+    {"name": "resub-x4-f10-buf5", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 10, "upsize_strength": 4, "buffer_fanout_threshold": 5, "buffer_strength": 16},
+    {"name": "resub-x4-f10-buf10", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 10, "upsize_strength": 4, "buffer_fanout_threshold": 10, "buffer_strength": 16},
+    {"name": "resub-x2-f25-buf10", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 25, "upsize_strength": 2, "buffer_fanout_threshold": 10, "buffer_strength": 16},
+    {"name": "resub-x2-f25-buf25", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 25, "upsize_strength": 2, "buffer_fanout_threshold": 25, "buffer_strength": 16}
+  ]
+}

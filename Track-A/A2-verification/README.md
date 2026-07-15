@@ -202,23 +202,45 @@ ls submission_out/case4/
 
 ## 9. 离线安装与运行（win-ZCode 提交包）
 
-### 9.1 离线依赖安装（评测机断网）
+### 9.1 Docker 镜像（推荐：预装镜像，零运行时网络）
 
-`wheelhouse/` 目录预生成 manylinux2014_x86_64 wheel（cocotb/cocotbext-axi/jinja2/pyverilog 等 7 包），评测机断网时离线安装：
+评测机断网时，`verilator/verilator:v5.050` 基础镜像的 `apt-get install python3-pip` 路径不可靠（Ubuntu apt 镜像 502/EOF 频发，镜像无 pip 无 ensurepip 无 libpython3.12.so）。本队提供 **预装镜像** `ai4s-a2:verilator-cocotb`（Dockerfile 构建，基于 verilator/verilator:v5.050 + libpython3.12 + 全 cocotb 栈），评测机只需 `docker load` 即可，零运行时网络依赖。
 
+**开发机构建镜像（联网时，一次性）：**
 ```bash
-# 镜像 verilator/verilator:v5.050 无 pip，需先 bootstrap
-apt-get update && apt-get install -y python3-pip python3-venv 2>/dev/null || true
-python3 -m ensurepip 2>/dev/null || true
-
-# 离线安装（不联网）
-pip3 install --no-index --find-links=wheelhouse -r requirements.txt
+docker build --platform linux/amd64 -t ai4s-a2:verilator-cocotb -f Dockerfile .
+docker save ai4s-a2:verilator-cocotb | gzip > ai4s-a2-image.tar.gz
 ```
 
-### 9.2 运行（Docker linux/amd64）
+**评测机加载镜像（离线）：**
+```bash
+docker load < ai4s-a2-image.tar.gz
+export AI4S_A2_IMAGE=ai4s-a2:verilator-cocotb   # 或 run.sh 自动检测
+```
+
+`run.sh` 会自动检测本地 `ai4s-a2:verilator-cocotb` 镜像并设置 `AI4S_A2_IMAGE`；评测机 `docker load` 后无需手动 export。
+
+### 9.2 wheelhouse 离线安装（fallback：基础镜像 + 离线自举）
+
+若评测机无预装镜像，`run.sh` 自动回退到基础镜像 `verilator/verilator:v5.050`，通过 `wheelhouse/` 离线自举 pip（vendored pip wheel，PYTHONPATH 直跑，无需安装 pip 本身）+ 离线装 cocotb 栈。
+
+`wheelhouse/` 目录预生成 manylinux2014_x86_64 wheel（cocotb/cocotbext-axi/cocotb-bus/scapy/jinja2/pyverilog + pip/setuptools/wheel bootstrap 三件套），共 10 包。Docker 容器内自动执行：
 
 ```bash
-# Docker 容器内执行完整流水线
+# 容器内（sim_runner 自动做，评测人员无需手敲）
+PIP_WHEEL=$(ls /work/wheelhouse/pip-*.whl | head -1)
+PYTHONPATH="$PIP_WHEEL" python3 -m pip install \
+  --break-system-packages --no-index --find-links=/work/wheelhouse \
+  cocotb==2.0.1 cocotbext-axi==0.1.28 cocotb-bus==0.3.0 scapy==2.7.0 \
+  Jinja2==3.1.6 find_libpython
+```
+
+> ⚠ 基础镜像 fallback 路径需评测机有 `libpython3.12.so`（cocotb find_libpython 依赖），否则需额外 vendored libpython（见 `wheelhouse/libpython3.12.so`）。**预装镜像路径（9.1）无此问题**，推荐评测机用预装镜像。
+
+### 9.3 运行（Docker linux/amd64）
+
+```bash
+# Docker 容器内执行完整流水线（run.sh 自动选镜像）
 ./run.sh \
   --rtl benchmark/rtl \
   --top dut \
@@ -227,12 +249,15 @@ pip3 install --no-index --find-links=wheelhouse -r requirements.txt
   --num-seq 5000
 ```
 
-### 9.3 必交文件清单
+### 9.4 必交文件清单
 
 - `run.sh` / `run.py` — 统一入口
-- `src/` — 7 模块（rtl_parser/skeleton_gen/sim_runner/constraint_gen/coverage_gen/coverage_collect/report_gen/dead_code_analyzer）
+- `src/` — 8 模块（rtl_parser/skeleton_gen/sim_runner/constraint_gen/coverage_gen/coverage_collect/report_gen/dead_code_analyzer）
 - `templates/cocotb_tb.py.j2` — cocotb testbench 模板
-- `requirements.txt` — 锁版本依赖
-- `wheelhouse/` — 离线 wheel 包（manylinux2014_x86_64）
-- `THIRD_PARTY.md` — 第三方依赖版本/许可/调用边界
+- `testcases/A2_public_dataset/functional_coverage.py` — 功能覆盖采样类（被 generated_tb 复制）
+- `requirements.txt` — 锁版本依赖（10 包）
+- `Dockerfile` — 预装镜像构建脚本（构建 `ai4s-a2:verilator-cocotb`）
+- `ai4s-a2-image.tar.gz` — 预装镜像压缩包（`docker save` 生成，评测机 `docker load`）
+- `wheelhouse/` — 离线 wheel 包（manylinux2014_x86_64，含 bootstrap 三件套）
+- `THIRD_PARTY.md` — 第三方依赖版本/许可/调用边界（10 行）
 - `README.md` — 本文件（离线安装运行说明）

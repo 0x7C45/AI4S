@@ -1,0 +1,288 @@
+{
+  "design": {
+    "name": "axi_vfifo_raw_rd",
+    "top_module": "axi_vfifo_raw_rd",
+    "rtl_files": [
+      "E:\\AI4S\\Track-A\\A2-verification\\testcases\\A2_public_dataset\\case3\\rtl\\axi_vfifo_raw_rd.v",
+      "E:\\AI4S\\Track-A\\A2-verification\\testcases\\A2_public_dataset\\case3\\rtl\\axi_vfifo_raw_wr.v",
+      "E:\\AI4S\\Track-A\\A2-verification\\testcases\\A2_public_dataset\\case3\\rtl\\case3.v"
+    ],
+    "parameters": {
+      "SEG_WIDTH": "32",
+      "SEG_CNT": "2",
+      "AXI_DATA_WIDTH": "SEG_WIDTH*SEG_CNT",
+      "AXI_ADDR_WIDTH": "16",
+      "AXI_STRB_WIDTH": "(AXI_DATA_WIDTH/8",
+      "AXI_ID_WIDTH": "8",
+      "AXI_MAX_BURST_LEN": "16",
+      "LEN_WIDTH": "AXI_ADDR_WIDTH",
+      "READ_FIFO_DEPTH": "128",
+      "READ_MAX_BURST_LEN": "READ_FIFO_DEPTH/4",
+      "CTRL_OUT_EN": "0"
+    },
+    "clock_reset": {
+      "clock": "clk",
+      "reset": "rst",
+      "reset_active": "high"
+    },
+    "ports": [
+      {
+        "name": "clk",
+        "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "clock"
+      },
+      {
+        "name": "rst",
+        "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "reset"
+      },
+      {
+        "name": "output_clk",
+        "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "output_rst",
+        "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "output_rst_out",
+        "direction": "output",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "output_data",
+        "direction": "output",
+        "width": "SEG_CNT*SEG_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "output_valid",
+        "direction": "output",
+        "width": "SEG_CNT-1:0",
+        "type": "wire",
+        "protocol_group": "valid_ready"
+      },
+      {
+        "name": "output_ready",
+        "direction": "input",
+        "width": "SEG_CNT-1:0",
+        "type": "wire",
+        "protocol_group": "valid_ready"
+      },
+      {
+        "name": "output_ctrl_data",
+        "direction": "output",
+        "width": "SEG_CNT*SEG_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "output_ctrl_valid",
+        "direction": "output",
+        "width": "SEG_CNT-1:0",
+        "type": "wire",
+        "protocol_group": "valid_ready"
+      },
+      {
+        "name": "output_ctrl_ready",
+        "direction": "input",
+        "width": "SEG_CNT-1:0",
+        "type": "wire",
+        "protocol_group": "valid_ready"
+      },
+      {
+        "name": "m_axi_arid",
+        "direction": "output",
+        "width": "AXI_ID_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "m_axi_araddr",
+        "direction": "output",
+        "width": "AXI_ADDR_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "m_axi_arlen",
+        "direction": "output",
+        "width": "7:0",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "m_axi_arsize",
+        "direction": "output",
+        "width": "2:0",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "m_axi_arburst",
+        "direction": "output",
+        "width": "1:0",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "m_axi_arlock",
+        "direction": "output",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "m_axi_arcache",
+        "direction": "output",
+        "width": "3:0",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "m_axi_arprot",
+        "direction": "output",
+        "width": "2:0",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "m_axi_arvalid",
+        "direction": "output",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "m_axi_arready",
+        "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "m_axi_rid",
+        "direction": "input",
+        "width": "AXI_ID_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "m_axi_rdata",
+        "direction": "input",
+        "width": "AXI_DATA_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "m_axi_rresp",
+        "direction": "input",
+        "width": "1:0",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "m_axi_rlast",
+        "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "m_axi_rvalid",
+        "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "m_axi_rready",
+        "direction": "output",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "axi_master"
+      },
+      {
+        "name": "wr_start_ptr_in",
+        "direction": "input",
+        "width": "LEN_WIDTH+1-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "wr_finish_ptr_in",
+        "direction": "input",
+        "width": "LEN_WIDTH+1-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "rd_start_ptr_out",
+        "direction": "output",
+        "width": "LEN_WIDTH+1-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "rd_finish_ptr_out",
+        "direction": "output",
+        "width": "LEN_WIDTH+1-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "cfg_fifo_base_addr",
+        "direction": "input",
+        "width": "AXI_ADDR_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "sram"
+      },
+      {
+        "name": "cfg_fifo_size_mask",
+        "direction": "input",
+        "width": "LEN_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "cfg_enable",
+        "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "sram"
+      },
+      {
+        "name": "cfg_reset",
+        "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "sts_read_active",
+        "direction": "output",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "other"
+      }
+    ],
+    "inferred_protocols": [
+      "AXI",
+      "SRAM",
+      "valid-ready"
+    ]
+  }
+}

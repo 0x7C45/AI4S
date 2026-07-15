@@ -1,0 +1,8 @@
+{
+  "$default": [
+    {"name": "amap-ultra-f16", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"},
+    {"name": "amap-ultra-e001", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -E 0.01 -Q 0.0"},
+    {"name": "amap-ultra-dc2", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"},
+    {"name": "amap-ultra-syn2", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &syn2 -m; &dch -f; &put; amap -m -F 16 -A 32 -C 5000 -Q 0.0"}
+  ]
+}

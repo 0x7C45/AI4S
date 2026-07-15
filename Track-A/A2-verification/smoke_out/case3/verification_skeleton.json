@@ -1,0 +1,60 @@
+{
+  "verification_skeleton": {
+    "top_module": "axi_vfifo_raw_rd",
+    "clock_reset_generation": {
+      "clock": "clk",
+      "clock_period_ns": 10,
+      "reset": "rst",
+      "reset_active": "high",
+      "reset_sequence": "rst high 8 cycles, then low 8 cycles"
+    },
+    "input_drivers": [
+      {
+        "name": "s_axi_read_master",
+        "interface": "AXI slave read",
+        "class": "AxiMasterRead(AxiReadBus.from_prefix(dut, 's_axi'))"
+      },
+      {
+        "name": "m_axi_memory_model",
+        "interface": "AXI master read (RAM)",
+        "class": "AxiRamRead(AxiReadBus.from_prefix(dut, 'm_axi'), size=2**16)"
+      }
+    ],
+    "output_monitors": [
+      {
+        "name": "s_axi_read_monitor",
+        "sample_at": "transaction complete"
+      },
+      {
+        "name": "m_axi_read_monitor",
+        "sample_at": "RAM read/write"
+      }
+    ],
+    "scoreboard": {
+      "model": "protocol-state invariant checks (no simple golden model for master/address-decoder DUTs)",
+      "compare": "assert output signal legality + pointer monotonicity (e.g. rd_finish_ptr_out never regresses)"
+    },
+    "dut_outputs": [
+      "output_rst_out",
+      "output_data",
+      "output_valid",
+      "output_ctrl_data",
+      "output_ctrl_valid",
+      "m_axi_arid",
+      "m_axi_araddr",
+      "m_axi_arlen",
+      "m_axi_arsize",
+      "m_axi_arburst",
+      "m_axi_arlock",
+      "m_axi_arcache",
+      "m_axi_arprot",
+      "m_axi_arvalid",
+      "m_axi_rready",
+      "rd_start_ptr_out",
+      "rd_finish_ptr_out",
+      "sts_read_active"
+    ],
+    "generated_testbench_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case3\\generated_tb\\generated_test.py",
+    "makefile_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case3\\generated_tb\\Makefile"
+  }
+}

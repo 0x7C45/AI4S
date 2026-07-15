@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name":"map-area","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; dch; map -a"},
+    {"name":"map-area-sweep","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; dch; map -a -s"},
+    {"name":"map-area-double","profile":"balanced","abc_script":"balance; rewrite; rewrite -z; balance; rewrite -z; balance; balance; rewrite; rewrite -z; balance; rewrite -z; balance; dch; map -a"},
+    {"name":"map-area-resyn","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite; rewrite -z; balance; refactor -z; rewrite -z; balance; dch; map -a"},
+    {"name":"map-delay-10000","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; dch; map -D 10000"},
+    {"name":"map-area-bias","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; dch; map -A 1.0"},
+    {"name":"map-area-profile","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; dch; map -a -u"}
+  ]
+}

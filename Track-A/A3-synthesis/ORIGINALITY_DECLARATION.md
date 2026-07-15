@@ -2,7 +2,7 @@
 
 ## 1. 参赛信息
 
-- 队伍：AI4S-Team（提交前替换为正式队名）
+- 队伍：0x7C45
 - 工具名称与版本：AdaptiveYosys 0.1.0
 - 开发类型：开源工具增强型 `open_source_based`
 
@@ -12,14 +12,15 @@
 - `src/sdc.py`：无需第三方依赖的 SDC 时钟周期提取。
 - `src/rtl_analysis.py`：与电路 ID 无关的 RTL 结构特征分析和自适应策略选择。
 - `src/yosys_flow.py`：Yosys 程序生成、安全进程执行、日志保留和输出原子提交。
-- `src/gate_sizing.py`：基于 Liberty 可用单元和实际网表扇出的保守门尺寸优化。
+- `src/gate_sizing.py`：基于 Liberty 可用单元和实际网表扇出的门尺寸优化与负载隔离缓冲。
+- `src/timing_sizing.py`：OpenSTA 关键路径采样、频次聚合和受限门尺寸反馈优化。
 - `src/problem_parser.py`：公开题目元数据的轻量解析器。
 - `src/synth.py`：评测 CLI、输入校验和综合流程编排。
 - `tests/`：配置、SDC、策略、脚本和 Makefile 接口验证。
 
 ## 3. 开源工具调用边界
 
-Yosys 负责 Verilog/SystemVerilog 解析、elaboration、RTL lowering 和基础综合。Yosys 捆绑的 Berkeley ABC 负责组合网络优化与 Nangate45 映射。工具不修改二者源码；边界为本地 `yosys -s <script>` 子进程。标准单元映射仅使用评测器传入的 Liberty。
+Yosys 负责 Verilog/SystemVerilog 解析、elaboration、RTL lowering 和基础综合。Yosys 捆绑的 Berkeley ABC 负责组合网络优化与 Nangate45 映射。OpenSTA 对少数候选 point 的映射网表进行一次有界关键路径分析。工具不修改这些项目源码；边界分别为本地 `yosys -s <script>` 与 `sta <script>` 子进程。标准单元映射和时序分析仅使用评测器传入的 Liberty 与 SDC。
 
 ## 4. 大模型辅助开发
 
@@ -27,9 +28,13 @@ Yosys 负责 Verilog/SystemVerilog 解析、elaboration、RTL lowering 和基础
 
 ## 5. 原创算法与证据
 
-自研增强点包括 ID 无关的自适应策略层和保守的高扇出门尺寸优化：`src/rtl_analysis.py` 从 RTL 中提取时序、算术、mux/case、比较和存储等特征；`src/yosys_flow.py` 根据 point 的面积/时序目标以及这些特征，生成不同的 ABC 优化序列；`src/gate_sizing.py` 在映射后统计标准单元输出网的连接数，仅当目标 X2/X4 单元确实存在于评测 Liberty、且单元不是时序单元时，才替换高扇出 X1 组合门。该方法不读取隐藏电路 ID，也不使用预生成网表。
+自研增强点包括 ID 无关的自适应策略层、高强度 ABC 映射序列、高扇出负载优化与一次 OpenSTA 反馈：`src/rtl_analysis.py` 从 RTL 中提取时序、算术、mux/case、比较和存储等特征；`src/yosys_flow.py` 根据 point 的面积/时序目标以及这些特征生成不同的 ABC 优化序列；面积端在 ABC GIA 上以固定 seed 和固定 10 秒子时限调用三轮 `&deepsyn`，再执行 `&dch` 与高强度 `amap`；`src/gate_sizing.py` 在映射后统计标准单元输出网的实际连接数；`src/timing_sizing.py` 从最差路径中聚合反复出现的 X1 组合单元，在 Liberty 中存在引脚兼容 X2/X4 变体时做有上限的替换。OpenSTA 缺失、超时或无有效路径时该阶段安全跳过。所有映射后改写均重新调用 Yosys 解析并执行 hierarchy/check，校验失败则原子恢复未改写网表。该方法不读取隐藏电路 ID，也不使用预生成网表。
 
-真实消融已在指定竞赛镜像（Yosys 0.54 / OpenSTA 2.7.0）完成。LSV01-LSV10 的 5 个基线策略均已综合并测量面积与零约束 OpenSTA 到达时间；随后比较了 `resub -K 8 -N 2`、`dc2`、`&nf`、`&syn2`、`&mfs`、`amap` 和高扇出 X2/X4 门替换。新增序列在多个公开电路形成新的非支配点：例如 LSV01 的 resub 点为 area 346.598、arrival 1.57ns，配合 deep-timing 点的参考超体积比约 2.052。LSV04 的 GIA/AMAP 前沿最低达到 1818.908/1.49ns，将参考超体积比从 0.97196 提升至 1.11782；LSV06 最低达到 693.728/1.51ns，并增加 705.698/1.48ns 互补点，将比率从 0.99255 大幅提升至 1.48142。LSV05 的低面积点达到 124.222/0.53ns，比率提升到 1.32883；LSV08 的七点前沿最低达到 1787.520/1.54ns，比率提升到 1.37942。LSV07 在 GIA/`&nf -R` 面积前沿之外加入 X2/X4 高扇出时序点 2609.460/1.25ns 和 2620.632/1.17ns，将参考超体积比进一步提升至约 0.60079。LSV09 的 X2/X4 扇出 50 点达到 14070.336/3.01ns 和 14084.168/2.56ns，配合 GIA/AMAP 面积端前沿后将比率从约 0.49530 提升至约 0.56234。相同方法迁移到 LSV10 后加入 15535.198/3.36ns 和 15467.102/3.57ns 的时序点，配合 14446.194/31.62ns 等面积点，将该题比率从约 0.77265 提升至约 0.79562。`&mfs` 和前端 pass 开关未形成新 Pareto 点，未加入正式配置；`&syn2 -d` 与旧算法模式在 LSV09 失败，同样排除。最终 `config.json` 仅保留实测非支配点，并在每题最多七点的限制下按超体积边际贡献筛选。
+真实消融已在指定竞赛镜像（Yosys 0.54 / OpenSTA 2.7.0）完成。LSV01-LSV10 的候选策略均测量最终门级网表的 Liberty 单元面积与零约束 OpenSTA 到达时间；比较范围包括 `resub -K 8 -N 2`、`dc2`、`&nf` 的 SAT 面积模式、`&syn2`、`&syn4`、`&mfs`、固定 seed 的 `&deepsyn`、高强度 `amap`、X2/X4 门替换、BUF_X4/X8/X16 负载隔离和 OpenSTA 关键路径反馈。2026-07-15 对正式配置完成 55 个 point 的干净复跑，55 个综合与 STA 全部成功，总实测时间 390.213 秒。按赛题固定 nadir 与二维支配超体积公式重算，公开 10 题的 PPA 比率依次为 2.000000、2.000000、1.168561、1.260103、1.542735、1.612092、0.897524、1.621468、0.719871、0.900598；公开集代理技术分为 66.753282/95，其中 PPA 61.753282/90、运行时间 5/5。若原创性取得 5/5，总分代理为 71.753282/100。该代理未执行组委会隐藏正确性仿真，也不包含隐藏 10 题，不能视为官方最终分数。
+
+新增深重构点另以 Yosys `equiv_make`、`equiv_simple` 和 `equiv_induct` 对 RTL 与最终 Nangate45 网表做形式等价检查；LSV02、LSV04、LSV07 以及 LSV09/LSV10 的两个固定 seed 均通过。检查时对 RTL 和门级网表一致应用 `async2sync`，并由 Liberty 功能模型展开标准单元。
+
+隐藏电路只使用与电路 ID 无关的 `$default`。为选择其七个 point，在全部 10 个公开电路上运行 35 个通用候选，共 350 个受限 point，再穷举七点组合并最大化公开题平均超体积。加入缓冲候选后，选出的通用组合在该代理评测中由 55.515168/95 提升到 57.781424/95。`&mfs`、前端 pass 开关和过强缓冲未形成更优七点组合，未加入正式配置；`&syn2 -d` 与旧算法模式在 LSV09 失败，同样排除。
 
 门级随机对拍已通过 LSV01-LSV06 与 LSV08 的代表点；其中组合电路使用原始 Nangate 行为模型，顺序电路使用仅替代 DFF 功能、保留组合标准单元的确定性验证模型。LSV07 没有复位，LSV09/LSV10 为总线/CPU 接口，未受约束的随机输入会让原始 RTL 自身出现未知态，因此这些案例不将随机 X 结果解释为综合网表错误，正式正确性仍以评测器隐藏 testbench 为准。
 

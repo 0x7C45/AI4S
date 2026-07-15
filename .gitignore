@@ -56,3 +56,6 @@ results.xml
 
 # A1 simulator binary
 Track-A/A1-simulator/simulator
+Track-A/A2-submission/
+
+# A2-submission 是提交构建产物（含 284MB Docker 镜像 tarball），不入 git

@@ -1,0 +1,32 @@
+{
+  "$default": [
+    {"name": "critical-default", "profile": "balanced", "critical_path_upsize_cells": 10}
+  ],
+  "LSV07": [
+    {"name": "nf-r60-c5", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put", "critical_path_upsize_cells": 5},
+    {"name": "nf-r60-c10", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put", "critical_path_upsize_cells": 10},
+    {"name": "nf-r60-c25", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put", "critical_path_upsize_cells": 25},
+    {"name": "nf-r60-c50", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -R 60 -p; &put", "critical_path_upsize_cells": 50},
+    {"name": "dc2-buf4-t75-c10", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 75, "buffer_strength": 4, "critical_path_upsize_cells": 10},
+    {"name": "dc2-buf4-t75-c25", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 75, "buffer_strength": 4, "critical_path_upsize_cells": 25},
+    {"name": "dc2-buf4-t75-c50", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; dc2; balance; rewrite -z; refactor -z; balance", "buffer_fanout_threshold": 75, "buffer_strength": 4, "critical_path_upsize_cells": 50}
+  ],
+  "LSV09": [
+    {"name": "amap-q0001-buf4-t150-c5", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.001", "buffer_fanout_threshold": 150, "buffer_strength": 4, "critical_path_upsize_cells": 5},
+    {"name": "amap-q0001-buf4-t150-c10", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.001", "buffer_fanout_threshold": 150, "buffer_strength": 4, "critical_path_upsize_cells": 10},
+    {"name": "amap-q0001-buf4-t150-c25", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.001", "buffer_fanout_threshold": 150, "buffer_strength": 4, "critical_path_upsize_cells": 25},
+    {"name": "amap-q0001-buf4-t150-c50", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.001", "buffer_fanout_threshold": 150, "buffer_strength": 4, "critical_path_upsize_cells": 50},
+    {"name": "balanced-buf8-t65-c50", "profile": "balanced", "buffer_fanout_threshold": 65, "buffer_strength": 8, "critical_path_upsize_cells": 50},
+    {"name": "balanced-buf8-t65-c100", "profile": "balanced", "buffer_fanout_threshold": 65, "buffer_strength": 8, "critical_path_upsize_cells": 100},
+    {"name": "balanced-buf8-t65-c200", "profile": "balanced", "buffer_fanout_threshold": 65, "buffer_strength": 8, "critical_path_upsize_cells": 200}
+  ],
+  "LSV10": [
+    {"name": "amap-q0001-buf4-t100-c5", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.001", "buffer_fanout_threshold": 100, "buffer_strength": 4, "critical_path_upsize_cells": 5},
+    {"name": "amap-q0001-buf4-t100-c10", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.001", "buffer_fanout_threshold": 100, "buffer_strength": 4, "critical_path_upsize_cells": 10},
+    {"name": "amap-q0001-buf4-t100-c25", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.001", "buffer_fanout_threshold": 100, "buffer_strength": 4, "critical_path_upsize_cells": 25},
+    {"name": "amap-q0001-buf4-t100-c50", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.001", "buffer_fanout_threshold": 100, "buffer_strength": 4, "critical_path_upsize_cells": 50},
+    {"name": "amap-q0001-buf4-t100-c100", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.001", "buffer_fanout_threshold": 100, "buffer_strength": 4, "critical_path_upsize_cells": 100},
+    {"name": "resub-x2-buf16-t35-c10", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 25, "upsize_strength": 2, "buffer_fanout_threshold": 35, "buffer_strength": 16, "critical_path_upsize_cells": 10},
+    {"name": "resub-x2-buf16-t35-c25", "profile": "balanced", "abc_script": "balance; rewrite; refactor; resub -K 8 -N 2; balance; rewrite -z; refactor -z; balance", "upsize_fanout_threshold": 25, "upsize_strength": 2, "buffer_fanout_threshold": 35, "buffer_strength": 16, "critical_path_upsize_cells": 25}
+  ]
+}

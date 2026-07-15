@@ -1,0 +1,36 @@
+{
+  "verification_skeleton": {
+    "top_module": "axis_fifo_adapter",
+    "clock_reset_generation": {
+      "clock": "clk",
+      "clock_period_ns": 10,
+      "reset": "rst",
+      "reset_active": "high",
+      "reset_sequence": "rst high 8 cycles, then low 8 cycles"
+    },
+    "input_drivers": [],
+    "output_monitors": [],
+    "scoreboard": {
+      "model": "shift-register golden queue for valid-ready stream (axis_fifo_adapter is pure delay when S==M)",
+      "compare": "on (m_axis_tvalid & m_axis_tready) handshake, assert dut.m_axis_tdata.value == golden_queue.popleft()"
+    },
+    "dut_outputs": [
+      "s_axis_tready",
+      "m_axis_tdata",
+      "m_axis_tkeep",
+      "m_axis_tvalid",
+      "m_axis_tlast",
+      "m_axis_tid",
+      "m_axis_tdest",
+      "m_axis_tuser",
+      "pause_ack",
+      "status_depth",
+      "status_depth_commit",
+      "status_overflow",
+      "status_bad_frame",
+      "status_good_frame"
+    ],
+    "generated_testbench_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case2\\generated_tb\\generated_test.py",
+    "makefile_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case2\\generated_tb\\Makefile"
+  }
+}

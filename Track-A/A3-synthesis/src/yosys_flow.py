@@ -9,8 +9,9 @@ import subprocess
 from pathlib import Path
 
 from config import PointConfig
-from gate_sizing import upsize_high_fanout_gates
+from gate_sizing import insert_high_fanout_buffers, upsize_high_fanout_gates
 from rtl_analysis import RtlFeatures, adaptive_profile
+from timing_sizing import run_critical_path_sizing
 
 
 class SynthesisError(RuntimeError):
@@ -115,11 +116,50 @@ def _resolve_yosys() -> str:
     )
 
 
+def _validate_mapped_netlist(
+    yosys: str,
+    netlist: Path,
+    liberty: Path,
+    top: str,
+    work_dir: Path,
+) -> tuple[bool, str]:
+    """Reparse a post-map rewrite before allowing it to become an output."""
+
+    script_path = work_dir / "validate.ys"
+    log_path = work_dir / "validate.log"
+    script_path.write_text(
+        "\n".join(
+            (
+                f"read_liberty -lib {_quote(liberty.resolve())}",
+                f"read_verilog {_quote(netlist.resolve())}",
+                f"hierarchy -check -top {_quote(top)}",
+                "check",
+                "",
+            )
+        ),
+        encoding="utf-8",
+    )
+    try:
+        completed = subprocess.run(
+            [yosys, "-q", "-l", str(log_path), "-s", str(script_path)],
+            cwd=work_dir.parent,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=60,
+            check=False,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return False, str(log_path)
+    return completed.returncode == 0, str(log_path)
+
+
 def run_yosys(
     *,
     rtl: Path,
     top: str,
     liberty: Path,
+    sdc: Path,
     final_output: Path,
     point: PointConfig,
     features: RtlFeatures,
@@ -147,6 +187,12 @@ def run_yosys(
             synth_options=point.synth_options,
             upsize_fanout_threshold=point.upsize_fanout_threshold,
             upsize_strength=point.upsize_strength,
+            buffer_fanout_threshold=point.buffer_fanout_threshold,
+            buffer_strength=point.buffer_strength,
+            buffer_group_size=point.buffer_group_size,
+            critical_path_upsize_cells=point.critical_path_upsize_cells,
+            critical_path_count=point.critical_path_count,
+            critical_path_strength=point.critical_path_strength,
         )
         attempts.append(abc_script(conservative, features, delay_ps))
     metadata = {
@@ -204,13 +250,50 @@ def run_yosys(
         )
         if succeeded:
             metadata["resolved_profile"] = attempt_profile
+            original_netlist = temporary_output.read_bytes()
+            changed_cells = 0
             if point.upsize_fanout_threshold is not None:
-                metadata["upsized_cells"] = upsize_high_fanout_gates(
+                changed_cells += upsize_high_fanout_gates(
                     temporary_output,
                     liberty,
                     threshold=point.upsize_fanout_threshold,
                     strength=point.upsize_strength,
                 )
+                metadata["upsized_cells"] = changed_cells
+            if point.buffer_fanout_threshold is not None:
+                inserted_buffers = insert_high_fanout_buffers(
+                    temporary_output,
+                    liberty,
+                    threshold=point.buffer_fanout_threshold,
+                    strength=point.buffer_strength,
+                    group_size=point.buffer_group_size,
+                )
+                metadata["inserted_buffers"] = inserted_buffers
+                changed_cells += inserted_buffers
+            if point.critical_path_upsize_cells is not None:
+                critical_cells = run_critical_path_sizing(
+                    temporary_output,
+                    liberty,
+                    sdc,
+                    top,
+                    work_dir,
+                    strength=point.critical_path_strength,
+                    paths=point.critical_path_count,
+                    max_cells=point.critical_path_upsize_cells,
+                )
+                metadata["critical_path_upsized_cells"] = critical_cells
+                changed_cells += critical_cells
+            if changed_cells:
+                valid, validation_log = _validate_mapped_netlist(
+                    yosys, temporary_output, liberty, top, work_dir
+                )
+                metadata["post_map_validation"] = "ok" if valid else "reverted"
+                if not valid:
+                    temporary_output.write_bytes(original_netlist)
+                    metadata["upsized_cells"] = 0
+                    metadata["inserted_buffers"] = 0
+                    metadata["critical_path_upsized_cells"] = 0
+                    metadata["post_map_validation_log"] = validation_log
             break
         diagnostic = completed.stderr.strip().splitlines()[-1:] or completed.stdout.strip().splitlines()[-1:]
         detail = f" ({diagnostic[0]})" if diagnostic else ""

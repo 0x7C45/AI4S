@@ -24,6 +24,12 @@ class PointConfig:
     synth_options: tuple[str, ...] = ()
     upsize_fanout_threshold: int | None = None
     upsize_strength: int = 4
+    buffer_fanout_threshold: int | None = None
+    buffer_strength: int = 16
+    buffer_group_size: int | None = None
+    critical_path_upsize_cells: int | None = None
+    critical_path_count: int = 50
+    critical_path_strength: int = 2
     extra: dict[str, Any] = field(default_factory=dict)
 
 
@@ -66,6 +72,12 @@ def _normalize(raw: Any, index: int) -> PointConfig:
         "synth_options",
         "upsize_fanout_threshold",
         "upsize_strength",
+        "buffer_fanout_threshold",
+        "buffer_strength",
+        "buffer_group_size",
+        "critical_path_upsize_cells",
+        "critical_path_count",
+        "critical_path_strength",
     }
     timeout = raw.get("timeout_seconds", 600)
     if not isinstance(timeout, int) or timeout < 1:
@@ -97,6 +109,36 @@ def _normalize(raw: Any, index: int) -> PointConfig:
     upsize_strength = raw.get("upsize_strength", 4)
     if isinstance(upsize_strength, bool) or upsize_strength not in {2, 4}:
         raise ConfigError(f"point {index} upsize_strength must be 2 or 4")
+    buffer_threshold = raw.get("buffer_fanout_threshold")
+    if buffer_threshold is not None and (
+        isinstance(buffer_threshold, bool)
+        or not isinstance(buffer_threshold, int)
+        or buffer_threshold < 2
+    ):
+        raise ConfigError(f"point {index} buffer_fanout_threshold must be an integer of at least 2")
+    buffer_strength = raw.get("buffer_strength", 16)
+    if isinstance(buffer_strength, bool) or buffer_strength not in {2, 4, 8, 16}:
+        raise ConfigError(f"point {index} buffer_strength must be one of 2, 4, 8, or 16")
+    buffer_group_size = raw.get("buffer_group_size")
+    if buffer_group_size is not None and (
+        isinstance(buffer_group_size, bool)
+        or not isinstance(buffer_group_size, int)
+        or not 2 <= buffer_group_size <= 256
+    ):
+        raise ConfigError(f"point {index} buffer_group_size must be an integer from 2 to 256")
+    if buffer_group_size is not None and buffer_threshold is None:
+        raise ConfigError(f"point {index} buffer_group_size requires buffer_fanout_threshold")
+    critical_cells = raw.get("critical_path_upsize_cells")
+    if critical_cells is not None and (
+        isinstance(critical_cells, bool) or not isinstance(critical_cells, int) or not 1 <= critical_cells <= 500
+    ):
+        raise ConfigError(f"point {index} critical_path_upsize_cells must be an integer from 1 to 500")
+    critical_paths = raw.get("critical_path_count", 50)
+    if isinstance(critical_paths, bool) or not isinstance(critical_paths, int) or not 1 <= critical_paths <= 200:
+        raise ConfigError(f"point {index} critical_path_count must be an integer from 1 to 200")
+    critical_strength = raw.get("critical_path_strength", 2)
+    if isinstance(critical_strength, bool) or critical_strength not in {2, 4}:
+        raise ConfigError(f"point {index} critical_path_strength must be 2 or 4")
     return PointConfig(
         name=str(raw.get("name", f"point-{index}")),
         profile=profile,
@@ -108,6 +150,12 @@ def _normalize(raw: Any, index: int) -> PointConfig:
         synth_options=tuple(synth_options),
         upsize_fanout_threshold=upsize_threshold,
         upsize_strength=upsize_strength,
+        buffer_fanout_threshold=buffer_threshold,
+        buffer_strength=buffer_strength,
+        buffer_group_size=buffer_group_size,
+        critical_path_upsize_cells=critical_cells,
+        critical_path_count=critical_paths,
+        critical_path_strength=critical_strength,
         extra={key: value for key, value in raw.items() if key not in known},
     )
 

@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name": "gia-amap-q030-buf8-t75", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.30", "buffer_fanout_threshold": 75, "buffer_strength": 8},
+    {"name": "gia-amap-q030-buf8-t100", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.30", "buffer_fanout_threshold": 100, "buffer_strength": 8},
+    {"name": "gia-amap-q030-buf16-t75", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.30", "buffer_fanout_threshold": 75, "buffer_strength": 16},
+    {"name": "gia-amap-q030-buf16-t100", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.30", "buffer_fanout_threshold": 100, "buffer_strength": 16},
+    {"name": "gia-amap-q0001-buf8-t100", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.001", "buffer_fanout_threshold": 100, "buffer_strength": 8},
+    {"name": "gia-amap-q0001-buf16-t75", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.001", "buffer_fanout_threshold": 75, "buffer_strength": 16},
+    {"name": "gia-amap-q0001-buf16-t100", "profile": "balanced", "abc_script": "balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &put; amap -m -Q 0.001", "buffer_fanout_threshold": 100, "buffer_strength": 16}
+  ]
+}

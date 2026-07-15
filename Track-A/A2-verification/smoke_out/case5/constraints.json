@@ -1,0 +1,75 @@
+{
+  "constraint_random_test": {
+    "name": "axi_crossbar_addr",
+    "solver_target": "directed_random",
+    "seed": 20260630,
+    "sequence_count": 100,
+    "transaction_variables": {
+      "address": {
+        "type": "bitvec",
+        "width": 32
+      },
+      "length_bytes": {
+        "type": "int",
+        "min": 1,
+        "max": 256
+      },
+      "size": {
+        "type": "int",
+        "values": [
+          0,
+          1,
+          2
+        ]
+      },
+      "burst": {
+        "type": "enum",
+        "values": [
+          "INCR"
+        ]
+      },
+      "arid": {
+        "type": "bitvec",
+        "width": 8
+      },
+      "source_backpressure": {
+        "type": "enum",
+        "values": [
+          "none",
+          "light",
+          "heavy"
+        ]
+      },
+      "downstream_backpressure": {
+        "type": "enum",
+        "values": [
+          "none",
+          "light",
+          "heavy"
+        ]
+      },
+      "combined_backpressure": {
+        "type": "enum",
+        "values": [
+          "none",
+          "light",
+          "heavy"
+        ]
+      }
+    },
+    "hard_constraints": [
+      "0 <= address < 4294967295",
+      "1 <= length_bytes <= 256",
+      "address + length_bytes <= 4294967295",
+      "size in [0, 1, 2]"
+    ],
+    "coverage_guidance_constraints": [
+      "覆盖 read_length 边界值: 1,2,4,8,16,32,64,128,256",
+      "覆盖 address 4K 边界和对齐",
+      "覆盖 burst_size 全部取值",
+      "覆盖 backpressure 各通道组合"
+    ],
+    "objective": "maximize functional coverage across protocol scenarios and corner cases",
+    "coverage_feedback_adjustments": []
+  }
+}

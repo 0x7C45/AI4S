@@ -55,6 +55,7 @@ def main(argv: list[str] | None = None) -> int:
             rtl=rtl,
             top=args.top,
             liberty=liberty,
+            sdc=sdc,
             final_output=output,
             point=point,
             features=features,

@@ -1,0 +1,11 @@
+{
+  "$default": [
+    {"name":"nf-a-r0","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -a -p -F 16 -A 16 -C 32 -R 0; &put"},
+    {"name":"nf-a-r20","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -a -p -F 16 -A 16 -C 32 -R 20; &put"},
+    {"name":"nf-a-r60","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -a -p -F 16 -A 16 -C 32 -R 60; &put"},
+    {"name":"nf-a32-r60","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -a -p -F 16 -A 32 -C 32 -R 60; &put"},
+    {"name":"nf-a32-r100","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -a -p -F 16 -A 32 -C 32 -R 100; &put"},
+    {"name":"nf-a32-r200","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -a -p -F 16 -A 32 -C 32 -R 200; &put"},
+    {"name":"nf-a32-r60-k","profile":"balanced","abc_script":"balance; rewrite; refactor; balance; rewrite -z; balance; &get -n; &dc2; &syn2 -m; &dch -f; &nf -a -p -k -F 16 -A 32 -C 32 -R 60; &put"}
+  ]
+}

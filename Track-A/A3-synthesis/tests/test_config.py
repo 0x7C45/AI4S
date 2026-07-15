@@ -71,6 +71,28 @@ class ConfigTests(unittest.TestCase):
         with self.assertRaises(ConfigError):
             select_point(path, "HIDDEN", 1)
 
+    def test_reads_high_fanout_buffer_options(self):
+        path = self.write({"$default": [{"buffer_fanout_threshold": 25, "buffer_strength": 16, "buffer_group_size": 12}]})
+        point, _ = select_point(path, "HIDDEN", 1)
+        self.assertEqual((point.buffer_fanout_threshold, point.buffer_strength), (25, 16))
+        self.assertEqual(point.buffer_group_size, 12)
+
+    def test_rejects_invalid_high_fanout_buffer_options(self):
+        for value in (0, 1, True, 1.5, "25"):
+            path = self.write({"$default": [{"buffer_fanout_threshold": value}]})
+            with self.subTest(value=value), self.assertRaises(ConfigError):
+                select_point(path, "HIDDEN", 1)
+        path = self.write({"$default": [{"buffer_strength": 32}]})
+        with self.assertRaises(ConfigError):
+            select_point(path, "HIDDEN", 1)
+        for value in (0, 1, 257, True, 1.5, "16"):
+            path = self.write({"$default": [{"buffer_fanout_threshold": 25, "buffer_group_size": value}]})
+            with self.subTest(group_size=value), self.assertRaises(ConfigError):
+                select_point(path, "HIDDEN", 1)
+        path = self.write({"$default": [{"buffer_group_size": 16}]})
+        with self.assertRaises(ConfigError):
+            select_point(path, "HIDDEN", 1)
+
     def test_submission_config_has_valid_unique_points(self):
         path = Path(__file__).resolve().parents[1] / "config.json"
         config = load_config(path)
@@ -80,6 +102,20 @@ class ConfigTests(unittest.TestCase):
             names = [point.name for point in points]
             with self.subTest(circuit=circuit):
                 self.assertEqual(len(names), len(set(names)))
+
+    def test_reads_and_validates_critical_path_sizing(self):
+        path = self.write({"$default": [{"critical_path_upsize_cells": 25, "critical_path_count": 40, "critical_path_strength": 2}]})
+        point, _ = select_point(path, "HIDDEN", 1)
+        self.assertEqual((point.critical_path_upsize_cells, point.critical_path_count), (25, 40))
+        for field, value in (
+            ("critical_path_upsize_cells", 0),
+            ("critical_path_upsize_cells", 501),
+            ("critical_path_count", 0),
+            ("critical_path_count", 201),
+            ("critical_path_strength", 8),
+        ):
+            with self.subTest(field=field, value=value), self.assertRaises(ConfigError):
+                select_point(self.write({"$default": [{field: value}]}), "HIDDEN", 1)
 
 
 if __name__ == "__main__":

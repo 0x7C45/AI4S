@@ -1,0 +1,51 @@
+{
+  "verification_skeleton": {
+    "top_module": "axi_crossbar_addr",
+    "clock_reset_generation": {
+      "clock": "clk",
+      "clock_period_ns": 10,
+      "reset": "rst",
+      "reset_active": "high",
+      "reset_sequence": "rst high 8 cycles, then low 8 cycles"
+    },
+    "input_drivers": [
+      {
+        "name": "s_axi_read_master",
+        "interface": "AXI slave read",
+        "class": "AxiMasterRead(AxiReadBus.from_prefix(dut, 's_axi'))"
+      },
+      {
+        "name": "m_axi_memory_model",
+        "interface": "AXI master read (RAM)",
+        "class": "AxiRamRead(AxiReadBus.from_prefix(dut, 'm_axi'), size=2**16)"
+      }
+    ],
+    "output_monitors": [
+      {
+        "name": "s_axi_read_monitor",
+        "sample_at": "transaction complete"
+      },
+      {
+        "name": "m_axi_read_monitor",
+        "sample_at": "RAM read/write"
+      }
+    ],
+    "scoreboard": {
+      "model": "protocol-state invariant checks (no simple golden model for master/address-decoder DUTs)",
+      "compare": "assert output signal legality + pointer monotonicity (e.g. rd_finish_ptr_out never regresses)"
+    },
+    "dut_outputs": [
+      "s_axi_aready",
+      "m_axi_aregion",
+      "m_select",
+      "m_axi_avalid",
+      "m_wc_select",
+      "m_wc_decerr",
+      "m_wc_valid",
+      "m_rc_decerr",
+      "m_rc_valid"
+    ],
+    "generated_testbench_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case5\\generated_tb\\generated_test.py",
+    "makefile_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case5\\generated_tb\\Makefile"
+  }
+}
