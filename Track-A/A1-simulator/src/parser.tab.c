@@ -67,7 +67,7 @@
 
 
 /* First part of user prologue.  */
-#line 13 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 13 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
 
 #include "ast.h"
 #include "preprocessor.h"
@@ -106,7 +106,7 @@ static ASTNode *makeNum(VerilogNum *n) {
     return node;
 }
 
-#line 110 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 110 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -606,7 +606,7 @@ union yyalloc
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  43
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  222
+#define YYNRULES  223
 /* YYNSTATES -- Number of states.  */
 #define YYNSTATES  632
 
@@ -668,25 +668,25 @@ static const yytype_int16 yyrline[] =
      131,   132,   136,   137,   141,   142,   143,   147,   148,   149,
      153,   154,   167,   178,   180,   191,   201,   203,   205,   215,
      217,   219,   221,   223,   227,   229,   238,   240,   242,   244,
-     246,   248,   257,   263,   265,   267,   270,   272,   274,   276,
-     277,   283,   290,   294,   300,   309,   318,   319,   320,   324,
-     325,   326,   330,   340,   350,   352,   356,   357,   361,   363,
-     369,   380,   388,   398,   406,   416,   424,   434,   442,   452,
-     460,   470,   480,   491,   492,   496,   497,   498,   499,   501,
-     503,   504,   510,   516,   522,   529,   535,   545,   551,   558,
-     564,   571,   577,   584,   591,   597,   604,   611,   612,   613,
-     618,   624,   630,   636,   641,   650,   660,   670,   677,   686,
-     687,   691,   693,   698,   700,   705,   710,   711,   715,   723,
-     732,   738,   745,   751,   759,   760,   764,   765,   766,   770,
-     771,   772,   773,   777,   778,   782,   788,   795,   800,   808,
-     813,   814,   818,   822,   823,   827,   833,   838,   846,   858,
-     859,   860,   861,   862,   863,   864,   865,   866,   867,   868,
-     869,   870,   871,   872,   873,   874,   875,   876,   877,   878,
-     879,   880,   881,   886,   887,   888,   889,   890,   891,   892,
-     893,   894,   898,   902,   904,   909,   917,   919,   924,   931,
-     937,   946,   954,   962,   973,   980,   992,   996,  1002,  1009,
-    1014,  1022,  1027,  1034,  1040,  1048,  1056,  1064,  1074,  1084,
-    1085,  1089,  1090
+     257,   259,   268,   274,   276,   278,   281,   283,   285,   287,
+     288,   289,   295,   302,   306,   312,   321,   330,   331,   332,
+     336,   337,   338,   342,   352,   362,   364,   368,   369,   373,
+     375,   381,   392,   400,   410,   418,   428,   436,   446,   454,
+     464,   472,   482,   492,   503,   504,   508,   509,   510,   511,
+     513,   515,   516,   522,   528,   534,   541,   547,   557,   563,
+     570,   576,   583,   589,   596,   603,   609,   616,   623,   624,
+     625,   630,   636,   642,   648,   653,   662,   672,   682,   689,
+     698,   699,   703,   705,   710,   712,   717,   722,   723,   727,
+     735,   744,   750,   757,   763,   771,   772,   776,   777,   778,
+     782,   783,   784,   785,   789,   790,   794,   800,   807,   812,
+     820,   825,   826,   830,   834,   835,   839,   845,   850,   858,
+     870,   871,   872,   873,   874,   875,   876,   877,   878,   879,
+     880,   881,   882,   883,   884,   885,   886,   887,   888,   889,
+     890,   891,   892,   893,   898,   899,   900,   901,   902,   903,
+     904,   905,   906,   910,   914,   916,   921,   929,   931,   936,
+     943,   949,   958,   966,   974,   985,   992,  1004,  1008,  1014,
+    1021,  1026,  1034,  1039,  1046,  1052,  1060,  1068,  1076,  1086,
+    1096,  1097,  1101,  1102
 };
 #endif
 
@@ -821,68 +821,68 @@ static const yytype_uint8 yydefact[] =
 {
        0,     0,     0,     2,     4,    11,     1,     3,     0,    16,
        0,     0,    14,     0,     0,     0,    13,    15,    19,     0,
-       0,     8,    71,     0,     0,     0,     0,    73,     0,     0,
+       0,     8,    72,     0,     0,     0,     0,    74,     0,     0,
        0,     0,    10,    16,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,    18,
-       0,     0,     0,    11,     0,    77,     0,     0,   197,   210,
-     192,     0,     0,     0,   193,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,   191,    70,    75,     0,
-      79,     0,     0,     0,    72,    12,     0,     0,    84,     0,
-      84,     0,     0,    84,     0,     0,     0,   211,     0,     0,
-       0,     0,   211,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,    11,     0,    78,     0,     0,   198,   211,
+     193,     0,     0,     0,   194,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,   192,    71,    76,     0,
+      80,     0,     0,     0,    73,    12,     0,     0,    85,     0,
+      85,     0,     0,    85,     0,     0,     0,   212,     0,     0,
+       0,     0,   212,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,    85,     0,     0,     0,    44,     0,     0,     0,     0,
-       0,     0,     0,   127,   135,     0,     0,     0,     0,     5,
-      17,    20,    52,     0,     0,     7,    76,    81,     0,     0,
-       0,     0,     0,   186,   187,   189,   190,   188,   183,   184,
-     185,     0,   222,     0,     0,     0,     0,     0,     0,     0,
+       0,    86,     0,     0,     0,    44,     0,     0,     0,     0,
+       0,     0,     0,   128,   136,     0,     0,     0,     0,     5,
+      17,    20,    53,     0,     0,     7,    77,    82,     0,     0,
+       0,     0,     0,   187,   188,   190,   191,   189,   184,   185,
+     186,     0,   223,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,    74,     0,
-      78,    80,     0,     0,     0,     0,    84,     0,     0,     0,
-      84,     0,     0,     0,     0,     0,   220,     0,     0,     0,
-       0,     0,     0,    84,     0,    84,    87,     0,   120,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,   107,
-       0,     0,     0,     0,     0,     0,     0,     0,    90,     0,
-       0,     0,     0,     0,     0,     0,    49,   126,    43,     0,
-      58,     0,     0,     0,   151,     9,    19,   196,   222,     0,
-       0,     0,     0,     0,   206,     0,     0,   204,   170,   171,
-     174,   175,   180,   181,   176,   177,   178,   168,   169,   167,
-       0,     0,   165,   166,   164,   172,   173,   159,   160,     0,
-     161,   162,   163,    82,     0,     0,     0,   154,   157,     0,
-       0,    26,     0,     0,     0,     0,     0,    30,    84,     0,
-       0,     0,    32,     0,     0,     0,     0,     0,   218,     0,
-      40,    38,     0,     0,     0,     0,   122,     0,    55,    84,
-      53,     0,    86,   119,     0,     0,     0,     0,     0,     0,
-       0,   210,     0,   210,     0,     0,     0,   125,     0,     0,
-       0,     0,   109,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,   133,   134,     0,     0,     0,
-      57,     0,    61,    58,     0,   149,     0,     0,   195,     0,
-       0,     0,   199,   207,     0,   209,   194,     0,   221,     0,
-     158,   179,    48,     0,     0,     0,     0,    25,    83,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    75,     0,
+      79,    81,     0,     0,     0,     0,    85,     0,     0,     0,
+      85,     0,     0,     0,     0,     0,   221,     0,     0,     0,
+       0,     0,     0,    85,     0,    85,    88,     0,   121,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,   108,
+       0,     0,     0,     0,     0,     0,     0,     0,    91,     0,
+       0,     0,     0,     0,     0,     0,    49,   127,    43,     0,
+      59,     0,     0,     0,   152,     9,    19,   197,   223,     0,
+       0,     0,     0,     0,   207,     0,     0,   205,   171,   172,
+     175,   176,   181,   182,   177,   178,   179,   169,   170,   168,
+       0,     0,   166,   167,   165,   173,   174,   160,   161,     0,
+     162,   163,   164,    83,     0,     0,     0,   155,   158,     0,
+       0,    26,     0,     0,     0,     0,     0,    30,    85,     0,
+       0,     0,    32,     0,     0,     0,     0,     0,   219,     0,
+      40,    38,     0,     0,     0,     0,   123,     0,    56,    85,
+      54,     0,    87,   120,     0,     0,     0,     0,     0,     0,
+       0,   211,     0,   211,     0,     0,     0,   126,     0,     0,
+       0,     0,   110,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,   134,   135,     0,     0,     0,
+      58,     0,    62,    59,     0,   150,     0,     0,   196,     0,
+       0,     0,   200,   208,     0,   210,   195,     0,   222,     0,
+     159,   180,    48,     0,     0,     0,     0,    25,    84,     0,
       23,    21,    29,     0,     0,    27,    22,    33,    34,     0,
-       0,     0,     0,   213,   219,    36,   123,   124,     0,     0,
-       0,    98,    54,    89,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,   214,   220,    36,   124,   125,     0,     0,
+       0,    99,    55,    90,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,    99,     0,     0,     0,    97,     0,
-     138,    50,     0,     0,     0,     0,    65,     0,    60,    42,
-      56,    59,     0,     0,   150,     6,     0,     0,     0,     0,
-       0,     0,   182,     0,    46,   153,     0,    24,    31,    28,
-      35,     0,     0,     0,     0,    37,   121,    39,    88,    93,
-       0,     0,   144,     0,     0,    91,    92,   112,   113,   118,
-     117,   101,   100,   108,   102,   103,   104,   105,   106,     0,
-       0,     0,     0,     0,     0,     0,     0,   141,   142,     0,
-       0,   130,     0,     0,    67,     0,     0,     0,    63,    65,
-      41,     0,   201,   202,   198,     0,   208,   205,   156,     0,
-       0,   215,   216,   212,     0,     0,     0,   148,    95,   143,
-       0,     0,     0,   110,   111,   207,     0,     0,     0,     0,
-       0,   136,   139,   140,    51,     0,     0,   132,    66,     0,
-       0,     0,     0,    62,   152,     0,   203,   155,     0,     0,
-       0,   217,    94,   147,   145,     0,     0,   114,   115,   116,
-       0,    43,     0,   131,    69,    68,     0,     0,    64,     0,
-      47,     0,     0,     0,     0,     0,   137,     0,     0,   200,
-      45,   214,   146,     0,    50,     0,     0,     0,     0,     0,
-       0,     0,    51,     0,     0,     0,     0,     0,    96,   129,
-       0,   128
+       0,     0,     0,     0,   100,     0,     0,     0,    98,     0,
+     139,    51,     0,     0,     0,     0,    66,     0,    61,    42,
+      57,    60,     0,     0,   151,     6,     0,     0,     0,     0,
+       0,     0,   183,     0,    46,   154,     0,    24,    31,    28,
+      35,     0,     0,     0,     0,    37,   122,    39,    89,    94,
+       0,     0,   145,     0,     0,    92,    93,   113,   114,   119,
+     118,   102,   101,   109,   103,   104,   105,   106,   107,     0,
+       0,     0,     0,     0,     0,     0,     0,   142,   143,     0,
+       0,   131,     0,     0,    68,     0,     0,     0,    64,    66,
+      41,     0,   202,   203,   199,     0,   209,   206,   157,     0,
+       0,   216,   217,   213,     0,     0,     0,   149,    96,   144,
+       0,     0,     0,   111,   112,   208,     0,     0,     0,     0,
+       0,   137,   140,   141,    52,     0,     0,   133,    67,     0,
+       0,     0,     0,    63,   153,     0,   204,   156,     0,     0,
+       0,   218,    95,   148,   146,     0,     0,   115,   116,   117,
+       0,    43,     0,   132,    70,    69,     0,     0,    65,     0,
+      47,     0,     0,     0,     0,     0,   138,     0,     0,   201,
+      45,   215,   147,     0,    51,     0,     0,     0,     0,     0,
+       0,     0,    52,     0,     0,     0,     0,     0,    97,   130,
+       0,   129
 };
 
 /* YYPGOTO[NTERM-NUM].  */
@@ -1692,24 +1692,24 @@ static const yytype_uint8 yyr1[] =
      105,   105,   105,   105,   105,   105,   105,   105,   105,   105,
      105,   105,   105,   105,   105,   105,   105,   105,   105,   105,
      105,   105,   105,   105,   105,   105,   105,   105,   105,   105,
-     105,   105,   105,   106,   106,   106,   107,   107,   107,   108,
-     108,   108,   109,   109,   110,   110,   111,   111,   112,   112,
-     113,   113,   113,   113,   113,   113,   113,   113,   113,   113,
-     113,   113,   113,   114,   114,   115,   115,   115,   115,   115,
+     105,   105,   105,   105,   106,   106,   106,   107,   107,   107,
+     108,   108,   108,   109,   109,   110,   110,   111,   111,   112,
+     112,   113,   113,   113,   113,   113,   113,   113,   113,   113,
+     113,   113,   113,   113,   114,   114,   115,   115,   115,   115,
      115,   115,   115,   115,   115,   115,   115,   115,   115,   115,
      115,   115,   115,   115,   115,   115,   115,   115,   115,   115,
-     115,   115,   115,   115,   115,   115,   115,   115,   115,   116,
-     116,   117,   117,   118,   118,   119,   120,   120,   121,   121,
-     121,   121,   121,   121,   122,   122,   123,   123,   123,   124,
-     124,   124,   124,   125,   125,   126,   126,   126,   126,   127,
-     128,   128,   129,   130,   130,   131,   131,   131,   132,   133,
+     115,   115,   115,   115,   115,   115,   115,   115,   115,   115,
+     116,   116,   117,   117,   118,   118,   119,   120,   120,   121,
+     121,   121,   121,   121,   121,   122,   122,   123,   123,   123,
+     124,   124,   124,   124,   125,   125,   126,   126,   126,   126,
+     127,   128,   128,   129,   130,   130,   131,   131,   131,   132,
      133,   133,   133,   133,   133,   133,   133,   133,   133,   133,
      133,   133,   133,   133,   133,   133,   133,   133,   133,   133,
      133,   133,   133,   133,   133,   133,   133,   133,   133,   133,
-     133,   133,   134,   134,   134,   134,   134,   134,   134,   134,
+     133,   133,   133,   134,   134,   134,   134,   134,   134,   134,
      134,   134,   134,   134,   134,   134,   134,   134,   134,   134,
-     134,   135,   135,   135,   135,   135,   135,   135,   135,   136,
-     136,   137,   137
+     134,   134,   135,   135,   135,   135,   135,   135,   135,   135,
+     136,   136,   137,   137
 };
 
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
@@ -1720,24 +1720,24 @@ static const yytype_int8 yyr2[] =
        2,     5,     5,     5,     6,     5,     4,     5,     6,     5,
        4,     6,     4,     5,     5,     6,     5,     6,     4,     6,
        4,     6,     5,     3,     2,    10,     6,     9,     5,     3,
-       5,     7,     2,     3,     4,     3,     2,     1,     0,     2,
-       2,     1,     4,     3,     3,     0,     2,     1,     3,     3,
-       3,     2,     3,     2,     4,     3,     4,     3,     4,     3,
-       4,     4,     5,     3,     0,     1,     3,     2,     5,     4,
-       2,     5,     5,     5,     7,     6,    13,     4,     4,     4,
-       5,     5,     5,     5,     5,     5,     5,     2,     5,     3,
-       6,     6,     5,     5,     7,     7,     7,     5,     5,     2,
-       1,     3,     1,     2,     2,     1,     2,     1,    14,    13,
-       5,     7,     6,     3,     3,     1,     3,     5,     1,     2,
-       2,     1,     1,     2,     1,     3,     5,     3,     2,     4,
-       3,     1,     5,     3,     1,     5,     4,     1,     5,     3,
+       3,     5,     7,     2,     3,     4,     3,     2,     1,     0,
+       2,     2,     1,     4,     3,     3,     0,     2,     1,     3,
+       3,     3,     2,     3,     2,     4,     3,     4,     3,     4,
+       3,     4,     4,     5,     3,     0,     1,     3,     2,     5,
+       4,     2,     5,     5,     5,     7,     6,    13,     4,     4,
+       4,     5,     5,     5,     5,     5,     5,     5,     2,     5,
+       3,     6,     6,     5,     5,     7,     7,     7,     5,     5,
+       2,     1,     3,     1,     2,     2,     1,     2,     1,    14,
+      13,     5,     7,     6,     3,     3,     1,     3,     5,     1,
+       2,     2,     1,     1,     2,     1,     3,     5,     3,     2,
+       4,     3,     1,     5,     3,     1,     5,     4,     1,     5,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     3,     3,     3,     3,     3,     3,     3,     3,     4,
-       3,     3,     5,     2,     2,     2,     2,     2,     2,     2,
-       2,     1,     1,     1,     4,     4,     3,     1,     6,     4,
-       9,     6,     6,     7,     3,     6,     3,     4,     6,     4,
-       1,     1,     6,     4,     9,     6,     6,     7,     3,     3,
-       1,     3,     1
+       3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
+       4,     3,     3,     5,     2,     2,     2,     2,     2,     2,
+       2,     2,     1,     1,     1,     4,     4,     3,     1,     6,
+       4,     9,     6,     6,     7,     3,     6,     3,     4,     6,
+       4,     1,     1,     6,     4,     9,     6,     6,     7,     3,
+       3,     1,     3,     1
 };
 
 
@@ -2201,30 +2201,30 @@ yyreduce:
   switch (yyn)
     {
   case 3: /* module_list: module_list module  */
-#line 97 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 97 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                        { g_modules.push_back((yyvsp[0].node)); }
-#line 2207 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2207 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 4: /* module_list: module  */
-#line 98 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 98 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                        { g_modules.push_back((yyvsp[0].node)); }
-#line 2213 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2213 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 5: /* module: MODULE IDENTIFIER opt_port_list ';' module_items ENDMODULE  */
-#line 103 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 103 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
     {
         (yyval.node) = makeNode(NodeType::MODULE, (yyvsp[-4].str), yylineno);
         free((yyvsp[-4].str));
         if ((yyvsp[-3].node)) { for (auto *c : (yyvsp[-3].node)->children) addChild((yyval.node), c); (yyvsp[-3].node)->children.clear(); freeTree((yyvsp[-3].node)); }
         if ((yyvsp[-1].node)) { for (auto *c : (yyvsp[-1].node)->children) { addChild((yyval.node), c); } (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node)); }
     }
-#line 2224 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2224 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 6: /* module: MODULE IDENTIFIER '#' '(' module_param_decls ')' opt_port_list ';' module_items ENDMODULE  */
-#line 110 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 110 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
     {
         (yyval.node) = makeNode(NodeType::MODULE, (yyvsp[-8].str), yylineno);
         free((yyvsp[-8].str));
@@ -2233,89 +2233,89 @@ yyreduce:
         if ((yyvsp[-3].node)) { for (auto *c : (yyvsp[-3].node)->children) addChild((yyval.node), c); (yyvsp[-3].node)->children.clear(); freeTree((yyvsp[-3].node)); }
         if ((yyvsp[-1].node)) { for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c); (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node)); }
     }
-#line 2237 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2237 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 7: /* module_param_decls: module_param_decls ',' module_param_decl  */
-#line 121 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 121 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                              { addChild((yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); }
-#line 2243 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2243 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 8: /* module_param_decls: module_param_decl  */
-#line 122 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 122 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                              { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2249 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2249 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 9: /* module_param_decl: PARAMETER IDENTIFIER '=' expr  */
-#line 127 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 127 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::LOCALPARAM_DECL, (yyvsp[-2].str), yylineno); free((yyvsp[-2].str)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2255 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2255 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 10: /* opt_port_list: '(' port_list ')'  */
-#line 131 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 131 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                       { (yyval.node) = (yyvsp[-1].node); }
-#line 2261 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2261 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 11: /* opt_port_list: %empty  */
-#line 132 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 132 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                       { (yyval.node) = nullptr; }
-#line 2267 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2267 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 12: /* port_list: port_list ',' port_decl_in_list  */
-#line 136 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 136 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                     { if ((yyvsp[0].node)) addChild((yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); }
-#line 2273 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2273 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 13: /* port_list: port_decl_in_list  */
-#line 137 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 137 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                     { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); if ((yyvsp[0].node)) addChild((yyval.node), (yyvsp[0].node)); }
-#line 2279 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2279 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 14: /* port_decl_in_list: IDENTIFIER  */
-#line 141 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 141 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                             { free((yyvsp[0].str)); (yyval.node) = nullptr; }
-#line 2285 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2285 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 15: /* port_decl_in_list: port_decl  */
-#line 142 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 142 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                             { (yyval.node) = (yyvsp[0].node); }
-#line 2291 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2291 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 16: /* port_decl_in_list: %empty  */
-#line 143 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 143 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                             { (yyval.node) = nullptr; }
-#line 2297 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2297 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 17: /* module_items: module_items module_item  */
-#line 147 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 147 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                              { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
-#line 2303 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2303 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 18: /* module_items: module_item  */
-#line 148 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 148 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                              { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2309 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2309 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 19: /* module_items: %empty  */
-#line 149 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 149 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                              { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); }
-#line 2315 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2315 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 21: /* module_item: WIRE range IDENTIFIER range ';'  */
-#line 155 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 155 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           /* Multi-dimensional wire: wire [msb:lsb] name[dim_msb:dim_lsb] */
           (yyval.node) = makeNode(NodeType::NET_DECL, "wire", yylineno);
@@ -2328,11 +2328,11 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2332 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2332 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 22: /* module_item: REG range IDENTIFIER range ';'  */
-#line 168 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 168 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           /* Unpacked memory: reg [data_msb:data_lsb] name[addr_msb:addr_lsb] */
           (yyval.node) = makeNode(NodeType::MEMORY_DECL, (yyvsp[-2].str), yylineno);
@@ -2343,17 +2343,17 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2347 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2347 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 23: /* module_item: WIRE range IDENTIFIER decl_list ';'  */
-#line 179 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 179 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::NET_DECL, "wire", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = (yyvsp[-3].node)->msb; (yyval.node)->lsb = (yyvsp[-3].node)->lsb; for (auto *c : (yyvsp[-3].node)->children) addChild((yyval.node), c); (yyvsp[-3].node)->children.clear(); freeTree((yyvsp[-3].node)); }
-#line 2353 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2353 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 24: /* module_item: WIRE range IDENTIFIER '=' expr ';'  */
-#line 181 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 181 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           /* Wire with initialization — store expr as child for later assign */
           auto *decl = makeNode(NodeType::NET_DECL, "wire", yylineno);
@@ -2364,11 +2364,11 @@ yyreduce:
           addChild(decl, (yyvsp[-1].node));  /* init expression */
           (yyval.node) = decl;
       }
-#line 2368 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2368 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 25: /* module_item: WIRE IDENTIFIER '=' expr ';'  */
-#line 192 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 192 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           auto *decl = makeNode(NodeType::NET_DECL, "wire", yylineno);
           addChild(decl, makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno));
@@ -2378,23 +2378,23 @@ yyreduce:
           addChild(decl, (yyvsp[-1].node));
           (yyval.node) = decl;
       }
-#line 2382 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2382 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 26: /* module_item: WIRE IDENTIFIER decl_list ';'  */
-#line 202 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 202 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::NET_DECL, "wire", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = 0; (yyval.node)->lsb = 0; }
-#line 2388 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2388 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 27: /* module_item: REG range IDENTIFIER decl_list ';'  */
-#line 204 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 204 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = (yyvsp[-3].node)->msb; (yyval.node)->lsb = (yyvsp[-3].node)->lsb; for (auto *c : (yyvsp[-3].node)->children) addChild((yyval.node), c); (yyvsp[-3].node)->children.clear(); freeTree((yyvsp[-3].node)); }
-#line 2394 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2394 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 28: /* module_item: REG range IDENTIFIER '=' expr ';'  */
-#line 206 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 206 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::NET_DECL, "reg", yylineno);
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno));
@@ -2404,49 +2404,49 @@ yyreduce:
           (yyvsp[-4].node)->children.clear(); freeTree((yyvsp[-4].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 2408 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2408 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 29: /* module_item: REG IDENTIFIER '=' expr ';'  */
-#line 216 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 216 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno)); free((yyvsp[-3].str)); (yyval.node)->msb = 0; (yyval.node)->lsb = 0; }
-#line 2414 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2414 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 30: /* module_item: REG IDENTIFIER decl_list ';'  */
-#line 218 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 218 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::NET_DECL, "reg", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = 0; (yyval.node)->lsb = 0; }
-#line 2420 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2420 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 31: /* module_item: REG SIGNED range IDENTIFIER decl_list ';'  */
-#line 220 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 220 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::NET_DECL, "reg signed", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = (yyvsp[-3].node)->msb; (yyval.node)->lsb = (yyvsp[-3].node)->lsb; for (auto *c : (yyvsp[-3].node)->children) addChild((yyval.node), c); (yyvsp[-3].node)->children.clear(); freeTree((yyvsp[-3].node)); }
-#line 2426 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2426 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 32: /* module_item: INTEGER_KW IDENTIFIER decl_list ';'  */
-#line 222 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 222 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::NET_DECL, "integer", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno)); free((yyvsp[-2].str)); (yyval.node)->msb = 31; (yyval.node)->lsb = 0; }
-#line 2432 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2432 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 33: /* module_item: LOCALPARAM IDENTIFIER '=' expr ';'  */
-#line 224 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 224 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::LOCALPARAM_DECL, (yyvsp[-3].str), yylineno); free((yyvsp[-3].str)); addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 2440 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2440 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 34: /* module_item: PARAMETER IDENTIFIER '=' expr ';'  */
-#line 228 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 228 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::LOCALPARAM_DECL, (yyvsp[-3].str), yylineno); free((yyvsp[-3].str)); addChild((yyval.node), (yyvsp[-1].node)); }
-#line 2446 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2446 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 35: /* module_item: PARAMETER range IDENTIFIER '=' expr ';'  */
-#line 230 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 230 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::LOCALPARAM_DECL, (yyvsp[-3].str), yylineno);
           free((yyvsp[-3].str));
@@ -2455,41 +2455,52 @@ yyreduce:
           (yyvsp[-4].node)->children.clear();
           freeTree((yyvsp[-4].node));
       }
-#line 2459 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2459 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 36: /* module_item: ASSIGN lvalue '=' expr ';'  */
-#line 239 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 239 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::ASSIGN, "", yylineno); addChild((yyval.node), (yyvsp[-3].node)); addChild((yyval.node), (yyvsp[-1].node)); }
-#line 2465 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2465 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 37: /* module_item: ALWAYS '@' '(' '*' ')' stmt  */
-#line 241 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 241 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::ALWAYS_BLOCK, "@(*)", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2471 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2471 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 38: /* module_item: ALWAYS '@' '*' stmt  */
-#line 243 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 243 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::ALWAYS_BLOCK, "@(*)", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2477 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2477 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 39: /* module_item: ALWAYS '@' '(' event_list ')' stmt  */
-#line 245 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
-      { (yyval.node) = makeNode(NodeType::ALWAYS_BLOCK, "@events", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2483 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 245 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
+      {
+          ASTNode *event = (yyvsp[-2].node)->children.empty() ? nullptr : (yyvsp[-2].node)->children[0];
+          if (event != nullptr && !event->children.empty()) {
+              std::string trigger = "@(" + event->value + " " +
+                                    event->children[0]->value + ")";
+              (yyval.node) = makeNode(NodeType::ALWAYS_BLOCK, trigger, yylineno);
+          } else {
+              (yyval.node) = makeNode(NodeType::ALWAYS_BLOCK, "@events", yylineno);
+          }
+          addChild((yyval.node), (yyvsp[0].node));
+          freeTree((yyvsp[-2].node));
+      }
+#line 2494 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 40: /* module_item: ALWAYS '#' expr stmt  */
-#line 247 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 258 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::ALWAYS_BLOCK, "#delay", yylineno); addChild((yyval.node), (yyvsp[-1].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2489 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2500 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 41: /* module_item: FUNCTION range IDENTIFIER ';' function_items ENDFUNCTION  */
-#line 249 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 260 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::FUNCTION_DECL, (yyvsp[-3].str), yylineno);
           free((yyvsp[-3].str));
@@ -2498,100 +2509,106 @@ yyreduce:
           (yyvsp[-4].node)->children.clear(); freeTree((yyvsp[-4].node));
           if ((yyvsp[-1].node)) { for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c); (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node)); }
       }
-#line 2502 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2513 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 42: /* module_item: FUNCTION IDENTIFIER ';' function_items ENDFUNCTION  */
-#line 258 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 269 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::FUNCTION_DECL, (yyvsp[-3].str), yylineno);
           free((yyvsp[-3].str));
           if ((yyvsp[-1].node)) { for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c); (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node)); }
       }
-#line 2512 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2523 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 43: /* module_item: GENVAR genvar_list ';'  */
-#line 264 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 275 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::PROCEDURAL_DECL, "genvar", yylineno); }
-#line 2518 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2529 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 44: /* module_item: INITIAL_KW stmt  */
-#line 266 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 277 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::INITIAL_BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2524 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2535 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 45: /* module_item: IDENTIFIER '#' '(' param_list ')' IDENTIFIER '(' port_conn_list ')' ';'  */
-#line 269 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 280 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::MODULE_INST, (yyvsp[-9].str), yylineno); free((yyvsp[-9].str)); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-4].str), yylineno)); free((yyvsp[-4].str)); for (auto *c : (yyvsp[-6].node)->children) addChild((yyval.node), c); (yyvsp[-6].node)->children.clear(); freeTree((yyvsp[-6].node)); for (auto *c : (yyvsp[-2].node)->children) addChild((yyval.node), c); (yyvsp[-2].node)->children.clear(); freeTree((yyvsp[-2].node)); }
-#line 2530 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2541 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 46: /* module_item: IDENTIFIER IDENTIFIER '(' port_conn_list ')' ';'  */
-#line 271 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 282 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::MODULE_INST, (yyvsp[-5].str), yylineno); free((yyvsp[-5].str)); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-4].str), yylineno)); free((yyvsp[-4].str)); for (auto *c : (yyvsp[-2].node)->children) addChild((yyval.node), c); (yyvsp[-2].node)->children.clear(); freeTree((yyvsp[-2].node)); }
-#line 2536 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2547 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 47: /* module_item: IDENTIFIER '#' '(' param_list ')' IDENTIFIER '(' ')' ';'  */
-#line 273 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 284 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::MODULE_INST, (yyvsp[-8].str), yylineno); free((yyvsp[-8].str)); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno)); free((yyvsp[-3].str)); for (auto *c : (yyvsp[-5].node)->children) addChild((yyval.node), c); (yyvsp[-5].node)->children.clear(); freeTree((yyvsp[-5].node)); }
-#line 2542 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2553 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 48: /* module_item: IDENTIFIER IDENTIFIER '(' ')' ';'  */
-#line 275 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 286 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::MODULE_INST, (yyvsp[-4].str), yylineno); free((yyvsp[-4].str)); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno)); free((yyvsp[-3].str)); }
-#line 2548 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2559 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
   case 49: /* module_item: GENERATE gen_items ENDGENERATE  */
-#line 276 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 287 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                      { (yyval.node) = (yyvsp[-1].node); }
-#line 2554 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2565 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 50: /* module_item: IF '(' expr ')' gen_block  */
-#line 278 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 50: /* module_item: GENVAR genvar_list ';'  */
+#line 288 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
+                             { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); }
+#line 2571 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
+    break;
+
+  case 51: /* module_item: IF '(' expr ')' gen_block  */
+#line 290 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::GENERATE_IF, "", yylineno);
           addChild((yyval.node), (yyvsp[-2].node));
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 2564 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2581 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 51: /* module_item: IF '(' expr ')' gen_block ELSE gen_block  */
-#line 284 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 52: /* module_item: IF '(' expr ')' gen_block ELSE gen_block  */
+#line 296 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::GENERATE_IF, "", yylineno);
           addChild((yyval.node), (yyvsp[-4].node));
           addChild((yyval.node), (yyvsp[-2].node));
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 2575 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2592 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 52: /* module_item: param_override ';'  */
-#line 290 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 53: /* module_item: param_override ';'  */
+#line 302 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                          { (yyval.node) = (yyvsp[-1].node); }
-#line 2581 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2598 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 53: /* procedural_decl: INTEGER_KW IDENTIFIER decl_list  */
-#line 295 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 54: /* procedural_decl: INTEGER_KW IDENTIFIER decl_list  */
+#line 307 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PROCEDURAL_DECL, "integer", yylineno);
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-1].str), yylineno));
           free((yyvsp[-1].str));
       }
-#line 2591 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2608 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 54: /* procedural_decl: REG range IDENTIFIER decl_list  */
-#line 301 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 55: /* procedural_decl: REG range IDENTIFIER decl_list  */
+#line 313 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PROCEDURAL_DECL, "reg", yylineno);
           (yyval.node)->msb = (yyvsp[-2].node)->msb; (yyval.node)->lsb = (yyvsp[-2].node)->lsb;
@@ -2600,57 +2617,57 @@ yyreduce:
           for (auto *c : (yyvsp[-2].node)->children) addChild((yyval.node), c);
           (yyvsp[-2].node)->children.clear(); freeTree((yyvsp[-2].node));
       }
-#line 2604 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2621 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 55: /* procedural_decl: REG IDENTIFIER decl_list  */
-#line 310 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 56: /* procedural_decl: REG IDENTIFIER decl_list  */
+#line 322 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PROCEDURAL_DECL, "reg", yylineno);
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-1].str), yylineno));
           free((yyvsp[-1].str));
       }
-#line 2614 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2631 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 56: /* function_items: function_items function_item  */
-#line 318 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 57: /* function_items: function_items function_item  */
+#line 330 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                  { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
-#line 2620 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2637 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 57: /* function_items: function_item  */
-#line 319 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 58: /* function_items: function_item  */
+#line 331 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                     { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2626 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2643 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 58: /* function_items: %empty  */
-#line 320 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 59: /* function_items: %empty  */
+#line 332 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                   { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); }
-#line 2632 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2649 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 59: /* function_item: function_port_decl ';'  */
-#line 324 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 60: /* function_item: function_port_decl ';'  */
+#line 336 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                            { (yyval.node) = (yyvsp[-1].node); }
-#line 2638 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2655 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 60: /* function_item: procedural_decl ';'  */
-#line 325 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 61: /* function_item: procedural_decl ';'  */
+#line 337 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                           { (yyval.node) = (yyvsp[-1].node); }
-#line 2644 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2661 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 61: /* function_item: stmt  */
-#line 326 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 62: /* function_item: stmt  */
+#line 338 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
            { (yyval.node) = (yyvsp[0].node); }
-#line 2650 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2667 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 62: /* function_port_decl: INPUT range IDENTIFIER function_port_names  */
-#line 331 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 63: /* function_port_decl: INPUT range IDENTIFIER function_port_names  */
+#line 343 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "input", yylineno);
           (yyval.node)->msb = (yyvsp[-2].node)->msb; (yyval.node)->lsb = (yyvsp[-2].node)->lsb;
@@ -2660,58 +2677,58 @@ yyreduce:
           (yyvsp[-2].node)->children.clear(); freeTree((yyvsp[-2].node));
           if ((yyvsp[0].node)) { for (auto *c : (yyvsp[0].node)->children) addChild((yyval.node), c); (yyvsp[0].node)->children.clear(); freeTree((yyvsp[0].node)); }
       }
-#line 2664 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2681 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 63: /* function_port_decl: INPUT IDENTIFIER function_port_names  */
-#line 341 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 64: /* function_port_decl: INPUT IDENTIFIER function_port_names  */
+#line 353 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "input", yylineno);
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-1].str), yylineno));
           free((yyvsp[-1].str));
           if ((yyvsp[0].node)) { for (auto *c : (yyvsp[0].node)->children) addChild((yyval.node), c); (yyvsp[0].node)->children.clear(); freeTree((yyvsp[0].node)); }
       }
-#line 2675 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2692 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 64: /* function_port_names: function_port_names ',' IDENTIFIER  */
-#line 351 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 65: /* function_port_names: function_port_names ',' IDENTIFIER  */
+#line 363 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { addChild((yyvsp[-2].node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno)); free((yyvsp[0].str)); (yyval.node) = (yyvsp[-2].node); }
-#line 2681 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2698 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 65: /* function_port_names: %empty  */
-#line 352 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 66: /* function_port_names: %empty  */
+#line 364 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                   { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); }
-#line 2687 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2704 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 66: /* gen_case_items: gen_case_items gen_case_item  */
-#line 356 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 67: /* gen_case_items: gen_case_items gen_case_item  */
+#line 368 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                  { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
-#line 2693 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2710 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 67: /* gen_case_items: gen_case_item  */
-#line 357 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 68: /* gen_case_items: gen_case_item  */
+#line 369 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                     { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2699 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2716 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 68: /* gen_case_item: expr ':' gen_block  */
-#line 362 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 69: /* gen_case_item: expr ':' gen_block  */
+#line 374 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::CASE_ITEM, "", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2705 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2722 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 69: /* gen_case_item: DEFAULT ':' gen_block  */
-#line 364 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 70: /* gen_case_item: DEFAULT ':' gen_block  */
+#line 376 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::CASE_ITEM, "default", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 2711 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2728 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 70: /* port_decl: INPUT range IDENTIFIER  */
-#line 370 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 71: /* port_decl: INPUT range IDENTIFIER  */
+#line 382 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "input";
@@ -2722,11 +2739,11 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2726 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2743 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 71: /* port_decl: INPUT IDENTIFIER  */
-#line 381 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 72: /* port_decl: INPUT IDENTIFIER  */
+#line 393 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "input";
@@ -2734,11 +2751,11 @@ yyreduce:
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno));
           free((yyvsp[0].str));
       }
-#line 2738 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2755 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 72: /* port_decl: OUTPUT range IDENTIFIER  */
-#line 389 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 73: /* port_decl: OUTPUT range IDENTIFIER  */
+#line 401 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output";
@@ -2748,11 +2765,11 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2752 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2769 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 73: /* port_decl: OUTPUT IDENTIFIER  */
-#line 399 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 74: /* port_decl: OUTPUT IDENTIFIER  */
+#line 411 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output";
@@ -2760,11 +2777,11 @@ yyreduce:
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno));
           free((yyvsp[0].str));
       }
-#line 2764 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2781 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 74: /* port_decl: OUTPUT WIRE range IDENTIFIER  */
-#line 407 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 75: /* port_decl: OUTPUT WIRE range IDENTIFIER  */
+#line 419 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output";
@@ -2774,11 +2791,11 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2778 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2795 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 75: /* port_decl: OUTPUT WIRE IDENTIFIER  */
-#line 417 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 76: /* port_decl: OUTPUT WIRE IDENTIFIER  */
+#line 429 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output";
@@ -2786,11 +2803,11 @@ yyreduce:
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno));
           free((yyvsp[0].str));
       }
-#line 2790 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2807 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 76: /* port_decl: INPUT WIRE range IDENTIFIER  */
-#line 425 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 77: /* port_decl: INPUT WIRE range IDENTIFIER  */
+#line 437 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "input";
@@ -2800,11 +2817,11 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2804 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2821 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 77: /* port_decl: INPUT WIRE IDENTIFIER  */
-#line 435 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 78: /* port_decl: INPUT WIRE IDENTIFIER  */
+#line 447 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "input";
@@ -2812,11 +2829,11 @@ yyreduce:
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno));
           free((yyvsp[0].str));
       }
-#line 2816 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2833 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 78: /* port_decl: OUTPUT REG range IDENTIFIER  */
-#line 443 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 79: /* port_decl: OUTPUT REG range IDENTIFIER  */
+#line 455 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output reg";
@@ -2826,11 +2843,11 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2830 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2847 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 79: /* port_decl: OUTPUT REG IDENTIFIER  */
-#line 453 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 80: /* port_decl: OUTPUT REG IDENTIFIER  */
+#line 465 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output reg";
@@ -2838,11 +2855,11 @@ yyreduce:
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno));
           free((yyvsp[0].str));
       }
-#line 2842 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2859 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 80: /* port_decl: OUTPUT SIGNED range IDENTIFIER  */
-#line 461 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 81: /* port_decl: OUTPUT SIGNED range IDENTIFIER  */
+#line 473 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output signed";
@@ -2852,11 +2869,11 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2856 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2873 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 81: /* port_decl: INPUT SIGNED range IDENTIFIER  */
-#line 471 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 82: /* port_decl: INPUT SIGNED range IDENTIFIER  */
+#line 483 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "input signed";
@@ -2866,11 +2883,11 @@ yyreduce:
           for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c);
           (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node));
       }
-#line 2870 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2887 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 82: /* port_decl: OUTPUT REG SIGNED range IDENTIFIER  */
-#line 481 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 83: /* port_decl: OUTPUT REG SIGNED range IDENTIFIER  */
+#line 493 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT, "", yylineno);
           (yyval.node)->value = "output reg signed";
@@ -2878,104 +2895,104 @@ yyreduce:
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno));
           free((yyvsp[0].str)); freeTree((yyvsp[-1].node));
       }
-#line 2882 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2899 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 83: /* decl_list: decl_list ',' IDENTIFIER  */
-#line 491 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 84: /* decl_list: decl_list ',' IDENTIFIER  */
+#line 503 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                              { free((yyvsp[0].str)); }
-#line 2888 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2905 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 85: /* stmt: ';'  */
-#line 496 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 86: /* stmt: ';'  */
+#line 508 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); }
-#line 2894 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2911 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 86: /* stmt: BEGINKW stmts END  */
-#line 497 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 87: /* stmt: BEGINKW stmts END  */
+#line 509 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                              { (yyval.node) = (yyvsp[-1].node); }
-#line 2900 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2917 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 87: /* stmt: BEGINKW END  */
-#line 498 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 88: /* stmt: BEGINKW END  */
+#line 510 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                              { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); }
-#line 2906 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2923 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 88: /* stmt: BEGINKW ':' IDENTIFIER stmts END  */
-#line 500 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 89: /* stmt: BEGINKW ':' IDENTIFIER stmts END  */
+#line 512 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = (yyvsp[-1].node); (yyval.node)->value = (yyvsp[-2].str); free((yyvsp[-2].str)); }
-#line 2912 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2929 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 89: /* stmt: BEGINKW ':' IDENTIFIER END  */
-#line 502 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 90: /* stmt: BEGINKW ':' IDENTIFIER END  */
+#line 514 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::BLOCK, (yyvsp[-1].str), yylineno); free((yyvsp[-1].str)); }
-#line 2918 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2935 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 90: /* stmt: procedural_decl ';'  */
-#line 503 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 91: /* stmt: procedural_decl ';'  */
+#line 515 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                              { (yyval.node) = (yyvsp[-1].node); }
-#line 2924 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2941 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 91: /* stmt: REPEAT '(' expr ')' stmt  */
-#line 505 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 92: /* stmt: REPEAT '(' expr ')' stmt  */
+#line 517 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::FOR, "repeat", yylineno);
           addChild((yyval.node), (yyvsp[-2].node));
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 2934 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2951 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 92: /* stmt: WHILE '(' expr ')' stmt  */
-#line 511 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 93: /* stmt: WHILE '(' expr ')' stmt  */
+#line 523 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::FOR, "while", yylineno);
           addChild((yyval.node), (yyvsp[-2].node));
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 2944 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2961 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 93: /* stmt: IF '(' expr ')' stmt  */
-#line 517 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 94: /* stmt: IF '(' expr ')' stmt  */
+#line 529 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::IF, "", yylineno);
           addChild((yyval.node), (yyvsp[-2].node));
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 2954 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2971 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 94: /* stmt: IF '(' expr ')' stmt ELSE stmt  */
-#line 523 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 95: /* stmt: IF '(' expr ')' stmt ELSE stmt  */
+#line 535 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::IF, "", yylineno);
           addChild((yyval.node), (yyvsp[-4].node));
           addChild((yyval.node), (yyvsp[-2].node));
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 2965 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2982 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 95: /* stmt: CASE '(' expr ')' case_items ENDCASE  */
-#line 530 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 96: /* stmt: CASE '(' expr ')' case_items ENDCASE  */
+#line 542 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::CASE, "", yylineno);
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 2975 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 2992 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 96: /* stmt: FOR '(' lvalue '=' expr ';' expr ';' lvalue '=' expr ')' stmt  */
-#line 536 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 97: /* stmt: FOR '(' lvalue '=' expr ';' expr ';' lvalue '=' expr ')' stmt  */
+#line 548 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::FOR, "", yylineno);
           addChild((yyval.node), (yyvsp[-10].node));  /* init lvalue */
@@ -2985,177 +3002,177 @@ yyreduce:
           addChild((yyval.node), (yyvsp[-2].node)); /* update expr */
           addChild((yyval.node), (yyvsp[0].node)); /* body */
       }
-#line 2989 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3006 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 97: /* stmt: lvalue '=' expr ';'  */
-#line 546 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 98: /* stmt: lvalue '=' expr ';'  */
+#line 558 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BLOCKING_ASSIGN, "", yylineno);
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 2999 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3016 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 98: /* stmt: IDENTIFIER NONBLOCKING expr ';'  */
-#line 552 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 99: /* stmt: IDENTIFIER NONBLOCKING expr ';'  */
+#line 564 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::NONBLOCKING_ASSIGN, "", yylineno);
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno));
           free((yyvsp[-3].str));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3010 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3027 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 99: /* stmt: lvalue NONBLOCKING expr ';'  */
-#line 559 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 100: /* stmt: lvalue NONBLOCKING expr ';'  */
+#line 571 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::NONBLOCKING_ASSIGN, "", yylineno);
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3020 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3037 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 100: /* stmt: SYS_DISPLAY '(' expr_list ')' ';'  */
-#line 565 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 101: /* stmt: SYS_DISPLAY '(' expr_list ')' ';'  */
+#line 577 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$display", yylineno);
           (yyval.node)->children = (yyvsp[-2].node)->children;
           (yyvsp[-2].node)->children.clear();
           freeTree((yyvsp[-2].node));
       }
-#line 3031 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3048 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 101: /* stmt: SYS_DISPLAY '(' STRING ')' ';'  */
-#line 572 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 102: /* stmt: SYS_DISPLAY '(' STRING ')' ';'  */
+#line 584 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$display", yylineno);
           addChild((yyval.node), makeNode(NodeType::STRING, (yyvsp[-2].str), yylineno));
           free((yyvsp[-2].str));
       }
-#line 3041 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3058 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 102: /* stmt: SYS_READMEMH '(' readmem_args ')' ';'  */
-#line 578 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 103: /* stmt: SYS_READMEMH '(' readmem_args ')' ';'  */
+#line 590 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$readmemh", yylineno);
           (yyval.node)->children = (yyvsp[-2].node)->children;
           (yyvsp[-2].node)->children.clear();
           freeTree((yyvsp[-2].node));
       }
-#line 3052 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3069 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 103: /* stmt: SYS_READMEMB '(' readmem_args ')' ';'  */
-#line 585 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 104: /* stmt: SYS_READMEMB '(' readmem_args ')' ';'  */
+#line 597 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$readmemb", yylineno);
           (yyval.node)->children = (yyvsp[-2].node)->children;
           (yyvsp[-2].node)->children.clear();
           freeTree((yyvsp[-2].node));
       }
-#line 3063 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3080 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 104: /* stmt: SYS_DUMPFILE '(' STRING ')' ';'  */
-#line 592 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 105: /* stmt: SYS_DUMPFILE '(' STRING ')' ';'  */
+#line 604 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$dumpfile", yylineno);
           addChild((yyval.node), makeNode(NodeType::STRING, (yyvsp[-2].str), yylineno));
           free((yyvsp[-2].str));
       }
-#line 3073 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3090 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 105: /* stmt: SYS_DUMPVARS '(' expr_list ')' ';'  */
-#line 598 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 106: /* stmt: SYS_DUMPVARS '(' expr_list ')' ';'  */
+#line 610 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$dumpvars", yylineno);
           (yyval.node)->children = (yyvsp[-2].node)->children;
           (yyvsp[-2].node)->children.clear();
           freeTree((yyvsp[-2].node));
       }
-#line 3084 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3101 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 106: /* stmt: SYS_ERROR '(' expr_list ')' ';'  */
-#line 605 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 107: /* stmt: SYS_ERROR '(' expr_list ')' ';'  */
+#line 617 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$error", yylineno);
           (yyval.node)->children = (yyvsp[-2].node)->children;
           (yyvsp[-2].node)->children.clear();
           freeTree((yyvsp[-2].node));
       }
-#line 3095 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3112 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 107: /* stmt: SYS_FINISH ';'  */
-#line 611 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 108: /* stmt: SYS_FINISH ';'  */
+#line 623 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                    { (yyval.node) = makeNode(NodeType::SYS_TASK, "$finish", yylineno); }
-#line 3101 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3118 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 108: /* stmt: SYS_FINISH '(' expr ')' ';'  */
-#line 612 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 109: /* stmt: SYS_FINISH '(' expr ')' ';'  */
+#line 624 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                    { (yyval.node) = makeNode(NodeType::SYS_TASK, "$finish", yylineno); addChild((yyval.node), (yyvsp[-2].node)); }
-#line 3107 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3124 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 109: /* stmt: '#' NUMBER ';'  */
-#line 614 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 110: /* stmt: '#' NUMBER ';'  */
+#line 626 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::DELAY, std::to_string((yyvsp[-1].num)->value), yylineno);
           free((yyvsp[-1].num));
       }
-#line 3116 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3133 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 110: /* stmt: '@' '(' POSEDGE IDENTIFIER ')' ';'  */
-#line 619 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 111: /* stmt: '@' '(' POSEDGE IDENTIFIER ')' ';'  */
+#line 631 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::DELAY, "posedge", yylineno);
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno));
           free((yyvsp[-2].str));
       }
-#line 3126 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3143 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 111: /* stmt: '@' '(' NEGEDGE IDENTIFIER ')' ';'  */
-#line 625 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 112: /* stmt: '@' '(' NEGEDGE IDENTIFIER ')' ';'  */
+#line 637 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::DELAY, "negedge", yylineno);
           addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-2].str), yylineno));
           free((yyvsp[-2].str));
       }
-#line 3136 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3153 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 112: /* stmt: SYS_FOPEN '(' STRING ')' ';'  */
-#line 631 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 113: /* stmt: SYS_FOPEN '(' STRING ')' ';'  */
+#line 643 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$fopen", yylineno);
           addChild((yyval.node), makeNode(NodeType::STRING, (yyvsp[-2].str), yylineno));
           free((yyvsp[-2].str));
       }
-#line 3146 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3163 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 113: /* stmt: SYS_FCLOSE '(' expr ')' ';'  */
-#line 637 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 114: /* stmt: SYS_FCLOSE '(' expr ')' ';'  */
+#line 649 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$fclose", yylineno);
           addChild((yyval.node), (yyvsp[-2].node));
       }
-#line 3155 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3172 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 114: /* stmt: lvalue '=' SYS_FOPEN '(' STRING ')' ';'  */
-#line 642 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 115: /* stmt: lvalue '=' SYS_FOPEN '(' STRING ')' ';'  */
+#line 654 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BLOCKING_ASSIGN, "", yylineno);
           addChild((yyval.node), (yyvsp[-6].node));
@@ -3164,11 +3181,11 @@ yyreduce:
           free((yyvsp[-2].str));
           addChild((yyval.node), fc);
       }
-#line 3168 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3185 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 115: /* stmt: lvalue '=' SYS_FSCANF '(' expr_list ')' ';'  */
-#line 651 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 116: /* stmt: lvalue '=' SYS_FSCANF '(' expr_list ')' ';'  */
+#line 663 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BLOCKING_ASSIGN, "", yylineno);
           addChild((yyval.node), (yyvsp[-6].node));
@@ -3178,11 +3195,11 @@ yyreduce:
           freeTree((yyvsp[-2].node));
           addChild((yyval.node), fc);
       }
-#line 3182 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3199 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 116: /* stmt: lvalue '=' SYS_FGETS '(' expr_list ')' ';'  */
-#line 661 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 117: /* stmt: lvalue '=' SYS_FGETS '(' expr_list ')' ';'  */
+#line 673 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BLOCKING_ASSIGN, "", yylineno);
           addChild((yyval.node), (yyvsp[-6].node));
@@ -3192,86 +3209,86 @@ yyreduce:
           freeTree((yyvsp[-2].node));
           addChild((yyval.node), fc);
       }
-#line 3196 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3213 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 117: /* stmt: SYS_FDISPLAY '(' expr_list ')' ';'  */
-#line 671 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 118: /* stmt: SYS_FDISPLAY '(' expr_list ')' ';'  */
+#line 683 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$fdisplay", yylineno);
           (yyval.node)->children = (yyvsp[-2].node)->children;
           (yyvsp[-2].node)->children.clear();
           freeTree((yyvsp[-2].node));
       }
-#line 3207 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3224 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 118: /* stmt: SYS_FDISPLAY '(' STRING ')' ';'  */
-#line 678 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 119: /* stmt: SYS_FDISPLAY '(' STRING ')' ';'  */
+#line 690 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$fdisplay", yylineno);
           addChild((yyval.node), makeNode(NodeType::STRING, (yyvsp[-2].str), yylineno));
           free((yyvsp[-2].str));
       }
-#line 3217 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3234 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 119: /* stmts: stmts stmt  */
-#line 686 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 120: /* stmts: stmts stmt  */
+#line 698 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
-#line 3223 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3240 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 120: /* stmts: stmt  */
-#line 687 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 121: /* stmts: stmt  */
+#line 699 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3229 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3246 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 121: /* event_list: event_list OR event_expr  */
-#line 692 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 122: /* event_list: event_list OR event_expr  */
+#line 704 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { addChild((yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); }
-#line 3235 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3252 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 122: /* event_list: event_expr  */
-#line 694 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 123: /* event_list: event_expr  */
+#line 706 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::EVENT_CTRL, "events", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3241 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3258 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 123: /* event_expr: POSEDGE IDENTIFIER  */
-#line 699 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 124: /* event_expr: POSEDGE IDENTIFIER  */
+#line 711 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::EVENT_CTRL, "posedge", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno)); free((yyvsp[0].str)); }
-#line 3247 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3264 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 124: /* event_expr: NEGEDGE IDENTIFIER  */
-#line 701 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 125: /* event_expr: NEGEDGE IDENTIFIER  */
+#line 713 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::EVENT_CTRL, "negedge", yylineno); addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno)); free((yyvsp[0].str)); }
-#line 3253 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3270 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 125: /* readmem_args: expr_list  */
-#line 706 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 126: /* readmem_args: expr_list  */
+#line 718 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = (yyvsp[0].node); }
-#line 3259 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3276 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 126: /* gen_items: gen_items gen_item  */
-#line 710 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 127: /* gen_items: gen_items gen_item  */
+#line 722 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                        { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
-#line 3265 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3282 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 127: /* gen_items: gen_item  */
-#line 711 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 128: /* gen_items: gen_item  */
+#line 723 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                        { (yyval.node) = makeNode(NodeType::GENERATE, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3271 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3288 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 128: /* gen_item: FOR '(' GENVAR IDENTIFIER '=' expr ';' expr ';' IDENTIFIER '=' expr ')' gen_block  */
-#line 716 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 129: /* gen_item: FOR '(' GENVAR IDENTIFIER '=' expr ';' expr ';' IDENTIFIER '=' expr ')' gen_block  */
+#line 728 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
     {
         (yyval.node) = makeNode(NodeType::GENERATE_FOR, "", yylineno);
         addChild((yyval.node), makeNode(NodeType::IDENTIFIER, (yyvsp[-10].str), yylineno)); free((yyvsp[-10].str));
@@ -3279,11 +3296,11 @@ yyreduce:
         addChild((yyval.node), (yyvsp[-6].node));
         addChild((yyval.node), (yyvsp[0].node));
     }
-#line 3283 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3300 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 129: /* gen_item: FOR '(' IDENTIFIER '=' expr ';' expr ';' lvalue '=' expr ')' gen_block  */
-#line 724 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 130: /* gen_item: FOR '(' IDENTIFIER '=' expr ';' expr ';' lvalue '=' expr ')' gen_block  */
+#line 736 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
     {
         /* for (name = expr; cond; name = expr) — genvar already declared */
         (yyval.node) = makeNode(NodeType::GENERATE_FOR, "", yylineno);
@@ -3292,220 +3309,220 @@ yyreduce:
         addChild((yyval.node), (yyvsp[-6].node));
         addChild((yyval.node), (yyvsp[0].node));
     }
-#line 3296 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3313 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 130: /* gen_item: IF '(' expr ')' gen_block  */
-#line 733 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 131: /* gen_item: IF '(' expr ')' gen_block  */
+#line 745 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
     {
         (yyval.node) = makeNode(NodeType::GENERATE_IF, "", yylineno);
         addChild((yyval.node), (yyvsp[-2].node));
         addChild((yyval.node), (yyvsp[0].node));
     }
-#line 3306 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3323 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 131: /* gen_item: IF '(' expr ')' gen_block ELSE gen_block  */
-#line 739 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 132: /* gen_item: IF '(' expr ')' gen_block ELSE gen_block  */
+#line 751 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
     {
         (yyval.node) = makeNode(NodeType::GENERATE_IF, "", yylineno);
         addChild((yyval.node), (yyvsp[-4].node));
         addChild((yyval.node), (yyvsp[-2].node));
         addChild((yyval.node), (yyvsp[0].node));
     }
-#line 3317 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3334 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 132: /* gen_item: CASE '(' expr ')' gen_case_items ENDCASE  */
-#line 746 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 133: /* gen_item: CASE '(' expr ')' gen_case_items ENDCASE  */
+#line 758 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
     {
         (yyval.node) = makeNode(NodeType::CASE, "generate", yylineno);
         addChild((yyval.node), (yyvsp[-3].node));
         addChild((yyval.node), (yyvsp[-1].node));
     }
-#line 3327 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3344 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 133: /* gen_item: GENVAR genvar_list ';'  */
-#line 752 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 134: /* gen_item: GENVAR genvar_list ';'  */
+#line 764 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
     {
         /* genvar declaration — skip */
         (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno);
     }
-#line 3336 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3353 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 134: /* genvar_list: genvar_list ',' IDENTIFIER  */
-#line 759 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 135: /* genvar_list: genvar_list ',' IDENTIFIER  */
+#line 771 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                { free((yyvsp[0].str)); }
-#line 3342 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3359 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 135: /* genvar_list: IDENTIFIER  */
-#line 760 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 136: /* genvar_list: IDENTIFIER  */
+#line 772 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                  { free((yyvsp[0].str)); }
-#line 3348 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3365 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 136: /* gen_block: BEGINKW gen_body END  */
-#line 764 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 137: /* gen_block: BEGINKW gen_body END  */
+#line 776 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                          { (yyval.node) = (yyvsp[-1].node); }
-#line 3354 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3371 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 137: /* gen_block: BEGINKW ':' IDENTIFIER gen_body END  */
-#line 765 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 138: /* gen_block: BEGINKW ':' IDENTIFIER gen_body END  */
+#line 777 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                           { (yyval.node) = (yyvsp[-1].node); free((yyvsp[-2].str)); }
-#line 3360 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3377 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 138: /* gen_block: module_item  */
-#line 766 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 139: /* gen_block: module_item  */
+#line 778 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                          { (yyval.node) = (yyvsp[0].node); }
-#line 3366 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3383 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 139: /* gen_body: gen_body module_item  */
-#line 770 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 140: /* gen_body: gen_body module_item  */
+#line 782 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                          { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
-#line 3372 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3389 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 140: /* gen_body: gen_body gen_item  */
-#line 771 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 141: /* gen_body: gen_body gen_item  */
+#line 783 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
-#line 3378 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3395 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 141: /* gen_body: module_item  */
-#line 772 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 142: /* gen_body: module_item  */
+#line 784 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                          { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3384 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3401 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 142: /* gen_body: gen_item  */
-#line 773 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 143: /* gen_body: gen_item  */
+#line 785 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                          { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3390 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3407 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 143: /* case_items: case_items case_item  */
-#line 777 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 144: /* case_items: case_items case_item  */
+#line 789 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                          { addChild((yyvsp[-1].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-1].node); }
-#line 3396 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3413 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 144: /* case_items: case_item  */
-#line 778 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 145: /* case_items: case_item  */
+#line 790 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                          { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3402 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3419 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 145: /* case_item: expr ':' stmt  */
-#line 783 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 146: /* case_item: expr ':' stmt  */
+#line 795 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::CASE_ITEM, "", yylineno);
           addChild((yyval.node), (yyvsp[-2].node));
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 3412 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3429 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 146: /* case_item: expr ',' expr ':' stmt  */
-#line 789 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 147: /* case_item: expr ',' expr ':' stmt  */
+#line 801 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::CASE_ITEM, "", yylineno);
           addChild((yyval.node), (yyvsp[-4].node));
           addChild((yyval.node), (yyvsp[-2].node));
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 3423 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3440 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 147: /* case_item: DEFAULT ':' stmt  */
-#line 796 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 148: /* case_item: DEFAULT ':' stmt  */
+#line 808 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::CASE_ITEM, "default", yylineno);
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 3432 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3449 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 148: /* case_item: DEFAULT stmt  */
-#line 801 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 149: /* case_item: DEFAULT stmt  */
+#line 813 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::CASE_ITEM, "default", yylineno);
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 3441 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3458 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 149: /* param_override: '#' '(' param_list ')'  */
-#line 809 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 150: /* param_override: '#' '(' param_list ')'  */
+#line 821 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
     { (yyval.node) = makeNode(NodeType::PARAM_OVERRIDE, "", yylineno); for (auto *c : (yyvsp[-1].node)->children) addChild((yyval.node), c); (yyvsp[-1].node)->children.clear(); freeTree((yyvsp[-1].node)); }
-#line 3447 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3464 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 150: /* param_list: param_list ',' param_assign  */
-#line 813 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 151: /* param_list: param_list ',' param_assign  */
+#line 825 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                 { if ((yyvsp[0].node)) addChild((yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); }
-#line 3453 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3470 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 151: /* param_list: param_assign  */
-#line 814 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 152: /* param_list: param_assign  */
+#line 826 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                 { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); if ((yyvsp[0].node)) addChild((yyval.node), (yyvsp[0].node)); }
-#line 3459 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3476 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 152: /* param_assign: '.' IDENTIFIER '(' expr ')'  */
-#line 818 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 153: /* param_assign: '.' IDENTIFIER '(' expr ')'  */
+#line 830 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                 { (yyval.node) = makeNode(NodeType::IDENTIFIER, (yyvsp[-3].str), yylineno); free((yyvsp[-3].str)); addChild((yyval.node), (yyvsp[-1].node)); }
-#line 3465 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3482 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 153: /* port_conn_list: port_conn_list ',' port_conn  */
-#line 822 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 154: /* port_conn_list: port_conn_list ',' port_conn  */
+#line 834 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                  { addChild((yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); }
-#line 3471 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3488 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 154: /* port_conn_list: port_conn  */
-#line 823 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 155: /* port_conn_list: port_conn  */
+#line 835 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                  { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3477 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3494 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 155: /* port_conn: '.' IDENTIFIER '(' expr ')'  */
-#line 828 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 156: /* port_conn: '.' IDENTIFIER '(' expr ')'  */
+#line 840 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT_CONN, (yyvsp[-3].str), yylineno);
           free((yyvsp[-3].str));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3487 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3504 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 156: /* port_conn: '.' IDENTIFIER '(' ')'  */
-#line 834 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 157: /* port_conn: '.' IDENTIFIER '(' ')'  */
+#line 846 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT_CONN, (yyvsp[-2].str), yylineno);
           free((yyvsp[-2].str));
       }
-#line 3496 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3513 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 157: /* port_conn: expr  */
-#line 839 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 158: /* port_conn: expr  */
+#line 851 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::PORT_CONN, "", yylineno);
           addChild((yyval.node), (yyvsp[0].node));
       }
-#line 3505 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3522 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 158: /* range: '[' expr ':' expr ']'  */
-#line 847 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 159: /* range: '[' expr ':' expr ']'  */
+#line 859 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, "", yylineno);
           addChild((yyval.node), (yyvsp[-3].node));
@@ -3514,229 +3531,229 @@ yyreduce:
           if ((yyvsp[-3].node)->type == NodeType::NUMBER) (yyval.node)->msb = std::stoi((yyvsp[-3].node)->value);
           if ((yyvsp[-1].node)->type == NodeType::NUMBER) (yyval.node)->lsb = std::stoi((yyvsp[-1].node)->value);
       }
-#line 3518 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3535 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 159: /* expr: expr '+' expr  */
-#line 858 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 160: /* expr: expr '+' expr  */
+#line 870 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "+", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3524 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3541 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 160: /* expr: expr '-' expr  */
-#line 859 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 161: /* expr: expr '-' expr  */
+#line 871 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "-", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3530 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3547 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 161: /* expr: expr '*' expr  */
-#line 860 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 162: /* expr: expr '*' expr  */
+#line 872 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "*", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3536 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3553 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 162: /* expr: expr '/' expr  */
-#line 861 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 163: /* expr: expr '/' expr  */
+#line 873 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "/", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3542 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3559 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 163: /* expr: expr '%' expr  */
-#line 862 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 164: /* expr: expr '%' expr  */
+#line 874 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "%", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3548 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3565 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 164: /* expr: expr '&' expr  */
-#line 863 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 165: /* expr: expr '&' expr  */
+#line 875 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "&", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3554 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3571 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 165: /* expr: expr '|' expr  */
-#line 864 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 166: /* expr: expr '|' expr  */
+#line 876 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "|", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3560 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3577 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 166: /* expr: expr '^' expr  */
-#line 865 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 167: /* expr: expr '^' expr  */
+#line 877 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "^", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3566 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3583 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 167: /* expr: expr XNOR expr  */
-#line 866 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 168: /* expr: expr XNOR expr  */
+#line 878 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "~^", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3572 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3589 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 168: /* expr: expr NAND expr  */
-#line 867 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 169: /* expr: expr NAND expr  */
+#line 879 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "~&", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3578 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3595 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 169: /* expr: expr NOR expr  */
-#line 868 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 170: /* expr: expr NOR expr  */
+#line 880 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "~|", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3584 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3601 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 170: /* expr: expr EQ expr  */
-#line 869 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 171: /* expr: expr EQ expr  */
+#line 881 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "==", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3590 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3607 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 171: /* expr: expr NE expr  */
-#line 870 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 172: /* expr: expr NE expr  */
+#line 882 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "!=", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3596 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3613 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 172: /* expr: expr '<' expr  */
-#line 871 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 173: /* expr: expr '<' expr  */
+#line 883 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "<", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3602 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3619 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 173: /* expr: expr '>' expr  */
-#line 872 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 174: /* expr: expr '>' expr  */
+#line 884 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, ">", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3608 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3625 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 174: /* expr: expr LE expr  */
-#line 873 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 175: /* expr: expr LE expr  */
+#line 885 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "<=", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3614 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3631 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 175: /* expr: expr GE expr  */
-#line 874 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 176: /* expr: expr GE expr  */
+#line 886 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, ">=", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3620 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3637 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 176: /* expr: expr SHL expr  */
-#line 875 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 177: /* expr: expr SHL expr  */
+#line 887 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "<<", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3626 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3643 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 177: /* expr: expr SHR expr  */
-#line 876 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 178: /* expr: expr SHR expr  */
+#line 888 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, ">>", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3632 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3649 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 178: /* expr: expr SSHR expr  */
-#line 877 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 179: /* expr: expr SSHR expr  */
+#line 889 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, ">>>", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3638 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3655 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 179: /* expr: expr '*' '*' expr  */
-#line 878 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 180: /* expr: expr '*' '*' expr  */
+#line 890 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                                      { (yyval.node) = makeNode(NodeType::BINOP, "**", yylineno); addChild((yyval.node), (yyvsp[-3].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3644 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3661 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 180: /* expr: expr LOGAND expr  */
-#line 879 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 181: /* expr: expr LOGAND expr  */
+#line 891 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "&&", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3650 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3667 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 181: /* expr: expr LOGOR expr  */
-#line 880 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 182: /* expr: expr LOGOR expr  */
+#line 892 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                         { (yyval.node) = makeNode(NodeType::BINOP, "||", yylineno); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3656 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3673 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 182: /* expr: expr '?' expr ':' expr  */
-#line 882 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 183: /* expr: expr '?' expr ':' expr  */
+#line 894 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::TERNARY, "", yylineno);
           addChild((yyval.node), (yyvsp[-4].node)); addChild((yyval.node), (yyvsp[-2].node)); addChild((yyval.node), (yyvsp[0].node));
       }
-#line 3665 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3682 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 183: /* expr: '-' expr  */
-#line 886 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 184: /* expr: '-' expr  */
+#line 898 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "-", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3671 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3688 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 184: /* expr: '!' expr  */
-#line 887 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 185: /* expr: '!' expr  */
+#line 899 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "!", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3677 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3694 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 185: /* expr: '~' expr  */
-#line 888 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 186: /* expr: '~' expr  */
+#line 900 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "~", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3683 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3700 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 186: /* expr: NAND expr  */
-#line 889 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 187: /* expr: NAND expr  */
+#line 901 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "~&", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3689 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3706 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 187: /* expr: NOR expr  */
-#line 890 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 188: /* expr: NOR expr  */
+#line 902 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "~|", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3695 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3712 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 188: /* expr: '&' expr  */
-#line 891 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 189: /* expr: '&' expr  */
+#line 903 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "&", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3701 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3718 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 189: /* expr: '|' expr  */
-#line 892 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 190: /* expr: '|' expr  */
+#line 904 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "|", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3707 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3724 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 190: /* expr: '^' expr  */
-#line 893 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 191: /* expr: '^' expr  */
+#line 905 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                               { (yyval.node) = makeNode(NodeType::UNOP, "^", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 3713 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3730 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 192: /* prim_expr: NUMBER  */
-#line 899 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 193: /* prim_expr: NUMBER  */
+#line 911 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNum((yyvsp[0].num));
       }
-#line 3721 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3738 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 193: /* prim_expr: SYS_TIME  */
-#line 903 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 194: /* prim_expr: SYS_TIME  */
+#line 915 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::SYS_TASK, "$time", yylineno); }
-#line 3727 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3744 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 194: /* prim_expr: SYS_UNSIGNED '(' expr ')'  */
-#line 905 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 195: /* prim_expr: SYS_UNSIGNED '(' expr ')'  */
+#line 917 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$unsigned", yylineno);
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3736 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3753 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 195: /* prim_expr: IDENTIFIER '(' expr_list ')'  */
-#line 910 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 196: /* prim_expr: IDENTIFIER '(' expr_list ')'  */
+#line 922 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::FUNCTION_CALL, (yyvsp[-3].str), yylineno);
           free((yyvsp[-3].str));
@@ -3744,47 +3761,47 @@ yyreduce:
           (yyvsp[-1].node)->children.clear();
           freeTree((yyvsp[-1].node));
       }
-#line 3748 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3765 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 196: /* prim_expr: IDENTIFIER '(' ')'  */
-#line 918 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 197: /* prim_expr: IDENTIFIER '(' ')'  */
+#line 930 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       { (yyval.node) = makeNode(NodeType::FUNCTION_CALL, (yyvsp[-2].str), yylineno); free((yyvsp[-2].str)); }
-#line 3754 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3771 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 197: /* prim_expr: IDENTIFIER  */
-#line 920 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 198: /* prim_expr: IDENTIFIER  */
+#line 932 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno);
           free((yyvsp[0].str));
       }
-#line 3763 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3780 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 198: /* prim_expr: IDENTIFIER '[' expr ':' expr ']'  */
-#line 925 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 199: /* prim_expr: IDENTIFIER '[' expr ':' expr ']'  */
+#line 937 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-5].str), yylineno);
           free((yyvsp[-5].str));
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3774 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3791 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 199: /* prim_expr: IDENTIFIER '[' expr ']'  */
-#line 932 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 200: /* prim_expr: IDENTIFIER '[' expr ']'  */
+#line 944 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-3].str), yylineno);
           free((yyvsp[-3].str));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3784 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3801 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 200: /* prim_expr: IDENTIFIER '[' expr ']' '[' expr ':' expr ']'  */
-#line 938 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 201: /* prim_expr: IDENTIFIER '[' expr ']' '[' expr ':' expr ']'  */
+#line 950 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           /* Double range-select: signal[idx][msb:lsb] — mark with msb=-1 to distinguish */
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-8].str), yylineno);
@@ -3793,11 +3810,11 @@ yyreduce:
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3797 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3814 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 201: /* prim_expr: IDENTIFIER '[' expr PART_PLUS expr ']'  */
-#line 947 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 202: /* prim_expr: IDENTIFIER '[' expr PART_PLUS expr ']'  */
+#line 959 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-5].str), yylineno);
           (yyval.node)->part_select_direction = PartSelectDirection::PLUS;
@@ -3805,11 +3822,11 @@ yyreduce:
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3809 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3826 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 202: /* prim_expr: IDENTIFIER '[' expr PART_MINUS expr ']'  */
-#line 955 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 203: /* prim_expr: IDENTIFIER '[' expr PART_MINUS expr ']'  */
+#line 967 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-5].str), yylineno);
           (yyval.node)->part_select_direction = PartSelectDirection::MINUS;
@@ -3817,11 +3834,11 @@ yyreduce:
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3821 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3838 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 203: /* prim_expr: IDENTIFIER '[' expr ']' '[' expr ']'  */
-#line 963 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 204: /* prim_expr: IDENTIFIER '[' expr ']' '[' expr ']'  */
+#line 975 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           /* Double bit-select: signal[idx][bit] — 3 children: [idx, bit, sentinel] */
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-6].str), yylineno);
@@ -3832,22 +3849,22 @@ yyreduce:
           sentinel->msb = -1;
           addChild((yyval.node), sentinel);
       }
-#line 3836 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3853 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 204: /* prim_expr: '{' expr_list '}'  */
-#line 974 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 205: /* prim_expr: '{' expr_list '}'  */
+#line 986 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::CONCAT, "", yylineno);
           (yyval.node)->children = (yyvsp[-1].node)->children;
           (yyvsp[-1].node)->children.clear();
           freeTree((yyvsp[-1].node));
       }
-#line 3847 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3864 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 205: /* prim_expr: '{' expr '{' expr_list '}' '}'  */
-#line 981 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 206: /* prim_expr: '{' expr '{' expr_list '}' '}'  */
+#line 993 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           /* Replication: {count{expr_list}} — expand into count copies */
           (yyval.node) = makeNode(NodeType::CONCAT, "", yylineno);
@@ -3859,88 +3876,88 @@ yyreduce:
           freeTree((yyvsp[-4].node));
           (yyvsp[-2].node)->children.clear(); freeTree((yyvsp[-2].node));
       }
-#line 3863 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3880 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 206: /* prim_expr: '(' expr ')'  */
-#line 993 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 207: /* prim_expr: '(' expr ')'  */
+#line 1005 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = (yyvsp[-1].node);
       }
-#line 3871 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3888 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 207: /* prim_expr: SYS_FOPEN '(' STRING ')'  */
-#line 997 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 208: /* prim_expr: SYS_FOPEN '(' STRING ')'  */
+#line 1009 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$fopen", yylineno);
           addChild((yyval.node), makeNode(NodeType::STRING, (yyvsp[-1].str), yylineno));
           free((yyvsp[-1].str));
       }
-#line 3881 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3898 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 208: /* prim_expr: SYS_FOPEN '(' STRING ',' STRING ')'  */
-#line 1003 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 209: /* prim_expr: SYS_FOPEN '(' STRING ',' STRING ')'  */
+#line 1015 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$fopen", yylineno);
           addChild((yyval.node), makeNode(NodeType::STRING, (yyvsp[-3].str), yylineno));
           addChild((yyval.node), makeNode(NodeType::STRING, (yyvsp[-1].str), yylineno));
           free((yyvsp[-3].str)); free((yyvsp[-1].str));
       }
-#line 3892 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3909 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 209: /* prim_expr: SYS_CLOG2 '(' expr ')'  */
-#line 1010 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 210: /* prim_expr: SYS_CLOG2 '(' expr ')'  */
+#line 1022 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::SYS_TASK, "$clog2", yylineno);
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3901 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3918 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 210: /* prim_expr: STRING  */
-#line 1015 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 211: /* prim_expr: STRING  */
+#line 1027 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::STRING, (yyvsp[0].str), yylineno);
           free((yyvsp[0].str));
       }
-#line 3910 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3927 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 211: /* lvalue: IDENTIFIER  */
-#line 1023 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 212: /* lvalue: IDENTIFIER  */
+#line 1035 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::IDENTIFIER, (yyvsp[0].str), yylineno);
           free((yyvsp[0].str));
       }
-#line 3919 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3936 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 212: /* lvalue: IDENTIFIER '[' expr ':' expr ']'  */
-#line 1028 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 213: /* lvalue: IDENTIFIER '[' expr ':' expr ']'  */
+#line 1040 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-5].str), yylineno);
           free((yyvsp[-5].str));
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3930 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3947 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 213: /* lvalue: IDENTIFIER '[' expr ']'  */
-#line 1035 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 214: /* lvalue: IDENTIFIER '[' expr ']'  */
+#line 1047 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-3].str), yylineno);
           free((yyvsp[-3].str));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3940 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3957 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 214: /* lvalue: IDENTIFIER '[' expr ']' '[' expr ':' expr ']'  */
-#line 1041 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 215: /* lvalue: IDENTIFIER '[' expr ']' '[' expr ':' expr ']'  */
+#line 1053 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-8].str), yylineno);
           free((yyvsp[-8].str));
@@ -3948,11 +3965,11 @@ yyreduce:
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3952 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3969 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 215: /* lvalue: IDENTIFIER '[' expr PART_PLUS expr ']'  */
-#line 1049 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 216: /* lvalue: IDENTIFIER '[' expr PART_PLUS expr ']'  */
+#line 1061 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-5].str), yylineno);
           (yyval.node)->part_select_direction = PartSelectDirection::PLUS;
@@ -3960,11 +3977,11 @@ yyreduce:
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3964 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3981 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 216: /* lvalue: IDENTIFIER '[' expr PART_MINUS expr ']'  */
-#line 1057 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 217: /* lvalue: IDENTIFIER '[' expr PART_MINUS expr ']'  */
+#line 1069 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-5].str), yylineno);
           (yyval.node)->part_select_direction = PartSelectDirection::MINUS;
@@ -3972,11 +3989,11 @@ yyreduce:
           addChild((yyval.node), (yyvsp[-3].node));
           addChild((yyval.node), (yyvsp[-1].node));
       }
-#line 3976 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 3993 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 217: /* lvalue: IDENTIFIER '[' expr ']' '[' expr ']'  */
-#line 1065 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 218: /* lvalue: IDENTIFIER '[' expr ']' '[' expr ']'  */
+#line 1077 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::BITSEL, (yyvsp[-6].str), yylineno);
           free((yyvsp[-6].str));
@@ -3986,46 +4003,46 @@ yyreduce:
           sentinel->msb = -1;
           addChild((yyval.node), sentinel);
       }
-#line 3990 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 4007 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 218: /* lvalue: '{' lvalue_list '}'  */
-#line 1075 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 219: /* lvalue: '{' lvalue_list '}'  */
+#line 1087 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
       {
           (yyval.node) = makeNode(NodeType::CONCAT, "", yylineno);
           (yyval.node)->children = (yyvsp[-1].node)->children;
           (yyvsp[-1].node)->children.clear();
           freeTree((yyvsp[-1].node));
       }
-#line 4001 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 4018 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 219: /* lvalue_list: lvalue_list ',' lvalue  */
-#line 1084 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 220: /* lvalue_list: lvalue_list ',' lvalue  */
+#line 1096 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                            { addChild((yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); }
-#line 4007 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 4024 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 220: /* lvalue_list: lvalue  */
-#line 1085 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 221: /* lvalue_list: lvalue  */
+#line 1097 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                            { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 4013 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 4030 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 221: /* expr_list: expr_list ',' expr  */
-#line 1089 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 222: /* expr_list: expr_list ',' expr  */
+#line 1101 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                        { addChild((yyvsp[-2].node), (yyvsp[0].node)); (yyval.node) = (yyvsp[-2].node); }
-#line 4019 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 4036 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
-  case 222: /* expr_list: expr  */
-#line 1090 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+  case 223: /* expr_list: expr  */
+#line 1102 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
                        { (yyval.node) = makeNode(NodeType::BLOCK, "", yylineno); addChild((yyval.node), (yyvsp[0].node)); }
-#line 4025 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 4042 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
     break;
 
 
-#line 4029 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.c"
+#line 4046 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.c"
 
       default: break;
     }
@@ -4218,7 +4235,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 1093 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 1105 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
 
 
 void yyerror(const char *msg) {

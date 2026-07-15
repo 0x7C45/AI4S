@@ -242,7 +242,18 @@ module_item:
     | ALWAYS '@' '*' stmt
       { $$ = makeNode(NodeType::ALWAYS_BLOCK, "@(*)", yylineno); addChild($$, $4); }
     | ALWAYS '@' '(' event_list ')' stmt
-      { $$ = makeNode(NodeType::ALWAYS_BLOCK, "@events", yylineno); addChild($$, $6); }
+      {
+          ASTNode *event = $4->children.empty() ? nullptr : $4->children[0];
+          if (event != nullptr && !event->children.empty()) {
+              std::string trigger = "@(" + event->value + " " +
+                                    event->children[0]->value + ")";
+              $$ = makeNode(NodeType::ALWAYS_BLOCK, trigger, yylineno);
+          } else {
+              $$ = makeNode(NodeType::ALWAYS_BLOCK, "@events", yylineno);
+          }
+          addChild($$, $6);
+          freeTree($4);
+      }
     | ALWAYS '#' expr stmt
       { $$ = makeNode(NodeType::ALWAYS_BLOCK, "#delay", yylineno); addChild($$, $3); addChild($$, $4); }
     | FUNCTION range IDENTIFIER ';' function_items ENDFUNCTION

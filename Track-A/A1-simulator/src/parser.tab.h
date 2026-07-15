@@ -35,8 +35,8 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 
-#ifndef YY_YY_HOME_KALI_DOCUMENTS_GITHUB_AI4S_CLAUDE_WORKTREES_AGENT_A5E2BD0BB99FAB287_TRACK_A_A1_SIMULATOR_SRC_PARSER_TAB_H_INCLUDED
-# define YY_YY_HOME_KALI_DOCUMENTS_GITHUB_AI4S_CLAUDE_WORKTREES_AGENT_A5E2BD0BB99FAB287_TRACK_A_A1_SIMULATOR_SRC_PARSER_TAB_H_INCLUDED
+#ifndef YY_YY_HOME_KALI_DOCUMENTS_GITHUB_AI4S_TRACK_A_A1_SIMULATOR_SRC_PARSER_TAB_H_INCLUDED
+# define YY_YY_HOME_KALI_DOCUMENTS_GITHUB_AI4S_TRACK_A_A1_SIMULATOR_SRC_PARSER_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -45,7 +45,7 @@
 extern int yydebug;
 #endif
 /* "%code requires" blocks.  */
-#line 1 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 1 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
 
 #ifndef VERILOG_NUM_DEFINED
 #define VERILOG_NUM_DEFINED
@@ -57,7 +57,7 @@ struct VerilogNum {
 };
 #endif
 
-#line 61 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.h"
+#line 61 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.h"
 
 /* Token kinds.  */
 #ifndef YYTOKENTYPE
@@ -142,13 +142,13 @@ struct VerilogNum {
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 52 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.y"
+#line 52 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.y"
 
     struct VerilogNum *num;
     char *str;
     struct ASTNode *node;
 
-#line 152 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/parser.tab.h"
+#line 152 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -163,4 +163,4 @@ extern YYSTYPE yylval;
 int yyparse (void);
 
 
-#endif /* !YY_YY_HOME_KALI_DOCUMENTS_GITHUB_AI4S_CLAUDE_WORKTREES_AGENT_A5E2BD0BB99FAB287_TRACK_A_A1_SIMULATOR_SRC_PARSER_TAB_H_INCLUDED  */
+#endif /* !YY_YY_HOME_KALI_DOCUMENTS_GITHUB_AI4S_TRACK_A_A1_SIMULATOR_SRC_PARSER_TAB_H_INCLUDED  */

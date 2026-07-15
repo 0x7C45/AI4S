@@ -1,6 +1,6 @@
-#line 2 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.yy.c"
+#line 2 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.yy.c"
 
-#line 4 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.yy.c"
+#line 4 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -699,8 +699,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
-#line 5 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 1 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
+#line 5 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 #include "parser.tab.h"
 #include <cstdlib>
 #include <cstring>
@@ -711,8 +711,8 @@ static char *stralloc(const char *s) {
 
 static int g_paren_depth = 0;
 static bool g_continuous_expr = false;
-#line 715 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.yy.c"
-#line 716 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.yy.c"
+#line 715 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.yy.c"
+#line 716 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.yy.c"
 
 #define INITIAL 0
 
@@ -929,10 +929,10 @@ YY_DECL
 		}
 
 	{
-#line 17 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 17 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 
 
-#line 936 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.yy.c"
+#line 936 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1001,479 +1001,479 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 19 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 19 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 ;
 	YY_BREAK
 case 2:
 /* rule 2 can match eol */
 YY_RULE_SETUP
-#line 20 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 20 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 ;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 22 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 22 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 ;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 23 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 23 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 ;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 24 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 24 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 ;
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 26 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 26 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return MODULE; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 27 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 27 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return ENDMODULE; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 28 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 28 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return INPUT; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 29 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 29 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return OUTPUT; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 30 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 30 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return WIRE; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 31 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 31 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return REG; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 32 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 32 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return INTEGER_KW; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 33 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 33 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SIGNED; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 34 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 34 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return LOCALPARAM; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 35 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 35 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return PARAMETER; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 36 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 36 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { g_continuous_expr = true; return ASSIGN; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 37 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 37 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return ALWAYS; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 38 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 38 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return INITIAL_KW; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 39 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 39 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return BEGINKW; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 40 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 40 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return END; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 41 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 41 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return IF; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 42 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 42 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return ELSE; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 43 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 43 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return CASE; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 44 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 44 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return CASE; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 45 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 45 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return CASE; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 46 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 46 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return ENDCASE; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 47 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 47 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return DEFAULT; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 48 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 48 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return FOR; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 49 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 49 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return REPEAT; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 50 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 50 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return WHILE; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 51 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 51 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return GENERATE; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 52 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 52 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return ENDGENERATE; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 53 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 53 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return GENVAR; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 54 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 54 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return FUNCTION; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 55 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 55 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return ENDFUNCTION; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 56 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 56 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return POSEDGE; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 57 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 57 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return NEGEDGE; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 58 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 58 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return OR; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 60 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 60 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SYS_FOPEN; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 61 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 61 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SYS_FCLOSE; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 62 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 62 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SYS_FSCANF; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 63 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 63 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SYS_FGETS; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 64 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 64 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SYS_FDISPLAY; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 65 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 65 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SYS_DISPLAY; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 66 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 66 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SYS_FINISH; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 67 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 67 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SYS_CLOG2; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 68 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 68 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SYS_READMEMH; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 69 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 69 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SYS_READMEMB; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 70 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 70 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SYS_DUMPFILE; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 71 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 71 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SYS_DUMPVARS; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 72 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 72 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SYS_ERROR; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 73 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 73 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SYS_UNSIGNED; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 74 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 74 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SYS_TIME; }
 	YY_BREAK
 case 54:
 /* rule 54 can match eol */
 YY_RULE_SETUP
-#line 76 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 76 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 ;
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 78 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 78 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return ','; }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 79 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 79 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return ':'; }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 80 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 80 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { g_continuous_expr = false; return ';'; }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 81 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 81 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { ++g_paren_depth; return '('; }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 82 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 82 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { if (g_paren_depth > 0) --g_paren_depth; return ')'; }
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 83 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 83 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '['; }
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 84 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 84 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return ']'; }
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 85 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 85 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '{'; }
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 86 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 86 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '}'; }
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 87 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 87 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '.'; }
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 88 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 88 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '#'; }
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 89 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 89 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '@'; }
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 91 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 91 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return EQ; }
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 92 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 92 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return NE; }
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 93 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 93 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return (g_continuous_expr || g_paren_depth > 0) ? LE : NONBLOCKING; }
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 94 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 94 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return GE; }
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 95 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 95 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return LOGAND; }
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 96 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 96 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return LOGOR; }
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 97 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 97 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SHL; }
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 98 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 98 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SHR; }
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 99 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 99 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return SSHR; }
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 100 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 100 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return NAND; }
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 101 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 101 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return NOR; }
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 102 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 102 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return XNOR; }
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 104 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 104 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return PART_PLUS; }
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 105 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 105 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return PART_MINUS; }
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 106 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 106 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '+'; }
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 107 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 107 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '-'; }
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 108 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 108 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '*'; }
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 109 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 109 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '/'; }
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 110 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 110 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '%'; }
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
-#line 111 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 111 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '&'; }
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 112 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 112 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '|'; }
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 113 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 113 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '^'; }
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 114 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 114 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '~'; }
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
-#line 115 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 115 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '!'; }
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
-#line 116 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 116 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '<'; }
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
-#line 117 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 117 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '>'; }
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
-#line 118 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 118 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '?'; }
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
-#line 119 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 119 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { return '='; }
 	YY_BREAK
 case 95:
 YY_RULE_SETUP
-#line 121 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 121 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 {
     yylval.num = (VerilogNum *)malloc(sizeof(VerilogNum));
     yylval.num->value = 0;
@@ -1504,7 +1504,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 96:
 YY_RULE_SETUP
-#line 149 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 149 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 {
     yylval.num = (VerilogNum *)malloc(sizeof(VerilogNum));
     yylval.num->value = 0;
@@ -1536,7 +1536,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 97:
 YY_RULE_SETUP
-#line 178 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 178 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 {
     yylval.num = (VerilogNum *)malloc(sizeof(VerilogNum));
     yylval.num->value = 0;
@@ -1562,7 +1562,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 98:
 YY_RULE_SETUP
-#line 201 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 201 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 {
     yylval.num = (VerilogNum *)malloc(sizeof(VerilogNum));
     yylval.num->value = strtoull(yytext, NULL, 10);
@@ -1573,7 +1573,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 99:
 YY_RULE_SETUP
-#line 209 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 209 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 {
     yylval.str = stralloc(yytext);
     return IDENTIFIER;
@@ -1582,7 +1582,7 @@ YY_RULE_SETUP
 case 100:
 /* rule 100 can match eol */
 YY_RULE_SETUP
-#line 214 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 214 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 {
     yylval.str = stralloc(yytext);
     return STRING;
@@ -1590,26 +1590,26 @@ YY_RULE_SETUP
 	YY_BREAK
 case 101:
 YY_RULE_SETUP
-#line 219 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 219 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 ;
 	YY_BREAK
 case 102:
 /* rule 102 can match eol */
 YY_RULE_SETUP
-#line 220 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 220 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 ;
 	YY_BREAK
 case 103:
 YY_RULE_SETUP
-#line 221 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 221 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 { /* ignore unknown */ }
 	YY_BREAK
 case 104:
 YY_RULE_SETUP
-#line 223 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 223 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
-#line 1613 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.yy.c"
+#line 1613 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2626,6 +2626,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 223 "/home/kali/Documents/github/AI4S/.claude/worktrees/agent-a5e2bd0bb99fab287/Track-A/A1-simulator/src/lexer.l"
+#line 223 "/home/kali/Documents/github/AI4S/Track-A/A1-simulator/src/lexer.l"
 
 
