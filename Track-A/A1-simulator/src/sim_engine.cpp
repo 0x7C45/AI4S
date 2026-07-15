@@ -129,6 +129,25 @@ static ASTNode *translateNode(ASTNode *node, const std::string &prefix,
     return copy;
 }
 
+static ASTNode *translateNodeWithPortExprs(
+    ASTNode *node, const std::map<std::string, ASTNode *> &portExprs) {
+    if (!node) return nullptr;
+    if (node->type == NodeType::IDENTIFIER) {
+        auto it = portExprs.find(node->value);
+        if (it != portExprs.end()) return deepCopy(it->second);
+    }
+    ASTNode *copy = new ASTNode();
+    copy->type = node->type;
+    copy->value = node->value;
+    copy->msb = node->msb;
+    copy->lsb = node->lsb;
+    copy->line_no = node->line_no;
+    for (auto *c : node->children) {
+        copy->children.push_back(translateNodeWithPortExprs(c, portExprs));
+    }
+    return copy;
+}
+
 static void replaceGenvar(ASTNode *node, const std::string &gname, uint64_t gval) {
     if (!node) return;
     for (auto *&c : node->children) {
@@ -243,6 +262,18 @@ static void expandGenerate(ASTNode *node, const std::map<std::string, uint64_t> 
             ASTNode *clone = translateNode(node->children[2], "", {});
             expandGenerate(clone, params, out);
         }
+    } else if (node->type == NodeType::CASE) {
+        const uint64_t selector = evalConst(node->children[0], params);
+        ASTNode *fallback = nullptr;
+        for (auto *item : node->children[1]->children) {
+            if (item->value == "default") {
+                fallback = item->children.back();
+            } else if (evalConst(item->children[0], params) == selector) {
+                expandGenerate(item->children.back(), params, out);
+                return;
+            }
+        }
+        if (fallback) expandGenerate(fallback, params, out);
     } else if (node->type == NodeType::BLOCK || node->type == NodeType::GENERATE) {
         /* Recursively expand children of BLOCK/GENERATE nodes */
         for (auto *child : node->children) {
@@ -366,6 +397,53 @@ static ModuleDef *buildModule(ASTNode *modNode,
     return m;
 }
 
+static ModuleDef *buildModule(ASTNode *modNode,
+                              const std::map<std::string, uint64_t> &initParams);
+
+static void inlineNestedInstance(const ASTNode *instance, const std::string &prefix,
+                                 const std::map<std::string, std::string> &portMap,
+                                 std::vector<ASTNode *> &out) {
+    ASTNode *templateAst = nullptr;
+    for (auto *module : g_modules) {
+        if (module->value == instance->value) {
+            templateAst = module;
+            break;
+        }
+    }
+    if (!templateAst) return;
+
+    std::map<std::string, uint64_t> overrides;
+    std::map<std::string, ASTNode *> portExprs;
+    for (auto *child : instance->children) {
+        if (child->type == NodeType::PORT_CONN && !child->children.empty()) {
+            portExprs[child->value] = translateNode(child->children[0], prefix, portMap);
+        } else if (child->type == NodeType::IDENTIFIER && !child->children.empty()) {
+            overrides[child->value] = evalConst(child->children[0], {});
+        }
+    }
+
+    ModuleDef *nested = buildModule(deepCopyModule(templateAst), overrides);
+    for (auto *nestedItem : nested->items) {
+        if (nestedItem->type != NodeType::MODULE_INST) {
+            out.push_back(translateNodeWithPortExprs(nestedItem, portExprs));
+        }
+    }
+}
+
+static void inlineNestedItems(const std::vector<ASTNode *> &items, const std::string &prefix,
+                              const std::map<std::string, std::string> &portMap,
+                              std::vector<ASTNode *> &out) {
+    for (auto *item : items) {
+        if (item->type == NodeType::MODULE_INST) {
+            inlineNestedInstance(item, prefix, portMap, out);
+        } else if (item->type == NodeType::BLOCK || item->type == NodeType::GENERATE) {
+            inlineNestedItems(item->children, prefix, portMap, out);
+        } else {
+            out.push_back(translateNode(item, prefix, portMap));
+        }
+    }
+}
+
 struct PortInfo {
     std::string direction;
     std::string name;
@@ -411,6 +489,7 @@ static void flattenItems(const std::string &moduleName, const std::string &prefi
 
 static std::vector<ASTNode *> *g_assignItems = nullptr;
 static std::vector<ASTNode *> *g_alwaysBlocks = nullptr;
+static SignalValues g_observedSignals;
 
 static void propagateSignals(std::vector<ASTNode *> &items,
                              SignalValues &svals, SignalWidths &widths);
@@ -491,9 +570,25 @@ static void propagateSignals(std::vector<ASTNode *> &items,
         }
         if (g_alwaysBlocks) {
             for (auto *ab : *g_alwaysBlocks) {
-                execItem(ab, svals, widths, emptyFds, dummyFinished);
+                if (!ab) continue;
+                if (ab->value.rfind("@(posedge ", 0) == 0 ||
+                    ab->value.rfind("@(negedge ", 0) == 0) {
+                    const bool posedge = ab->value.rfind("@(posedge ", 0) == 0;
+                    const size_t prefix = 10;
+                    const size_t end = ab->value.find(')', prefix);
+                    const std::string signal = ab->value.substr(prefix, end - prefix);
+                    const uint64_t previous = g_observedSignals[signal];
+                    const uint64_t current = svals[signal];
+                    if ((posedge && previous == 0 && current == 1) ||
+                        (!posedge && previous == 1 && current == 0)) {
+                        execItem(ab, svals, widths, emptyFds, dummyFinished);
+                    }
+                } else if (ab->value == "@(*)") {
+                    execItem(ab, svals, widths, emptyFds, dummyFinished);
+                }
             }
         }
+        g_observedSignals = svals;
         if (!changed && iter > 0) break;
         if (changed) continue;
         /* On first iteration with no changes, still check if always blocks changed anything */
@@ -512,7 +607,8 @@ static void execItem(ASTNode *item, SignalValues &svals, SignalWidths &widths,
         execBlock(item, svals, widths, fds, finished);
         break;
 
-    case NodeType::BLOCKING_ASSIGN: {
+    case NodeType::BLOCKING_ASSIGN:
+    case NodeType::NONBLOCKING_ASSIGN: {
         if (item->children.size() < 2) break;
         ASTNode *lhs = item->children[0];
         ASTNode *rhs = item->children[1];
@@ -635,11 +731,6 @@ static void execItem(ASTNode *item, SignalValues &svals, SignalWidths &widths,
         if (g_assignItems) propagateSignals(*g_assignItems, svals, widths);
         break;
     }
-
-    case NodeType::NONBLOCKING_ASSIGN:
-        execItem(reinterpret_cast<ASTNode *>(
-            (uintptr_t)item ^ (uintptr_t)item ^ (uintptr_t)item), svals, widths, fds, finished);
-        break;
 
     case NodeType::INITIAL_BLOCK:
         if (!item->children.empty())
@@ -896,10 +987,7 @@ int SimulationEngine::compile(const std::string &filelist, const std::string &to
                     }
                 }
             }
-            for (auto *ci : childDef->items) {
-                ASTNode *translated = translateNode(ci, prefix, cmap);
-                flatItems.push_back(translated);
-            }
+            inlineNestedItems(childDef->items, prefix, cmap, flatItems);
         } else {
             flatItems.push_back(item);
         }
@@ -973,6 +1061,7 @@ int SimulationEngine::run(const std::string &simPath, unsigned int /*threads*/) 
     SignalValues svals;
     SignalWidths widths;
     g_signalSigneds.clear();
+    g_observedSignals.clear();
     for (auto &s : mod->signals) {
         svals[s.name] = s.init_value;
         widths[s.name] = s.width;

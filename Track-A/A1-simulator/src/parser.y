@@ -274,6 +274,7 @@ module_item:
     | IDENTIFIER IDENTIFIER '(' ')' ';'
       { $$ = makeNode(NodeType::MODULE_INST, $1, yylineno); free($1); addChild($$, makeNode(NodeType::IDENTIFIER, $2, yylineno)); free($2); }
     | GENERATE gen_items ENDGENERATE { $$ = $2; }
+    | GENVAR genvar_list ';' { $$ = makeNode(NodeType::BLOCK, "", yylineno); }
     | IF '(' expr ')' gen_block
       {
           $$ = makeNode(NodeType::GENERATE_IF, "", yylineno);
