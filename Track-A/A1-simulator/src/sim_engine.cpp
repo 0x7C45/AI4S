@@ -132,7 +132,8 @@ static ASTNode *translateNode(ASTNode *node, const std::string &prefix,
 static ASTNode *translateNodeWithPortExprs(
     ASTNode *node, const std::map<std::string, ASTNode *> &portExprs) {
     if (!node) return nullptr;
-    if (node->type == NodeType::IDENTIFIER) {
+    /* A port reference may be a complete expression such as a[i], not just an identifier. */
+    if (node->type == NodeType::IDENTIFIER || node->type == NodeType::BITSEL) {
         auto it = portExprs.find(node->value);
         if (it != portExprs.end()) return deepCopy(it->second);
     }
