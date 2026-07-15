@@ -4,28 +4,28 @@
     "coverage_scope": "RTL subtree (wrapper excluded)",
     "run": {
       "seed": 20260630,
-      "sequence_count": 100,
+      "sequence_count": 5000,
       "sim_time_ns": 0
     },
     "coverage": {
       "line": {
-        "covered": 32,
-        "total": 34,
-        "percent": 94.12
+        "covered": 49,
+        "total": 51,
+        "percent": 96.08
       },
       "branch": {
-        "covered": 25,
-        "total": 52,
-        "percent": 48.08
+        "covered": 15,
+        "total": 36,
+        "percent": 41.67
       },
       "functional": {
-        "covered": 2,
-        "total": 26,
-        "percent": 7.69
+        "covered": 16,
+        "total": 38,
+        "percent": 42.11
       },
       "composite": {
         "formula": "0.4 * line + 0.3 * branch + 0.3 * functional",
-        "percent": 54.38
+        "percent": 63.57
       }
     }
   }

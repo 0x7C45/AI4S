@@ -201,6 +201,12 @@ def _parse_single_file(filepath):
 
 def _extract_port_section(block_text):
     """从 module 声明块提取端口列表（第一个匹配的括号段）"""
+    # 先剥离 Verilog 注释（per gap-closure Task 1：注释文本会与端口声明合并，
+    # 导致 split(",") 后 _RE_PORT.match 失败、端口被静默丢弃）。
+    # case2.v 的 s_axis_tdata/m_axis_tdata 声明前紧跟块注释，修复前丢失这两个端口。
+    import re as _re
+    block_text = _re.sub(r'/\*.*?\*/', '', block_text, flags=_re.DOTALL)
+    block_text = _re.sub(r'//[^\n]*', '', block_text)
     # 找 module ... ( 之后的段
     # 跳过 #(...) 参数块
     idx = block_text.find("module")

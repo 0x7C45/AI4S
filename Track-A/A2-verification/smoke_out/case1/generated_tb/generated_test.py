@@ -102,6 +102,9 @@ async def run_generated_test(dut):
     # 时钟生成（per D-04：cocotb 2.0 unit= 非 units=）
     cocotb.start_soon(Clock(dut.clk, 10, unit="ns").start())
 
+
+    # golden 比对的状态初始化（valid-ready golden / invariant 共用）
+
     # AXI 驱动（per D-08：cocotbext-axi）— DUT 有完整 s_axi + m_axi 总线（如 case1 读适配器）
     master = AxiMasterRead(AxiReadBus.from_prefix(dut, "s_axi"), dut.clk, dut.rst)
     ram = AxiRamRead(AxiReadBus.from_prefix(dut, "m_axi"), dut.clk, dut.rst, size=2**16)

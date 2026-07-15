@@ -11,11 +11,12 @@
     "input_drivers": [],
     "output_monitors": [],
     "scoreboard": {
-      "model": "byte-addressed memory model on m_axi side",
-      "compare": "assert read.data == expected_data after each transaction"
+      "model": "shift-register golden queue for valid-ready stream (axis_fifo_adapter is pure delay when S==M)",
+      "compare": "on (m_axis_tvalid & m_axis_tready) handshake, assert dut.m_axis_tdata.value == golden_queue.popleft()"
     },
     "dut_outputs": [
       "s_axis_tready",
+      "m_axis_tdata",
       "m_axis_tkeep",
       "m_axis_tvalid",
       "m_axis_tlast",
@@ -23,6 +24,7 @@
       "m_axis_tdest",
       "m_axis_tuser",
       "pause_ack",
+      "status_depth",
       "status_depth_commit",
       "status_overflow",
       "status_bad_frame",

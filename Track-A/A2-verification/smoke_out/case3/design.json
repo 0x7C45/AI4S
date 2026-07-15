@@ -41,6 +41,13 @@
         "protocol_group": "reset"
       },
       {
+        "name": "output_clk",
+        "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
         "name": "output_rst",
         "direction": "input",
         "width": "1",
@@ -95,6 +102,13 @@
         "width": "SEG_CNT-1:0",
         "type": "wire",
         "protocol_group": "valid_ready"
+      },
+      {
+        "name": "m_axi_arid",
+        "direction": "output",
+        "width": "AXI_ID_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "axi_master"
       },
       {
         "name": "m_axi_araddr",
@@ -202,6 +216,13 @@
         "protocol_group": "axi_master"
       },
       {
+        "name": "wr_start_ptr_in",
+        "direction": "input",
+        "width": "LEN_WIDTH+1-1:0",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
         "name": "wr_finish_ptr_in",
         "direction": "input",
         "width": "LEN_WIDTH+1-1:0",
@@ -223,6 +244,13 @@
         "protocol_group": "other"
       },
       {
+        "name": "cfg_fifo_base_addr",
+        "direction": "input",
+        "width": "AXI_ADDR_WIDTH-1:0",
+        "type": "wire",
+        "protocol_group": "sram"
+      },
+      {
         "name": "cfg_fifo_size_mask",
         "direction": "input",
         "width": "LEN_WIDTH-1:0",
@@ -239,6 +267,13 @@
       {
         "name": "cfg_reset",
         "direction": "input",
+        "width": "1",
+        "type": "wire",
+        "protocol_group": "other"
+      },
+      {
+        "name": "sts_read_active",
+        "direction": "output",
         "width": "1",
         "type": "wire",
         "protocol_group": "other"

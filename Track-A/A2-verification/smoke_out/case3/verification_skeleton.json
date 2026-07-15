@@ -31,8 +31,8 @@
       }
     ],
     "scoreboard": {
-      "model": "byte-addressed memory model on m_axi side",
-      "compare": "assert read.data == expected_data after each transaction"
+      "model": "protocol-state invariant checks (no simple golden model for master/address-decoder DUTs)",
+      "compare": "assert output signal legality + pointer monotonicity (e.g. rd_finish_ptr_out never regresses)"
     },
     "dut_outputs": [
       "output_rst_out",
@@ -40,6 +40,7 @@
       "output_valid",
       "output_ctrl_data",
       "output_ctrl_valid",
+      "m_axi_arid",
       "m_axi_araddr",
       "m_axi_arlen",
       "m_axi_arsize",
@@ -50,7 +51,8 @@
       "m_axi_arvalid",
       "m_axi_rready",
       "rd_start_ptr_out",
-      "rd_finish_ptr_out"
+      "rd_finish_ptr_out",
+      "sts_read_active"
     ],
     "generated_testbench_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case3\\generated_tb\\generated_test.py",
     "makefile_path": "E:\\AI4S\\Track-A\\A2-verification\\smoke_out\\case3\\generated_tb\\Makefile"
