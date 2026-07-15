@@ -28,10 +28,10 @@ See: .planning/PROJECT.md (updated 2026-07-14)
 
 ## Current Position
 
-Phase: 10 (A2 Generalization + Offline Packaging) — COMPLETE
-Plan: 1 of 1 complete
-Status: Complete
-Last activity: 2026-07-15 — 5/5 public cases validated
+Phase: 10 (A2 Generalization + Offline Packaging) — COMPLETE (gap-closure 10-02 done)
+Plan: 2 of 2 complete (10-01 通用化 + 10-02 门禁 #5 比对器修复)
+Status: A2 complete; A3 进行中（队友 master 推进）；A1 Phase 5 done
+Last activity: 2026-07-15 — gap-closure case2-5 门禁 #5 修复，5/5 cases assert≥1
 
 Progress: [███████░░░] 67%
 
@@ -40,15 +40,15 @@ Progress: [███████░░░] 67%
 - **Phase 5** (A1 Basic Simulator) ✅ — flex/bison + combinational sim, basic01-05/alu/priority_encoder
 - **Phase 8** (A2 Skeleton Gate) ✅ — run.py + rtl_parser + skeleton_gen + sim_runner, case1 门禁通过
 - **Phase 9** (A2 Coverage Collection) ✅ — constraint_gen + coverage_gen(4类bin) + LCOV 解析 + report_gen, case1 7JSON
-- **Phase 10** (A2 Generalization + Offline Packaging) ✅ — 5/5 public cases validated, offline package complete
+- **Phase 10** (A2 Generalization + Offline Packaging) ✅ — 10-01 通用化 + 10-02 门禁#5 比对器修复，5/5 cases assert≥1
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 4 (Phase 5×1, Phase 8×1, Phase 9×1, Phase 10×1)
+- Total plans completed: 5 (Phase 5×1, Phase 8×1, Phase 9×1, Phase 10×2 含 gap-closure)
 - Average duration: ~120 min
-- Total execution time: ~8 hours
+- Total execution time: ~10 hours
 
 **By Phase:**
 
@@ -57,7 +57,7 @@ Progress: [███████░░░] 67%
 | 5. A1 Basic Simulator | 1/1 | Complete | 2026-07-14 |
 | 8. A2 Skeleton Gate | 1/1 | Complete | 2026-07-14 |
 | 9. A2 Coverage Collection | 1/1 | Complete | 2026-07-14 |
-| 10. A2 Generalization + Packaging | 1/1 | Complete | 2026-07-14 |
+| 10. A2 Generalization + Packaging | 2/2 | Complete (含 gap-closure) | 2026-07-15 |
 
 **Recent Trend:**
 

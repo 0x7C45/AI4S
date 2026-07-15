@@ -131,6 +131,7 @@ Plans:
 Plans:
 
 - [x] 10-01-PLAN.md — A2 通用化+离线打包：非AXI接口适配 + 死码精化 + timeout=1200 + wheelhouse(7包) + README/run.sh 离线安装 + 5 case Docker 复验
+- [x] 10-02-PLAN.md — gap-closure：case2-5 比对器门禁 #5 修复（rtl_parser 注释剥离 + skeleton_gen 去伪造 + 模板真实比对器 valid-ready golden/AXI slave/invariant）
 
 ## Progress
 
@@ -141,4 +142,4 @@ Plans:
 | 7. A1 Performance + GEMM | 0/0 | Not started | - |
 | 8. A2 Skeleton Gate | 1/1 | **Complete** | 2026-07-14 |
 | 9. A2 Coverage Collection | 1/1 | **Complete** | 2026-07-14 |
-| 10. A2 Generalization + Packaging | 1/1 | **Complete** | 2026-07-14 |
+| 10. A2 Generalization + Packaging | 2/2 | **Complete** (含 gap-closure) | 2026-07-15 |
